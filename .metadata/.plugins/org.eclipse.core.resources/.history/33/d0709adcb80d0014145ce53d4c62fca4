@@ -1,0 +1,80 @@
+<form id="form-dsp-tab5" action="<@spring.url '/dsp/tab5' />" style="padding-left: 25px" class="MISSY_round_right">
+	<h3>Define group variable</h3>
+	<hr>
+	<fieldset>
+		<label class="MISSY_dataPreparationInput" for="groupVariable">Use Groupvariable</label>
+		<span class="MISSY_iconColumn">&nbsp;</span>
+		<input type="radio" name="useGroupVariable" id="groupVariable01" value="true" class="MISSY_dataPreparationInput mandatory" onclick="toggle_form_element()">
+		<label for="groupVariable01" class="MISSY_radioCheckboxLabels">Yes</label>
+		<input type="radio" name="useGroupVariable" id="groupVariable02" value="false" class="MISSY_dataPreparationInput mandatory" onclick="toggle_form_element()">
+		<label for="groupVariable02" class="MISSY_radioCheckboxLabels">No</label>
+	</fieldset>
+	<br>
+	<fieldset id="group1" style="display: none;">
+		<label class="MISSY_dataPreparationInput">Define Groupvariable</label>
+		
+		<span class="MISSY_iconColumn">&nbsp;</span>
+		
+		<div id="groupVariables" style="display: inline-block">
+	
+			<#-- ajax response here -->
+
+		</div>
+
+		<@forms.createFormOnsiteHelp "Define Groupvariable" "" />
+		<#--
+		<!--onsiteHelp: osh.variableDetails.variableName
+				The range of variables equates to the variable import selection made in the MISSY-Editor. In case you miss a variable, please make sure it is selected for the frequency import.  
+		-->
+	</fieldset>
+	
+	<br />
+	<hr />
+	
+	<fieldset>
+		<input 
+		  type="button" 
+		  name="button_startImportFrequency" 
+		  id="button_startImportFrequency" 
+		  value="Check Further Constraints" 
+		  class="buttonSubmit MISSY_loginSubmit" 
+		  style="float: right; margin-top: 10px">
+	</fieldset>
+	
+</form>
+
+<script>
+	function toggle_form_element() 
+	{
+      if ( document.getElementsByName('useGroupVariable')[0].checked ) 
+      {
+        document.getElementById('group1').style.display = 'block';
+        
+        var studyGroup = $jQ( '#studyGroup').val();
+        var study = $jQ( '#study' ).val();
+        var dataSet = $jQ( '#dataSet' ).val();
+        var dataFile = $jQ( '#dataFile' ).val();
+        
+        var url = '<@spring.url "/documentation/datapoints" />/' + studyGroup +'/'+ study +'/'+ dataSet +'/'+ dataFile;
+        
+        $jQ.ajax( 
+        {
+			url: url,
+			data: { level : "groupVariable" },
+			
+	    	success: function( data )
+	    	{
+	    		$jQ( '#groupVariables' ).html( data );
+	    	}
+	    	
+	    }); //end of ajax call
+        
+      } 
+      else 
+      {
+        document.getElementById('group1').style.display = 'none';
+
+      }
+    }
+
+</script>

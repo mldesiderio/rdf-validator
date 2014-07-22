@@ -1,0 +1,43 @@
+<form id="form-dsp-tab4" action="<@spring.url '/dsp/tab4' />" style="padding-left: 25px" class="MISSY_round_right">
+
+	<fieldset>
+	  	
+		<textarea 
+		  name="inferenceRules" 
+		  id="inferenceRules" 
+		  class="mandatory MISSY_textarea_resize" 
+		  cols="50" 
+		  rows="20" 
+		  style="width:63%"
+		  onkeyup="adaptHeight( $jQ( this ) );"/>
+		<#--@forms.createFormOnsiteHelp "SPSS file network path" "" /-->
+		<a href="#" class="MISSY_onsiteHelp" style="margin-top:-20px">
+		<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
+		<span>
+		<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
+		<h4 class="MISSY_onsiteHelp">SPSS Datafile Path</h4>
+		<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
+		SPSS Datafile Path has to correspond to the pattern <br/><strong>\\&lt;server name&gt;\&lt;directory&gt;\...\&lt;file name&gt;</strong>
+		</span>
+		</a>
+	  	
+	</fieldset>
+	
+	<br />
+	<hr />
+	
+	<fieldset>
+		<input 
+		  type="button" 
+		  name="button_defineGroupVariable" 
+		  id="button_defineGroupVariable" 
+		  value="Next: Check Constraints" 
+		  class="buttonSubmit MISSY_loginSubmit" 
+		  style="float: right; margin-top: 10px">
+	</fieldset>
+	
+</form>	
+
+<script>
+
+</script>

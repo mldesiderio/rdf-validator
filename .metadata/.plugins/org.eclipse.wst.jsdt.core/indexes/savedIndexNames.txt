@@ -1,0 +1,7 @@
+INDEX VERSION 1.3+D:\Thomas\Git\RDFValidation\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+4143432949.index
+2944200027.index
+40947366.index
+3798967447.index
+1360570745.index
+403901813.index
