@@ -1224,3 +1224,9 @@ input[type=checkbox].form-error, input[type=email].form-error, input[type=number
 	color: #ff4040;
 	line-height: 15px;
 }
+
+#microsite #micrositeClaim {
+	font-size: 20px;
+	left: 26px;
+	top: 18px;
+}
