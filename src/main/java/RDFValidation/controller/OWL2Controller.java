@@ -20,90 +20,68 @@ public class OWL2Controller
 {
 	// tab 0
 	@RequestMapping( method = RequestMethod.GET )
-	public ModelAndView landing( 
-		@RequestParam( value = "sessionid", required = false ) 
-		final String sessionId, final HttpServletResponse response )
+	public ModelAndView landing( @RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
 	{
-		ModelAndView model = new ModelAndView( "owl2", "link", "update" );
+		ModelAndView model = new ModelAndView( "owl2", "link", "owl2" );
 
 		if ( sessionId != null && sessionId.equals( "0" ) )
 			response.setHeader( "SESSION_INVALID", "yes" );
-		
+
 		// initialize session variable
 		model.addObject( "validationEnvironment", new ValidationEnvironment() );
 
 		return model;
 	}
-	
+
 	@RequestMapping( value = "/tab1", method = RequestMethod.POST )
-	public ModelAndView namespaceDeclarations( /* tab2 get content via ajax*/
-			@RequestParam( "namespaceDeclarations" ) String namespaceDeclarations, 
-			@ModelAttribute( "validationEnvironment") ValidationEnvironment validationEnvironment ) 
+	public ModelAndView namespaceDeclarations( /* tab2 get content via ajax */
+	@RequestParam( "namespaceDeclarations" ) String namespaceDeclarations, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
-		ModelAndView model = new ModelAndView( "owl2-tab2", "link", "spss" );
-		
+		ModelAndView model = new ModelAndView( "owl2-tab2", "link", "owl2" );
+
 		return model;
 	}
 
 	@RequestMapping( value = "/tab2", method = RequestMethod.POST )
-	public ModelAndView constraints( 
-			@RequestParam( "constraints" ) String constraints,
-			@ModelAttribute( "validationEnvironment") ValidationEnvironment validationEnvironment ) 
+	public ModelAndView constraints( @RequestParam( "constraints" ) String constraints, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
-		ModelAndView model = new ModelAndView( "owl2-tab3", "link", "spss" );
-		
-		return model;
-	}
-	
-	@RequestMapping( value = "/tab3", method = RequestMethod.POST )
-	public ModelAndView data(
-			@RequestParam( "data" ) String data,
-			@ModelAttribute( "validationEnvironment") ValidationEnvironment validationEnvironment )
-	{
-		ModelAndView model = new ModelAndView( "owl2-tab4", "link", "spss" );
+		ModelAndView model = new ModelAndView( "owl2-tab3", "link", "owl2" );
 
 		return model;
 	}
-	
-	@RequestMapping( value = "/tab4", method = RequestMethod.POST )
-	public ModelAndView inferenceRules(
-			@RequestParam( "inferenceRules" ) String inferenceRules,
-			@ModelAttribute( "validationEnvironment") ValidationEnvironment validationEnvironment )
+
+	@RequestMapping( value = "/tab3", method = RequestMethod.POST )
+	public ModelAndView data( @RequestParam( "data" ) String data, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
-		ModelAndView model = new ModelAndView( "owl2-tab5", "link", "spss" );
-		
+		ModelAndView model = new ModelAndView( "owl2-tab4", "link", "owl2" );
+
+		return model;
+	}
+
+	@RequestMapping( value = "/tab4", method = RequestMethod.POST )
+	public ModelAndView inferenceRules( @RequestParam( "inferenceRules" ) String inferenceRules, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	{
+		ModelAndView model = new ModelAndView( "owl2-tab5", "link", "owl2" );
+
 		// escape < and >
-		String nd = validationEnvironment.getNamespaceDeclarations()
-			.replace( "<", "&lt;" )
-			.replace( ">", "&gt;" );
-		String c = validationEnvironment.getConstraints()
-			.replace( "<", "&lt;" )
-			.replace( ">", "&gt;" );
-		String d = validationEnvironment.getData()
-			.replace( "<", "&lt;" )
-			.replace( ">", "&gt;" );
-		String ir = validationEnvironment.getInferenceRules()
-			.replace( "<", "&lt;" )
-			.replace( ">", "&gt;" );
-		
+		String nd = validationEnvironment.getNamespaceDeclarations().replace( "<", "&lt;" ).replace( ">", "&gt;" );
+		String c = validationEnvironment.getConstraints().replace( "<", "&lt;" ).replace( ">", "&gt;" );
+		String d = validationEnvironment.getData().replace( "<", "&lt;" ).replace( ">", "&gt;" );
+		String ir = validationEnvironment.getInferenceRules().replace( "<", "&lt;" ).replace( ">", "&gt;" );
+
 		model.addObject( "namespaceDeclarations", nd );
 		model.addObject( "constraints", c );
 		model.addObject( "data", d );
 		model.addObject( "inferenceRules", ir );
-		
-		String rdfGraph = new StringBuilder( 
-			validationEnvironment.getNamespaceDeclarations() )
-			.append( validationEnvironment.getConstraints() )
-			.append( validationEnvironment.getData() )
-			.append( validationEnvironment.getInferenceRules() )
-			.toString();
-		
+
+		String rdfGraph = new StringBuilder( validationEnvironment.getNamespaceDeclarations() ).append( validationEnvironment.getConstraints() ).append( validationEnvironment.getData() ).append( validationEnvironment.getInferenceRules() ).toString();
+
 		Spin spin = new Spin( "OWL2_SPIN-Mapping.ttl" );
 		spin.runInferences_checkConstraints( rdfGraph );
-    	
+
 		model.addObject( "dspValidationResult", spin.validationResults );
 		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
 
 		return model;
-	}	
+	}
 }
