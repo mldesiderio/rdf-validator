@@ -1,78 +1,34 @@
- <@layout.global>
- 
- 	<@content.left>
-			<div id="col1_content" class="clearfix">
-			
-				<!--Tabs for switch between Study and Variable-level-->
-				<div id="graphTabContainer" class="tabContainer">
-					<ul>
-						<li>
-							<a class="tabElement" href="#study_tab" style="text-decoration:none;">Graph</a>
-						</li>
-					</ul>
-					
-					<!-- tab contents -->
-					<div id="study_tab" style="float:left;background:#ededed">
-						<input type="button" name="studyGroupButton" value="1 Graph" class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton">
-						<input type="button" name="studyGroupButton" value="N Graph" class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton">
-						<input type="button" name="studyGroupButton" value="Example Graph" class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton">
-					</div>
-				</div>
-				
-				<!-- Text below menu -->
-				<div class="textBelowMenu"></div>
-				<!-- Links to partners -->
-				<div class="partner">
+<h1>Description Set Profiles (DSP) - N Graphs</h1>
+<!-- the tabs -->
+<div id="updateSpssTabContainer" class="tabContainer">
+	<ul style="height: 40px;">	
+		<li><a class="tabElement" href="#dsp-tab1" style="text-decoration:none;padding: 10px 15px;"><span>1.</span> Namespace Declarations</a></li>
+		<li><a class="tabElement" href="#dsp-tab2" style="text-decoration:none;padding: 10px 15px;"><span>2.</span> Constraints</a></li>
+		<li><a class="tabElement" href="#dsp-tab3" style="text-decoration:none;padding: 10px 15px;"><span>3.</span> Data</a></li>
+		<li><a class="tabElement" href="#dsp-tab4" style="text-decoration:none;padding: 10px 15px;"><span>4.</span> Inference Rules</a></li>
+		<li><a class="tabElement" href="#dsp-tab5" style="text-decoration:none;padding: 10px 15px;"><span>5.</span> Validation Results</a></li>
+	</ul>
 
-			</div>
-		<!-- End of col1_content --> 
-		</div>
-	</@content.left>
- 	
- 	<@content.main>
+	<div id="dsp-tab1" style="padding:0 !important; border:none; float:left; width:100%">
+		<#include "dsp-tab1.ftl" />
+	</div>
+	<div id="dsp-tab2" style="padding:0 !important;border:none;float:left; width:100%">
+		<#-- ajax content here -->
+		<#include "dsp-tab2.ftl" />
+	</div>
+	<div id="dsp-tab3" style="padding:0 !important;border:none;float:left; width:100%">
+		<#-- ajax content here -->
+		<#include "dsp-tab3.ftl" />
+	</div>
+	<div id="dsp-tab4" style="padding:0 !important;border:none;float:left; width:100%">
+		<#-- ajax content here -->
+		<#include "dsp-tab4.ftl" />
+	</div>
+	<div id="dsp-tab5" style="padding:0 !important;border:none;float:left; width:100%">
+		<#-- ajax content here -->
+		<#include "dsp-tab5.ftl" />
+	</div>
 
-		<div id="MISSY_breadcrumb"></div>
-		<div id="col3_content" class="clearfix">
-			<div class="floatbox"> 
-				<h1>Description Set Profiles (DSP)</h1>
-				<!-- the tabs -->
-				<div id="updateSpssTabContainer" class="tabContainer">
-					<ul style="height: 40px;">	
-						<li><a class="tabElement" href="#dsp-tab1" style="text-decoration:none;padding: 10px 15px;"><span>1.</span> Namespace Declarations</a></li>
-						<li><a class="tabElement" href="#dsp-tab2" style="text-decoration:none;padding: 10px 15px;"><span>2.</span> Constraints</a></li>
-						<li><a class="tabElement" href="#dsp-tab3" style="text-decoration:none;padding: 10px 15px;"><span>3.</span> Data</a></li>
-						<li><a class="tabElement" href="#dsp-tab4" style="text-decoration:none;padding: 10px 15px;"><span>4.</span> Inference Rules</a></li>
-						<li><a class="tabElement" href="#dsp-tab5" style="text-decoration:none;padding: 10px 15px;"><span>5.</span> Validation Results</a></li>
-					</ul>
-				
-					<div id="dsp-tab1" style="padding:0 !important; border:none; float:left; width:100%">
-						<#include "dsp-tab1.ftl" />
-					</div>
-					<div id="dsp-tab2" style="padding:0 !important;border:none;float:left; width:100%">
-						<#-- ajax content here -->
-						<#include "dsp-tab2.ftl" />
-					</div>
-					<div id="dsp-tab3" style="padding:0 !important;border:none;float:left; width:100%">
-						<#-- ajax content here -->
-						<#include "dsp-tab3.ftl" />
-					</div>
-					<div id="dsp-tab4" style="padding:0 !important;border:none;float:left; width:100%">
-						<#-- ajax content here -->
-						<#include "dsp-tab4.ftl" />
-					</div>
-					<div id="dsp-tab5" style="padding:0 !important;border:none;float:left; width:100%">
-						<#-- ajax content here -->
-						<#include "dsp-tab5.ftl" />
-					</div>
-					
-				</div>
-			</div>
- 		</div>
-		<!-- IE clearing - important! -->
-		<div id="ie_clearing">&nbsp;</div>
- 	</@content.main>
- 	
-</@layout.global>
 
 <script>
 	$jQ( function() // begin document ready
@@ -143,16 +99,6 @@
 			<#--  submit the second form via ajax post and get the third tab content-->
 			ajaxDspFrequenciesTabContent( "#form-dsp-tab4", "#dsp-tab5" );
 		} );
-		
-		<#-- submit button on tab 5 pressed -->
-		$jQ( "#dsp-tab5" ).on( "click", "#button_dsp-tab5", function(){
-			
-			changeTabCondition( 5 );
-			
-			<#--  submit the second form via ajax post and get the third tab content-->
-			ajaxDspFrequenciesTabContent( "#form-dsp-tab5", "#dsp" );
-		} );
-		
 	}); // end of document ready
 	
 	<#-- 
@@ -162,18 +108,18 @@
 	@param selectorCallback : jquery selector for callback content from ajax call
 	-->
 	function ajaxDspFrequenciesTabContent( selectorForm, selectorCallback ){		
-			$jQ.ajax( {
-				type: "post",
-				url: $jQ( selectorForm ).attr( 'action' ),
-				data: $jQ( selectorForm ).serializeArray()
-			    })
-		    	.done( function( html ) {
-		    		$jQ( selectorCallback ).html( html );
-				})
-		    	.fail( function() {})
-		    	.always( function() {
-		    		removeAjaxLoadingDiv();
-		    	}); //end of ajax call
+		$jQ.ajax( {
+			type: "post",
+			url: $jQ( selectorForm ).attr( 'action' ),
+			data: $jQ( selectorForm ).serializeArray()
+		    })
+	    	.done( function( html ) {
+	    		$jQ( selectorCallback ).html( html );
+			})
+	    	.fail( function() {})
+	    	.always( function() {
+	    		removeAjaxLoadingDiv();
+	    	}); //end of ajax call
 	}
 	
 	function changeTabCondition( tabIndex ){
@@ -185,80 +131,5 @@
      	$jQ( "#updateSpssTabContainer ul li:nth-child(" + tabIndex + ") a span" )
      	.html('<img src="<@spring.url '/resources/images/check_black.png' />" class="checkedTab">');
      	
-	}
-	
-	<#-- function for polling -->
-	var refreshIntervalId = null; 	<#-- run condition for traditional polling -->
-	
-	var loadingTradTimeOut = null;
-	
-	var tradLineNumber = 0;
-	
-	function getContentFromFileViaTraditionalPooling( ){
-		$jQ('#buttonFrequencyImportDataset')
-		.attr( "disabled" , true )
-		.removeClass( "buttonSubmit" )
-		.addClass( "buttonSubmitDissabled" );
-		
-		var url = "<@spring.url '/polling/' />" + tradLineNumber;
-			
-		$jQ.ajax( {
-			type: "get",
-			url: url
-		})
-	    .done( function( text ) {
-	    	var textSplit = text.split("_#_");
-	    	if( text != "" ){
-	    		tradLineNumber += textSplit.length;
-	    		removeDotLoading( "#text_output" );
-	    	}
-	    	$jQ.each( textSplit , function( i, val ){
-	    		if( val != "" )
-	    			$jQ( "#text_output" ).append( '<span class="stat">' + val + "</span>" );
-	    		
-	    		var divTarea = document.getElementById('text_output');
-				divTarea.scrollTop = divTarea.scrollHeight
-				
-				if( i == textSplit.length - 1 && text != "")
-					animateDotLoading( 5, 1000 , "#text_output" );
-				
-				if( val == "-END-" )
-				{
-					clearInterval( refreshIntervalId );
-					
-					removeDotLoading( "#text_output" );
-					
-					$jQ('#buttonFrequencyImportDataset')
-					.attr( "disabled" , false )
-					.removeClass( "buttonSubmitDissabled" )
-					.addClass( "buttonSubmit" );
-				}
-	    	});
-	    	
-		}); //end of ajax call
-	}
-	
-	function animateDotLoading( numberOfDots, timeout, parentSelector ){
-		$jQ( parentSelector ).append( '<span class="loading">&nbsp;</span>' );
-		$jQ( parentSelector )[0].scrollTop = $jQ( parentSelector )[0].scrollHeight;
-		
-		var numberOfDotsTrad = numberOfDots;
-		$spanElem = $jQ( parentSelector + " .loading");
-		
-		loadingTradTimeOut = setInterval( function(){
-			$spanElem.append( "." );
-			numberOfDotsTrad--;
-
-			if( numberOfDotsTrad == 0 ){
-				$spanElem.html( "&nbsp;" );
-				numberOfDotsTrad = numberOfDots;
-			}
-		} , timeout );
-
-	}
-	
-	function removeDotLoading( parentSelector ){
-		$jQ( parentSelector + " .loading").remove();
-		clearInterval( loadingTradTimeOut );
 	}
 </script>

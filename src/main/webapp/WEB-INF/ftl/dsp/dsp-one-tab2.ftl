@@ -1,4 +1,4 @@
-<form id="form-dsp-tab5" action="<@spring.url '/dsp/ngraph/tab5' />" style="padding-left: 25px" class="MISSY_round_right">
+<form id="form-dsp-tab5" action="<@spring.url '/dsp/onegraph/tab5' />" style="padding-left: 25px" class="MISSY_round_right">
 
 	<fieldset>
 	

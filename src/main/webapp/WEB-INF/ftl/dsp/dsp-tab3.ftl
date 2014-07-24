@@ -1,4 +1,4 @@
-<form style="padding-left: 25px"  id="form-dsp-tab3" action="<@spring.url '/dsp/tab3' />" class="MISSY_round_right">
+<form style="padding-left: 25px"  id="form-dsp-tab3" action="<@spring.url '/dsp/ngraph/tab3' />" class="MISSY_round_right">
 
 	
 	<fieldset>

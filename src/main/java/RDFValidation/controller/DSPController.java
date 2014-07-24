@@ -28,11 +28,11 @@ public class DSPController
 	/* variables for files */
 	FileMeta fileMeta = null;
 
-	// tab 0
+	// DSP main
 	@RequestMapping( method = RequestMethod.GET )
 	public ModelAndView landing( @RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
 	{
-		ModelAndView model = new ModelAndView( "dsp", "link", "dsp" );
+		ModelAndView model = new ModelAndView( "dsp-main", "link", "dsp" );
 
 		if ( sessionId != null && sessionId.equals( "0" ) )
 			response.setHeader( "SESSION_INVALID", "yes" );
@@ -43,26 +43,52 @@ public class DSPController
 		return model;
 	}
 
-	@RequestMapping( value = "/upload", method = RequestMethod.POST )
-	public @ResponseBody
-	FileMeta upload( MultipartHttpServletRequest request, HttpServletResponse response )
+	/**
+	 * DSP 1 GRAPH (AJAX)
+	 */
+	/* DSP N graph Initial content */
+	@RequestMapping( value = "/onegraph", method = RequestMethod.GET )
+	public ModelAndView oneGraphInitial( /* tab1 get content via ajax */
+	@RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
 	{
-		// build an iterator
-		Iterator<String> itr = request.getFileNames();
-		MultipartFile mpf = null;
+		ModelAndView model = new ModelAndView( "dsp-one", "link", "dsp" );
 
-		// get each file
-		while (itr.hasNext())
-		{
-			// get next MultipartFile
-			mpf = request.getFile( itr.next() );
-			// upload file and get the file back
-			fileMeta = FileHelper.uploadFile( request, mpf, "/resources/uploaded_files/" );
-		}
-		return fileMeta;
+		if ( sessionId != null && sessionId.equals( "0" ) )
+			response.setHeader( "SESSION_INVALID", "yes" );
+
+		return model;
 	}
 
-	@RequestMapping( value = "/tab1", method = RequestMethod.POST )
+	/* DSP N graph First Tab Submit */
+	@RequestMapping( value = "/onegraph/tab1", method = RequestMethod.POST )
+	public ModelAndView pneGraphValidation( /* tab2 get content via ajax */
+	@RequestParam( "namespaceDeclarations" ) String namespaceDeclarations, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	{
+		ModelAndView model = new ModelAndView( "dsp-one-tab2", "link", "dsp" );
+
+		return model;
+	}
+
+	/** END 1 GRAPH */
+
+	/**
+	 * DSP N GRAPH (AJAX)
+	 */
+	/* DSP N graph Initial content */
+	@RequestMapping( value = "/ngraph", method = RequestMethod.GET )
+	public ModelAndView nGraphInitial( /* tab2 get content via ajax */
+	@RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
+	{
+		ModelAndView model = new ModelAndView( "dsp", "link", "dsp" );
+
+		if ( sessionId != null && sessionId.equals( "0" ) )
+			response.setHeader( "SESSION_INVALID", "yes" );
+
+		return model;
+	}
+
+	/* DSP N graph First Tab Submit */
+	@RequestMapping( value = "/ngraph/tab1", method = RequestMethod.POST )
 	public ModelAndView namespaceDeclarations( /* tab2 get content via ajax */
 	@RequestParam( "namespaceDeclarations" ) String namespaceDeclarations, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
@@ -71,7 +97,8 @@ public class DSPController
 		return model;
 	}
 
-	@RequestMapping( value = "/tab2", method = RequestMethod.POST )
+	/* DSP N graph Second Tab Submit */
+	@RequestMapping( value = "/ngraph/tab2", method = RequestMethod.POST )
 	public ModelAndView constraints( @RequestParam( "constraints" ) String constraints, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
 		ModelAndView model = new ModelAndView( "dsp-tab3", "link", "dsp" );
@@ -79,7 +106,8 @@ public class DSPController
 		return model;
 	}
 
-	@RequestMapping( value = "/tab3", method = RequestMethod.POST )
+	/* DSP N graph Third Tab Submit */
+	@RequestMapping( value = "/ngraph/tab3", method = RequestMethod.POST )
 	public ModelAndView data( @RequestParam( "data" ) String data, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
 		ModelAndView model = new ModelAndView( "dsp-tab4", "link", "dsp" );
@@ -87,7 +115,8 @@ public class DSPController
 		return model;
 	}
 
-	@RequestMapping( value = "/tab4", method = RequestMethod.POST )
+	/* DSP N graph Fourth Tab Submit */
+	@RequestMapping( value = "/ngraph/tab4", method = RequestMethod.POST )
 	public ModelAndView inferenceRules( @RequestParam( "inferenceRules" ) String inferenceRules, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
 		ModelAndView model = new ModelAndView( "dsp-tab5", "link", "spss" );
@@ -171,5 +200,64 @@ public class DSPController
 		}
 
 		return model;
+	}
+
+	/** END N GRAPH */
+
+	/**
+	 * DSP EXAMPLE GRAPH (AJAX)
+	 */
+
+	/* DSP N graph Initial content */
+	@RequestMapping( value = "/exmpgraph", method = RequestMethod.GET )
+	public ModelAndView exmpGraphInitial( /* tab2 get content via ajax */
+	@RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
+	{
+		ModelAndView model = new ModelAndView( "dsp-exmp", "link", "dsp" );
+
+		if ( sessionId != null && sessionId.equals( "0" ) )
+			response.setHeader( "SESSION_INVALID", "yes" );
+
+		return model;
+	}
+
+	/* DSP N graph First Tab Submit */
+	@RequestMapping( value = "/exmpgraph/tab1", method = RequestMethod.POST )
+	public ModelAndView exmpSecondTab( /* tab2 get content via ajax */
+	@ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	{
+		ModelAndView model = new ModelAndView( "dsp-exmp-tab2", "link", "dsp" );
+
+		return model;
+	}
+
+	/* DSP N graph Second Tab Submit */
+	@RequestMapping( value = "/exmpgraph/tab2", method = RequestMethod.POST )
+	public ModelAndView exmpThirdTab( @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	{
+		ModelAndView model = new ModelAndView( "dsp-exmp-tab3", "link", "dsp" );
+
+		return model;
+	}
+
+	/** END EXAMPLE GRAPH */
+
+	@RequestMapping( value = "/upload", method = RequestMethod.POST )
+	public @ResponseBody
+	FileMeta upload( MultipartHttpServletRequest request, HttpServletResponse response )
+	{
+		// build an iterator
+		Iterator<String> itr = request.getFileNames();
+		MultipartFile mpf = null;
+
+		// get each file
+		while (itr.hasNext())
+		{
+			// get next MultipartFile
+			mpf = request.getFile( itr.next() );
+			// upload file and get the file back
+			fileMeta = FileHelper.uploadFile( request, mpf, "/resources/uploaded_files/" );
+		}
+		return fileMeta;
 	}
 }
