@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -79,23 +80,24 @@ public class DSPController
 			{
 				fileMeta.setBytes( mpf.getBytes() );
 
-				// copy file to local disk (make sure the path
-				// "e.g. D:/temp/files" exists)
-				FileCopyUtils.copy( mpf.getBytes(), new FileOutputStream( "D:/temp/files/" + mpf.getOriginalFilename() ) );
+				// copy file to local disk / relative to application context
+				ServletContext sc = request.getSession().getServletContext();
+				String fullPath = sc.getRealPath( "/resources/uploaded_files/" );
+
+				FileCopyUtils.copy( mpf.getBytes(), new FileOutputStream( fullPath + "/" + mpf.getOriginalFilename() ) );
 
 			} catch (IOException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			// if text plain
-			if(fileMeta.getFileType().equalsIgnoreCase( "text/plain" )){
+			if ( fileMeta.getFileType().equalsIgnoreCase( "text/plain" ) )
+			{
 				try
 				{
-					fileMeta.setFileContent( new String(fileMeta.getBytes(), "UTF-8") );
+					fileMeta.setFileContent( new String( fileMeta.getBytes(), "UTF-8" ) );
 				} catch (UnsupportedEncodingException e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			} else
