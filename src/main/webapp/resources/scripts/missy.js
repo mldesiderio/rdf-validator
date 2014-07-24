@@ -563,19 +563,26 @@ function removeAjaxLoadingDiv(){
 //elemSelector must have width and height
 function createAjaxLoadingOnAjaxContainer( elemSelector )
 {
+	var $elem = $jQ( elemSelector );
+	var elemOffset = $elem.offset();
 	$jQ('<div/>', {
        id: 'ajax-load-background'
    }).addClass('ajax-loading-background')
-   .css({'width': '100%',
-  		'height': '100%'})
-   .appendTo(elemSelector);
+   .css({'width': $elem.outerWidth() + 'px',
+ 		'height': $elem.outerHeight() + 'px',
+  		'top': elemOffset.top + 'px',
+  		'left': elemOffset.left + 'px'
+  		})
+   .appendTo( 'body' );
    
  $jQ('<div/>', {
        id: 'ajax-load-image'
    }).addClass('ajax-loading-image')
-   .css({'width': '100%',
-  		'height': '100%'})
-   .appendTo(elemSelector);
+   .css({'width': $elem.outerWidth() + 'px',
+ 		'height': $elem.outerHeight() + 'px',
+  		'top': elemOffset.top + 'px',
+  		'left': elemOffset.left + 'px'})
+   .appendTo( 'body' );
 }
 
 function alertDialogBox(

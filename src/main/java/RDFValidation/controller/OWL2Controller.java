@@ -76,12 +76,22 @@ public class OWL2Controller
 
 		String rdfGraph = new StringBuilder( validationEnvironment.getNamespaceDeclarations() ).append( validationEnvironment.getConstraints() ).append( validationEnvironment.getData() ).append( validationEnvironment.getInferenceRules() ).toString();
 
-		Spin spin = new Spin( "OWL2_SPIN-Mapping.ttl" );
-		spin.runInferences_checkConstraints( rdfGraph );
+		//Spin spin = new Spin( "OWL2_SPIN-Mapping.ttl" );
+		//spin.runInferences_checkConstraints( rdfGraph );
 
-		model.addObject( "dspValidationResult", spin.validationResults );
-		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
-
+		//model.addObject( "dspValidationResult", spin.validationResults );
+		//model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
+		
+		// dummy loading process
+		try
+		{
+			Thread.sleep( 10000 );
+		} catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
 		return model;
 	}
 }

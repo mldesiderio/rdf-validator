@@ -3,7 +3,7 @@
 	
 	<fieldset>
 	
-	  	<textarea name="data" cols="50" rows="20""></textarea>	 
+	  	<textarea name="data" cols="50" rows="20"></textarea>	 
 	  	
 		<#-- form onsite help -->
 		<a href="#" class="MISSY_onsiteHelp" style="margin-top:-20px">

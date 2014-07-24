@@ -72,7 +72,7 @@
 			changeTabCondition( 1 );
 			
 			<#--  submit the first form via ajax post and get the second tab content-->
-			ajaxSpssImportFrequenciesTabContent( "#form-dsp-tab1", "#dsp-tab2" );
+			ajaxDspFrequenciesTabContent( "#form-dsp-tab1", "#dsp-tab2" );
 		} );
 		
 		<#-- submit button on tab 2 pressed -->
@@ -84,7 +84,7 @@
 			
 			changeTabCondition( 2 );
 			<#--  submit the second form via ajax post and get the third tab content-->
-			ajaxSpssImportFrequenciesTabContent( "#form-dsp-tab2", "#dsp-tab3" );
+			ajaxDspFrequenciesTabContent( "#form-dsp-tab2", "#dsp-tab3" );
 		} );
 		
 		<#-- submit button on tab 3 pressed -->
@@ -96,7 +96,7 @@
 			
 			changeTabCondition( 3 );
 			<#--  submit the second form via ajax post and get the third tab content-->
-			ajaxSpssImportFrequenciesTabContent( "#form-dsp-tab3", "#dsp-tab4" );
+			ajaxDspFrequenciesTabContent( "#form-dsp-tab3", "#dsp-tab4" );
 		} );
 		
 		<#-- submit button on tab 4 pressed -->
@@ -107,8 +107,12 @@
 			//	return false;
 			
 			changeTabCondition( 4 );
+			
+			<#-- add loading icon for next tab -->
+			createAjaxLoadingOnAjaxContainer( "#form-dsp-tab5" );
+			
 			<#--  submit the second form via ajax post and get the third tab content-->
-			ajaxSpssImportFrequenciesTabContent( "#form-dsp-tab4", "#dsp-tab5" );
+			ajaxDspFrequenciesTabContent( "#form-dsp-tab4", "#dsp-tab5" );
 		} );
 		
 		<#-- submit button on tab 5 pressed -->
@@ -117,7 +121,7 @@
 			changeTabCondition( 5 );
 			
 			<#--  submit the second form via ajax post and get the third tab content-->
-			ajaxSpssImportFrequenciesTabContent( "#form-dsp-tab5", "#dsp" );
+			ajaxDspFrequenciesTabContent( "#form-dsp-tab5", "#dsp" );
 		} );
 		
 	}); // end of document ready
@@ -128,7 +132,7 @@
 	@param selectorForm     : jquery selector for form submit
 	@param selectorCallback : jquery selector for callback content from ajax call
 	-->
-	function ajaxSpssImportFrequenciesTabContent( selectorForm, selectorCallback ){		
+	function ajaxDspFrequenciesTabContent( selectorForm, selectorCallback ){		
 			$jQ.ajax( {
 				type: "post",
 				url: $jQ( selectorForm ).attr( 'action' ),
@@ -139,6 +143,7 @@
 				})
 		    	.fail( function() {})
 		    	.always( function() {
+		    		removeAjaxLoadingDiv();
 		    	}); //end of ajax call
 	}
 	

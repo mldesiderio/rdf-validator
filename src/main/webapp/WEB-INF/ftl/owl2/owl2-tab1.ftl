@@ -2,7 +2,7 @@
 
 	<fieldset>
 	
-	  	<textarea name="namespaceDeclarations" cols="50" rows="20""></textarea>	
+	  	<textarea name="namespaceDeclarations" cols="50" rows="20"></textarea>	
 	  
 		<#-- form onsite help -->
 		<a href="#" class="MISSY_onsiteHelp" style="margin-top:-20px">

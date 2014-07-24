@@ -107,6 +107,10 @@
 			//	return false;
 			
 			changeTabCondition( 4 );
+			
+			<#-- add loading icon for next tab -->
+			createAjaxLoadingOnAjaxContainer( "#form-owl2-tab5" );
+			
 			<#--  submit the second form via ajax post and get the third tab content-->
 			ajaxSpssImportFrequenciesTabContent( "#form-owl2-tab4", "#owl2-tab5" );
 		} );
@@ -138,6 +142,7 @@
 				})
 		    	.fail( function() {})
 		    	.always( function() {
+		    		removeAjaxLoadingDiv();
 		    	}); //end of ajax call
 	}
 	
