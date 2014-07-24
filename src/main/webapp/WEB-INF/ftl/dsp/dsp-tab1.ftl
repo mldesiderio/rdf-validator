@@ -2,7 +2,20 @@
 
 	<fieldset>
 	
-	  	<textarea name="namespaceDeclarations" cols="50" rows="20"></textarea>	
+		<table>
+	        <tr style="background:transparent">
+	            <td style="width:50%">
+	            	<input id="fileupload" style="width:100%;max-width:none" type="file" name="files[]" data-url="<@spring.url '/dsp/upload' />" multiple />
+				</td>
+	            <td>
+	            	<div id="progress" class="progress" style="width:70%;margin-top:5px">
+				        <div class="bar" style="width: 0%;"></div>
+				    </div>
+				</td>
+	        </tr>
+	    </table>
+    
+	  	<textarea name="namespaceDeclarations" id="namespaceDeclarations" cols="50" rows="20"></textarea>	
 	  
 		<#-- form onsite help -->
 		<a href="#" class="MISSY_onsiteHelp" style="margin-top:-20px">
@@ -31,3 +44,27 @@
 	</fieldset>
 	
 </form>
+<script>
+	$jQ('#fileupload').fileupload({
+        dataType: 'json',
+ 
+        done: function (e, data) {
+            $jQ.each(data.result, function (index, file) {
+                 $jQ('#namespaceDeclarations').val(
+                	'file name : ' + file.fileName + '\n' +
+                	'file size : ' + file.fileSize + '\n' +
+                	'file type : ' + file.fileType + '\n' +
+                	'file content : \n' + file.fileContent
+                );
+            }); 
+        },
+ 
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $jQ('#progress .bar').css(
+                'width',
+                progress + '%'
+            );
+        }
+    });
+</script>

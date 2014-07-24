@@ -27,6 +27,9 @@
 	<!-- used for the tinymce -->
 	<script src="<@spring.url '/resources/scripts/jquery.tinymce.js' />"></script>
 	
+	<#-- used for uploading file via ajax, etc-->
+	<script src="<@spring.url '/resources/scripts/jquery.fileupload.js' />"></script>
+	
 	<script>
 		<!-- this is to prevent conflicts with prototype and jquerytools -->
 		$jQ = jQuery.noConflict();
