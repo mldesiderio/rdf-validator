@@ -1,4 +1,33 @@
  <@layout.global>
+ 
+ 	<@content.left>
+			<div id="col1_content" class="clearfix">
+			
+				<!--Tabs for switch between Study and Variable-level-->
+				<div id="graphTabContainer" class="tabContainer">
+					<ul>
+						<li>
+							<a class="tabElement" href="#study_tab" style="text-decoration:none;">Graph</a>
+						</li>
+					</ul>
+					
+					<!-- tab contents -->
+					<div id="study_tab" style="float:left;background:#ededed">
+						<input type="button" name="studyGroupButton" value="1 Graph" class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton">
+						<input type="button" name="studyGroupButton" value="N Graph" class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton">
+						<input type="button" name="studyGroupButton" value="Example Graph" class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton">
+					</div>
+				</div>
+				
+				<!-- Text below menu -->
+				<div class="textBelowMenu"></div>
+				<!-- Links to partners -->
+				<div class="partner">
+
+			</div>
+		<!-- End of col1_content --> 
+		</div>
+	</@content.left>
  	
  	<@content.main>
 
@@ -59,7 +88,7 @@
 			disabled: [1,2,3,4]
      	});
      	
-
+		$jQ( "#graphTabContainer" ).tabs({ active: 0 });
 
 		<#-- submit button on tab 1 pressed -->
 		$jQ( "#button_dsp-tab1" ).click( function()

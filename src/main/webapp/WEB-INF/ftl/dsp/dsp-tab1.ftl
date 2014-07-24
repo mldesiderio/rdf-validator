@@ -57,7 +57,7 @@
             $jQ('#progress .bar').css('width', progress + '%').html( progress + '%');
         	$jQ('#progress').show();
             if( progress == 100 )
-            	window.setTimeout( function(){$jQ('#progress').hide(); } , 3000);
+            	window.setTimeout( function(){$jQ('#progress').fadeOut( "slow" ); } , 3000);
         }
     });
 </script>
