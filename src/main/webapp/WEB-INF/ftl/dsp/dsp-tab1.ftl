@@ -8,7 +8,7 @@
 	            	<input id="fileupload" style="width:100%;max-width:none" type="file" name="files[]" data-url="<@spring.url '/dsp/upload' />" multiple />
 				</td>
 	            <td>
-	            	<div id="progress" class="progress" style="width:70%;margin-top:5px">
+	            	<div id="progress" class="progress" style="width:70%;display:none">
 				        <div class="bar" style="width: 0%;"></div>
 				    </div>
 				</td>
@@ -49,17 +49,15 @@
         dataType: 'json',
  
         done: function (e, data) {
-            $jQ.each(data.result, function (index, file) {
-                 $jQ('#namespaceDeclarations').val( file.fileContent );
-            }); 
+         	$jQ('#namespaceDeclarations').val( data.result.fileContent );
         },
  
         progressall: function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);
-            $jQ('#progress .bar').css(
-                'width',
-                progress + '%'
-            );
+            $jQ('#progress .bar').css('width', progress + '%').html( progress + '%');
+        	$jQ('#progress').show();
+            if( progress == 100 )
+            	window.setTimeout( function(){$jQ('#progress').hide(); } , 3000);
         }
     });
 </script>

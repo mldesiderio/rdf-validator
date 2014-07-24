@@ -1,18 +1,13 @@
 package RDFValidation.controller;
 
+import helper.FileHelper;
 import helper.FileMeta;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
-import java.util.LinkedList;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,7 +26,6 @@ import RDFValidation.ValidationEnvironment;
 public class DSPController
 {
 	/* variables for files */
-	LinkedList<FileMeta> files = new LinkedList<FileMeta>();
 	FileMeta fileMeta = null;
 
 	// tab 0
@@ -51,63 +45,21 @@ public class DSPController
 
 	@RequestMapping( value = "/upload", method = RequestMethod.POST )
 	public @ResponseBody
-	LinkedList<FileMeta> upload( MultipartHttpServletRequest request, HttpServletResponse response )
+	FileMeta upload( MultipartHttpServletRequest request, HttpServletResponse response )
 	{
-
-		// 1. build an iterator
+		// build an iterator
 		Iterator<String> itr = request.getFileNames();
 		MultipartFile mpf = null;
 
-		// 2. get each file
+		// get each file
 		while (itr.hasNext())
 		{
-
-			// 2.1 get next MultipartFile
+			// get next MultipartFile
 			mpf = request.getFile( itr.next() );
-			System.out.println( mpf.getOriginalFilename() + " uploaded! " + files.size() );
-
-			// 2.2 if files > 10 remove the first from the list
-			if ( files.size() >= 10 )
-				files.pop();
-
-			// 2.3 create new fileMeta
-			fileMeta = new FileMeta();
-			fileMeta.setFileName( mpf.getOriginalFilename() );
-			fileMeta.setFileSize( mpf.getSize() / 1024 + " Kb" );
-			fileMeta.setFileType( mpf.getContentType() );
-
-			try
-			{
-				fileMeta.setBytes( mpf.getBytes() );
-
-				// copy file to local disk / relative to application context
-				ServletContext sc = request.getSession().getServletContext();
-				String fullPath = sc.getRealPath( "/resources/uploaded_files/" );
-
-				FileCopyUtils.copy( mpf.getBytes(), new FileOutputStream( fullPath + "/" + mpf.getOriginalFilename() ) );
-
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-			// if text plain
-			if ( fileMeta.getFileType().equalsIgnoreCase( "text/plain" ) )
-			{
-				try
-				{
-					fileMeta.setFileContent( new String( fileMeta.getBytes(), "UTF-8" ) );
-				} catch (UnsupportedEncodingException e)
-				{
-					e.printStackTrace();
-				}
-			} else
-				fileMeta.setFileContent( "unable to show binary file content" );
-			// 2.4 add to files
-			files.add( fileMeta );
+			// upload file and get the file back
+			fileMeta = FileHelper.uploadFile( request, mpf, "/resources/uploaded_files/" );
 		}
-		// result will be like this
-		// [{"fileName":"app_engine-85x77.png","fileSize":"8 Kb","fileType":"image/png"},...]
-		return files;
+		return fileMeta;
 	}
 
 	@RequestMapping( value = "/tab1", method = RequestMethod.POST )
