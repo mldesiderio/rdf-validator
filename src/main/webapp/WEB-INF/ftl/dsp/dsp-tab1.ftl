@@ -50,12 +50,7 @@
  
         done: function (e, data) {
             $jQ.each(data.result, function (index, file) {
-                 $jQ('#namespaceDeclarations').val(
-                	'file name : ' + file.fileName + '\n' +
-                	'file size : ' + file.fileSize + '\n' +
-                	'file type : ' + file.fileType + '\n' +
-                	'file content : \n' + file.fileContent
-                );
+                 $jQ('#namespaceDeclarations').val( file.fileContent );
             }); 
         },
  

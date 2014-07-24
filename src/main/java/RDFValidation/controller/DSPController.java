@@ -2,7 +2,6 @@ package RDFValidation.controller;
 
 import helper.FileMeta;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -12,7 +11,6 @@ import java.util.LinkedList;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -87,9 +85,6 @@ public class DSPController
 				String fullPath = sc.getRealPath( "/resources/uploaded_files/" );
 
 				FileCopyUtils.copy( mpf.getBytes(), new FileOutputStream( fullPath + "/" + mpf.getOriginalFilename() ) );
-
-				String rdfGraphPath = sc.getRealPath( "/resources/rdfGraphs/" );
-				FileUtils.writeStringToFile( new File( rdfGraphPath + "/" + "rdfGraph2.ttl" ), "TExt from textarea" );
 
 			} catch (IOException e)
 			{
