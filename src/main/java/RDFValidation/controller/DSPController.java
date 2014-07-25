@@ -1,10 +1,16 @@
 package RDFValidation.controller;
 
+import helper.DynaTree;
 import helper.FileHelper;
 import helper.FileMeta;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -27,6 +33,10 @@ public class DSPController
 {
 	/* variables for files */
 	FileMeta fileMeta = null;
+
+	/* resource dsp path */
+	final String dspResourcePath = "/resources/rdfGraphs/";
+	final String dspFileUploadPath = "/resources/uploaded_files/";
 
 	// DSP main
 	@RequestMapping( method = RequestMethod.GET )
@@ -224,24 +234,44 @@ public class DSPController
 	/* DSP N graph First Tab Submit */
 	@RequestMapping( value = "/exmpgraph/tab1", method = RequestMethod.POST )
 	public ModelAndView exmpSecondTab( /* tab2 get content via ajax */
-	@ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	@RequestParam( "filePath" ) String filePath, HttpServletRequest request, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
 		ModelAndView model = new ModelAndView( "dsp-exmp-tab2", "link", "dsp" );
+
+		FileMeta fileMeta = FileHelper.getFileDetails( request, dspResourcePath + filePath );
+
+		model.addObject( "fileContent", fileMeta.getFileContent() );
 
 		return model;
 	}
 
 	/* DSP N graph Second Tab Submit */
 	@RequestMapping( value = "/exmpgraph/tab2", method = RequestMethod.POST )
-	public ModelAndView exmpThirdTab( @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	public ModelAndView exmpThirdTab( @RequestParam( "constraints" ) String constraints, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
 		ModelAndView model = new ModelAndView( "dsp-exmp-tab3", "link", "dsp" );
+		String c = constraints;// validationEnvironment.getConstraints().replace(
+								// "<", "&lt;" ).replace( ">", "&gt;" );
+		// String d = validationEnvironment.getData().replace( "<", "&lt;"
+		// ).replace( ">", "&gt;" );
+		// String ir = validationEnvironment.getInferenceRules().replace( "<",
+		// "&lt;" ).replace( ">", "&gt;" );
 
+		model.addObject( "constraints", c );
+		// model.addObject( "data", d );
+		// model.addObject( "inferenceRules", ir );
 		return model;
 	}
 
 	/** END EXAMPLE GRAPH */
 
+	/**
+	 * Upload document via jquery ajax file upload
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping( value = "/upload", method = RequestMethod.POST )
 	public @ResponseBody
 	FileMeta upload( MultipartHttpServletRequest request, HttpServletResponse response )
@@ -256,8 +286,74 @@ public class DSPController
 			// get next MultipartFile
 			mpf = request.getFile( itr.next() );
 			// upload file and get the file back
-			fileMeta = FileHelper.uploadFile( request, mpf, "/resources/uploaded_files/" );
+			fileMeta = FileHelper.uploadFile( request, mpf, dspFileUploadPath );
 		}
 		return fileMeta;
+	}
+
+	/**
+	 * get detail of document from specific folder
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping( value = "/file_details", method = RequestMethod.POST )
+	public @ResponseBody
+	FileMeta getFIleDetails( @RequestParam( "filePath" ) String filePath, HttpServletRequest request, HttpServletResponse response )
+	{
+		return FileHelper.getFileDetails( request, dspResourcePath + filePath );
+	}
+
+	/**
+	 * Get the json structure of specific folder
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping( value = "/resource_structure", method = RequestMethod.GET )
+	public @ResponseBody
+	List<DynaTree> directoryStructure( HttpServletRequest request, HttpServletResponse response )
+	{
+		DynaTree dynaTree = new DynaTree( "root", null, true, "/", null );
+		// get full path
+		ServletContext sc = request.getSession().getServletContext();
+		String fullPath = sc.getRealPath( dspResourcePath );
+
+		String test = fullPath + "/";
+		// get the directory structure
+		dynaTree.setChildren( convertDirectoryToDynaTree( new File( fullPath + "/" ), "" ) );
+
+		// return json
+		return dynaTree.getChildren();
+	}
+
+	/**
+	 * Convert directory structure into dynatree
+	 * 
+	 * @param folder
+	 * @param filePath
+	 * @return
+	 */
+	private List<DynaTree> convertDirectoryToDynaTree( final File folder, String filePath )
+	{
+		int dynaTreeIndex = 0;
+		List<DynaTree> dynaTreeChild = new ArrayList<DynaTree>();
+
+		for ( final File fileEntry : folder.listFiles() )
+		{
+			if ( fileEntry.isDirectory() )
+			{
+				dynaTreeChild.add( new DynaTree( fileEntry.getName(), null, true, filePath + fileEntry.getName() + "/", null ) );
+				dynaTreeChild.get( dynaTreeIndex ).setChildren( convertDirectoryToDynaTree( fileEntry, filePath + fileEntry.getName() + "/" ) );
+
+			} else
+			{
+				dynaTreeChild.add( new DynaTree( fileEntry.getName(), null, false, filePath + fileEntry.getName(), null ) );
+			}
+			dynaTreeIndex++;
+		}
+		return dynaTreeChild;
 	}
 }

@@ -36,7 +36,7 @@
 		$jQ( "#graphTabContainer" ).tabs({ active: 0 });
 
 		<#-- submit button on tab 1 pressed -->
-		$jQ( "#button_dsp-tab1" ).click( function()
+		$jQ( "#button_dsp-exmp-tab1" ).click( function()
 		{
 			// validate field values first
 			//if ( validateDatapoint )

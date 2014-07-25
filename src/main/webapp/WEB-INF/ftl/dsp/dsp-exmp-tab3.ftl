@@ -2,19 +2,94 @@
 
 	<fieldset>
 	
-	  	<textarea name="constraints" cols="50" rows="20"></textarea>	
-	  	
-		<#-- form onsite help -->
-		<a href="#" class="MISSY_onsiteHelp" style="margin-top:-20px">
-			<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
-			<span>
-				<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
-				<h4 class="MISSY_onsiteHelp">Constraints</h4>
-				<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
-				Constraints
-			</span>
-		</a>
-	  	
+	  	<h3>Constraint Violations</h3> 
+		<br/>
+
+		<!--
+		<#if dspValidationResult??>${dspValidationResult}<#else></#if>
+		-->
+
+		<#if constraintViolationList??>
+		  
+			<table class="datatable">
+				<#list constraintViolationList as constraintViolation>
+					<tr>
+						<td><b>root</b></td>
+						<td>${constraintViolation.root}</td>
+					</tr>
+					<tr>
+						<td><b>message</b></td>
+						<td>${constraintViolation.message}</td>
+					</tr>
+					<tr>
+						<td><b>source</b></td>
+						<td>${constraintViolation.source}</td>
+					</tr>
+					<#list constraintViolation.paths as constraintViolationPath>
+						<tr>
+							<td><b>path</b></td>
+							<td>${constraintViolationPath}</td>
+						</tr>
+		  	    	</#list>
+		  	    	<#list constraintViolation.fixes as constraintViolationFix>
+						<tr>
+							<td><b>fix</b></td>
+							<td>${constraintViolationFix}</td>
+						</tr>
+		  	    	</#list>
+		  	    	<tr><td><br/></td><td><br/></td></tr>
+		    	</#list>
+			</table>
+		  
+		<#else>
+		</#if>
+		
+	</fieldset>
+	
+	<hr/>
+	<br/>
+	
+	<fieldset>
+		
+		<h3>Validation Input Parameter</h3> 
+		<br/>
+		
+		<table>
+			<th>Namespace Declarations</th>
+		    <tr>
+		        <td><pre><#if namespaceDeclarations??>${namespaceDeclarations}<#else>-</#if></pre></td>
+		    </tr>
+		</table>  
+		
+		<br/>
+		
+		<table>
+			<th>Constraints</th>
+		    <tr>
+		        <td><pre><#if constraints??>${constraints}<#else>-</#if></pre></td>
+		    </tr>
+		</table>  
+		
+		<br/>
+		
+		<table>
+			<th>Data</th>
+		    <tr>
+		        <td><pre><#if data??>${data}<#else>-</#if></pre></td>
+		    </tr>
+		</table>  
+		
+		<br/>
+		
+		<table>
+			<th>Inference Rules</th>
+		    <tr>
+		        <td><pre><#if inferenceRules??>${inferenceRules}<#else>-</#if></pre></td>
+		    </tr>
+		</table>
+		
+		<br/> 
+
 	</fieldset>
 	
 	<br />
@@ -25,7 +100,7 @@
 		  type="button" 
 		  name="button_dsp-tab2" 
 		  id="button_dsp-tab2" 
-		  value="Next: Data" 
+		  value="Finish" 
 		  class="buttonSubmit MISSY_loginSubmit" 
 		  style="float: right; margin-top: 10px">
 	</fieldset>

@@ -882,10 +882,23 @@ div#main_content{
 	padding: 0 6px !important;
 }
 
-.buttonSubmitDissabled {
+.buttonSubmitDissabled, .buttonSubmitDissabled:hover {
 	color: #999 !important;
 	margin: 20px 0 0 15px !important;
 	padding: 5px 15px !important;
+	background: #ededed !important;
+	border-bottom-color: #666 !important;
+	border-bottom-style: solid !important;
+	border-bottom-width: 1px !important;
+	border-left-color: #fff !important;
+	border-left-style: solid !important;
+	border-left-width: 1px !important;
+	border-right-color: #666 !important;
+	border-right-style: solid !important;
+	border-right-width: 1px !important;
+	border-top-color: #fff !important;
+	border-top-style: solid !important;
+	border-top-width: 1px !important;
 }
 
 /*table sorter style*/

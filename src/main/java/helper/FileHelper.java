@@ -1,10 +1,15 @@
 package helper;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,6 +51,45 @@ public class FileHelper
 			}
 		} else
 			fileMeta.setFileContent( "unable to show binary file content" );
+
+		return fileMeta;
+	}
+
+	public static FileMeta getFileDetails( HttpServletRequest request, String relativePath )
+	{
+		FileMeta fileMeta = new FileMeta();
+
+		ServletContext sc = request.getSession().getServletContext();
+		String fullPath = sc.getRealPath( relativePath );
+		String fileContent = "";
+
+		try
+		{
+			File fileDir = new File( fullPath );
+
+			fileMeta.setFileName( fileDir.getName() );
+
+			BufferedReader in = new BufferedReader( new InputStreamReader( new FileInputStream( fileDir ), "UTF-8" ) );
+
+			String str;
+			while ((str = in.readLine()) != null)
+			{
+				fileContent += str + "\n";
+			}
+
+			fileMeta.setFileContent( fileContent );
+
+			in.close();
+		} catch (UnsupportedEncodingException e)
+		{
+			System.out.println( e.getMessage() );
+		} catch (IOException e)
+		{
+			System.out.println( e.getMessage() );
+		} catch (Exception e)
+		{
+			System.out.println( e.getMessage() );
+		}
 
 		return fileMeta;
 	}

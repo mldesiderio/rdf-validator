@@ -2,7 +2,7 @@
 
 	<fieldset>
 	
-	  	<textarea name="constraints" cols="50" rows="20"></textarea>	
+	  	<textarea name="constraints" cols="50" rows="20"><#if fileContent??>${fileContent}</#if></textarea>	
 	  	
 		<#-- form onsite help -->
 		<a href="#" class="MISSY_onsiteHelp" style="margin-top:-20px">
@@ -25,7 +25,7 @@
 		  type="button" 
 		  name="button_dsp-tab2" 
 		  id="button_dsp-tab2" 
-		  value="Finish" 
+		  value=" Next : Validate" 
 		  class="buttonSubmit MISSY_loginSubmit" 
 		  style="float: right; margin-top: 10px">
 	</fieldset>
