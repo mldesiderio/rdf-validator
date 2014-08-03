@@ -1,0 +1,63 @@
+<form id="form-dsp-tab1" action="<@spring.url '/dsp/onegraph/tab1' />" style="padding-left: 25px" class="MISSY_round_right">
+
+	<fieldset>
+	
+		<table>
+	        <tr style="background:transparent">
+	            <td style="width:50%">
+	            	<input id="fileupload" style="width:100%;max-width:none" type="file" name="files[]" data-url="<@spring.url '/dsp/upload' />" multiple />
+				</td>
+	            <td>
+	            	<div id="progress" class="progress" style="width:70%;display:none">
+				        <div class="bar" style="width: 0%;"></div>
+				    </div>
+				</td>
+	        </tr>
+	    </table>
+    
+	  	<textarea name="rdfGraph" id="rdfGraph" cols="50" rows="20"></textarea>	
+	  
+		<#-- form onsite help -->
+		<a href="#" class="MISSY_onsiteHelp" style="margin-top:-20px">
+			<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
+			<span>
+				<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
+				<h4 class="MISSY_onsiteHelp">RDF Graph</h4>
+				<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
+				RDF Graph
+			</span>
+		</a>
+	  	
+	</fieldset>
+	  
+	<br />
+	<hr />
+	
+	<fieldset>
+		<input 
+		  type="button" 
+		  name="button_dsp-tab1" 
+		  id="button_dsp-tab1" 
+		  value="Next: Constraints" 
+		  class="buttonSubmit MISSY_loginSubmit" 
+		  style="float: right; margin-top: 10px">
+	</fieldset>
+	
+</form>
+<script>
+	$jQ('#fileupload').fileupload({
+        dataType: 'json',
+ 
+        done: function (e, data) {
+         	$jQ('#rdfGraph').val( data.result.fileContent );
+        },
+ 
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $jQ('#progress .bar').css('width', progress + '%').html( progress + '%');
+        	$jQ('#progress').show();
+            if( progress == 100 )
+            	window.setTimeout( function(){$jQ('#progress').fadeOut( "slow" ); } , 3000);
+        }
+    });
+</script>
