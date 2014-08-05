@@ -2,7 +2,12 @@
 
 	<fieldset>
 	
-	  	<textarea name="namespaceDeclarations" cols="50" rows="20"></textarea>	
+		<span> Select files : </span>
+		<select id="resource_files">
+			<option value="">Select One</option>
+		</select>
+	
+	  	<textarea id="namespaceDeclarations" name="namespaceDeclarations" cols="50" rows="20"></textarea>	
 	  
 		<#-- form onsite help -->
 		<a href="#" class="MISSY_onsiteHelp" style="margin-top:-20px">
@@ -31,3 +36,45 @@
 	</fieldset>
 	
 </form>
+
+<script>
+	$jQ(document).ready(function() {
+	    <#-- create the tree -->
+	    populateComboBox();
+	    <#-- disable button next -->
+	    <#--$jQ('#button_dsp-exmp-tab1').attr("disabled",true).addClass("buttonSubmitDissabled");-->
+	    
+	    <#-- add event onclick for select option -->
+	     $jQ('#resource_files').on( "click", function(){
+	     	if( $jQ( this ).val() != "" ){
+	     		$jQ.ajax( {
+					type: "post",
+					url:  "<@spring.url '/owl2/file_details' />",
+					data: { filePath : $jQ( this ).val() }
+				    })
+			    	.done( function( data ) {
+			    		$jQ( "#namespaceDeclarations" ).val( data.fileContent );
+					})
+			    	.fail( function() {})
+			    	.always( function() {
+			    		removeAjaxLoadingDiv();
+			    	}); //end of ajax call
+	     	}
+	     });
+	});
+	
+	function populateComboBox(){
+		$jQ.getJSON( "<@spring.url '/owl2/resource_structure' />" , function( data ) {
+					
+			<#-- add the options for the combobox -->
+			$jQ.each(data, function(index, item) {   
+			     $jQ('#resource_files')
+			         .append($jQ("<option></option>")
+			         .attr("value",item.key)
+			         .text(item.title)); 
+			});
+
+		}).fail(function(){}).always(function(){});
+	}
+
+</script>

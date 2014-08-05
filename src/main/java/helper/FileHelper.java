@@ -7,8 +7,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.util.FileCopyUtils;
@@ -30,13 +31,14 @@ public class FileHelper
 			fileMeta.setBytes( mpf.getBytes() );
 
 			// copy file to local disk / relative to application context
-//			ServletContext sc = request.getSession().getServletContext();
-//			String fullPath = sc.getRealPath( relativePath );
-			
-//			System.out.println("relativePath" + relativePath);
-//			System.out.println("fullPath" + fullPath);
+			// ServletContext sc = request.getSession().getServletContext();
+			// String fullPath = sc.getRealPath( relativePath );
 
-//			FileCopyUtils.copy( mpf.getBytes(), new FileOutputStream( fullPath + "/" + mpf.getOriginalFilename() ) );
+			// System.out.println("relativePath" + relativePath);
+			// System.out.println("fullPath" + fullPath);
+
+			// FileCopyUtils.copy( mpf.getBytes(), new FileOutputStream(
+			// fullPath + "/" + mpf.getOriginalFilename() ) );
 			FileCopyUtils.copy( mpf.getBytes(), new FileOutputStream( absolutePath + "/" + relativePath + "/" + mpf.getOriginalFilename() ) );
 
 		} catch (IOException e)
@@ -63,17 +65,17 @@ public class FileHelper
 	{
 		FileMeta fileMeta = new FileMeta();
 
-//		ServletContext sc = request.getSession().getServletContext();
-//		String fullPath = sc.getRealPath( relativePath );
-		
+		// ServletContext sc = request.getSession().getServletContext();
+		// String fullPath = sc.getRealPath( relativePath );
+
 		String fileContent = "";
-		
-//		System.out.println("relativePath" + relativePath);
-//		System.out.println("fullPath" + fullPath);
+
+		// System.out.println("relativePath" + relativePath);
+		// System.out.println("fullPath" + fullPath);
 
 		try
 		{
-//			File fileDir = new File( fullPath );
+			// File fileDir = new File( fullPath );
 			File fileDir = new File( absolutePath + "/" + relativePath );
 
 			fileMeta.setFileName( fileDir.getName() );
@@ -101,6 +103,35 @@ public class FileHelper
 		}
 
 		return fileMeta;
+	}
+
+	/**
+	 * Convert directory structure into dynatree JSON recursive = true ~ read
+	 * also the child folder
+	 * 
+	 * @param folder
+	 * @param filePath
+	 * @return
+	 */
+	public static List<DynaTree> convertDirectoryToDynaTree( final File folder, String filePath, final boolean isRecursive )
+	{
+		int dynaTreeIndex = 0;
+		List<DynaTree> dynaTreeChild = new ArrayList<DynaTree>();
+
+		for ( final File fileEntry : folder.listFiles() )
+		{
+			if ( fileEntry.isDirectory() && isRecursive )
+			{
+				dynaTreeChild.add( new DynaTree( fileEntry.getName(), null, true, filePath + fileEntry.getName() + "/", null ) );
+				dynaTreeChild.get( dynaTreeIndex ).setChildren( convertDirectoryToDynaTree( fileEntry, filePath + fileEntry.getName() + "/", isRecursive ) );
+
+			} else
+			{
+				dynaTreeChild.add( new DynaTree( fileEntry.getName(), null, false, filePath + fileEntry.getName(), null ) );
+			}
+			dynaTreeIndex++;
+		}
+		return dynaTreeChild;
 	}
 
 }

@@ -5,11 +5,9 @@ import helper.FileHelper;
 import helper.FileMeta;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -73,7 +71,7 @@ public class DSPController
 	/* DSP N graph First Tab Submit */
 	@RequestMapping( value = "/onegraph/tab1", method = RequestMethod.POST )
 	public ModelAndView pneGraphValidation( /* tab2 get content via ajax */
-		@RequestParam( "rdfGraph" ) String rdfGraph )
+	@RequestParam( "rdfGraph" ) String rdfGraph )
 	{
 		ModelAndView model = new ModelAndView( "dsp-one-tab2", "link", "dsp" );
 
@@ -81,15 +79,15 @@ public class DSPController
 		String rdfGraphInput = rdfGraph.replace( "<", "&lt;" ).replace( ">", "&gt;" );
 
 		model.addObject( "rdfGraph", rdfGraphInput );
-		
+
 		Spin spin = new Spin( "DSP_SPIN-Mapping.ttl" );
 		spin.runInferences_checkConstraints( rdfGraph );
-    	
+
 		model.addObject( "dspValidationResult", spin.validationResults );
 		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
-		
+
 		// debugging
-//		model.addObject( "debugging", spin.debugging );
+		// model.addObject( "debugging", spin.debugging );
 
 		return model;
 	}
@@ -156,28 +154,24 @@ public class DSPController
 		model.addObject( "constraints", c );
 		model.addObject( "data", d );
 		model.addObject( "inferenceRules", ir );
-		
-		// add line separators at the end of each input graph	
-		String ND = new StringBuilder ( validationEnvironment.getNamespaceDeclarations() ).append( "\r\n" ).toString();
-		String C = new StringBuilder ( validationEnvironment.getConstraints() ).append( "\r\n" ).toString();
-		String D = new StringBuilder ( validationEnvironment.getData() ).append( "\r\n" ).toString();
-		String IR = new StringBuilder ( validationEnvironment.getInferenceRules() ).append( "\r\n" ).toString();
-		
+
+		// add line separators at the end of each input graph
+		String ND = new StringBuilder( validationEnvironment.getNamespaceDeclarations() ).append( "\r\n" ).toString();
+		String C = new StringBuilder( validationEnvironment.getConstraints() ).append( "\r\n" ).toString();
+		String D = new StringBuilder( validationEnvironment.getData() ).append( "\r\n" ).toString();
+		String IR = new StringBuilder( validationEnvironment.getInferenceRules() ).append( "\r\n" ).toString();
+
 		// input graph
-		String rdfGraph = new StringBuilder( ND )
-			.append( C )
-			.append( D )
-			.append( IR )
-			.toString();
-		
+		String rdfGraph = new StringBuilder( ND ).append( C ).append( D ).append( IR ).toString();
+
 		Spin spin = new Spin( "DSP_SPIN-Mapping.ttl" );
 		spin.runInferences_checkConstraints( rdfGraph );
-    	
+
 		model.addObject( "dspValidationResult", spin.validationResults );
 		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
-		
+
 		// debugging
-//		model.addObject( "debugging", spin.debugging );
+		// model.addObject( "debugging", spin.debugging );
 
 		return model;
 	}
@@ -210,11 +204,13 @@ public class DSPController
 
 		String absolutePath = this.getClass().getClassLoader().getResource( "rdfGraphs" ).getPath();
 		absolutePath = absolutePath.substring( 1, absolutePath.length() - 1 );
-		
-//		System.out.println("absolutePath: " + absolutePath);
-//		System.out.println("dspResourcePath + filePath: " + dspResourcePath + filePath);
-		
-//		FileMeta fileMeta = FileHelper.getFileDetails( request, absolutePath, dspResourcePath + filePath );
+
+		// System.out.println("absolutePath: " + absolutePath);
+		// System.out.println("dspResourcePath + filePath: " + dspResourcePath +
+		// filePath);
+
+		// FileMeta fileMeta = FileHelper.getFileDetails( request, absolutePath,
+		// dspResourcePath + filePath );
 		FileMeta fileMeta = FileHelper.getFileDetails( request, absolutePath, filePath );
 
 		model.addObject( "fileContent", fileMeta.getFileContent() );
@@ -232,10 +228,10 @@ public class DSPController
 		String rdfGraphInput = rdfGraph.replace( "<", "&lt;" ).replace( ">", "&gt;" );
 
 		model.addObject( "rdfGraph", rdfGraphInput );
-		
+
 		Spin spin = new Spin( "DSP_SPIN-Mapping.ttl" );
 		spin.runInferences_checkConstraints( rdfGraph );
-    	
+
 		model.addObject( "dspValidationResult", spin.validationResults );
 		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
 
@@ -258,7 +254,7 @@ public class DSPController
 		// absolute path
 		String absolutePath = this.getClass().getClassLoader().getResource( "rdfGraphs" ).getPath();
 		absolutePath = absolutePath.substring( 1, absolutePath.length() - 1 );
-		
+
 		// build an iterator
 		Iterator<String> itr = request.getFileNames();
 		MultipartFile mpf = null;
@@ -287,8 +283,9 @@ public class DSPController
 	{
 		String absolutePath = this.getClass().getClassLoader().getResource( "rdfGraphs" ).getPath();
 		absolutePath = absolutePath.substring( 1, absolutePath.length() - 1 );
-		
-//		return FileHelper.getFileDetails( request, absolutePath, dspResourcePath + filePath );
+
+		// return FileHelper.getFileDetails( request, absolutePath,
+		// dspResourcePath + filePath );
 		return FileHelper.getFileDetails( request, absolutePath, filePath );
 	}
 
@@ -305,68 +302,49 @@ public class DSPController
 	{
 		DynaTree dynaTree = new DynaTree( "root", null, true, "/", null );
 		// get full path
-		ServletContext sc = request.getSession().getServletContext();
-		String fullPath = sc.getRealPath( dspResourcePath );
-		System.out.println(fullPath);
-		
-//		System.out.println(this.getClass().getClassLoader().getResource( "rdfGraphs" ).getPath());
-		
+		String fullPath = request.getSession().getServletContext().getRealPath( dspResourcePath );
+		System.out.println( fullPath );
+
+		// System.out.println(this.getClass().getClassLoader().getResource(
+		// "rdfGraphs" ).getPath());
+
 		String absolutePath = this.getClass().getClassLoader().getResource( "/rel.txt" ).getPath();
 		absolutePath = absolutePath.substring( 1, absolutePath.length() - 8 );
-		System.out.println(absolutePath);
-		
-//		System.out.println(absolutePath.lastIndexOf( "resources" ));
-		
-//		absolutePath = absolutePath.substring( 0, absolutePath.lastIndexOf( "resources" ) - 9 ) + absolutePath.substring( absolutePath.lastIndexOf( "resources" ), absolutePath.length() );
+		System.out.println( absolutePath );
+
+		// System.out.println(absolutePath.lastIndexOf( "resources" ));
+
+		// absolutePath = absolutePath.substring( 0, absolutePath.lastIndexOf(
+		// "resources" ) - 9 ) + absolutePath.substring(
+		// absolutePath.lastIndexOf( "resources" ), absolutePath.length() );
 
 		// replace %20 in absolute path of web app
-		absolutePath = absolutePath.replace( "%20", " ");
-		
-//		dynaTree.addChild( new DynaTree( absolutePath, null, true, "/", null ) );
-		
-//		String test = fullPath + "/";
+		absolutePath = absolutePath.replace( "%20", " " );
+
+		// dynaTree.addChild( new DynaTree( absolutePath, null, true, "/", null
+		// ) );
+
+		// String test = fullPath + "/";
 		// get the directory structure
-//		dynaTree.setChildren( convertDirectoryToDynaTree( new File( "C:/Program Files/ApacheTomcat8/webapps/rdf-validation/WEB-INF/classes/rdfGraphs" + "/" ), "" ) );
-//		dynaTree.setChildren( convertDirectoryToDynaTree( new File( "lelystad.informatik.uni-mannheim.de" + "/" ), "" ) );
-		dynaTree.setChildren( convertDirectoryToDynaTree( new File( absolutePath + "/" ), "" ) );
-//		dynaTree.setChildren( convertDirectoryToDynaTree( new File( "127.0.0.1" + "/" ), "" ) );
-		
+		// dynaTree.setChildren( convertDirectoryToDynaTree( new File(
+		// "C:/Program Files/ApacheTomcat8/webapps/rdf-validation/WEB-INF/classes/rdfGraphs"
+		// + "/" ), "" ) );
+		// dynaTree.setChildren( convertDirectoryToDynaTree( new File(
+		// "lelystad.informatik.uni-mannheim.de" + "/" ), "" ) );
+		dynaTree.setChildren( FileHelper.convertDirectoryToDynaTree( new File( fullPath ), "", true ) );
+		// dynaTree.setChildren( convertDirectoryToDynaTree( new File(
+		// "127.0.0.1" + "/" ), "" ) );
+
 		// testing
-//		List<DynaTree> listDynaTree = new ArrayList<DynaTree>();
-//		listDynaTree.add( new DynaTree( this.getClass().getClassLoader().getResource( "/" + "SPIN/functions/dsp-functions.ttl" ).getPath(), null, true, "/", null ) );
-//		dynaTree.setChildren( listDynaTree );
-		
-		
+		// List<DynaTree> listDynaTree = new ArrayList<DynaTree>();
+		// listDynaTree.add( new DynaTree(
+		// this.getClass().getClassLoader().getResource( "/" +
+		// "SPIN/functions/dsp-functions.ttl" ).getPath(), null, true, "/", null
+		// ) );
+		// dynaTree.setChildren( listDynaTree );
 
 		// return json
 		return dynaTree.getChildren();
 	}
 
-	/**
-	 * Convert directory structure into dynatree
-	 * 
-	 * @param folder
-	 * @param filePath
-	 * @return
-	 */
-	private List<DynaTree> convertDirectoryToDynaTree( final File folder, String filePath )
-	{
-		int dynaTreeIndex = 0;
-		List<DynaTree> dynaTreeChild = new ArrayList<DynaTree>();
-
-		for ( final File fileEntry : folder.listFiles() )
-		{
-			if ( fileEntry.isDirectory() )
-			{
-				dynaTreeChild.add( new DynaTree( fileEntry.getName(), null, true, filePath + fileEntry.getName() + "/", null ) );
-				dynaTreeChild.get( dynaTreeIndex ).setChildren( convertDirectoryToDynaTree( fileEntry, filePath + fileEntry.getName() + "/" ) );
-
-			} else
-			{
-				dynaTreeChild.add( new DynaTree( fileEntry.getName(), null, false, filePath + fileEntry.getName(), null ) );
-			}
-			dynaTreeIndex++;
-		}
-		return dynaTreeChild;
-	}
 }
