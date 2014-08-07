@@ -5,6 +5,8 @@ import helper.FileHelper;
 import helper.FileMeta;
 
 import java.io.File;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import RDFValidation.Spin;
@@ -28,6 +32,12 @@ import RDFValidation.ValidationEnvironment;
 public class OWL2Controller
 {
 	final String nonLiteralValueConstraintsPath = "/resources/rdfGraphs/DSP/Non-LiteralValueConstraints";
+	final String dspFileUploadPath = "/resources/uploaded_files/";
+
+	/* variable for multiple file upload */
+	LinkedList<FileMeta> files = new LinkedList<FileMeta>();
+
+	FileMeta fileMeta = null;
 
 	// tab 0
 	@RequestMapping( method = RequestMethod.GET )
@@ -65,7 +75,7 @@ public class OWL2Controller
 
 	@RequestMapping( value = "/file_details", method = RequestMethod.POST )
 	public @ResponseBody
-	FileMeta getFIleDetails( @RequestParam( "filePath" ) String filePath, HttpServletRequest request, HttpServletResponse response )
+	FileMeta getFileDetails( @RequestParam( "filePath" ) String filePath, HttpServletRequest request, HttpServletResponse response )
 	{
 		// get full path
 		String fullPath = request.getSession().getServletContext().getRealPath( nonLiteralValueConstraintsPath );
@@ -73,6 +83,45 @@ public class OWL2Controller
 		// return FileHelper.getFileDetails( request, absolutePath,
 		// dspResourcePath + filePath );
 		return FileHelper.getFileDetails( request, fullPath, filePath );
+	}
+
+	/**
+	 * Upload document via jquery ajax file upload
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping( value = "/upload", method = RequestMethod.POST )
+	public @ResponseBody
+	LinkedList<FileMeta> multiUpload( MultipartHttpServletRequest request, HttpServletResponse response )
+	{
+		// get full path
+		String fullPath = request.getSession().getServletContext().getRealPath( "/" );
+
+		// build an iterator
+		Iterator<String> itr = request.getFileNames();
+		MultipartFile mpf = null;
+
+		// get each file
+		while (itr.hasNext())
+		{
+			// get next MultipartFile
+			mpf = request.getFile( itr.next() );
+			// upload file and get the file back
+			fileMeta = FileHelper.uploadFile( request, mpf, fullPath, dspFileUploadPath );
+
+			// add to linkedList
+			files.add( fileMeta );
+		}
+		return files;
+	}
+
+	@RequestMapping( value = "/getuploaded", method = RequestMethod.GET )
+	public @ResponseBody
+	LinkedList<FileMeta> getUploaded()
+	{
+		return files;
 	}
 
 	@RequestMapping( value = "/tab1", method = RequestMethod.POST )
@@ -84,6 +133,7 @@ public class OWL2Controller
 		return model;
 	}
 
+	/* multiple upload files */
 	@RequestMapping( value = "/tab2", method = RequestMethod.POST )
 	public ModelAndView constraints( @RequestParam( "constraints" ) String constraints, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
