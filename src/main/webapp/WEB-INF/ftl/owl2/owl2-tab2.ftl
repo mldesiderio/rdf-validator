@@ -74,7 +74,7 @@
 		$jQ.each( data , function (index, file) {
 	 
             $jQ("#accordion_result_area")
-            .append( $jQ('<h3/>').text( "- " + file.fileName).css('cursor', 'pointer').on("click", function(){ $jQ( this ).next().slideToggle() }) )
+            .append( $jQ('<h3/>').text( "" + file.fileName).css('cursor', 'pointer').on("click", function(){ $jQ( this ).next().slideToggle() }) )
             .append(  $jQ('<div/>').append($jQ('<textarea/>').val(file.fileContent)).css('display', 'none') );
         }); 
 	}

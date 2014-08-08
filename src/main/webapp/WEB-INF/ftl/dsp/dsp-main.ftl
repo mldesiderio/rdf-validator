@@ -13,7 +13,7 @@
 					
 					<!-- tab contents -->
 					<div id="study_tab" style="float:left;background:#ededed">
-						<input type="button" name="studyGroupButton" value="1 Graph" data-url="onegraph" class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton MISSY_altButton_active">
+						<input type="button" name="studyGroupButton" value="upload" data-url="onegraph" class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton MISSY_altButton_active">
 						<input type="button" name="studyGroupButton" value="N Graphs" data-url="ngraph"class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton">
 						<input type="button" name="studyGroupButton" value="Example Graph" data-url="exmpgraph"class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton">
 					</div>

@@ -5,7 +5,9 @@ import helper.FileHelper;
 import helper.FileMeta;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import RDFValidation.FileInputGraph;
 import RDFValidation.Spin;
 import RDFValidation.ValidationEnvironment;
 
@@ -30,7 +33,10 @@ import RDFValidation.ValidationEnvironment;
 @RequestMapping( value = "/dsp" )
 public class DSPController
 {
-	/* variables for files */
+	/* multiple file upload */
+	LinkedList<FileMeta> files = new LinkedList<FileMeta>();
+	
+	/* file */
 	FileMeta fileMeta = null;
 
 	/* resource dsp path */
@@ -71,23 +77,37 @@ public class DSPController
 	/* DSP N graph First Tab Submit */
 	@RequestMapping( value = "/onegraph/tab1", method = RequestMethod.POST )
 	public ModelAndView pneGraphValidation( /* tab2 get content via ajax */
-	@RequestParam( "rdfGraph" ) String rdfGraph )
+//	@RequestParam( "rdfGraph" ) String rdfGraph
+	)
 	{
 		ModelAndView model = new ModelAndView( "dsp-one-tab2", "link", "dsp" );
-
-		// escape < and >
-		String rdfGraphInput = rdfGraph.replace( "<", "&lt;" ).replace( ">", "&gt;" );
-
-		model.addObject( "rdfGraph", rdfGraphInput );
-
+		
+		// populate input graph
+		String rdfGraph = "";
+		for ( FileMeta file : files )
+		{
+			// add file content
+			rdfGraph += file.getFileContent();
+			rdfGraph += "\r\n";
+		}
+		
 		Spin spin = new Spin( "DSP_SPIN-Mapping.ttl" );
 		spin.runInferences_checkConstraints( rdfGraph );
 
 		model.addObject( "dspValidationResult", spin.validationResults );
 		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
 
-		// debugging
-		// model.addObject( "debugging", spin.debugging );
+		// input graph
+		List<FileInputGraph> fileInputGraphList = new ArrayList<FileInputGraph>(files.size());
+		FileInputGraph fileInputGraph = null;
+		for ( FileMeta file : files )
+		{
+			fileInputGraph = new FileInputGraph();
+			fileInputGraph.setFilename( file.getFileName() );
+			fileInputGraph.setInputGraph( file.getFileContent().replace( "<", "&lt;" ).replace( ">", "&gt;" ) ); // escape < and >
+			fileInputGraphList.add( fileInputGraph );
+		}
+		model.addObject( "fileInputGraphList", fileInputGraphList );
 
 		return model;
 	}
@@ -269,6 +289,45 @@ public class DSPController
 		}
 		return fileMeta;
 	}
+	
+	/**
+	 * Upload document via jquery ajax file upload
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping( value = "/multiple-file-upload", method = RequestMethod.POST )
+	public @ResponseBody
+	LinkedList<FileMeta> multiUpload( MultipartHttpServletRequest request, HttpServletResponse response )
+	{
+		// get full path
+		String fullPath = request.getSession().getServletContext().getRealPath( "/" );
+
+		// build an iterator
+		Iterator<String> itr = request.getFileNames();
+		MultipartFile mpf = null;
+
+		// get each file
+		while (itr.hasNext())
+		{
+			// get next MultipartFile
+			mpf = request.getFile( itr.next() );
+			// upload file and get the file back
+			fileMeta = FileHelper.uploadFile( request, mpf, fullPath, dspFileUploadPath );
+
+			// add to linkedList
+			files.add( fileMeta );
+		}
+		return files;
+	}
+	
+	@RequestMapping( value = "/getuploaded", method = RequestMethod.GET )
+	public @ResponseBody
+	LinkedList<FileMeta> getUploaded()
+	{
+		return files;
+	}
 
 	/**
 	 * get detail of document from specific folder
@@ -303,14 +362,14 @@ public class DSPController
 		DynaTree dynaTree = new DynaTree( "root", null, true, "/", null );
 		// get full path
 		String fullPath = request.getSession().getServletContext().getRealPath( dspResourcePath );
-		System.out.println( fullPath );
+//		System.out.println( fullPath );
 
 		// System.out.println(this.getClass().getClassLoader().getResource(
 		// "rdfGraphs" ).getPath());
 
-		String absolutePath = this.getClass().getClassLoader().getResource( "/rel.txt" ).getPath();
-		absolutePath = absolutePath.substring( 1, absolutePath.length() - 8 );
-		System.out.println( absolutePath );
+//		String absolutePath = this.getClass().getClassLoader().getResource( "/rel.txt" ).getPath();
+//		absolutePath = absolutePath.substring( 1, absolutePath.length() - 8 );
+//		System.out.println( absolutePath );
 
 		// System.out.println(absolutePath.lastIndexOf( "resources" ));
 
@@ -319,7 +378,7 @@ public class DSPController
 		// absolutePath.lastIndexOf( "resources" ), absolutePath.length() );
 
 		// replace %20 in absolute path of web app
-		absolutePath = absolutePath.replace( "%20", " " );
+//		absolutePath = absolutePath.replace( "%20", " " );
 
 		// dynaTree.addChild( new DynaTree( absolutePath, null, true, "/", null
 		// ) );

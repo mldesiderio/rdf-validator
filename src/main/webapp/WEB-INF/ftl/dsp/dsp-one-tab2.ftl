@@ -56,15 +56,37 @@
 	
 	<fieldset>
 		
-		<h3>Input RDF Graph</h3> 
+		<h3>Input RDF Graphs</h3> 
 		<br/>
 		
+		<!--
 		<pre><#if rdfGraph??>${rdfGraph}<#else>-</#if></pre>
+		-->
+		
+		<#if fileInputGraphList??>
+			
+			<#list fileInputGraphList as fileInputGraph>
+				<table>
+					<th>file</th>
+				    <tr>
+				        <td><pre><#if fileInputGraph.filename??>${fileInputGraph.filename}<#else></#if></pre></td>
+				    </tr>
+				</table>
+				<table>
+					<th>input graph</th>
+				    <tr>
+				        <td><pre><#if fileInputGraph.inputGraph??>${fileInputGraph.inputGraph}<#else></#if></pre></td>
+				    </tr>
+				</table>
+				<br/>
+				<hr/>
+				<br/>
+			</#list> 
+		  
+		<#else>
+		</#if>
 
 	</fieldset>
-	
-	<br />
-	<hr />
 	
 	<fieldset>
 		<input 

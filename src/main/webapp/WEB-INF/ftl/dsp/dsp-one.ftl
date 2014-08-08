@@ -1,8 +1,8 @@
-<h1>Description Set Profiles (DSP) - 1 Graph</h1>
+<h1>Multiple File Upload</h1>
 <!-- the tabs -->
 <div id="updateSpssTabContainer" class="tabContainer">
 <ul style="height: 40px;">	
-	<li><a class="tabElement" href="#dsp-tab1" style="text-decoration:none;padding: 10px 15px;"><span>1.</span> Namespace Declarations</a></li>
+	<li><a class="tabElement" href="#dsp-tab1" style="text-decoration:none;padding: 10px 15px;"><span>1.</span> Constraints and Data</a></li>
 	<li><a class="tabElement" href="#dsp-tab2" style="text-decoration:none;padding: 10px 15px;"><span>2.</span> Validation Results</a></li>
 </ul>
 
