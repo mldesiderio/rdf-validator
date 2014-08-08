@@ -120,7 +120,8 @@ public class DSPController
 	/* DSP N graph Initial content */
 	@RequestMapping( value = "/ngraph", method = RequestMethod.GET )
 	public ModelAndView nGraphInitial( /* tab2 get content via ajax */
-	@RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
+		@RequestParam( value = "sessionid", required = false ) final String sessionId, 
+		final HttpServletResponse response )
 	{
 		ModelAndView model = new ModelAndView( "dsp", "link", "dsp" );
 
@@ -133,7 +134,8 @@ public class DSPController
 	/* DSP N graph First Tab Submit */
 	@RequestMapping( value = "/ngraph/tab1", method = RequestMethod.POST )
 	public ModelAndView namespaceDeclarations( /* tab2 get content via ajax */
-	@RequestParam( "namespaceDeclarations" ) String namespaceDeclarations, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+		@RequestParam( "namespaceDeclarations" ) String namespaceDeclarations, 
+		@ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
 		ModelAndView model = new ModelAndView( "dsp-tab2", "link", "dsp" );
 
@@ -142,7 +144,9 @@ public class DSPController
 
 	/* DSP N graph Second Tab Submit */
 	@RequestMapping( value = "/ngraph/tab2", method = RequestMethod.POST )
-	public ModelAndView constraints( @RequestParam( "constraints" ) String constraints, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	public ModelAndView constraints( 
+		@RequestParam( "constraints" ) String constraints, 
+		@ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
 		ModelAndView model = new ModelAndView( "dsp-tab3", "link", "dsp" );
 
@@ -151,7 +155,9 @@ public class DSPController
 
 	/* DSP N graph Third Tab Submit */
 	@RequestMapping( value = "/ngraph/tab3", method = RequestMethod.POST )
-	public ModelAndView data( @RequestParam( "data" ) String data, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	public ModelAndView data( 
+		@RequestParam( "data" ) String data, 
+		@ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
 		ModelAndView model = new ModelAndView( "dsp-tab4", "link", "dsp" );
 
@@ -160,7 +166,9 @@ public class DSPController
 
 	/* DSP N graph Fourth Tab Submit */
 	@RequestMapping( value = "/ngraph/tab4", method = RequestMethod.POST )
-	public ModelAndView inferenceRules( @RequestParam( "inferenceRules" ) String inferenceRules, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	public ModelAndView inferenceRules( 
+		@RequestParam( "inferenceRules" ) String inferenceRules, 
+		@ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
 		ModelAndView model = new ModelAndView( "dsp-tab5", "link", "spss" );
 
@@ -406,4 +414,77 @@ public class DSPController
 		return dynaTree.getChildren();
 	}
 
+	/**
+	 * DSP demo
+	 */
+	@RequestMapping( value = "/demo", method = RequestMethod.GET )
+	public ModelAndView demo(
+		@RequestParam( value = "sessionid", required = false ) 
+		final String sessionId, 
+		final HttpServletResponse response )
+	{
+		ModelAndView model = new ModelAndView( "dsp-demo", "link", "dsp" );
+
+		if ( sessionId != null && sessionId.equals( "0" ) )
+			response.setHeader( "SESSION_INVALID", "yes" );
+
+		return model;
+	}
+	
+	@RequestMapping( value = "/demo/tab1", method = RequestMethod.POST )
+	public ModelAndView demo_tab1( 
+		@RequestParam( "namespaceDeclarations" ) String namespaceDeclarations, 
+		@ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	{
+		ModelAndView model = new ModelAndView( "dsp-demo-tab2", "link", "dsp" );
+
+		return model;
+	}
+	
+	@RequestMapping( value = "/demo/tab2", method = RequestMethod.POST )
+	public ModelAndView demo_tab2( 
+		@RequestParam( "constraints" ) String constraints, 
+		@ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	{
+		ModelAndView model = new ModelAndView( "dsp-demo-tab3", "link", "dsp" );
+
+		return model;
+	}
+	
+	@RequestMapping( value = "/demo/tab3", method = RequestMethod.POST )
+	public ModelAndView demo_tab3( 
+		@RequestParam( "data" ) String data, 
+		@ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	{
+		ModelAndView model = new ModelAndView( "dsp-demo-tab4", "link", "dsp" );
+		
+//		// escape < and >
+//		String nd = validationEnvironment.getNamespaceDeclarations().replace( "<", "&lt;" ).replace( ">", "&gt;" );
+//		String c = validationEnvironment.getConstraints().replace( "<", "&lt;" ).replace( ">", "&gt;" );
+//		String d = validationEnvironment.getData().replace( "<", "&lt;" ).replace( ">", "&gt;" );
+//		String ir = validationEnvironment.getInferenceRules().replace( "<", "&lt;" ).replace( ">", "&gt;" );
+//
+//		model.addObject( "namespaceDeclarations", nd );
+//		model.addObject( "constraints", c );
+//		model.addObject( "data", d );
+//		model.addObject( "inferenceRules", ir );
+//
+//		// add line separators at the end of each input graph
+//		String ND = new StringBuilder( validationEnvironment.getNamespaceDeclarations() ).append( "\r\n" ).toString();
+//		String C = new StringBuilder( validationEnvironment.getConstraints() ).append( "\r\n" ).toString();
+//		String D = new StringBuilder( validationEnvironment.getData() ).append( "\r\n" ).toString();
+//		String IR = new StringBuilder( validationEnvironment.getInferenceRules() ).append( "\r\n" ).toString();
+//
+//		// input graph
+//		String rdfGraph = new StringBuilder( ND ).append( C ).append( D ).append( IR ).toString();
+//
+//		Spin spin = new Spin( "DSP_SPIN-Mapping.ttl" );
+//		spin.runInferences_checkConstraints( rdfGraph );
+//
+//		model.addObject( "dspValidationResult", spin.validationResults );
+//		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
+
+		return model;
+	}
+	
 }

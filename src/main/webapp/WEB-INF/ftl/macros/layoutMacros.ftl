@@ -7,7 +7,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>RDF Validation</title>
+	<title>RDF Validator</title>
 	<#include "libsNstyles.ftl" />
 </head>
 
@@ -24,7 +24,7 @@
 			<div id="microsite" style="background-image: url(<@spring.url '/resources/images/missy_ms_ImpApp.png' />);">
 				<span id="micrositeClaim" style="color: #000">
 					<!--MSG: microsite.header-->
-					RDF Validation
+					RDF Validator
 				</span>
 			<!-- End of banner --> 
 			</div>
