@@ -2,26 +2,32 @@
 
 	<fieldset>
 	
+		<ul style="margin: 0;">
+	    	<li style="list-style-type: disc;">please select an example file</li>
+	    	<li style="list-style-type: disc;">this example file contains namespace declarations, constraints, and data</li>
+	    </ul>
+	    
+	    <hr/>
+	
 	  	<input type="checkbox" name="ad-hoc_module" onchange="unfoldToggle(this);" style="width:14px;margin:0px;"/> Unfold All
 		<div id="tree" class="tree-container" style="width:100%">
 			<img src="<@spring.url '/resources/images/loading.gif' />" /> loading...
 		</div>
 	  	
 		<#-- form onsite help -->
-		<a href="#" class="MISSY_onsiteHelp">
+		<a href="#" class="MISSY_onsiteHelp" style="margin-top:0px;vertical-align:top;">
 			<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
-			<span>
+			<span style="width:350px;">
 				<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
-				<h4 class="MISSY_onsiteHelp">Select File</h4>
+				<h4 class="MISSY_onsiteHelp">Select Example File</h4>
 				<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
-				Constraints
+			    <ul style="margin: 0;">
+			    	<li style="list-style-type: disc;">you may adjust the height and the width of the textarea by dragging the small arrow at the right end of the textarea</li>
+			    </ul>
 			</span>
 		</a>
 	  	
 	</fieldset>
-	
-	<br />
-	<hr />
 	
 	<fieldset>
 		<input 

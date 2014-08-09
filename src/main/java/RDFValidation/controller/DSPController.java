@@ -40,7 +40,7 @@ public class DSPController
 	FileMeta fileMeta = null;
 
 	/* resource dsp path */
-	final String dspResourcePath = "/resources/rdfGraphs/";
+	final String dspResourcePath = "/resources/rdfGraphs/DSP";
 	final String dspFileUploadPath = "/resources/uploaded_files/";
 
 	// DSP main
@@ -230,8 +230,10 @@ public class DSPController
 	{
 		ModelAndView model = new ModelAndView( "dsp-exmp-tab2", "link", "dsp" );
 
-		String absolutePath = this.getClass().getClassLoader().getResource( "rdfGraphs" ).getPath();
-		absolutePath = absolutePath.substring( 1, absolutePath.length() - 1 );
+//		String absolutePath = this.getClass().getClassLoader().getResource( "rdfGraphs" ).getPath();
+//		absolutePath = absolutePath.substring( 1, absolutePath.length() - 1 );
+		
+		String absolutePath = new StringBuilder( request.getSession().getServletContext().getRealPath( dspResourcePath ) ).append( "/" ).append( filePath ).toString();
 
 		// System.out.println("absolutePath: " + absolutePath);
 		// System.out.println("dspResourcePath + filePath: " + dspResourcePath +
@@ -239,7 +241,7 @@ public class DSPController
 
 		// FileMeta fileMeta = FileHelper.getFileDetails( request, absolutePath,
 		// dspResourcePath + filePath );
-		FileMeta fileMeta = FileHelper.getFileDetails( request, absolutePath, filePath );
+		FileMeta fileMeta = FileHelper.getFileDetails( absolutePath );
 
 		model.addObject( "fileContent", fileMeta.getFileContent() );
 
@@ -348,12 +350,16 @@ public class DSPController
 	public @ResponseBody
 	FileMeta getFIleDetails( @RequestParam( "filePath" ) String filePath, HttpServletRequest request, HttpServletResponse response )
 	{
-		String absolutePath = this.getClass().getClassLoader().getResource( "rdfGraphs" ).getPath();
-		absolutePath = absolutePath.substring( 1, absolutePath.length() - 1 );
+//		String absolutePath = this.getClass().getClassLoader().getResource( dspResourcePath ).getPath();
+//		absolutePath = absolutePath.substring( 1, absolutePath.length() - 1 );
+//		absolutePath = absolutePath + "/" + filePath; 
+		
+		String absolutePath = request.getSession().getServletContext().getRealPath( dspResourcePath );
+		absolutePath = absolutePath + "/" + filePath; 
 
 		// return FileHelper.getFileDetails( request, absolutePath,
 		// dspResourcePath + filePath );
-		return FileHelper.getFileDetails( request, absolutePath, filePath );
+		return FileHelper.getFileDetails( absolutePath );
 	}
 
 	/**

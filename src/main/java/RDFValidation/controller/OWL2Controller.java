@@ -78,11 +78,12 @@ public class OWL2Controller
 	FileMeta getFileDetails( @RequestParam( "filePath" ) String filePath, HttpServletRequest request, HttpServletResponse response )
 	{
 		// get full path
-		String fullPath = request.getSession().getServletContext().getRealPath( nonLiteralValueConstraintsPath );
+		String absolutePath = request.getSession().getServletContext().getRealPath( nonLiteralValueConstraintsPath );
+		absolutePath = absolutePath + "/" + filePath; 
 
 		// return FileHelper.getFileDetails( request, absolutePath,
 		// dspResourcePath + filePath );
-		return FileHelper.getFileDetails( request, fullPath, filePath );
+		return FileHelper.getFileDetails( absolutePath );
 	}
 
 	/**

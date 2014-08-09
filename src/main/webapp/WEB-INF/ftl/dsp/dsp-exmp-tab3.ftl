@@ -59,7 +59,7 @@
 		<h3>Input RDF Graph</h3> 
 		<br/>
 		
-		<pre><#if rdfGraph??>${rdfGraph}<#else>-</#if></pre>
+		<pre><#if rdfGraph??>${rdfGraph}<#else></#if></pre>
 
 	</fieldset>
 	
