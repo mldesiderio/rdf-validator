@@ -60,7 +60,7 @@
 		<br/>
 		
 		<table>
-			<td>Namespace Declarations</td>
+			<th>Namespace Declarations</th>
 		    <tr>
 		        <td><pre><#if namespaceDeclarations??>${namespaceDeclarations}<#else></#if></pre></td>
 		    </tr>
