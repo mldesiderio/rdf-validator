@@ -1,7 +1,17 @@
 <form style="padding-left: 25px"  id="form-dsp-tab3" action="<@spring.url '/dsp/ngraph/tab3' />" class="MISSY_round_right">
 
-	
 	<fieldset>
+
+		<ul style="margin: 0;">
+	    	<li style="list-style-type: disc;">please enter your data</li>
+	    	<li style="list-style-type: disc;">please use W3C RDF turtle syntax</li>
+	    </ul>
+	    
+	    <hr/>
+	    
+		<ul style="margin: 0;">
+	    	<li style="list-style-type: disc;">you may upload a file containing data</li>
+	    </ul>
 	
 		<table>
 	        <tr style="background:transparent">
@@ -15,23 +25,26 @@
 				</td>
 	        </tr>
 	    </table>
+	    
+	    <hr/>
 	
-	  	<textarea name="data" id="data" cols="50" rows="20"></textarea>	 
+	  	<textarea name="data" id="data" cols="50" rows="20" style="height:250px"></textarea>	 
 	  	
 		<#-- form onsite help -->
-		<a href="#" class="MISSY_onsiteHelp" style="margin-top:-20px">
+		<a href="#" class="MISSY_onsiteHelp" style="margin-top:0px;vertical-align:top;">
 			<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
-			<span>
+			<span style="width:350px;">
 				<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
-				<h4 class="MISSY_onsiteHelp">Data</h4>
+				<h4 class="MISSY_onsiteHelp">Constraints</h4>
 				<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
-				Data
+			    <ul style="margin: 0;">
+			    	<li style="list-style-type: disc;">you may adjust the height and the width of the textarea by dragging the small arrow at the right end of the textarea</li>
+			    </ul>
 			</span>
 		</a>
 	 
 	</fieldset>
 	
-	<br />
 	<hr />
 	
 	<fieldset>

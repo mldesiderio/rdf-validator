@@ -1,4 +1,4 @@
-<h1>Description Set Profiles (DSP) - N Graphs</h1>
+<h1>Detailed</h1>
 <!-- the tabs -->
 <div id="updateSpssTabContainer" class="tabContainer">
 	<ul style="height: 40px;">	

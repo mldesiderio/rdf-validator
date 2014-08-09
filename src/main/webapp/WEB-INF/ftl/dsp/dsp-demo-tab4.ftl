@@ -56,13 +56,13 @@
 	
 	<fieldset>
 		
-		<h3>Validation Input Parameter</h3> 
+		<h3>Input RDF Graphs</h3> 
 		<br/>
 		
 		<table>
 			<th>Namespace Declarations</th>
 		    <tr>
-		        <td><pre><#if namespaceDeclarations??>${namespaceDeclarations}<#else>-</#if></pre></td>
+		        <td><pre><#if namespaceDeclarations??>${namespaceDeclarations}<#else></#if></pre></td>
 		    </tr>
 		</table>  
 		
@@ -71,7 +71,7 @@
 		<table>
 			<th>Constraints</th>
 		    <tr>
-		        <td><pre><#if constraints??>${constraints}<#else>-</#if></pre></td>
+		        <td><pre><#if constraints??>${constraints}<#else></#if></pre></td>
 		    </tr>
 		</table>  
 		
@@ -80,7 +80,7 @@
 		<table>
 			<th>Data</th>
 		    <tr>
-		        <td><pre><#if data??>${data}<#else>-</#if></pre></td>
+		        <td><pre><#if data??>${data}<#else></#if></pre></td>
 		    </tr>
 		</table>  
 		
@@ -89,7 +89,7 @@
 		<table>
 			<th>Inference Rules</th>
 		    <tr>
-		        <td><pre><#if inferenceRules??>${inferenceRules}<#else>-</#if></pre></td>
+		        <td><pre><#if inferenceRules??>${inferenceRules}<#else></#if></pre></td>
 		    </tr>
 		</table>
 		

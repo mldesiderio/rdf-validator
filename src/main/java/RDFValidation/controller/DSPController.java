@@ -41,7 +41,7 @@ public class DSPController
 
 	/* resource dsp path */
 	final String dspResourcePath = "/resources/rdfGraphs/DSP";
-	final String dspFileUploadPath = "/resources/uploaded_files/";
+	final String fileUploadPath = "/resources/uploaded_files/";
 
 	// DSP main
 	@RequestMapping( method = RequestMethod.GET )
@@ -282,8 +282,10 @@ public class DSPController
 	FileMeta upload( MultipartHttpServletRequest request, HttpServletResponse response )
 	{
 		// absolute path
-		String absolutePath = this.getClass().getClassLoader().getResource( "rdfGraphs" ).getPath();
-		absolutePath = absolutePath.substring( 1, absolutePath.length() - 1 );
+//		String absolutePath = this.getClass().getClassLoader().getResource( "rdfGraphs" ).getPath();
+//		absolutePath = absolutePath.substring( 1, absolutePath.length() - 1 );
+//		String absolutePath = request.getSession().getServletContext().getRealPath( dspResourcePath );
+		String absolutePath = request.getSession().getServletContext().getRealPath( fileUploadPath );
 
 		// build an iterator
 		Iterator<String> itr = request.getFileNames();
@@ -295,7 +297,7 @@ public class DSPController
 			// get next MultipartFile
 			mpf = request.getFile( itr.next() );
 			// upload file and get the file back
-			fileMeta = FileHelper.uploadFile( request, mpf, absolutePath, dspFileUploadPath );
+			fileMeta = FileHelper.uploadFile( request, mpf, absolutePath, fileUploadPath );
 		}
 		return fileMeta;
 	}
@@ -324,7 +326,7 @@ public class DSPController
 			// get next MultipartFile
 			mpf = request.getFile( itr.next() );
 			// upload file and get the file back
-			fileMeta = FileHelper.uploadFile( request, mpf, fullPath, dspFileUploadPath );
+			fileMeta = FileHelper.uploadFile( request, mpf, fullPath, fileUploadPath );
 
 			// add to linkedList
 			files.add( fileMeta );
@@ -464,31 +466,28 @@ public class DSPController
 	{
 		ModelAndView model = new ModelAndView( "dsp-demo-tab4", "link", "dsp" );
 		
-//		// escape < and >
-//		String nd = validationEnvironment.getNamespaceDeclarations().replace( "<", "&lt;" ).replace( ">", "&gt;" );
-//		String c = validationEnvironment.getConstraints().replace( "<", "&lt;" ).replace( ">", "&gt;" );
-//		String d = validationEnvironment.getData().replace( "<", "&lt;" ).replace( ">", "&gt;" );
-//		String ir = validationEnvironment.getInferenceRules().replace( "<", "&lt;" ).replace( ">", "&gt;" );
-//
-//		model.addObject( "namespaceDeclarations", nd );
-//		model.addObject( "constraints", c );
-//		model.addObject( "data", d );
-//		model.addObject( "inferenceRules", ir );
-//
-//		// add line separators at the end of each input graph
-//		String ND = new StringBuilder( validationEnvironment.getNamespaceDeclarations() ).append( "\r\n" ).toString();
-//		String C = new StringBuilder( validationEnvironment.getConstraints() ).append( "\r\n" ).toString();
-//		String D = new StringBuilder( validationEnvironment.getData() ).append( "\r\n" ).toString();
-//		String IR = new StringBuilder( validationEnvironment.getInferenceRules() ).append( "\r\n" ).toString();
-//
-//		// input graph
-//		String rdfGraph = new StringBuilder( ND ).append( C ).append( D ).append( IR ).toString();
-//
-//		Spin spin = new Spin( "DSP_SPIN-Mapping.ttl" );
-//		spin.runInferences_checkConstraints( rdfGraph );
-//
-//		model.addObject( "dspValidationResult", spin.validationResults );
-//		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
+		// escape < and >
+		String nd = validationEnvironment.getNamespaceDeclarations().replace( "<", "&lt;" ).replace( ">", "&gt;" );
+		String c = validationEnvironment.getConstraints().replace( "<", "&lt;" ).replace( ">", "&gt;" );
+		String d = validationEnvironment.getData().replace( "<", "&lt;" ).replace( ">", "&gt;" );
+
+		model.addObject( "namespaceDeclarations", nd );
+		model.addObject( "constraints", c );
+		model.addObject( "data", d );
+
+		// add line separators at the end of each input graph
+		String ND = new StringBuilder( validationEnvironment.getNamespaceDeclarations() ).append( "\r\n" ).toString();
+		String C = new StringBuilder( validationEnvironment.getConstraints() ).append( "\r\n" ).toString();
+		String D = new StringBuilder( validationEnvironment.getData() ).append( "\r\n" ).toString();
+
+		// input graph
+		String rdfGraph = new StringBuilder( ND ).append( C ).append( D ).toString();
+
+		Spin spin = new Spin( "DSP_SPIN-Mapping.ttl" );
+		spin.runInferences_checkConstraints( rdfGraph );
+
+		model.addObject( "dspValidationResult", spin.validationResults );
+		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
 
 		return model;
 	}

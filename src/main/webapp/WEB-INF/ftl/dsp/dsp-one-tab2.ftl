@@ -60,21 +60,21 @@
 		<br/>
 		
 		<!--
-		<pre><#if rdfGraph??>${rdfGraph}<#else>-</#if></pre>
+		<pre><#if rdfGraph??>${rdfGraph}<#else></#if></pre>
 		-->
 		
 		<#if fileInputGraphList??>
 			
 			<#list fileInputGraphList as fileInputGraph>
-				<table>
-					<th>file</th>
+				<table class="datatable">
 				    <tr>
-				        <td><pre><#if fileInputGraph.filename??>${fileInputGraph.filename}<#else></#if></pre></td>
+				    	<td>file</td>
+				        <td><#if fileInputGraph.filename??>${fileInputGraph.filename}<#else></#if></td>
 				    </tr>
 				</table>
-				<table>
-					<th>input graph</th>
+				<table class="datatable">
 				    <tr>
+				    	<td>input graph</td>
 				        <td><pre><#if fileInputGraph.inputGraph??>${fileInputGraph.inputGraph}<#else></#if></pre></td>
 				    </tr>
 				</table>

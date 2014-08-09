@@ -39,7 +39,8 @@ public class FileHelper
 
 			// FileCopyUtils.copy( mpf.getBytes(), new FileOutputStream(
 			// fullPath + "/" + mpf.getOriginalFilename() ) );
-			FileCopyUtils.copy( mpf.getBytes(), new FileOutputStream( absolutePath + "/" + relativePath + "/" + mpf.getOriginalFilename() ) );
+			
+//			FileCopyUtils.copy( mpf.getBytes(), new FileOutputStream( absolutePath + "/" + relativePath + "/" + mpf.getOriginalFilename() ) );
 
 		} catch (IOException e)
 		{

@@ -18,11 +18,13 @@
 	    -->
 	    
 	    <ul style="margin: 0;">
-	    	<li style="list-style-type: disc;">please select (multiple) files containing constraints and data</li>
+	    	<li style="list-style-type: disc;">please select a file / multiple files containing constraints and data</li>
 	    	<li style="list-style-type: disc;">files must contain: constraints, data</li>
 	    	<li style="list-style-type: disc;">files may contain: namespace declarations, inference rules</li>
 	    	<li style="list-style-type: disc;">files must be written using W3C RDF turtle syntax</li>
 	    </ul>
+	    
+		<hr />
 	    
 		<table>
 	        <tr style="background:transparent">
@@ -32,15 +34,17 @@
 				</td>
 				<td>
 				    <#-- form onsite help -->
-					<a href="#" class="MISSY_onsiteHelp" style="margin-top:6px">
+					<a href="#" class="MISSY_onsiteHelp" style="margin-top:6px;vertical-align:top;">
 						<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
-						<span>
+						<span style="width:310px;">
 							<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
 							<h4 class="MISSY_onsiteHelp">Multiple File Upload</h4>
 							<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
 						    <ul style="margin: 0;">
-						    	<li style="list-style-type: disc;">predefined namespace declarations: ...</li>
+						    	<li style="list-style-type: disc;">predefined namespace declarations: xsd, rdf, rdfs, owl, foaf, dcterms, skos, dcam, dsp, : (default namespace)</li>
 						    	<li style="list-style-type: disc;">please view the file contents by clicking on the file name below the browse button</li>
+						    	<li style="list-style-type: disc;">hide file contents by clicking on the file name</li>
+			    				<li style="list-style-type: disc;">you may adjust the height and the width of the textarea by dragging the small arrow at the right end of the textarea</li>
 						    </ul>
 						</span>
 					</a>
@@ -52,6 +56,8 @@
 				</td>
 	        </tr>
 	    </table>
+	    
+	    <hr />
 	
 	  	<div id="accordion_result_area">
 	  		
@@ -62,16 +68,13 @@
 	  	-->
 	  	
 	</fieldset>
-	  
-	<br />
-	<hr />
 	
 	<fieldset>
 		<input 
 		  type="button" 
 		  name="button_dsp-tab1" 
 		  id="button_dsp-tab1" 
-		  value="Next: Constraints" 
+		  value="Next: Validate" 
 		  class="buttonSubmit MISSY_loginSubmit" 
 		  style="float: right; margin-top: 10px">
 	</fieldset>
@@ -131,8 +134,8 @@
 		$jQ.each( data , function (index, file) {
 	 
             $jQ("#accordion_result_area")
-            .append( $jQ('<h3/>').text( "" + file.fileName).css('cursor', 'pointer').on("click", function(){ $jQ( this ).next().slideToggle() }) )
-            .append(  $jQ('<div/>').append($jQ('<textarea/>').val(file.fileContent)).css('display', 'none') );
+            .append( $jQ('<h5/>').text( "" + file.fileName).css('cursor', 'pointer').on("click", function(){ $jQ( this ).next().slideToggle() }) )
+            .append(  $jQ('<div/>').append($jQ('<textarea/><hr/>').val(file.fileContent)).css('display', 'none') );
         }); 
 	}
     
