@@ -870,3 +870,62 @@ function validateForm( $formElement ){
 	
 	return isValid;
 }
+
+function createRdfOwlView( $containerSelector , rdfOwlSyntax ){
+	var $container = null;
+	if ($containerSelector instanceof jQuery)
+		$container = $containerSelector;
+	else
+		$container = $jQ( $containerSelector );
+		
+	$jQ( $container )
+    .html( 
+    		$jQ('<div/>')
+    		.append(
+    				$jQ('<input/>').attr({ type: 'button' , value: 'Edit' })
+    				.addClass( 'buttonSubmit MISSY_loginSubmit' )
+    				.on ( 'click', function () {
+    					$jQ( this ).parent().find( "textarea.edit-syntax" ).show();
+    					$jQ( this ).parent().find( "div.highlight-syntax" ).hide();
+    				})
+    				)
+			.append(
+    				$jQ('<input/>').attr({ type: 'button' , value: 'Preview' })
+    				.addClass( 'buttonSubmit MISSY_loginSubmit' )
+    				.on ( 'click', function () {
+    					hightlightRdfOwl( $jQ( this ).parent().find( "div.highlight-syntax" ), $jQ( this ).parent().find( "textarea.edit-syntax" ).val() );
+    					$jQ( this ).parent().find( "textarea.edit-syntax" ).hide();
+    					$jQ( this ).parent().find( "div.highlight-syntax" ).show();
+    				})
+    				)
+    		.append(
+    				$jQ('<textarea/>').addClass( 'edit-syntax' ).val( rdfOwlSyntax )
+    				.css({'width': '100%', 'height' : "360px", 'resize' : ' none'})
+    				)
+    		.append(
+    				$jQ('<div/>').addClass('highlight-syntax')
+    				.css({'width': '100%', 'height' : "360px", 'display':'none', 'background-color': '#fefefe','overflow':'auto'})
+    				)
+    		.css({'width': '100%', 'height' : "450px"})
+    		.resizable({
+    			  resize: function( event, ui ) {
+    				  $jQ( this ).find( "textarea.edit-syntax,div.highlight-syntax" )
+    				  .css({ 'width' : (ui.element.width() ) + 'px' , 'height' : (ui.element.height() - 100) + 'px' });
+    			  }
+    		})
+	);
+}
+
+/* This function only works iff there is an internet connection */
+function hightlightRdfOwl( $elem, rdfOwlSyntax ){
+	var jsonpUrl = "http://n3edit.eu01.aws.af.cm/ajax-highlight.php?callback=?";
+	$jQ.getJSON( jsonpUrl, {
+	    input: rdfOwlSyntax,
+	    format: "jsonp"
+	  })
+	  .done(function( data ) {
+		  $elem.html( data.html );
+	  }).fail(function() {
+		  $elem.html( "<span style='color:#f00'>Error - no internet connection!</span>" );
+	  });
+}

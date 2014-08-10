@@ -126,7 +126,7 @@ public class OWL2Controller
 
 	@RequestMapping( value = "/tab1", method = RequestMethod.POST )
 	public ModelAndView namespaceDeclarations( /* tab2 get content via ajax */
-	@RequestParam( "namespaceDeclarations" ) String namespaceDeclarations, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	@RequestParam( value = "namespaceDeclarations", required = false ) String namespaceDeclarations, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
 		ModelAndView model = new ModelAndView( "owl2-tab2", "link", "owl2" );
 

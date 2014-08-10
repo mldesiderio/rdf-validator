@@ -72,12 +72,16 @@
 	function printUploadedFiles( data ){
 		$jQ("#accordion_result_area").html("");
 		$jQ.each( data , function (index, file) {
-	 
+	 		<#-- create the accordion & container -->
             $jQ("#accordion_result_area")
-            .append( $jQ('<h3/>').text( "- " + file.fileName).css('cursor', 'pointer').on("click", function(){ $jQ( this ).next().slideToggle() }) )
-            .append(  $jQ('<div/>').append($jQ('<textarea/>').val(file.fileContent)).css('display', 'none') );
+            .append( $jQ('<h3/>').text( "- " + file.fileName).attr({ id:'header' + index }).css('cursor', 'pointer').on("click", function(){ $jQ( this ).next().slideToggle() }) )
+            .append(  $jQ('<div/>').attr({ id :'content' + index }).css('display', 'none') );
+            <#-- create the content -->
+            createRdfOwlView( "#content" + index , file.fileContent );
         }); 
 	}
+	
+	//function removeUploadedFiles
 	
 	
 </script>

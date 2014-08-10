@@ -6,8 +6,6 @@
 		<select id="resource_files">
 			<option value="">Select One</option>
 		</select>
-	
-	  	<textarea id="namespaceDeclarations" name="namespaceDeclarations" cols="50" rows="20"></textarea>	
 	  
 		<#-- form onsite help -->
 		<a href="#" class="MISSY_onsiteHelp" style="margin-top:-20px">
@@ -19,12 +17,14 @@
 				Namespace Declarations
 			</span>
 		</a>
-	  	
+		
+		<div id="namespaceDeclarations" name="namespaceDeclarations" style="width:100%"></div>	
+		
 	</fieldset>
 	  
 	<br />
 	<hr />
-	
+		
 	<fieldset>
 		<input 
 		  type="button" 
@@ -44,6 +44,9 @@
 	    <#-- disable button next -->
 	    <#--$jQ('#button_dsp-exmp-tab1').attr("disabled",true).addClass("buttonSubmitDissabled");-->
 	    
+	    <#-- show empty textarea -->
+	    createRdfOwlView( "#namespaceDeclarations" , "" );
+	    
 	    <#-- add event onclick for select option -->
 	     $jQ('#resource_files').on( "click", function(){
 	     	if( $jQ( this ).val() != "" ){
@@ -53,7 +56,7 @@
 					data: { filePath : $jQ( this ).val() }
 				    })
 			    	.done( function( data ) {
-			    		$jQ( "#namespaceDeclarations" ).val( data.fileContent );
+			    		createRdfOwlView( "#namespaceDeclarations" , data.fileContent );
 					})
 			    	.fail( function() {})
 			    	.always( function() {
@@ -61,6 +64,12 @@
 			    	}); //end of ajax call
 	     	}
 	     });
+	     
+	     $jQ( "#highlight_butt" ).on( "click", function(){
+	     	hightlightRdfOwl( "#syntax_highlight", $jQ( "#namespaceDeclarations" ).val());
+	     } );
+	     
+	     
 	});
 	
 	function populateComboBox(){

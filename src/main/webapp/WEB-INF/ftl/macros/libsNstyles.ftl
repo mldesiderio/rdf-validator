@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="<@spring.url '/resources/styles/jquery-ui.css' />" />
 	<!-- css ( RDF-Validation ) -->
 	<link rel="stylesheet" href="<@spring.url '/resources/styles/RDFValidation.css' />" />
+	<link rel="stylesheet" href="<@spring.url '/resources/styles/n3.css' />" />
 	
 	<!-- external -->
 	<!-- simplifies javascript programming -->
