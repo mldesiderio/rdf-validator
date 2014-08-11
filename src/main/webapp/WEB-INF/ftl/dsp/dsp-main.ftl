@@ -35,7 +35,7 @@
 		<div id="MISSY_breadcrumb"></div>
 		<div id="col3_content" class="clearfix">
 			<div class="floatbox" id="main-content"> 
-				<#include "dsp-one.ftl" />
+				<#include "dsp-demo.ftl" />
 			</div>
  		</div>
 		<!-- IE clearing - important! -->
@@ -53,12 +53,6 @@
 		// global variable to indicate validation requirements
 		validateDatapoint = true;
 	
-		<#-- jQery tab for main content 'define study, define spss file, import -->
-		$jQ( "#updateSpssTabContainer" ).tabs({ 
-			active: 0,
-			disabled: [1,2,3,4]
-     	});
-     	
      	<#-- jQery tab for left navigation menu -->
 		$jQ( "#graphTabContainer" ).tabs({ active: 0 });
 		$jQ( "#graphTabContainer" ).css( "margin-top", "66px");
