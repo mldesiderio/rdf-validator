@@ -106,6 +106,28 @@ public class FileHelper
 	}
 
 	/**
+	 * Function for deleting file from local hard drive
+	 * 
+	 * @param fileAbsolutePath
+	 *            = absolutepath + file name
+	 */
+	public static void deleteFile( String fileAbsolutePath )
+	{
+
+	}
+
+	/**
+	 * Function for downloading file from local hard drive
+	 * 
+	 * @param fileAbsolutePath
+	 *            = absolutepath + file name
+	 */
+	public static void downloadFile( String fileAbsolutePath )
+	{
+
+	}
+
+	/**
 	 * Convert directory structure into dynatree JSON recursive = true ~ read
 	 * also the child folder
 	 * 

@@ -124,6 +124,27 @@ public class OWL2Controller
 		return files;
 	}
 
+	@RequestMapping( value = "/deleteFile", method = RequestMethod.POST )
+	public @ResponseBody
+	String deleteFile( @RequestParam( value = "fileRelativePath" ) String fileRelativePath )
+	{
+		// get file name
+		String fileName = null;
+		String[] splitRelativePath = fileRelativePath.split( "/" );
+		fileName = splitRelativePath[splitRelativePath.length - 1];
+
+		// removing files from the list
+		Iterator<FileMeta> iteratorStudy = files.iterator();
+		while (iteratorStudy.hasNext())
+			if ( iteratorStudy.next().getFileName().equalsIgnoreCase( fileName ) )
+				iteratorStudy.remove();
+
+		// remove file from the local drive.
+		FileHelper.deleteFile( dspFileUploadPath + fileRelativePath );
+
+		return "success";
+	}
+
 	@RequestMapping( value = "/tab1", method = RequestMethod.POST )
 	public ModelAndView namespaceDeclarations( /* tab2 get content via ajax */
 	@RequestParam( value = "namespaceDeclarations", required = false ) String namespaceDeclarations, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
