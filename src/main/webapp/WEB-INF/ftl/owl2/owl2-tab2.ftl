@@ -39,47 +39,11 @@
 <script>
 	$jQ(function() {
 		<#-- populate uploaded files -->
-    	getUploadedDocument();
+    	getUploadedDocument( "#accordion_result_area" , "<@spring.url '/owl2/getuploaded' />" );
     	
     	<#-- multiple file-upload -->
-    	$jQ('#fileupload').fileupload({
-	        dataType: 'json',
-	 
-	        done: function (e, data) {
- 				printUploadedFiles( data.result );
-	        },
-	 
-	        progressall: function (e, data) {
-	            var progress = parseInt(data.loaded / data.total * 100, 10);
-	            $jQ('#progress .bar').css('width', progress + '%').html( progress + '%');
-	        	$jQ('#progress').show();
-	            if( progress == 100 )
-	            	window.setTimeout( function(){$jQ('#progress').fadeOut( "slow" ); } , 3000);
-	        }
-	    });
+    	convertToAjaxMultipleFileUploa( $jQ( '#fileupload' ), $jQ( '#progress' ) , "#accordion_result_area" );
 	});
-	
-	function getUploadedDocument(){
-		$jQ.ajax({
-		  	url: "<@spring.url '/owl2/getuploaded' />",
-		  	dataType: 'json'
-		}).done(function( data ) {
-			if( data.length > 0 )
-		 		printUploadedFiles( data );
-		});
-	}
-	
-	function printUploadedFiles( data ){
-		$jQ("#accordion_result_area").html("");
-		$jQ.each( data , function (index, file) {
-	 		<#-- create the accordion & container -->
-            $jQ("#accordion_result_area")
-            .append( $jQ('<h3/>').text( "- " + file.fileName).attr({ id:'header' + index }).css('cursor', 'pointer').on("click", function(){ $jQ( this ).next().slideToggle() }) )
-            .append(  $jQ('<div/>').attr({ id :'content' + index }).css('display', 'none') );
-            <#-- create the content -->
-            createRdfOwlView( "#content" + index , file.fileContent );
-	}
-	
 	//function removeUploadedFiles
 	
 	

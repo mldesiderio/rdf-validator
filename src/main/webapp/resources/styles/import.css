@@ -834,71 +834,71 @@ div#main_content{
 /* this style is used for input elements that need to mimic gesis submit/reset button style   */
 /* buttonSubmit-dialog, is used in jQuery-UI dialog pop up   */
 .buttonSubmit:hover ,.buttonSubmit-dialog:hover{
-	text-shadow: none !important;
-	color: #FFF !important;
-	text-decoration: none !important;
-	background: #8C99a6 !important;
-	background: -moz-linear-gradient(top, #8C99a6 0%, #475c71 100%) !important;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8c99a6), color-stop(100%,#475c71)) !important;
-	filter: progid:DXImageTrans.Microsoft.gradient( startColorstr='#8C99a6', endColorstr='#475c71',GradientType=0 ) !important;
-	border-top-color: #666 !important;
-	border-right-color: #fff !important;
-	border-bottom-color: #fff !important;
-	border-left-color: #666 !important;
+	text-shadow: none;
+	color: #FFF;
+	text-decoration: none;
+	background: #8C99a6;
+	background: -moz-linear-gradient(top, #8C99a6 0%, #475c71 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8c99a6), color-stop(100%,#475c71));
+	filter: progid:DXImageTrans.Microsoft.gradient( startColorstr='#8C99a6', endColorstr='#475c71',GradientType=0 );
+	border-top-color: #666;
+	border-right-color: #fff;
+	border-bottom-color: #fff;
+	border-left-color: #666;
 }
 .buttonSubmit, .buttonSubmitDissabled, .buttonSubmit-dialog {
-	background: #ededed !important;
-	background: -moz-linear-gradient(top, #ededed 0%, #d9d9d9 100%) !important;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(100%,#d9d9d9)) !important;
-	filter: progid:DXImageTrans.Microsoft.gradient( startColorstr='#EDEDED', endColorstr='#D9D9D9',GradientType=0 ) !important;
-	border-bottom-color: #666 !important;
-	border-bottom-style: solid !important;
-	border-bottom-width: 1px !important;
-	border-left-color: #fff !important;
-	border-left-style: solid !important;
-	border-left-width: 1px !important;
-	border-right-color: #666 !important;
-	border-right-style: solid !important;
-	border-right-width: 1px !important;
-	border-top-color: #fff !important;
-	border-top-style: solid !important;
-	border-top-width: 1px !important;
+	background: #ededed;
+	background: -moz-linear-gradient(top, #ededed 0%, #d9d9d9 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(100%,#d9d9d9));
+	filter: progid:DXImageTrans.Microsoft.gradient( startColorstr='#EDEDED', endColorstr='#D9D9D9',GradientType=0 );
+	border-bottom-color: #666;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-left-color: #fff;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-right-color: #666;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-top-color: #fff;
+	border-top-style: solid;
+	border-top-width: 1px;
 	color: #333;
-	display: inline-block !important;
-	font-weight: bold !important;
-	height: auto !important;
-	text-align: center !important;
-	text-decoration: none !important;
-	text-shadow: 0px 1px 1px #fff !important;
-	width: auto !important;
-	border-radius: 0 !important;
+	display: inline-block;
+	font-weight: bold;
+	height: auto;
+	text-align: center;
+	text-decoration: none;
+	text-shadow: 0px 1px 1px #fff;
+	width: auto;
+	border-radius: 0;
 }
 .buttonSubmit{
-	margin: 20px 0 0 15px !important;
-	padding: 5px 15px !important;
+	margin: 20px 0 0 15px;
+	padding: 5px 15px;
 }
 .buttonSubmit-dialog{
-	margin: 0 12px 30px 0 !important;
-	padding: 0 6px !important;
+	margin: 0 12px 30px 0;
+	padding: 0 6px;
 }
 
 .buttonSubmitDissabled, .buttonSubmitDissabled:hover {
-	color: #999 !important;
-	margin: 20px 0 0 15px !important;
-	padding: 5px 15px !important;
-	background: #ededed !important;
-	border-bottom-color: #666 !important;
-	border-bottom-style: solid !important;
-	border-bottom-width: 1px !important;
-	border-left-color: #fff !important;
-	border-left-style: solid !important;
-	border-left-width: 1px !important;
-	border-right-color: #666 !important;
-	border-right-style: solid !important;
-	border-right-width: 1px !important;
-	border-top-color: #fff !important;
-	border-top-style: solid !important;
-	border-top-width: 1px !important;
+	color: #999;
+	margin: 20px 0 0 15px;
+	padding: 5px 15px;
+	background: #ededed;
+	border-bottom-color: #666;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-left-color: #fff;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-right-color: #666;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-top-color: #fff;
+	border-top-style: solid;
+	border-top-width: 1px;
 }
 
 /*table sorter style*/

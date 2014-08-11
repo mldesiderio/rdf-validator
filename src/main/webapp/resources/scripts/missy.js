@@ -864,13 +864,101 @@ function validateForm( $formElement ){
 	});
 	
 	if( $errorDiv != null && $jQ( "div.errormsg" ).length == 0 )
-		$formElement.append( $errorDiv )
+		$formElement.append( $errorDiv );
 	
 	$jQ( "div.errormsg" ).effect( "pulsate" );
 	
 	return isValid;
 }
 
+/* NEW CODES FOR RDF-VALIDATION */
+
+/**
+ * Convert any input type files into jquery multiple file upload
+ * $fileSelector - required - the input files must be jquery object
+ * $progressSelector - required - the progress bar must be jquery object
+ */
+function convertToAjaxMultipleFileUploa( $inputFile, $progressBar , $resultContainer){
+	var $container = null;
+	if ($resultContainer instanceof jQuery)
+		$container = $resultContainer;
+	else
+		$container = $jQ( $resultContainer );
+	
+	$inputFile.fileupload({
+        dataType: 'json',
+ 
+        done: function (e, data) {
+				printUploadedFiles( $container, data.result );
+        },
+ 
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $progressBar.find('.bar').css('width', progress + '%').html( progress + '%');
+            $progressBar.show();
+            if( progress == 100 )
+            	window.setTimeout( function(){$progressBar.fadeOut( "slow" ); } , 3000);
+        }
+    });
+}
+
+/**
+ * Get uploaded files (on memory) into jQuery accordion via ajax json
+ * @param $containerSelector - required - the container, either jquery object or jquery selector
+ * @param fileUrl - required - the get files url controller
+ */
+function getUploadedDocument( $containerSelector, fileUrl ){
+	var $container = null;
+	if ($containerSelector instanceof jQuery)
+		$container = $containerSelector;
+	else
+		$container = $jQ( $containerSelector );
+	
+	$jQ.ajax({
+	  	url: fileUrl,
+	  	dataType: 'json'
+	}).done(function( data ) {
+		if( data.length > 0 )
+	 		printUploadedFiles( $container, data );
+	});
+}
+
+/**
+ * 
+ */
+function removeUploadedDocument(){
+	
+}
+
+/**
+ * Print uploaded files (on memory) into jQuery accordion
+ * @param $containerSelector - required - the container, either jquery object or jquery selector
+ * @param data - required - list of files in json
+ */
+function printUploadedFiles( $containerSelector, data ){
+	var $container = null;
+	if ($containerSelector instanceof jQuery)
+		$container = $containerSelector;
+	else
+		$container = $jQ( $containerSelector );
+	
+	$container.html("");
+	$jQ.each( data , function (index, file) {
+ 		// create the accordion & container 
+		$container
+        .append( 
+        	$jQ('<h3/>').text( "- " + file.fileName).attr({ id:'header' + index }).css('cursor', 'pointer').on("click", function(){ $jQ( this ).next().slideToggle(); }) )
+        .append(  $jQ('<div/>').attr({ id :'content' + index }).css('display', 'none') );
+        // create the content
+        createRdfOwlView( "#content" + index , file.fileContent );
+    });
+}
+
+/**
+ * Creating view (resizeable syntax editor textarea and syntax highlightor)
+ * @param $containerSelector - required - the container, either jquery object or jquery selector
+ * @param rdfOwlSyntax - required - (Notation 3, Turtle, N-Triples, TriG, N-Quads, SPARQL Query and SPARQL Update)
+ */
 function createRdfOwlView( $containerSelector , rdfOwlSyntax ){
 	var $container = null;
 	if ($containerSelector instanceof jQuery)
@@ -884,6 +972,7 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax ){
     		.append(
     				$jQ('<input/>').attr({ type: 'button' , value: 'Edit' })
     				.addClass( 'buttonSubmit MISSY_loginSubmit' )
+    				.css({ 'margin' : '0'})
     				.on ( 'click', function () {
     					$jQ( this ).parent().find( "textarea.edit-syntax" ).show();
     					$jQ( this ).parent().find( "div.highlight-syntax" ).hide();
@@ -892,6 +981,7 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax ){
 			.append(
     				$jQ('<input/>').attr({ type: 'button' , value: 'Preview' })
     				.addClass( 'buttonSubmit MISSY_loginSubmit' )
+    				.css({ 'margin' : '0'})
     				.on ( 'click', function () {
     					hightlightRdfOwl( $jQ( this ).parent().find( "div.highlight-syntax" ), $jQ( this ).parent().find( "textarea.edit-syntax" ).val() );
     					$jQ( this ).parent().find( "textarea.edit-syntax" ).hide();
@@ -900,25 +990,37 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax ){
     				)
     		.append(
     				$jQ('<textarea/>').addClass( 'edit-syntax' ).val( rdfOwlSyntax )
-    				.css({'width': '100%', 'height' : "360px", 'resize' : ' none'})
+    				.css({'width': '99%', 'height' : "410px", 'resize' : ' none'})
     				)
     		.append(
     				$jQ('<div/>').addClass('highlight-syntax')
-    				.css({'width': '100%', 'height' : "360px", 'display':'none', 'background-color': '#fefefe','overflow':'auto'})
+    				.css({'width': '99%', 'height' : "410px", 'display':'none', 'background-color': '#fefefe','overflow':'auto'})
     				)
     		.css({'width': '100%', 'height' : "450px"})
     		.resizable({
     			  resize: function( event, ui ) {
     				  $jQ( this ).find( "textarea.edit-syntax,div.highlight-syntax" )
-    				  .css({ 'width' : (ui.element.width() ) + 'px' , 'height' : (ui.element.height() - 100) + 'px' });
+    				  .css({ 'width' : (ui.element.width() - 10 ) + 'px' , 'height' : (ui.element.height() - 40 ) + 'px' });
     			  }
     		})
 	);
 }
 
-/* This function only works iff there is an internet connection */
+/**
+ *  Add highlight this following syntax automatically
+ *  Notation 3, Turtle, N-Triples, TriG, N-Quads, SPARQL Query and SPARQL Update
+ *  This function only works iff there is an internet connection 
+ *  @param $elem - required - the container a jquery object
+ *  @param rdfOwlSyntax - required - (Notation 3, Turtle, N-Triples, TriG, N-Quads, SPARQL Query and SPARQL Update)
+ **/
 function hightlightRdfOwl( $elem, rdfOwlSyntax ){
 	var jsonpUrl = "http://n3edit.eu01.aws.af.cm/ajax-highlight.php?callback=?";
+	// you also can run the PHP files for hignlighting the syntax locally.
+	// install XAMPP/WAMPP and put and run the n3edit project into your local server
+	// test whether is it running or not and uncomment this new URL
+	// jsonpUrl = "http://localhost/n3edit/ajax-highlight.php?callback=?";
+	
+	// JSONP cross domain ajax call
 	$jQ.getJSON( jsonpUrl, {
 	    input: rdfOwlSyntax,
 	    format: "jsonp"
