@@ -878,18 +878,21 @@ function validateForm( $formElement ){
  * $fileSelector - required - the input files must be jquery object
  * $progressSelector - required - the progress bar must be jquery object
  */
-function convertToAjaxMultipleFileUploa( $inputFile, $progressBar , $resultContainer){
+function convertToAjaxMultipleFileUpload( $inputFile, $progressBar , $resultContainer){
 	var $container = null;
 	if ($resultContainer instanceof jQuery)
 		$container = $resultContainer;
 	else
 		$container = $jQ( $resultContainer );
 	
+	// get remove files url from input emelent attribute "data-remove-url"
+	var fileRemoveUrl = $inputFile.attr( "data-remove-url" );
+	
 	$inputFile.fileupload({
         dataType: 'json',
  
         done: function (e, data) {
-				printUploadedFiles( $container, data.result );
+				printUploadedFiles( $container, data.result , [{'option':'delete' ,'params' : {'url': fileRemoveUrl}}]);
         },
  
         progressall: function (e, data) {
@@ -906,8 +909,9 @@ function convertToAjaxMultipleFileUploa( $inputFile, $progressBar , $resultConta
  * Get uploaded files (on memory) into jQuery accordion via ajax json
  * @param $containerSelector - required - the container, either jquery object or jquery selector
  * @param fileUrl - required - the get files url controller
+ * @param fileUrl - required - the delete files url from controller
  */
-function getUploadedDocument( $containerSelector, fileUrl ){
+function getUploadedDocument( $containerSelector, fileUrl, fileRemoveUrl ){
 	var $container = null;
 	if ($containerSelector instanceof jQuery)
 		$container = $containerSelector;
@@ -919,23 +923,34 @@ function getUploadedDocument( $containerSelector, fileUrl ){
 	  	dataType: 'json'
 	}).done(function( data ) {
 		if( data.length > 0 )
-	 		printUploadedFiles( $container, data );
+	 		printUploadedFiles( $container, data , [{'option':'delete' ,'params' : {'url': fileRemoveUrl}}]);
 	});
 }
 
 /**
  * 
  */
-function removeUploadedDocument(){
-	
+function removeUploadedDocument( url, filename){
+	$jQ.post( url, 
+			{ filename: filename }
+	).done(function( data) {
+	    console.log( "file removed status : " + data );
+    });
 }
 
 /**
  * Print uploaded files (on memory) into jQuery accordion
  * @param $containerSelector - required - the container, either jquery object or jquery selector
  * @param data - required - list of files in json
+ * @param addedOptions - inJsonArrayFormat - default [] (empty json array)
+ *        - structure e.g. [{
+ *        						"option" : "delete"
+ *        						"params" : {
+ *        									"url" : "someurl"
+ *        									}
+ *        					}]
  */
-function printUploadedFiles( $containerSelector, data ){
+function printUploadedFiles( $containerSelector, data , addedOptions){
 	var $container = null;
 	if ($containerSelector instanceof jQuery)
 		$container = $containerSelector;
@@ -943,14 +958,24 @@ function printUploadedFiles( $containerSelector, data ){
 		$container = $jQ( $containerSelector );
 	
 	$container.html("");
+	
+	/* if extended option not empty e.g. delete file option */
+	var otherOptions = [];
+		
 	$jQ.each( data , function (index, file) {
  		// create the accordion & container 
 		$container
         .append( 
         	$jQ('<h3/>').text( "- " + file.fileName).attr({ id:'header' + index }).css('cursor', 'pointer').on("click", function(){ $jQ( this ).next().slideToggle(); }) )
         .append(  $jQ('<div/>').attr({ id :'content' + index }).css('display', 'none') );
+		
+		// if other addedOptions not empty
+		$jQ.each( addedOptions, function (i, item){
+			if( item.option == "delete")
+				otherOptions = [{ "option" : "delete" , "params" : {"url" : item.params.url , "fileName" :  file.fileName, "accordionHeaderId": "header" + index , "accordionContentId":  "content" + index } }];
+		});
         // create the content
-        createRdfOwlView( "#content" + index , file.fileContent );
+        createRdfOwlView( "#content" + index , file.fileContent , otherOptions );
     });
 }
 
@@ -958,58 +983,96 @@ function printUploadedFiles( $containerSelector, data ){
  * Creating view (resizeable syntax editor textarea and syntax highlightor)
  * @param $containerSelector - required - the container, either jquery object or jquery selector
  * @param rdfOwlSyntax - required - (Notation 3, Turtle, N-Triples, TriG, N-Quads, SPARQL Query and SPARQL Update)
+ * @param otherOptions - inJsonArrayFormat - default [] (empty json array)
+ *        - structure e.g. [{
+ *        						"option" : "delete",
+ *        						"params" : {
+ *        									"url" : "someurl",
+ *        									"filePath" : "filePath"
+ *        									}
+ *        					}]
  */
-function createRdfOwlView( $containerSelector , rdfOwlSyntax ){
+function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 	var $container = null;
 	if ($containerSelector instanceof jQuery)
 		$container = $containerSelector;
 	else
 		$container = $jQ( $containerSelector );
+	
+	/* container for the content*/
+	$htmlContent = $jQ('<div/>');
+	
+	/* put into the parent  container*/
+	$jQ( $container ).html( $htmlContent );
+	
+	$htmlContent
+		.append(
+				$jQ('<input/>').attr({ type: 'button' , value: 'Edit' })
+				.addClass( 'buttonSubmit MISSY_loginSubmit' )
+				.css({ 'margin' : '0'})
+				.on ( 'click', function () {
+					$jQ( this ).parent().find( "textarea.edit-syntax" ).show();
+					$jQ( this ).parent().find( "div.highlight-syntax" ).hide();
+				})
+				)
+		.append(
+				$jQ('<input/>').attr({ type: 'button' , value: 'Preview' })
+				.addClass( 'buttonSubmit MISSY_loginSubmit' )
+				.css({ 'margin' : '0'})
+				.on ( 'click', function () {
+					hightlightRdfOwl( $jQ( this ).parent().find( "div.highlight-syntax" ), $jQ( this ).parent().find( "textarea.edit-syntax" ).val() );
+					$jQ( this ).parent().find( "textarea.edit-syntax" ).hide();
+					$jQ( this ).parent().find( "div.highlight-syntax" ).show();
+				})
+				)
+		.append(
+				$jQ('<textarea/>').addClass( 'edit-syntax' ).val( rdfOwlSyntax )
+				.css({'width': '99%', 'height' : "410px", 'resize' : ' none'})
+				)
+		.append(
+				$jQ('<div/>').addClass('highlight-syntax')
+				.css({'width': '99%', 'height' : "410px", 'display':'none', 'background-color': '#fefefe','overflow':'auto'})
+				)
+		.css({'width': '100%', 'height' : "450px"})
+		.resizable({
+			  resize: function( event, ui ) {
+				  $jQ( this ).find( "textarea.edit-syntax,div.highlight-syntax" )
+				  .css({ 'width' : (ui.element.width() - 10 ) + 'px' , 'height' : (ui.element.height() - 40 ) + 'px' });
+			  }
+		});
 		
-	$jQ( $container )
-    .html( 
-    		$jQ('<div/>')
-    		.append(
-    				$jQ('<input/>').attr({ type: 'button' , value: 'Edit' })
-    				.addClass( 'buttonSubmit MISSY_loginSubmit' )
-    				.css({ 'margin' : '0'})
-    				.on ( 'click', function () {
-    					$jQ( this ).parent().find( "textarea.edit-syntax" ).show();
-    					$jQ( this ).parent().find( "div.highlight-syntax" ).hide();
-    				})
-    				)
-			.append(
-    				$jQ('<input/>').attr({ type: 'button' , value: 'Preview' })
-    				.addClass( 'buttonSubmit MISSY_loginSubmit' )
-    				.css({ 'margin' : '0'})
-    				.on ( 'click', function () {
-    					hightlightRdfOwl( $jQ( this ).parent().find( "div.highlight-syntax" ), $jQ( this ).parent().find( "textarea.edit-syntax" ).val() );
-    					$jQ( this ).parent().find( "textarea.edit-syntax" ).hide();
-    					$jQ( this ).parent().find( "div.highlight-syntax" ).show();
-    				})
-    				)
-    		.append(
-    				$jQ('<textarea/>').addClass( 'edit-syntax' ).val( rdfOwlSyntax )
-    				.css({'width': '99%', 'height' : "410px", 'resize' : ' none'})
-    				)
-    		.append(
-    				$jQ('<div/>').addClass('highlight-syntax')
-    				.css({'width': '99%', 'height' : "410px", 'display':'none', 'background-color': '#fefefe','overflow':'auto'})
-    				)
-    		.css({'width': '100%', 'height' : "450px"})
-    		.resizable({
-    			  resize: function( event, ui ) {
-    				  $jQ( this ).find( "textarea.edit-syntax,div.highlight-syntax" )
-    				  .css({ 'width' : (ui.element.width() - 10 ) + 'px' , 'height' : (ui.element.height() - 40 ) + 'px' });
-    			  }
-    		})
-	);
+	
+	
+	// check whether otherOptions are available
+	$jQ.each( otherOptions, function (i, item){
+		// for delete file options
+		if( item.option == "delete"){
+			// get delete parameter
+		
+			$htmlContent.prepend(
+		    				$jQ('<input/>').attr({ type: 'button' , value: 'Delete' })
+		    				.addClass( 'buttonSubmit MISSY_loginSubmit' )
+		    				.css({ 'margin' : '0', 'color': '#f00', 'float':'right'})
+		    				.on ( 'click', function () {
+		    					if( confirm("Delete " + item.params.fileName + "?") ){
+		    					// remove accordion header
+		    					$jQ( "#" + item.params.accordionHeaderId ).remove();
+		    					// remove accordion body
+		    					$jQ( "#" + item.params.accordionContentId ).remove();
+		    					// delete via ajax post
+		    					removeUploadedDocument(item.params.url, item.params.fileName);
+		    					}
+		    				})
+	    				);
+			
+		}
+	});
 }
 
 /**
- *  Add highlight this following syntax automatically
+ *  Add highlight to these following syntax automatically
  *  Notation 3, Turtle, N-Triples, TriG, N-Quads, SPARQL Query and SPARQL Update
- *  This function only works iff there is an internet connection 
+ *  This function only works iff there is an internet connection or you run the PHP locally in your system
  *  @param $elem - required - the container a jquery object
  *  @param rdfOwlSyntax - required - (Notation 3, Turtle, N-Triples, TriG, N-Quads, SPARQL Query and SPARQL Update)
  **/

@@ -3,16 +3,17 @@ package helper;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -39,8 +40,10 @@ public class FileHelper
 
 			// FileCopyUtils.copy( mpf.getBytes(), new FileOutputStream(
 			// fullPath + "/" + mpf.getOriginalFilename() ) );
-			
-//			FileCopyUtils.copy( mpf.getBytes(), new FileOutputStream( absolutePath + "/" + relativePath + "/" + mpf.getOriginalFilename() ) );
+
+			// FileCopyUtils.copy( mpf.getBytes(), new FileOutputStream(
+			// absolutePath + "/" + relativePath + "/" +
+			// mpf.getOriginalFilename() ) );
 
 		} catch (IOException e)
 		{
@@ -68,7 +71,7 @@ public class FileHelper
 
 		// ServletContext sc = request.getSession().getServletContext();
 		// String fullPath = sc.getRealPath( relativePath );
-		
+
 		String fileContent = "";
 
 		// System.out.println("relativePath" + relativePath);
@@ -112,9 +115,23 @@ public class FileHelper
 	 * @param fileAbsolutePath
 	 *            = absolutepath + file name
 	 */
-	public static void deleteFile( String fileAbsolutePath )
+	public static void deleteFile( String fileAbsolutePathString )
 	{
-
+		Path fileAbsolutePath = Paths.get( fileAbsolutePathString );
+		try
+		{
+			Files.delete( fileAbsolutePath );
+		} catch (NoSuchFileException x)
+		{
+			System.err.format( "%s: no such" + " file or directory%n", fileAbsolutePath );
+		} catch (DirectoryNotEmptyException x)
+		{
+			System.err.format( "%s not empty%n", fileAbsolutePath );
+		} catch (IOException x)
+		{
+			// File permission problems are caught here.
+			System.err.println( x );
+		}
 	}
 
 	/**

@@ -79,7 +79,7 @@ public class OWL2Controller
 	{
 		// get full path
 		String absolutePath = request.getSession().getServletContext().getRealPath( nonLiteralValueConstraintsPath );
-		absolutePath = absolutePath + "/" + filePath; 
+		absolutePath = absolutePath + "/" + filePath;
 
 		// return FileHelper.getFileDetails( request, absolutePath,
 		// dspResourcePath + filePath );
@@ -127,21 +127,19 @@ public class OWL2Controller
 
 	@RequestMapping( value = "/deleteFile", method = RequestMethod.POST )
 	public @ResponseBody
-	String deleteFile( @RequestParam( value = "fileRelativePath" ) String fileRelativePath )
+	String deleteFile( @RequestParam( value = "filename" ) String filename, HttpServletRequest request, HttpServletResponse response )
 	{
-		// get file name
-		String fileName = null;
-		String[] splitRelativePath = fileRelativePath.split( "/" );
-		fileName = splitRelativePath[splitRelativePath.length - 1];
-
 		// removing files from the list
-		Iterator<FileMeta> iteratorStudy = files.iterator();
-		while (iteratorStudy.hasNext())
-			if ( iteratorStudy.next().getFileName().equalsIgnoreCase( fileName ) )
-				iteratorStudy.remove();
+		Iterator<FileMeta> iteratorFiles = files.iterator();
+		while (iteratorFiles.hasNext())
+			if ( iteratorFiles.next().getFileName().equalsIgnoreCase( filename ) )
+				iteratorFiles.remove();
 
+		// String absolutePath =
+		// request.getSession().getServletContext().getRealPath(
+		// dspFileUploadPath );
 		// remove file from the local drive.
-		FileHelper.deleteFile( dspFileUploadPath + fileRelativePath );
+		// FileHelper.deleteFile( absolutePath + filename );
 
 		return "success";
 	}

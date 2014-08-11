@@ -6,7 +6,7 @@
 	        <tr style="background:transparent">
 	            <td style="width:70%">
 	            	<span style="margin-top:5px;">Multiple File Upload : </span>
-	            	<input id="fileupload" style="width:60%;max-width:none" type="file" name="files[]" data-url="<@spring.url '/owl2/upload' />" multiple />
+	            	<input id="fileupload" style="width:60%;max-width:none" type="file" name="files[]" data-url="<@spring.url '/owl2/upload' />" data-remove-url="<@spring.url '/owl2/deleteFile' />" multiple />
 				</td>
 	            <td>
 	            	<div id="progress" class="progress" style="width:70%;display:none">
@@ -39,12 +39,10 @@
 <script>
 	$jQ(function() {
 		<#-- populate uploaded files -->
-    	getUploadedDocument( "#accordion_result_area" , "<@spring.url '/owl2/getuploaded' />" );
+    	getUploadedDocument( "#accordion_result_area" , "<@spring.url '/owl2/getuploaded' />" ,  "<@spring.url '/owl2/deleteFile' />");
     	
     	<#-- multiple file-upload -->
-    	convertToAjaxMultipleFileUploa( $jQ( '#fileupload' ), $jQ( '#progress' ) , "#accordion_result_area" );
-	});
-	//function removeUploadedFiles
-	
+    	convertToAjaxMultipleFileUpload( $jQ( '#fileupload' ), $jQ( '#progress' ) , "#accordion_result_area" );
+	});	
 	
 </script>

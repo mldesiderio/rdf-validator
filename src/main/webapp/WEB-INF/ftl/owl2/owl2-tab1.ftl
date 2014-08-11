@@ -8,7 +8,7 @@
 		</select>
 	  
 		<#-- form onsite help -->
-		<a href="#" class="MISSY_onsiteHelp" style="margin-top:-20px">
+		<a href="#" class="MISSY_onsiteHelp">
 			<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
 			<span>
 				<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
@@ -45,7 +45,7 @@
 	    <#--$jQ('#button_dsp-exmp-tab1').attr("disabled",true).addClass("buttonSubmitDissabled");-->
 	    
 	    <#-- show empty textarea -->
-	    createRdfOwlView( "#namespaceDeclarations" , "" );
+	    createRdfOwlView( "#namespaceDeclarations" , ""  , [] );
 	    
 	    <#-- add event onclick for select option -->
 	     $jQ('#resource_files').on( "click", function(){
@@ -56,7 +56,7 @@
 					data: { filePath : $jQ( this ).val() }
 				    })
 			    	.done( function( data ) {
-			    		createRdfOwlView( "#namespaceDeclarations" , data.fileContent );
+			    		createRdfOwlView( "#namespaceDeclarations" , data.fileContent , [] );
 					})
 			    	.fail( function() {})
 			    	.always( function() {
