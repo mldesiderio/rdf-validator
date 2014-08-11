@@ -3,27 +3,30 @@
 	<fieldset>
 	
 	    <ul style="margin: 0;">
-	    	<li style="list-style-type: disc;">predefined namespace declarations are added automatically</li>
+	    	<li style="list-style-type: disc;">
+	    	predefined namespace declarations are added automatically
+	    	
+	    	<#-- form onsite help -->
+				<a href="#" class="MISSY_onsiteHelp" style="margin:0 0 0 0;vertical-align:top;">
+					<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
+					<span style="width:350px;">
+						<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
+						<h4 class="MISSY_onsiteHelp">Namespace Declarations</h4>
+						<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
+					    <ul style="margin: 0;">
+					    	<li style="list-style-type: disc;">predefined namespace declarations: xsd, rdf, rdfs, owl, foaf, dcterms, skos, dcam, dsp, : (default namespace)</li>
+					    	<li style="list-style-type: disc;">you may adjust the height and the width of the textarea by dragging the small arrow at the right end of the textarea</li>
+					    </ul>
+					</span>
+				</a>
+		
+	    	</li>
 	    	<li style="list-style-type: disc;">please add additional namespace declarations</li>
 	    </ul>
 	    
 	    <hr/>
 	
 	  	<textarea name="namespaceDeclarations" id="namespaceDeclarations" cols="50" rows="20" style="height:200px"></textarea>	
-		
-		<#-- form onsite help -->
-		<a href="#" class="MISSY_onsiteHelp" style="margin-top:0px;vertical-align:top;">
-			<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
-			<span style="width:350px;">
-				<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
-				<h4 class="MISSY_onsiteHelp">Namespace Declarations</h4>
-				<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
-			    <ul style="margin: 0;">
-			    	<li style="list-style-type: disc;">predefined namespace declarations: xsd, rdf, rdfs, owl, foaf, dcterms, skos, dcam, dsp, : (default namespace)</li>
-			    	<li style="list-style-type: disc;">you may adjust the height and the width of the textarea by dragging the small arrow at the right end of the textarea</li>
-			    </ul>
-			</span>
-		</a>
 	  	
 	</fieldset>
 	
@@ -42,6 +45,11 @@
 </form>
 
 <script>
+$jQ( function(){
+	<#-- load default content -->
+	getDocumentDetails( "<@spring.url '/dsp/file_details' />", "defaultNamespaceDeclarations.ttl", "#namespaceDeclarations", "WEB-INF/classes/SPIN/" );
+	
+	<#-- file upload -->
 	$jQ('#fileupload2').fileupload({
         dataType: 'json',
  
@@ -57,4 +65,5 @@
             	window.setTimeout( function(){$jQ('#progress2').fadeOut( "slow" ); } , 3000);
         }
     });
+});
 </script>

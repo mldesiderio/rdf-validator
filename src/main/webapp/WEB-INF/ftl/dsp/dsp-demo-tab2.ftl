@@ -105,7 +105,7 @@
 						 }else{
 						 	//$jQ('#button_dsp-demo-tab2').attr("disabled",false).removeClass("buttonSubmitDissabled");
 						 	//$jQ( "#filePath" ).val( node.data.url );
-						 	getDocumentDetails( "<@spring.url '/dsp/file_details' />", node.data.url, "#constraints" );
+						 	getDocumentDetails( "<@spring.url '/dsp/file_details' />", node.data.url, "#constraints", "" );
 					 	}
 		          	}
 		         }).resizable();

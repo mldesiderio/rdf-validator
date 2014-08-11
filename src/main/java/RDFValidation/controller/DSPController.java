@@ -370,7 +370,7 @@ public class DSPController
 	 */
 	@RequestMapping( value = "/file_details", method = RequestMethod.POST )
 	public @ResponseBody
-	FileMeta getFileDetails( @RequestParam( "filePath" ) String filePath, HttpServletRequest request, HttpServletResponse response )
+	FileMeta getFileDetails( @RequestParam( "filePath" ) String filePath, @RequestParam( value = "additionalPath", required = false ) String additionalPath, HttpServletRequest request, HttpServletResponse response )
 	{
 		// String absolutePath = this.getClass().getClassLoader().getResource(
 		// dspResourcePath ).getPath();
@@ -378,7 +378,7 @@ public class DSPController
 		// );
 		// absolutePath = absolutePath + "/" + filePath;
 
-		String absolutePath = request.getSession().getServletContext().getRealPath( dspResourcePath );
+		String absolutePath = request.getSession().getServletContext().getRealPath( additionalPath != null ? additionalPath : dspResourcePath );
 		absolutePath = absolutePath + "/" + filePath;
 
 		// return FileHelper.getFileDetails( request, absolutePath,

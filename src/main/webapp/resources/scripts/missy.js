@@ -876,21 +876,32 @@ function validateForm( $formElement ){
 /** Get the details of file on the system
  *  
  */
-function getDocumentDetails( url, filePath, $containerSelector){
+function getDocumentDetails( url, filePath, $containerSelector, additionalPath){
 	var $container = null;
 	if ($containerSelector instanceof jQuery)
 		$container = $containerSelector;
 	else
 		$container = $jQ( $containerSelector );
 	
-	$jQ.post( url, 
-			{ filePath: filePath }
-	).done(function( data) {
-		if( $container.is( ":input" ))
-			$container.val( data.fileContent);
-		else
-			$container.html( data.fileContent);
-    });
+	if( additionalPath == "" ){
+		$jQ.post( url, 
+				{ filePath: filePath }
+		).done(function( data) {
+			if( $container.is( ":input" ))
+				$container.val( data.fileContent );
+			else
+				$container.html( data.fileContent );
+	    });
+	} else {
+		$jQ.post( url, 
+				{ filePath: filePath, additionalPath : additionalPath }
+		).done(function( data) {
+			if( $container.is( ":input" ))
+				$container.val( data.fileContent );
+			else
+				$container.html( data.fileContent );
+	    });
+	}
 }
 
 /**
