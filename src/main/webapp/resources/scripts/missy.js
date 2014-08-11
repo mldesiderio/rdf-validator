@@ -873,6 +873,26 @@ function validateForm( $formElement ){
 
 /* NEW CODES FOR RDF-VALIDATION */
 
+/** Get the details of file on the system
+ *  
+ */
+function getDocumentDetails( url, filePath, $containerSelector){
+	var $container = null;
+	if ($containerSelector instanceof jQuery)
+		$container = $containerSelector;
+	else
+		$container = $jQ( $containerSelector );
+	
+	$jQ.post( url, 
+			{ filePath: filePath }
+	).done(function( data) {
+		if( $container.is( ":input" ))
+			$container.val( data.fileContent);
+		else
+			$container.html( data.fileContent);
+    });
+}
+
 /**
  * Convert any input type files into jquery multiple file upload
  * $fileSelector - required - the input files must be jquery object
@@ -928,7 +948,7 @@ function getUploadedDocument( $containerSelector, fileUrl, fileRemoveUrl ){
 }
 
 /**
- * 
+ * remove uploaded document from on memory file list and file itself
  */
 function removeUploadedDocument( url, filename){
 	$jQ.post( url, 

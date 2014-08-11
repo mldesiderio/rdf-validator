@@ -2,28 +2,29 @@
 
 	<fieldset>
 	
-		<ul style="margin: 0;">
-	    	<li style="list-style-type: disc;">please enter your constraints</li>
+		<ul style="margin:0;width:90%">
+	    	<li style="list-style-type: disc;">
+	    		please enter your constraints
+	    		
+	    		<#-- form onsite help -->
+					<a href="#" class="MISSY_onsiteHelp" style="margin:0 0 0 50px;vertical-align:top;">
+						<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
+						<span style="width:350px;">
+							<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
+							<h4 class="MISSY_onsiteHelp">Constraints</h4>
+							<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
+						    <ul style="margin: 0;">
+						    	<li style="list-style-type: disc;">you may adjust the height and the width of the textarea by dragging the small arrow at the right end of the textarea</li>
+						    </ul>
+						</span>
+					</a>
+	    	</li>
 	    	<li style="list-style-type: disc;">please use W3C RDF turtle syntax</li>
 	    </ul>
-	    
 	    <hr/>
 	
 		<textarea name="constraints" id="constraints" cols="50" rows="20" style="height:200px"></textarea>	
 		
-		<#-- form onsite help -->
-		<a href="#" class="MISSY_onsiteHelp" style="margin-top:0px;vertical-align:top;">
-			<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
-			<span style="width:350px;">
-				<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
-				<h4 class="MISSY_onsiteHelp">Constraints</h4>
-				<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
-			    <ul style="margin: 0;">
-			    	<li style="list-style-type: disc;">you may adjust the height and the width of the textarea by dragging the small arrow at the right end of the textarea</li>
-			    </ul>
-			</span>
-		</a>
-	  	
 	</fieldset>
 
 	<hr/>
@@ -99,14 +100,15 @@
 					selectMode: 2,
 					children: data,
 					onActivate: function(node) {
-						if(node.data.isFolder)
-							 $jQ('#button_dsp-demo-tab2').attr("disabled",true).addClass("buttonSubmitDissabled");
-						 else{
-						 	$jQ('#button_dsp-demo-tab2').attr("disabled",false).removeClass("buttonSubmitDissabled");
-						 	$jQ( "#filePath" ).val( node.data.url );
+						if(node.data.isFolder){
+							 //$jQ('#button_dsp-demo-tab2').attr("disabled",true).addClass("buttonSubmitDissabled");
+						 }else{
+						 	//$jQ('#button_dsp-demo-tab2').attr("disabled",false).removeClass("buttonSubmitDissabled");
+						 	//$jQ( "#filePath" ).val( node.data.url );
+						 	getDocumentDetails( "<@spring.url '/dsp/file_details' />", node.data.url, "#constraints" );
 					 	}
 		          	}
-		         });
+		         }).resizable();
 
 		}).fail(function(){}).always(function(){});
 	}
