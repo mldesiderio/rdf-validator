@@ -78,7 +78,6 @@
             .append(  $jQ('<div/>').attr({ id :'content' + index }).css('display', 'none') );
             <#-- create the content -->
             createRdfOwlView( "#content" + index , file.fileContent );
-        }); 
 	}
 	
 	//function removeUploadedFiles
