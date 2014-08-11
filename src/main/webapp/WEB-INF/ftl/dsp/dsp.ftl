@@ -53,6 +53,9 @@
 			//if ( validateDatapoint )
 			//	if ( !validatationOfDatasetSucceed() )
 			//		return false;
+			
+			<#-- put texatea value to hidden input -->
+			$jQ( "#namespaceDeclarations" ).val( $jQ( "#containerNamespaceDeclarations" ).find("textarea").val() );
 		
 			changeTabCondition( 1 );
 			
@@ -67,6 +70,9 @@
 			//if ( !validateForm( $jQ( "form#form-dsp-tab2" ) ) )
 			//	return false;
 			
+			<#-- put texatea value to hidden input -->
+			$jQ( "#constraints" ).val( $jQ( "#containerConstraints" ).find("textarea").val() );
+			
 			changeTabCondition( 2 );
 			<#--  submit the second form via ajax post and get the third tab content-->
 			ajaxDspFrequenciesTabContent( "#form-dsp-tab2", "#dsp-tab3" );
@@ -79,6 +85,9 @@
 			//if ( !validateForm( $jQ( "form#form-dsp-tab3" ) ) )
 			//	return false;
 			
+			<#-- put texatea value to hidden input -->
+			$jQ( "#data" ).val( $jQ( "#containerData" ).find("textarea").val() );
+			
 			changeTabCondition( 3 );
 			<#--  submit the second form via ajax post and get the third tab content-->
 			ajaxDspFrequenciesTabContent( "#form-dsp-tab3", "#dsp-tab4" );
@@ -90,6 +99,9 @@
 			// validate form first
 			//if ( !validateForm( $jQ( "form#form-dsp-tab4" ) ) )
 			//	return false;
+			
+			<#-- put texatea value to hidden input -->
+			$jQ( "#inferenceRules" ).val( $jQ( "#containerInferenceRules" ).find("textarea").val() );
 			
 			changeTabCondition( 4 );
 			
