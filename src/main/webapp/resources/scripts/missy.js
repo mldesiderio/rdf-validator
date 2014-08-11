@@ -890,7 +890,7 @@ function getDocumentDetails( url, filePath, $containerSelector, additionalPath){
 			if( $container.is( ":input" ))
 				$container.val( data.fileContent );
 			else
-				$container.html( data.fileContent );
+				 createRdfOwlView( $container , data.fileContent , []);
 	    });
 	} else {
 		$jQ.post( url, 
@@ -899,7 +899,7 @@ function getDocumentDetails( url, filePath, $containerSelector, additionalPath){
 			if( $container.is( ":input" ))
 				$container.val( data.fileContent );
 			else
-				$container.html( data.fileContent );
+				 createRdfOwlView( $container , data.fileContent , []);
 	    });
 	}
 }

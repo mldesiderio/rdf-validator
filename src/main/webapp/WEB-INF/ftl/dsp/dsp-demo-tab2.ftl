@@ -23,7 +23,8 @@
 	    </ul>
 	    <hr/>
 	
-		<textarea name="constraints" id="constraints" cols="50" rows="20" style="height:200px"></textarea>	
+		<div id="containerConstraints"></div>	
+	  	<input type="hidden" name="constraints" id="constraints" />
 		
 	</fieldset>
 
@@ -89,6 +90,9 @@
 	    createTree();
 	    <#-- disable button next -->
 	    <#-- $jQ('#button_dsp-demo-tab2').attr("disabled",true).addClass("buttonSubmitDissabled"); -->
+	    
+	    <#-- show empty textarea -->
+	    createRdfOwlView( "#containerConstraints" , ""  , [] );
 	});
 	
 	function createTree(){
@@ -105,7 +109,7 @@
 						 }else{
 						 	//$jQ('#button_dsp-demo-tab2').attr("disabled",false).removeClass("buttonSubmitDissabled");
 						 	//$jQ( "#filePath" ).val( node.data.url );
-						 	getDocumentDetails( "<@spring.url '/dsp/file_details' />", node.data.url, "#constraints", "" );
+						 	getDocumentDetails( "<@spring.url '/dsp/file_details' />", node.data.url, "#containerConstraints", "" );
 					 	}
 		          	}
 		         }).resizable();

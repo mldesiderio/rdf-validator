@@ -48,6 +48,8 @@
 			//if ( validateDatapoint )
 			//	if ( !validatationOfDatasetSucceed() )
 			//		return false;
+			
+			$jQ( "#namespaceDeclarations" ).val( $jQ( "#containerNamespaceDeclarations" ).find("textarea").val() );
 		
 			changeTabCondition( 1 );
 			
@@ -62,6 +64,8 @@
 			//if ( !validateForm( $jQ( "form#form-dsp-demo-tab2" ) ) )
 			//	return false;
 			
+			$jQ( "#constraints" ).val( $jQ( "#containerConstraints" ).find("textarea").val() );
+			
 			changeTabCondition( 2 );
 			<#--  submit the second form via ajax post and get the third tab content-->
 			ajaxDspFrequenciesTabContent( "#form-dsp-demo-tab2", "#dsp-demo-tab3" );
@@ -73,6 +77,8 @@
 			// validate form first
 			//if ( !validateForm( $jQ( "form#form-dsp-demo-tab3" ) ) )
 			//	return false;
+			
+			$jQ( "#data" ).val( $jQ( "#containerData" ).find("textarea").val() );
 			
 			changeTabCondition( 3 );
 			

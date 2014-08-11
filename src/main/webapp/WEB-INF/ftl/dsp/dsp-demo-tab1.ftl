@@ -26,8 +26,8 @@
 	    
 	    <hr/>
 	
-	  	<textarea name="namespaceDeclarations" id="namespaceDeclarations" cols="50" rows="20" style="height:200px"></textarea>	
-	  	
+	  	<div id="containerNamespaceDeclarations"></div>	
+	  	<input type="hidden" name="namespaceDeclarations" id="namespaceDeclarations" />
 	</fieldset>
 	
 	<hr />
@@ -47,7 +47,7 @@
 <script>
 $jQ( function(){
 	<#-- load default content -->
-	getDocumentDetails( "<@spring.url '/dsp/file_details' />", "defaultNamespaceDeclarations.ttl", "#namespaceDeclarations", "WEB-INF/classes/SPIN/" );
+	getDocumentDetails( "<@spring.url '/dsp/file_details' />", "defaultNamespaceDeclarations.ttl", "#containerNamespaceDeclarations", "WEB-INF/classes/SPIN/" );
 	
 	<#-- file upload -->
 	$jQ('#fileupload2').fileupload({
