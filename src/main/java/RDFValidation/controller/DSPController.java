@@ -205,7 +205,7 @@ public class DSPController
 	 * DSP EXAMPLE GRAPH (AJAX)
 	 */
 
-	/* DSP N graph Initial content */
+	/* DSP EXAMPLE graph Initial content */
 	@RequestMapping( value = "/exmpgraph", method = RequestMethod.GET )
 	public ModelAndView exmpGraphInitial( /* tab2 get content via ajax */
 	@RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
@@ -218,7 +218,7 @@ public class DSPController
 		return model;
 	}
 
-	/* DSP N graph First Tab Submit */
+	/* DSP EXAMPLE graph First Tab Submit */
 	@RequestMapping( value = "/exmpgraph/tab1", method = RequestMethod.POST )
 	public ModelAndView exmpSecondTab( /* tab2 get content via ajax */
 	@RequestParam( "filePath" ) String filePath, HttpServletRequest request )
@@ -230,7 +230,9 @@ public class DSPController
 		// absolutePath = absolutePath.substring( 1, absolutePath.length() - 1
 		// );
 
-		String absolutePath = new StringBuilder( request.getSession().getServletContext().getRealPath( dspResourcePath ) ).append( "/" ).append( filePath ).toString();
+		// String absolutePath = new StringBuilder(
+		// request.getSession().getServletContext().getRealPath( dspResourcePath
+		// ) ).append( "/" ).append( filePath ).toString();
 
 		// System.out.println("absolutePath: " + absolutePath);
 		// System.out.println("dspResourcePath + filePath: " + dspResourcePath +
@@ -238,9 +240,9 @@ public class DSPController
 
 		// FileMeta fileMeta = FileHelper.getFileDetails( request, absolutePath,
 		// dspResourcePath + filePath );
-		FileMeta fileMeta = FileHelper.getFileDetails( absolutePath );
+		// FileMeta fileMeta = FileHelper.getFileDetails( absolutePath );
 
-		model.addObject( "fileContent", fileMeta.getFileContent() );
+		model.addObject( "filePath", filePath );
 
 		return model;
 	}

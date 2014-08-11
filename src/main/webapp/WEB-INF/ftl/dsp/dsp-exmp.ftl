@@ -42,6 +42,10 @@
 			//if ( validateDatapoint )
 			//	if ( !validatationOfDatasetSucceed() )
 			//		return false;
+			
+			<#-- put textarea value into hidden input --> 
+			$jQ( "#rdfGraph" ).val( $jQ( "#rdfGraph" ).find("textarea").val() );
+			
 			changeTabCondition( 1 );
 			
 			<#--  submit the first form via ajax post and get the second tab content-->
