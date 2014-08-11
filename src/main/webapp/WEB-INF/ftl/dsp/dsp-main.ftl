@@ -7,15 +7,16 @@
 				<div id="graphTabContainer" class="tabContainer">
 					<ul>
 						<li>
-							<a class="tabElement" href="#study_tab" style="text-decoration:none;">Graph</a>
+							<a class="tabElement" href="#study_tab" style="text-decoration:none;">DSP</a>
 						</li>
 					</ul>
 					
 					<!-- tab contents -->
 					<div id="study_tab" style="float:left;background:#ededed">
-						<input type="button" name="studyGroupButton" value="1 Graph" data-url="onegraph" class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton MISSY_altButton_active">
-						<input type="button" name="studyGroupButton" value="N Graphs" data-url="ngraph"class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton">
-						<input type="button" name="studyGroupButton" value="Example Graph" data-url="exmpgraph"class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton">
+						<input type="button" name="studyGroupButton" value="demo" data-url="demo" class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton MISSY_altButton_active">
+						<input type="button" name="studyGroupButton" value="examples" data-url="exmpgraph"class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton">
+						<input type="button" name="studyGroupButton" value="upload" data-url="onegraph" class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton">
+						<input type="button" name="studyGroupButton" value="detailed" data-url="ngraph"class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton">
 					</div>
 				</div>
 				

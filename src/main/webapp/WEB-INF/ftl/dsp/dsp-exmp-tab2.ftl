@@ -2,22 +2,30 @@
 
 	<fieldset>
 	
+		<ul style="margin: 0;">
+	    	<li style="list-style-type: disc;">this example file contains namespace declarations, constraints, and data</li>
+	    	<li style="list-style-type: disc;">you may add namespace declarations, constraints, and data</li>
+	    </ul>
+	    
+	    <hr/>
+	
 	  	<textarea name="rdfGraph" cols="50" rows="20"><#if fileContent??>${fileContent}</#if></textarea>	
 	  	
 		<#-- form onsite help -->
-		<a href="#" class="MISSY_onsiteHelp" style="margin-top:-20px">
+		<a href="#" class="MISSY_onsiteHelp" style="margin-top:0px;vertical-align:top;">
 			<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
-			<span>
+			<span style="width:350px;">
 				<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
-				<h4 class="MISSY_onsiteHelp">RDF Graph</h4>
+				<h4 class="MISSY_onsiteHelp">Example File</h4>
 				<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
-				RDF Graph
+			    <ul style="margin: 0;">
+			    	<li style="list-style-type: disc;">you may adjust the height and the width of the textarea by dragging the small arrow at the right end of the textarea</li>
+			    </ul>
 			</span>
 		</a>
 	  	
 	</fieldset>
 	
-	<br />
 	<hr />
 	
 	<fieldset>

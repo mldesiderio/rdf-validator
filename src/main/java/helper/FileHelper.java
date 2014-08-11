@@ -39,7 +39,8 @@ public class FileHelper
 
 			// FileCopyUtils.copy( mpf.getBytes(), new FileOutputStream(
 			// fullPath + "/" + mpf.getOriginalFilename() ) );
-			FileCopyUtils.copy( mpf.getBytes(), new FileOutputStream( absolutePath + "/" + relativePath + "/" + mpf.getOriginalFilename() ) );
+			
+//			FileCopyUtils.copy( mpf.getBytes(), new FileOutputStream( absolutePath + "/" + relativePath + "/" + mpf.getOriginalFilename() ) );
 
 		} catch (IOException e)
 		{
@@ -61,13 +62,13 @@ public class FileHelper
 		return fileMeta;
 	}
 
-	public static FileMeta getFileDetails( HttpServletRequest request, String absolutePath, String relativePath )
+	public static FileMeta getFileDetails( String absolutePath )
 	{
 		FileMeta fileMeta = new FileMeta();
 
 		// ServletContext sc = request.getSession().getServletContext();
 		// String fullPath = sc.getRealPath( relativePath );
-
+		
 		String fileContent = "";
 
 		// System.out.println("relativePath" + relativePath);
@@ -76,7 +77,7 @@ public class FileHelper
 		try
 		{
 			// File fileDir = new File( fullPath );
-			File fileDir = new File( absolutePath + "/" + relativePath );
+			File fileDir = new File( absolutePath );
 
 			fileMeta.setFileName( fileDir.getName() );
 

@@ -59,7 +59,7 @@
 		<h3>Input RDF Graph</h3> 
 		<br/>
 		
-		<pre><#if rdfGraph??>${rdfGraph}<#else>-</#if></pre>
+		<pre><#if rdfGraph??>${rdfGraph}<#else></#if></pre>
 
 	</fieldset>
 	
@@ -71,9 +71,10 @@
 		  type="button" 
 		  name="button_dsp-tab3" 
 		  id="button_dsp-tab3" 
-		  value="Finish" 
+		  value="Check Further Constraints" 
 		  class="buttonSubmit MISSY_loginSubmit" 
-		  style="float: right; margin-top: 10px">
+		  style="float: right; margin-top: 10px"
+		  onclick="location.reload(); return false;">
 	</fieldset>
 
 </form>

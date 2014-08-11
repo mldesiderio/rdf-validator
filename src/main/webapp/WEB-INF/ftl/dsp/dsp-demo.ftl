@@ -1,32 +1,27 @@
-<h1>Detailed</h1>
+<h1>Demo</h1>
 <!-- the tabs -->
 <div id="updateSpssTabContainer" class="tabContainer">
 	<ul style="height: 40px;">	
-		<li><a class="tabElement" href="#dsp-tab1" style="text-decoration:none;padding: 10px 15px;"><span>1.</span> Namespace Declarations</a></li>
-		<li><a class="tabElement" href="#dsp-tab2" style="text-decoration:none;padding: 10px 15px;"><span>2.</span> Constraints</a></li>
-		<li><a class="tabElement" href="#dsp-tab3" style="text-decoration:none;padding: 10px 15px;"><span>3.</span> Data</a></li>
-		<li><a class="tabElement" href="#dsp-tab4" style="text-decoration:none;padding: 10px 15px;"><span>4.</span> Inference Rules</a></li>
-		<li><a class="tabElement" href="#dsp-tab5" style="text-decoration:none;padding: 10px 15px;"><span>5.</span> Validation Results</a></li>
+		<li><a class="tabElement" href="#dsp-demo-tab1" style="text-decoration:none;padding: 10px 15px;"><span>1.</span> Namespace Declarations</a></li>
+		<li><a class="tabElement" href="#dsp-demo-tab2" style="text-decoration:none;padding: 10px 15px;"><span>2.</span> Constraints</a></li>
+		<li><a class="tabElement" href="#dsp-demo-tab3" style="text-decoration:none;padding: 10px 15px;"><span>3.</span> Data</a></li>
+		<li><a class="tabElement" href="#dsp-demo-tab4" style="text-decoration:none;padding: 10px 15px;"><span>5.</span> Validation Results</a></li>
 	</ul>
 
-	<div id="dsp-tab1" style="padding:0 !important; border:none; float:left; width:100%">
-		<#include "dsp-tab1.ftl" />
+	<div id="dsp-demo-tab1" style="padding:0 !important; border:none; float:left; width:100%">
+		<#include "dsp-demo-tab1.ftl" />
 	</div>
-	<div id="dsp-tab2" style="padding:0 !important;border:none;float:left; width:100%">
+	<div id="dsp-demo-tab2" style="padding:0 !important;border:none;float:left; width:100%">
 		<#-- ajax content here -->
-		<#include "dsp-tab2.ftl" />
+		<#include "dsp-demo-tab2.ftl" />
 	</div>
-	<div id="dsp-tab3" style="padding:0 !important;border:none;float:left; width:100%">
+	<div id="dsp-demo-tab3" style="padding:0 !important;border:none;float:left; width:100%">
 		<#-- ajax content here -->
-		<#include "dsp-tab3.ftl" />
+		<#include "dsp-demo-tab3.ftl" />
 	</div>
-	<div id="dsp-tab4" style="padding:0 !important;border:none;float:left; width:100%">
+	<div id="dsp-demo-tab4" style="padding:0 !important;border:none;float:left; width:100%">
 		<#-- ajax content here -->
-		<#include "dsp-tab4.ftl" />
-	</div>
-	<div id="dsp-tab5" style="padding:0 !important;border:none;float:left; width:100%">
-		<#-- ajax content here -->
-		<#include "dsp-tab5.ftl" />
+		<#include "dsp-demo-tab4.ftl" />
 	</div>
 
 
@@ -41,13 +36,13 @@
 		<#-- jQery tab for main content 'define study, define spss file, import -->
 		$jQ( "#updateSpssTabContainer" ).tabs({ 
 			active: 0,
-			disabled: [1,2,3,4]
+			disabled: [1,2,3]
      	});
      	
 		$jQ( "#graphTabContainer" ).tabs({ active: 0 });
 
 		<#-- submit button on tab 1 pressed -->
-		$jQ( "#button_dsp-tab1" ).click( function()
+		$jQ( "#button_dsp-demo-tab1" ).click( function()
 		{
 			// validate field values first
 			//if ( validateDatapoint )
@@ -57,47 +52,35 @@
 			changeTabCondition( 1 );
 			
 			<#--  submit the first form via ajax post and get the second tab content-->
-			ajaxDspFrequenciesTabContent( "#form-dsp-tab1", "#dsp-tab2" );
+			ajaxDspFrequenciesTabContent( "#form-dsp-demo-tab1", "#dsp-demo-tab2" );
 		} );
 		
 		<#-- submit button on tab 2 pressed -->
-		$jQ( "#dsp-tab2" ).on( "click", "#button_dsp-tab2", function(){
+		$jQ( "#dsp-demo-tab2" ).on( "click", "#button_dsp-demo-tab2", function(){
 			
 			// validate form first
-			//if ( !validateForm( $jQ( "form#form-dsp-tab2" ) ) )
+			//if ( !validateForm( $jQ( "form#form-dsp-demo-tab2" ) ) )
 			//	return false;
 			
 			changeTabCondition( 2 );
 			<#--  submit the second form via ajax post and get the third tab content-->
-			ajaxDspFrequenciesTabContent( "#form-dsp-tab2", "#dsp-tab3" );
-		} );
-		
-		<#-- submit button on tab 3 pressed -->
-		$jQ( "#dsp-tab3" ).on( "click", "#button_dsp-tab3", function(){
-			
-			// validate form first
-			//if ( !validateForm( $jQ( "form#form-dsp-tab3" ) ) )
-			//	return false;
-			
-			changeTabCondition( 3 );
-			<#--  submit the second form via ajax post and get the third tab content-->
-			ajaxDspFrequenciesTabContent( "#form-dsp-tab3", "#dsp-tab4" );
+			ajaxDspFrequenciesTabContent( "#form-dsp-demo-tab2", "#dsp-demo-tab3" );
 		} );
 		
 		<#-- submit button on tab 4 pressed -->
-		$jQ( "#dsp-tab4" ).on( "click", "#button_dsp-tab4", function(){
+		$jQ( "#dsp-demo-tab3" ).on( "click", "#button_dsp-demo-tab3", function(){
 			
 			// validate form first
-			//if ( !validateForm( $jQ( "form#form-dsp-tab4" ) ) )
+			//if ( !validateForm( $jQ( "form#form-dsp-demo-tab3" ) ) )
 			//	return false;
 			
-			changeTabCondition( 4 );
+			changeTabCondition( 3 );
 			
 			<#-- ajax loading -->
-			createAjaxLoadingOnAjaxContainer( "#form-dsp-tab5" );
+			createAjaxLoadingOnAjaxContainer( "#form-dsp-demo-tab4" );
 			
 			<#--  submit the second form via ajax post and get the third tab content-->
-			ajaxDspFrequenciesTabContent( "#form-dsp-tab4", "#dsp-tab5" );
+			ajaxDspFrequenciesTabContent( "#form-dsp-demo-tab3", "#dsp-demo-tab4" );
 		} );
 	}); // end of document ready
 	

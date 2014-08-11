@@ -1,25 +1,22 @@
-<form id="form-dsp-tab1" action="<@spring.url '/dsp/exmpgraph/tab1' />" style="padding-left: 25px" class="MISSY_round_right" >	
+<form id="form-dsp-demo-tab2" action="<@spring.url '/dsp/demo/tab2' />" style="padding-left: 25px" class="MISSY_round_right" >	
 
 	<fieldset>
 	
 		<ul style="margin: 0;">
-	    	<li style="list-style-type: disc;">please select an example file</li>
-	    	<li style="list-style-type: disc;">this example file contains namespace declarations, constraints, and data</li>
+	    	<li style="list-style-type: disc;">please enter your constraints</li>
+	    	<li style="list-style-type: disc;">please use W3C RDF turtle syntax</li>
 	    </ul>
 	    
 	    <hr/>
 	
-	  	<input type="checkbox" name="ad-hoc_module" onchange="unfoldToggle(this);" style="width:14px;margin:0px;"/> Unfold All
-		<div id="tree" class="tree-container" style="width:100%">
-			<img src="<@spring.url '/resources/images/loading.gif' />" /> loading...
-		</div>
-	  	
+		<textarea name="constraints" id="constraints" cols="50" rows="20" style="height:200px"></textarea>	
+		
 		<#-- form onsite help -->
 		<a href="#" class="MISSY_onsiteHelp" style="margin-top:0px;vertical-align:top;">
 			<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
 			<span style="width:350px;">
 				<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
-				<h4 class="MISSY_onsiteHelp">Select Example File</h4>
+				<h4 class="MISSY_onsiteHelp">Constraints</h4>
 				<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
 			    <ul style="margin: 0;">
 			    	<li style="list-style-type: disc;">you may adjust the height and the width of the textarea by dragging the small arrow at the right end of the textarea</li>
@@ -28,13 +25,47 @@
 		</a>
 	  	
 	</fieldset>
+
+	<hr/>
+
+	<fieldset>
+	
+		<ul style="margin: 0;">
+	    	<li style="list-style-type: disc;">you may select a file containing example constraints</li>
+	    </ul>
+	    
+	    <hr/>
+	
+	  	<input type="checkbox" name="ad-hoc_module" onchange="unfoldToggle(this);" style="width:14px;margin:0px;"/> Unfold All
+		<div id="tree" class="tree-container" style="width:100%;height:200px;">
+			<img src="<@spring.url '/resources/images/loading.gif' />" /> loading...
+			
+		</div>
+	  	
+		<#-- form onsite help -->
+		<a href="#" class="MISSY_onsiteHelp" style="margin-top:0px;vertical-align:top;">
+			<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
+			<span style="width:350px;">
+				<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
+				<h4 class="MISSY_onsiteHelp">Constraints</h4>
+				<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
+			    <ul style="margin: 0;">
+			    	<li style="list-style-type: disc;">you may select a file containing example constraints</li>
+			    	<li style="list-style-type: disc;">the content of the selected file will be pasted at the end of the textarea above</li>
+			    </ul>
+			</span>
+		</a>
+	  	
+	</fieldset>
+	
+	<hr />
 	
 	<fieldset>
 		<input 
 		  type="button" 
-		  name="button_dsp-exmp-tab1" 
-		  id="button_dsp-exmp-tab1" 
-		  value="Next: Show File Content" 
+		  name="button_dsp-demo-tab2" 
+		  id="button_dsp-demo-tab2" 
+		  value="Next: Data" 
 		  class="buttonSubmit MISSY_loginSubmit" 
 		  style="float: right; margin-top: 10px">
 	</fieldset>
@@ -46,7 +77,7 @@
 	$jQ(document).ready(function() {
 	
 	    // check username availability on focus lost
-	    $jQ( '#form-dsp-tab2' ).on( "focus", 'input[type="text"]', function (){
+	    $jQ( '#form-dsp-demo-tab2' ).on( "focus", 'input[type="text"]', function (){
 	    	if( $jQ(this).hasClass( "form-error" ) ){
 	    		$jQ(this).removeClass( "form-error" );
 	    		$jQ(this).next( "div.errormsg" ).remove();
@@ -56,7 +87,7 @@
 	    <#-- create the tree -->
 	    createTree();
 	    <#-- disable button next -->
-	    $jQ('#button_dsp-exmp-tab1').attr("disabled",true).addClass("buttonSubmitDissabled");
+	    <#-- $jQ('#button_dsp-demo-tab2').attr("disabled",true).addClass("buttonSubmitDissabled"); -->
 	});
 	
 	function createTree(){
@@ -69,9 +100,9 @@
 					children: data,
 					onActivate: function(node) {
 						if(node.data.isFolder)
-							 $jQ('#button_dsp-exmp-tab1').attr("disabled",true).addClass("buttonSubmitDissabled");
+							 $jQ('#button_dsp-demo-tab2').attr("disabled",true).addClass("buttonSubmitDissabled");
 						 else{
-						 	$jQ('#button_dsp-exmp-tab1').attr("disabled",false).removeClass("buttonSubmitDissabled");
+						 	$jQ('#button_dsp-demo-tab2').attr("disabled",false).removeClass("buttonSubmitDissabled");
 						 	$jQ( "#filePath" ).val( node.data.url );
 					 	}
 		          	}

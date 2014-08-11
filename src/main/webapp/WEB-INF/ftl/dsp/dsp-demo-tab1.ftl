@@ -1,43 +1,25 @@
-<form id="form-dsp-tab2" action="<@spring.url '/dsp/ngraph/tab2' />" style="padding-left: 25px" class="MISSY_round_right" >	
+<form id="form-dsp-demo-tab1" action="<@spring.url '/dsp/demo/tab1' />" style="padding-left: 25px" class="MISSY_round_right" >	
 
 	<fieldset>
 	
-		<ul style="margin: 0;">
-	    	<li style="list-style-type: disc;">please enter your constraints</li>
-	    	<li style="list-style-type: disc;">please use W3C RDF turtle syntax</li>
+	    <ul style="margin: 0;">
+	    	<li style="list-style-type: disc;">predefined namespace declarations are added automatically</li>
+	    	<li style="list-style-type: disc;">please add additional namespace declarations</li>
 	    </ul>
 	    
 	    <hr/>
-	    
-		<ul style="margin: 0;">
-	    	<li style="list-style-type: disc;">you may upload a file containing constraints</li>
-	    </ul>
 	
-		<table>
-	        <tr style="background:transparent">
-	            <td style="width:50%">
-	            	<input id="fileupload2" style="width:100%;max-width:none" type="file" name="files[]" data-url="<@spring.url '/dsp/upload' />" multiple />
-				</td>
-	            <td>
-	            	<div id="progress2" class="progress" style="width:70%;display:none">
-				        <div class="bar" style="width: 0%;"></div>
-				    </div>
-				</td>
-	        </tr>
-	    </table>
-	    
-	    <hr/>
-	
-	  	<textarea name="constraints" id="constraints" cols="50" rows="20" style="height:250px"></textarea>	
-	  	
+	  	<textarea name="namespaceDeclarations" id="namespaceDeclarations" cols="50" rows="20" style="height:200px"></textarea>	
+		
 		<#-- form onsite help -->
 		<a href="#" class="MISSY_onsiteHelp" style="margin-top:0px;vertical-align:top;">
 			<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
 			<span style="width:350px;">
 				<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
-				<h4 class="MISSY_onsiteHelp">Constraints</h4>
+				<h4 class="MISSY_onsiteHelp">Namespace Declarations</h4>
 				<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
 			    <ul style="margin: 0;">
+			    	<li style="list-style-type: disc;">predefined namespace declarations: xsd, rdf, rdfs, owl, foaf, dcterms, skos, dcam, dsp, : (default namespace)</li>
 			    	<li style="list-style-type: disc;">you may adjust the height and the width of the textarea by dragging the small arrow at the right end of the textarea</li>
 			    </ul>
 			</span>
@@ -50,9 +32,9 @@
 	<fieldset>
 		<input 
 		  type="button" 
-		  name="button_dsp-tab2" 
-		  id="button_dsp-tab2" 
-		  value="Next: Data" 
+		  name="button_dsp-demo-tab1" 
+		  id="button_dsp-demo-tab1" 
+		  value="Next: Constraints" 
 		  class="buttonSubmit MISSY_loginSubmit" 
 		  style="float: right; margin-top: 10px">
 	</fieldset>
