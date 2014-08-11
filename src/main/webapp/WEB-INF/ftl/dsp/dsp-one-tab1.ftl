@@ -30,7 +30,7 @@
 	        <tr style="background:transparent">
 	            <td style="width:50%">
 	            	<span style="margin-top:5px;">Multiple File Upload : </span>
-	            	<input id="fileupload" style="width:60%;max-width:none" type="file" name="files[]" data-url="<@spring.url '/dsp/multiple-file-upload' />" multiple />
+	            	<input id="fileupload" style="width:60%;max-width:none" type="file" name="files[]" data-url="<@spring.url '/dsp/multiple-file-upload' />" data-remove-url="<@spring.url '/owl2/deleteFile' />" multiple />
 				</td>
 				<td>
 				    <#-- form onsite help -->
@@ -81,62 +81,12 @@
 	
 </form>
 <script>
-	$jQ('#fileupload').fileupload({
-        dataType: 'json',
- 
-        done: function (e, data) {
-         	$jQ('#rdfGraph').val( data.result.fileContent );
-        },
- 
-        progressall: function (e, data) {
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            $jQ('#progress .bar').css('width', progress + '%').html( progress + '%');
-        	$jQ('#progress').show();
-            if( progress == 100 )
-            	window.setTimeout( function(){$jQ('#progress').fadeOut( "slow" ); } , 3000);
-        }
-    });
-    
 	$jQ(function() {
 		<#-- populate uploaded files -->
-    	getUploadedDocument();
+    	getUploadedDocument( "#accordion_result_area" , "<@spring.url '/dsp/getuploaded' />" ,  "<@spring.url '/dsp/deleteFile' />");
     	
     	<#-- multiple file-upload -->
-    	$jQ('#fileupload').fileupload({
-	        dataType: 'json',
-	 
-	        done: function (e, data) {
- 				printUploadedFiles( data.result );
-	        },
-	 
-	        progressall: function (e, data) {
-	            var progress = parseInt(data.loaded / data.total * 100, 10);
-	            $jQ('#progress .bar').css('width', progress + '%').html( progress + '%');
-	        	$jQ('#progress').show();
-	            if( progress == 100 )
-	            	window.setTimeout( function(){$jQ('#progress').fadeOut( "slow" ); } , 3000);
-	        }
-	    });
-	});
+    	convertToAjaxMultipleFileUpload( $jQ( '#fileupload' ), $jQ( '#progress' ) , "#accordion_result_area" );
+	});	
 	
-	function getUploadedDocument(){
-		$jQ.ajax({
-		  	url: "<@spring.url '/dsp/getuploaded' />",
-		  	dataType: 'json'
-		}).done(function( data ) {
-			if( data.length > 0 )
-		 		printUploadedFiles( data );
-		});
-	}
-	
-	function printUploadedFiles( data ){
-		$jQ("#accordion_result_area").html("");
-		$jQ.each( data , function (index, file) {
-	 
-            $jQ("#accordion_result_area")
-            .append( $jQ('<h5/>').text( "" + file.fileName).css('cursor', 'pointer').on("click", function(){ $jQ( this ).next().slideToggle() }) )
-            .append(  $jQ('<div/>').append($jQ('<textarea/><hr/>').val(file.fileContent)).css('display', 'none') );
-        }); 
-	}
-    
 </script>

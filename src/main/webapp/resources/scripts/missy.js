@@ -1052,7 +1052,7 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 			$htmlContent.prepend(
 		    				$jQ('<input/>').attr({ type: 'button' , value: 'Delete' })
 		    				.addClass( 'buttonSubmit MISSY_loginSubmit' )
-		    				.css({ 'margin' : '0', 'color': '#f00', 'float':'right'})
+		    				.css({ 'margin' : '0 20px 0 0', 'color': '#f00', 'float':'right'})
 		    				.on ( 'click', function () {
 		    					if( confirm("Delete " + item.params.fileName + "?") ){
 		    					// remove accordion header

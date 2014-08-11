@@ -35,7 +35,7 @@ public class DSPController
 {
 	/* multiple file upload */
 	LinkedList<FileMeta> files = new LinkedList<FileMeta>();
-	
+
 	/* file */
 	FileMeta fileMeta = null;
 
@@ -77,11 +77,11 @@ public class DSPController
 	/* DSP N graph First Tab Submit */
 	@RequestMapping( value = "/onegraph/tab1", method = RequestMethod.POST )
 	public ModelAndView pneGraphValidation( /* tab2 get content via ajax */
-//	@RequestParam( "rdfGraph" ) String rdfGraph
+	// @RequestParam( "rdfGraph" ) String rdfGraph
 	)
 	{
 		ModelAndView model = new ModelAndView( "dsp-one-tab2", "link", "dsp" );
-		
+
 		// populate input graph
 		String rdfGraph = "";
 		for ( FileMeta file : files )
@@ -90,7 +90,7 @@ public class DSPController
 			rdfGraph += file.getFileContent();
 			rdfGraph += "\r\n";
 		}
-		
+
 		Spin spin = new Spin( "DSP_SPIN-Mapping.ttl" );
 		spin.runInferences_checkConstraints( rdfGraph );
 
@@ -98,13 +98,16 @@ public class DSPController
 		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
 
 		// input graph
-		List<FileInputGraph> fileInputGraphList = new ArrayList<FileInputGraph>(files.size());
+		List<FileInputGraph> fileInputGraphList = new ArrayList<FileInputGraph>( files.size() );
 		FileInputGraph fileInputGraph = null;
 		for ( FileMeta file : files )
 		{
 			fileInputGraph = new FileInputGraph();
 			fileInputGraph.setFilename( file.getFileName() );
-			fileInputGraph.setInputGraph( file.getFileContent().replace( "<", "&lt;" ).replace( ">", "&gt;" ) ); // escape < and >
+			fileInputGraph.setInputGraph( file.getFileContent().replace( "<", "&lt;" ).replace( ">", "&gt;" ) ); // escape
+																													// <
+																													// and
+																													// >
 			fileInputGraphList.add( fileInputGraph );
 		}
 		model.addObject( "fileInputGraphList", fileInputGraphList );
@@ -120,8 +123,7 @@ public class DSPController
 	/* DSP N graph Initial content */
 	@RequestMapping( value = "/ngraph", method = RequestMethod.GET )
 	public ModelAndView nGraphInitial( /* tab2 get content via ajax */
-		@RequestParam( value = "sessionid", required = false ) final String sessionId, 
-		final HttpServletResponse response )
+	@RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
 	{
 		ModelAndView model = new ModelAndView( "dsp", "link", "dsp" );
 
@@ -134,8 +136,7 @@ public class DSPController
 	/* DSP N graph First Tab Submit */
 	@RequestMapping( value = "/ngraph/tab1", method = RequestMethod.POST )
 	public ModelAndView namespaceDeclarations( /* tab2 get content via ajax */
-		@RequestParam( "namespaceDeclarations" ) String namespaceDeclarations, 
-		@ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	@RequestParam( "namespaceDeclarations" ) String namespaceDeclarations, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
 		ModelAndView model = new ModelAndView( "dsp-tab2", "link", "dsp" );
 
@@ -144,9 +145,7 @@ public class DSPController
 
 	/* DSP N graph Second Tab Submit */
 	@RequestMapping( value = "/ngraph/tab2", method = RequestMethod.POST )
-	public ModelAndView constraints( 
-		@RequestParam( "constraints" ) String constraints, 
-		@ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	public ModelAndView constraints( @RequestParam( "constraints" ) String constraints, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
 		ModelAndView model = new ModelAndView( "dsp-tab3", "link", "dsp" );
 
@@ -155,9 +154,7 @@ public class DSPController
 
 	/* DSP N graph Third Tab Submit */
 	@RequestMapping( value = "/ngraph/tab3", method = RequestMethod.POST )
-	public ModelAndView data( 
-		@RequestParam( "data" ) String data, 
-		@ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	public ModelAndView data( @RequestParam( "data" ) String data, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
 		ModelAndView model = new ModelAndView( "dsp-tab4", "link", "dsp" );
 
@@ -166,9 +163,7 @@ public class DSPController
 
 	/* DSP N graph Fourth Tab Submit */
 	@RequestMapping( value = "/ngraph/tab4", method = RequestMethod.POST )
-	public ModelAndView inferenceRules( 
-		@RequestParam( "inferenceRules" ) String inferenceRules, 
-		@ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	public ModelAndView inferenceRules( @RequestParam( "inferenceRules" ) String inferenceRules, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
 		ModelAndView model = new ModelAndView( "dsp-tab5", "link", "spss" );
 
@@ -230,9 +225,11 @@ public class DSPController
 	{
 		ModelAndView model = new ModelAndView( "dsp-exmp-tab2", "link", "dsp" );
 
-//		String absolutePath = this.getClass().getClassLoader().getResource( "rdfGraphs" ).getPath();
-//		absolutePath = absolutePath.substring( 1, absolutePath.length() - 1 );
-		
+		// String absolutePath = this.getClass().getClassLoader().getResource(
+		// "rdfGraphs" ).getPath();
+		// absolutePath = absolutePath.substring( 1, absolutePath.length() - 1
+		// );
+
 		String absolutePath = new StringBuilder( request.getSession().getServletContext().getRealPath( dspResourcePath ) ).append( "/" ).append( filePath ).toString();
 
 		// System.out.println("absolutePath: " + absolutePath);
@@ -282,9 +279,13 @@ public class DSPController
 	FileMeta upload( MultipartHttpServletRequest request, HttpServletResponse response )
 	{
 		// absolute path
-//		String absolutePath = this.getClass().getClassLoader().getResource( "rdfGraphs" ).getPath();
-//		absolutePath = absolutePath.substring( 1, absolutePath.length() - 1 );
-//		String absolutePath = request.getSession().getServletContext().getRealPath( dspResourcePath );
+		// String absolutePath = this.getClass().getClassLoader().getResource(
+		// "rdfGraphs" ).getPath();
+		// absolutePath = absolutePath.substring( 1, absolutePath.length() - 1
+		// );
+		// String absolutePath =
+		// request.getSession().getServletContext().getRealPath( dspResourcePath
+		// );
 		String absolutePath = request.getSession().getServletContext().getRealPath( fileUploadPath );
 
 		// build an iterator
@@ -301,7 +302,7 @@ public class DSPController
 		}
 		return fileMeta;
 	}
-	
+
 	/**
 	 * Upload document via jquery ajax file upload
 	 * 
@@ -333,12 +334,31 @@ public class DSPController
 		}
 		return files;
 	}
-	
+
 	@RequestMapping( value = "/getuploaded", method = RequestMethod.GET )
 	public @ResponseBody
 	LinkedList<FileMeta> getUploaded()
 	{
 		return files;
+	}
+
+	@RequestMapping( value = "/deleteFile", method = RequestMethod.POST )
+	public @ResponseBody
+	String deleteFile( @RequestParam( value = "filename" ) String filename, HttpServletRequest request, HttpServletResponse response )
+	{
+		// removing files from the list
+		Iterator<FileMeta> iteratorFiles = files.iterator();
+		while (iteratorFiles.hasNext())
+			if ( iteratorFiles.next().getFileName().equalsIgnoreCase( filename ) )
+				iteratorFiles.remove();
+
+		// String absolutePath =
+		// request.getSession().getServletContext().getRealPath(
+		// dspFileUploadPath );
+		// remove file from the local drive.
+		// FileHelper.deleteFile( absolutePath + filename );
+
+		return "success";
 	}
 
 	/**
@@ -352,12 +372,14 @@ public class DSPController
 	public @ResponseBody
 	FileMeta getFIleDetails( @RequestParam( "filePath" ) String filePath, HttpServletRequest request, HttpServletResponse response )
 	{
-//		String absolutePath = this.getClass().getClassLoader().getResource( dspResourcePath ).getPath();
-//		absolutePath = absolutePath.substring( 1, absolutePath.length() - 1 );
-//		absolutePath = absolutePath + "/" + filePath; 
-		
+		// String absolutePath = this.getClass().getClassLoader().getResource(
+		// dspResourcePath ).getPath();
+		// absolutePath = absolutePath.substring( 1, absolutePath.length() - 1
+		// );
+		// absolutePath = absolutePath + "/" + filePath;
+
 		String absolutePath = request.getSession().getServletContext().getRealPath( dspResourcePath );
-		absolutePath = absolutePath + "/" + filePath; 
+		absolutePath = absolutePath + "/" + filePath;
 
 		// return FileHelper.getFileDetails( request, absolutePath,
 		// dspResourcePath + filePath );
@@ -378,14 +400,16 @@ public class DSPController
 		DynaTree dynaTree = new DynaTree( "root", null, true, "/", null );
 		// get full path
 		String fullPath = request.getSession().getServletContext().getRealPath( dspResourcePath );
-//		System.out.println( fullPath );
+		// System.out.println( fullPath );
 
 		// System.out.println(this.getClass().getClassLoader().getResource(
 		// "rdfGraphs" ).getPath());
 
-//		String absolutePath = this.getClass().getClassLoader().getResource( "/rel.txt" ).getPath();
-//		absolutePath = absolutePath.substring( 1, absolutePath.length() - 8 );
-//		System.out.println( absolutePath );
+		// String absolutePath = this.getClass().getClassLoader().getResource(
+		// "/rel.txt" ).getPath();
+		// absolutePath = absolutePath.substring( 1, absolutePath.length() - 8
+		// );
+		// System.out.println( absolutePath );
 
 		// System.out.println(absolutePath.lastIndexOf( "resources" ));
 
@@ -394,7 +418,7 @@ public class DSPController
 		// absolutePath.lastIndexOf( "resources" ), absolutePath.length() );
 
 		// replace %20 in absolute path of web app
-//		absolutePath = absolutePath.replace( "%20", " " );
+		// absolutePath = absolutePath.replace( "%20", " " );
 
 		// dynaTree.addChild( new DynaTree( absolutePath, null, true, "/", null
 		// ) );
@@ -426,10 +450,7 @@ public class DSPController
 	 * DSP demo
 	 */
 	@RequestMapping( value = "/demo", method = RequestMethod.GET )
-	public ModelAndView demo(
-		@RequestParam( value = "sessionid", required = false ) 
-		final String sessionId, 
-		final HttpServletResponse response )
+	public ModelAndView demo( @RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
 	{
 		ModelAndView model = new ModelAndView( "dsp-demo", "link", "dsp" );
 
@@ -438,34 +459,28 @@ public class DSPController
 
 		return model;
 	}
-	
+
 	@RequestMapping( value = "/demo/tab1", method = RequestMethod.POST )
-	public ModelAndView demo_tab1( 
-		@RequestParam( "namespaceDeclarations" ) String namespaceDeclarations, 
-		@ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	public ModelAndView demo_tab1( @RequestParam( "namespaceDeclarations" ) String namespaceDeclarations, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
 		ModelAndView model = new ModelAndView( "dsp-demo-tab2", "link", "dsp" );
 
 		return model;
 	}
-	
+
 	@RequestMapping( value = "/demo/tab2", method = RequestMethod.POST )
-	public ModelAndView demo_tab2( 
-		@RequestParam( "constraints" ) String constraints, 
-		@ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	public ModelAndView demo_tab2( @RequestParam( "constraints" ) String constraints, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
 		ModelAndView model = new ModelAndView( "dsp-demo-tab3", "link", "dsp" );
 
 		return model;
 	}
-	
+
 	@RequestMapping( value = "/demo/tab3", method = RequestMethod.POST )
-	public ModelAndView demo_tab3( 
-		@RequestParam( "data" ) String data, 
-		@ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	public ModelAndView demo_tab3( @RequestParam( "data" ) String data, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
 	{
 		ModelAndView model = new ModelAndView( "dsp-demo-tab4", "link", "dsp" );
-		
+
 		// escape < and >
 		String nd = validationEnvironment.getNamespaceDeclarations().replace( "<", "&lt;" ).replace( ">", "&gt;" );
 		String c = validationEnvironment.getConstraints().replace( "<", "&lt;" ).replace( ">", "&gt;" );
@@ -491,5 +506,5 @@ public class DSPController
 
 		return model;
 	}
-	
+
 }
