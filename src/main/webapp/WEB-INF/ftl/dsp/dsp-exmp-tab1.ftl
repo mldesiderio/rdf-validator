@@ -75,7 +75,7 @@
 						 	$jQ( "#filePath" ).val( node.data.url );
 					 	}
 		          	}
-		         });
+		         }).resizable();
 
 		}).fail(function(){}).always(function(){});
 	}
