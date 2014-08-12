@@ -6,9 +6,14 @@
 		<ul style="margin: 0;">
 	    	<li style="list-style-type: disc;">
 	    	please enter your data
-	    	
-	    	<#-- form onsite help -->
-			<a href="#" class="MISSY_onsiteHelp" style="margin:0 0 0 80px;vertical-align:top;">
+	    	</li>
+	    	<li style="list-style-type: disc;">please use W3C RDF turtle syntax</li>
+	    </ul>
+	    
+	    <hr/>
+	
+		<#-- form onsite help -->
+			<a href="#" class="MISSY_onsiteHelp" style="margin:0;vertical-align:top;">
 				<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
 				<span style="width:350px;">
 					<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
@@ -19,13 +24,7 @@
 				    </ul>
 				</span>
 			</a>
-	    	
-	    	</li>
-	    	<li style="list-style-type: disc;">please use W3C RDF turtle syntax</li>
-	    </ul>
-	    
-	    <hr/>
-	
+			
 	  	<div id="containerData"></div>	 
 	  	<input type="hidden" name="data" id="data" />
 	 

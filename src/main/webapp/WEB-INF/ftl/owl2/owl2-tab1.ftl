@@ -1,4 +1,4 @@
-<form id="form-owl2-tab1" action="<@spring.url '/owl2/tab1' />" style="padding-left: 25px" class="MISSY_round_right">
+<form id="form-owl2-tab1" action="<@spring.url '/owl2/tab1' />" style="padding: 25px 15px 25px 25px" class="MISSY_round_right">
 
 	<fieldset>
 	
@@ -8,7 +8,7 @@
 		</select>
 	  
 		<#-- form onsite help -->
-		<a href="#" class="MISSY_onsiteHelp">
+		<a href="#" class="MISSY_onsiteHelp" style="margin:0;vertical-align:top;">
 			<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
 			<span>
 				<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">

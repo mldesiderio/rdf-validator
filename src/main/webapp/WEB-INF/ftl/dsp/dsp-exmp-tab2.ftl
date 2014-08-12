@@ -5,8 +5,13 @@
 		<ul style="margin: 0;">
 	    	<li style="list-style-type: disc;">
 	    	this example file contains namespace declarations, constraints, and data
-	    	
-	    	<#-- form onsite help -->
+	    	</li>
+	    	<li style="list-style-type: disc;">you may add namespace declarations, constraints, and data</li>
+	    </ul>
+	    
+	    <hr/>
+		  	
+		<#-- form onsite help -->
 			<a href="#" class="MISSY_onsiteHelp" style="margin-top:0px;vertical-align:top;">
 				<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
 				<span style="width:350px;">
@@ -18,13 +23,7 @@
 				    </ul>
 				</span>
 			</a>
-		
-	    	</li>
-	    	<li style="list-style-type: disc;">you may add namespace declarations, constraints, and data</li>
-	    </ul>
-	    
-	    <hr/>
-		  	
+			
 	  	<div id="containerRdfGraph"></div>	
 	  	<input type="hidden" name="rdfGraph" id="rdfGraph" />
 	  	

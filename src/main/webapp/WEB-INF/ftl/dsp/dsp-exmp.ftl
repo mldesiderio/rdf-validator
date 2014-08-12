@@ -43,9 +43,6 @@
 			//	if ( !validatationOfDatasetSucceed() )
 			//		return false;
 			
-			<#-- put textarea value into hidden input --> 
-			$jQ( "#rdfGraph" ).val( $jQ( "#rdfGraph" ).find("textarea").val() );
-			
 			changeTabCondition( 1 );
 			
 			<#--  submit the first form via ajax post and get the second tab content-->
@@ -59,6 +56,8 @@
 			//if ( !validateForm( $jQ( "form#form-dsp-tab2" ) ) )
 			//	return false;
 			
+			<#-- put textarea value into hidden input --> 
+			$jQ( "#rdfGraph" ).val( $jQ( "#containerRdfGraph" ).find("textarea").val() );
 			changeTabCondition( 2 );
 			
 			<#-- ajax loading -->
