@@ -7,3 +7,6 @@ textarea {
 h3{
 	font-size: 1.2em;
 }
+fieldset{
+	max-width: 100%;
+}

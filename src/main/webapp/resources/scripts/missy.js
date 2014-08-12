@@ -1058,17 +1058,19 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 				)
 		.append(
 				$jQ('<textarea/>').addClass( 'edit-syntax' ).val( rdfOwlSyntax )
-				.css({'width': '96%', 'height' : "410px", 'resize' : ' none'})
+				.css({'width': '99%', 'height' : "410px", 'resize' : ' none'})
 				)
 		.append(
 				$jQ('<div/>').addClass('highlight-syntax')
-				.css({'width': '96%', 'height' : "410px", 'display':'none', 'background-color': '#fefefe','overflow':'auto'})
+				.css({'width': '99%', 'height' : "410px", 'display':'none', 'background-color': '#fefefe','overflow':'auto'})
 				)
 		.css({'width': '100%', 'height' : "450px"})
 		.resizable({
 			  resize: function( event, ui ) {
-				  $jQ( this ).find( "textarea.edit-syntax,div.highlight-syntax" )
-				  .css({ 'width' : (ui.element.width() - 30 ) + 'px' , 'height' : (ui.element.height() - 40 ) + 'px' });
+				  $jQ( this ).find( "textarea.edit-syntax" )
+				  .css({ 'width' : (ui.element.width() - 10 ) + 'px' , 'height' : (ui.element.height() - 40 ) + 'px' });
+				  $jQ( this ).find( "div.highlight-syntax" )
+				  .css({ 'width' : (ui.element.width() - 10 ) + 'px' , 'height' : (ui.element.height() - 40 ) + 'px' });
 			  }
 		});
 		
@@ -1101,7 +1103,7 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 	
 	 //check whether there is missy onsite help
 	if( $htmlContent.parent().prev( "a.MISSY_onsiteHelp" ).length > 0){
-		$htmlContent.parent().prev( "a.MISSY_onsiteHelp" ).appendTo( $htmlContent );
+		$htmlContent.parent().prev( "a.MISSY_onsiteHelp" ).css("float", "right").prependTo( $htmlContent );
 	}
 }
 
@@ -1125,7 +1127,9 @@ function hightlightRdfOwl( $elem, rdfOwlSyntax ){
 	    format: "jsonp"
 	  })
 	  .done(function( data ) {
-		  $elem.html( data.html );
+		  $elem
+		  .html( data.html )
+		  .css( "width" , ($elem.parent().width() - 10) + "px");
 	  }).fail(function() {
 		  $elem.html( "<span style='color:#f00'>Error - no internet connection!</span>" );
 	  });
