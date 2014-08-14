@@ -28,7 +28,9 @@
 
 <!-- GESIS logo with link to main-homepage --> 
 <a href="http://www.gesis.org">
+	<!--
 	<img class="headImg1" width="420" height="50" border="0" title="Gesis" alt="" src="<@spring.url '/resources/images/gs_logo_microsite.jpg' />" />
+	-->
 </a> 
 
 <#--include session warning alert /-->

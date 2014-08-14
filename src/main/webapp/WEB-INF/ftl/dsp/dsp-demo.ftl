@@ -36,7 +36,7 @@
 		<#-- jQery tab for main content 'define study, define spss file, import -->
 		$jQ( "#updateSpssTabContainer" ).tabs({ 
 			active: 0,
-			disabled: [1,2,3]
+			<!-- disabled: [1,2,3] -->
      	});
      	
 		$jQ( "#graphTabContainer" ).tabs({ active: 0 });
@@ -58,7 +58,7 @@
 		} );
 		
 		<#-- submit button on tab 2 pressed -->
-		$jQ( "#dsp-demo-tab2" ).on( "click", "#button_dsp-demo-tab2", function(){
+		$jQ( "#dsp-demo-tab2" ).on( "focus", function(){
 			
 			// validate form first
 			//if ( !validateForm( $jQ( "form#form-dsp-demo-tab2" ) ) )
@@ -74,20 +74,28 @@
 		<#-- submit button on tab 4 pressed -->
 		$jQ( "#dsp-demo-tab3" ).on( "click", "#button_dsp-demo-tab3", function(){
 			
-			// validate form first
-			//if ( !validateForm( $jQ( "form#form-dsp-demo-tab3" ) ) )
-			//	return false;
+			<!-- $jQ( "#data" ).val( $jQ( "#containerData" ).find("textarea").val() );-->
 			
-			$jQ( "#data" ).val( $jQ( "#containerData" ).find("textarea").val() );
+			<!-- changeTabCondition( 3 ); -->
+			$jQ( "#constraints" ).val( $jQ( "#containerConstraints" ).find("textarea").val() );
 			
-			changeTabCondition( 3 );
+			<#-- ajax loading -->
+			<!-- createAjaxLoadingOnAjaxContainer( "#form-dsp-demo-tab4" );-->
 			
+			<#--  submit the second form via ajax post and get the third tab content-->
+			<!-- ajaxDspFrequenciesTabContent( "#form-dsp-demo-tab3", "#dsp-demo-tab4" );-->
+		} );
+		
+		<#-- validate button pressed -->
+		$jQ( "#dsp-demo-tab4" ).on( "click", "#button_dsp-demo-tab4", function(){
+		
 			<#-- ajax loading -->
 			createAjaxLoadingOnAjaxContainer( "#form-dsp-demo-tab4" );
 			
 			<#--  submit the second form via ajax post and get the third tab content-->
 			ajaxDspFrequenciesTabContent( "#form-dsp-demo-tab3", "#dsp-demo-tab4" );
 		} );
+		
 	}); // end of document ready
 	
 	<#-- 

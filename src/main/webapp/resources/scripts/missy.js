@@ -1047,7 +1047,7 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 				})
 				)
 		.append(
-				$jQ('<input/>').attr({ type: 'button' , value: 'Preview' })
+				$jQ('<input/>').attr({ type: 'button' , value: 'View' })
 				.addClass( 'buttonSubmit MISSY_loginSubmit' )
 				.css({ 'margin' : '0'})
 				.on ( 'click', function () {

@@ -60,6 +60,8 @@
 	  	
 	</fieldset>
 	
+	<!--
+	
 	<hr />
 	
 	<fieldset>
@@ -72,10 +74,13 @@
 		  style="float: right; margin-top: 10px">
 	</fieldset>
 	
+	-->
+	
 	<input type="hidden" id="filePath" name="filePath" />
 
 </form>
 <script>
+
 	$jQ(document).ready(function() {
 	
 	    // check username availability on focus lost

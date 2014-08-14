@@ -31,7 +31,7 @@ import RDFValidation.ValidationEnvironment;
 @RequestMapping( value = "/owl2" )
 public class OWL2Controller
 {
-	final String nonLiteralValueConstraintsPath = "/resources/rdfGraphs/DSP/Non-LiteralValueConstraints";
+	final String nonLiteralValueConstraintsPath = "/resources/rdfGraphs/OWL2";
 	final String dspFileUploadPath = "/resources/uploaded_files/";
 
 	/* variable for multiple file upload */
