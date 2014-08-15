@@ -37,26 +37,31 @@
 	    </ul>
 	    
 	    <hr/>
-	
-	  	<input type="checkbox" name="ad-hoc_module" onchange="unfoldToggle(this);" style="width:14px;margin:0px;"/> Unfold All
+	    
+		<div>
+		  	<input type="checkbox" name="ad-hoc_module" onchange="unfoldToggle(this);" style="width:14px;margin:0px;"/> Unfold All
+		  	
+		  	<#-- form onsite help -->
+			<a href="#" class="MISSY_onsiteHelp" style="margin-top:0px;vertical-align:top;margin-left:590px;">
+				<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
+				<span style="width:350px;">
+					<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
+					<h4 class="MISSY_onsiteHelp">Constraints</h4>
+					<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
+				    <ul style="margin: 0;">
+				    	<li style="list-style-type: disc;">you may select a file containing example constraints</li>
+				    	<li style="list-style-type: disc;">the content of the selected file will be pasted at the end of the textarea above</li>
+				    </ul>
+				</span>
+			</a>
+		
+		</div>
+		
 		<div id="tree" class="tree-container" style="width:100%;height:200px;">
 			<img src="<@spring.url '/resources/images/loading.gif' />" /> loading...
 			
 		</div>
 	  	
-		<#-- form onsite help -->
-		<a href="#" class="MISSY_onsiteHelp" style="margin-top:0px;vertical-align:top;margin-left:590px;">
-			<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
-			<span style="width:350px;">
-				<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
-				<h4 class="MISSY_onsiteHelp">Constraints</h4>
-				<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
-			    <ul style="margin: 0;">
-			    	<li style="list-style-type: disc;">you may select a file containing example constraints</li>
-			    	<li style="list-style-type: disc;">the content of the selected file will be pasted at the end of the textarea above</li>
-			    </ul>
-			</span>
-		</a>
 	  	
 	</fieldset>
 	
