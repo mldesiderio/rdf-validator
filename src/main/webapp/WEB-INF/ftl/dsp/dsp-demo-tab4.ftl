@@ -1,6 +1,19 @@
 <form id="form-dsp-demo-tab4" action="<@spring.url '/dsp/demo/tab4' />" style="padding-left: 25px" class="MISSY_round_right">
 
 	<fieldset>
+		<input 
+		  type="button" 
+		  name="button_dsp-demo-tab4" 
+		  id="button_dsp-demo-tab4" 
+		  value="Validate" 
+		  class="buttonSubmit MISSY_loginSubmit" 
+		  style="float: right; margin-top: 10px">
+	</fieldset>
+	
+	<br />
+	<hr />
+
+	<fieldset>
 	
 		<h3>Constraint Violations</h3> 
 		<br/>
@@ -95,20 +108,6 @@
 		
 		<br/> 
 
-	</fieldset>
-	
-	<br />
-	<hr />
-	
-	<fieldset>
-		<input 
-		  type="button" 
-		  name="button_dsp-demo-tab4" 
-		  id="button_dsp-demo-tab4" 
-		  value="Check Further Constraints" 
-		  class="buttonSubmit MISSY_loginSubmit" 
-		  style="float: right; margin-top: 10px"
-		  onclick="location.reload(); return false;">
 	</fieldset>
 	
 </form>

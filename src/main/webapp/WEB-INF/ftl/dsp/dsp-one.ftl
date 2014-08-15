@@ -25,7 +25,7 @@
 		<#-- jQery tab for main content 'define study, define spss file, import -->
 		$jQ( "#updateSpssTabContainer" ).tabs({ 
 			active: 0,
-			disabled: [1]
+			<!-- disabled: [1] -->
      	});
      	
 		$jQ( "#graphTabContainer" ).tabs({ active: 0 });

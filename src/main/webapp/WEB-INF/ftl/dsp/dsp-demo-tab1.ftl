@@ -28,6 +28,8 @@
 	  	<input type="hidden" name="namespaceDeclarations" id="namespaceDeclarations" />
 	</fieldset>
 	
+	<!--
+	
 	<hr />
 	
 	<fieldset>
@@ -39,6 +41,8 @@
 		  class="buttonSubmit MISSY_loginSubmit" 
 		  style="float: right; margin-top: 10px">
 	</fieldset>
+	
+	-->
 
 </form>
 

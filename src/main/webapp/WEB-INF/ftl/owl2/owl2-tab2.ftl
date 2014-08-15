@@ -15,6 +15,8 @@
 				</td>
 	        </tr>
 	    </table>
+	    
+	    <div id="constraints" name="constraints" style="width:100%"></div>	
 	
 	  	<div id="accordion_result_area">
 	  		

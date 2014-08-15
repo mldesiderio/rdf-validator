@@ -86,4 +86,26 @@
 	        }
 	    });
     });
+    
+$jQ( function(){
+	<#-- load default content -->
+	getDocumentDetails( "<@spring.url '/dsp/file_details' />", "defaultNamespaceDeclarations.ttl", "#containerNamespaceDeclarations", "WEB-INF/classes/SPIN/" );
+	
+	<#-- file upload -->
+	$jQ('#fileupload2').fileupload({
+        dataType: 'json',
+ 
+        done: function (e, data) {
+         	$jQ('#constraints').val( data.result.fileContent );
+        },
+ 
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $jQ('#progress2 .bar').css('width', progress + '%').html( progress + '%');
+        	$jQ('#progress2').show();
+            if( progress == 100 )
+            	window.setTimeout( function(){$jQ('#progress2').fadeOut( "slow" ); } , 3000);
+        }
+    });
+});
 </script>
