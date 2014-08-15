@@ -15,6 +15,11 @@ pre{
 	overflow: auto;
 }
 
+div.highlight-syntax pre{
+	width: 100%;
+ 	overflow: visible;
+}
+
 table.datatable pre
 {
 	width: 600px;
