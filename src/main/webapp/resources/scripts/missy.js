@@ -1110,7 +1110,7 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 /**
  * Create directory tree
  */
-function createTree( $containerSelector, sectionType, relativeDirectory ){
+function createTree( $containerSelector, sectionType, syntaxContainerSelector, relativeDirectory ){
 	var $container = null;
 	if ($containerSelector instanceof jQuery)
 		$container = $containerSelector;
@@ -1144,7 +1144,7 @@ function createTree( $containerSelector, sectionType, relativeDirectory ){
 					children: data,
 					onActivate: function(node) {
 						if(!node.data.isFolder){
-						 	getDocumentDetails( basepath + "/" + sectionType  +"/file_details", node.data.url, "#containerConstraints", relativeDirectory );
+						 	getDocumentDetails( basepath + "/" + sectionType  +"/file_details", node.data.url, syntaxContainerSelector, relativeDirectory );
 					 	}
 		          	}
 		         })

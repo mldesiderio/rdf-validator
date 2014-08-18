@@ -59,6 +59,254 @@ public class DSPController
 	}
 
 	/**
+	 * DSP demo
+	 */
+	@RequestMapping( value = "/demo", method = RequestMethod.GET )
+	public ModelAndView demo( @RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
+	{
+		ModelAndView model = new ModelAndView( "dsp-demo", "link", "dsp" );
+		return model;
+	}
+
+	@RequestMapping( value = "/demo/validation", method = RequestMethod.POST )
+	public ModelAndView demo_tab3( @RequestParam( "nameSpaceDeclaration" ) String nameSpaceDeclaration, @RequestParam( "constraints" ) String constraints, @RequestParam( "data" ) String data, @RequestParam( "inferenceRules" ) String inferenceRules )
+	{
+		ModelAndView model = new ModelAndView( "dsp-demo-validation", "link", "dsp" );
+
+		/*
+		 * escape < and > String nd =
+		 * validationEnvironment.getNamespaceDeclarations().replace( "<", "&lt;"
+		 * ).replace( ">", "&gt;" ); String c =
+		 * validationEnvironment.getConstraints().replace( "<", "&lt;"
+		 * ).replace( ">", "&gt;" ); String d =
+		 * validationEnvironment.getData().replace( "<", "&lt;" ).replace( ">",
+		 * "&gt;" );
+		 */
+
+		// add line separators at the end of each input graph
+		String ND = new StringBuilder( nameSpaceDeclaration ).append( "\r\n" ).toString();
+		String C = new StringBuilder( constraints ).append( "\r\n" ).toString();
+		String D = new StringBuilder( data ).append( "\r\n" ).toString();
+		String IR = new StringBuilder( inferenceRules ).append( "\r\n" ).toString();
+
+		// input graph
+		String rdfGraph = new StringBuilder( ND ).append( C ).append( D ).append( IR ).toString();
+
+		Spin spin = new Spin( "DSP_SPIN-Mapping.ttl" );
+		spin.runInferences_checkConstraints( rdfGraph );
+
+		model.addObject( "dspValidationResult", spin.validationResults );
+		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
+
+		return model;
+	}
+
+	/**
+	 * UTILITY METHODS
+	 */
+
+	/**
+	 * Upload document via jquery ajax file upload
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping( value = "/upload", method = RequestMethod.POST )
+	public @ResponseBody
+	FileMeta upload( MultipartHttpServletRequest request, HttpServletResponse response )
+	{
+		// absolute path
+		// String absolutePath = this.getClass().getClassLoader().getResource(
+		// "rdfGraphs" ).getPath();
+		// absolutePath = absolutePath.substring( 1, absolutePath.length() - 1
+		// );
+		// String absolutePath =
+		// request.getSession().getServletContext().getRealPath( dspResourcePath
+		// );
+		String absolutePath = request.getSession().getServletContext().getRealPath( fileUploadPath );
+
+		// build an iterator
+		Iterator<String> itr = request.getFileNames();
+		MultipartFile mpf = null;
+
+		// get each file
+		while (itr.hasNext())
+		{
+			// get next MultipartFile
+			mpf = request.getFile( itr.next() );
+			// upload file and get the file back
+			fileMeta = FileHelper.uploadFile( request, mpf, absolutePath, fileUploadPath );
+		}
+		return fileMeta;
+	}
+
+	/**
+	 * Upload document via jquery ajax file upload
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping( value = "/multiple-file-upload", method = RequestMethod.POST )
+	public @ResponseBody
+	LinkedList<FileMeta> multiUpload( MultipartHttpServletRequest request, HttpServletResponse response )
+	{
+		// get full path
+		String fullPath = request.getSession().getServletContext().getRealPath( "/" );
+
+		// build an iterator
+		Iterator<String> itr = request.getFileNames();
+		MultipartFile mpf = null;
+
+		// get each file
+		while (itr.hasNext())
+		{
+			// get next MultipartFile
+			mpf = request.getFile( itr.next() );
+			// upload file and get the file back
+			fileMeta = FileHelper.uploadFile( request, mpf, fullPath, fileUploadPath );
+
+			// add to linkedList
+			files.add( fileMeta );
+		}
+		return files;
+	}
+
+	@RequestMapping( value = "/getuploaded", method = RequestMethod.GET )
+	public @ResponseBody
+	LinkedList<FileMeta> getUploaded()
+	{
+		return files;
+	}
+
+	@RequestMapping( value = "/deleteFile", method = RequestMethod.POST )
+	public @ResponseBody
+	String deleteFile( @RequestParam( value = "filename" ) String filename, HttpServletRequest request, HttpServletResponse response )
+	{
+		// removing files from the list
+		Iterator<FileMeta> iteratorFiles = files.iterator();
+		while (iteratorFiles.hasNext())
+			if ( iteratorFiles.next().getFileName().equalsIgnoreCase( filename ) )
+				iteratorFiles.remove();
+
+		// String absolutePath =
+		// request.getSession().getServletContext().getRealPath(
+		// dspFileUploadPath );
+		// remove file from the local drive.
+		// FileHelper.deleteFile( absolutePath + filename );
+
+		return "success";
+	}
+
+	/**
+	 * get detail of document from specific folder
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping( value = "/file_details", method = RequestMethod.POST )
+	public @ResponseBody
+	FileMeta getFileDetails( @RequestParam( "filePath" ) String filePath, @RequestParam( value = "additionalPath", required = false ) String additionalPath, HttpServletRequest request, HttpServletResponse response )
+	{
+		// String absolutePath = this.getClass().getClassLoader().getResource(
+		// dspResourcePath ).getPath();
+		// absolutePath = absolutePath.substring( 1, absolutePath.length() - 1
+		// );
+		// absolutePath = absolutePath + "/" + filePath;
+
+		String absolutePath = request.getSession().getServletContext().getRealPath( additionalPath != null ? additionalPath : dspResourcePath );
+		absolutePath = absolutePath + "/" + filePath;
+
+		// return FileHelper.getFileDetails( request, absolutePath,
+		// dspResourcePath + filePath );
+		return FileHelper.getFileDetails( absolutePath );
+	}
+
+	/**
+	 * Get the json structure of specific folder
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping( value = "/resource_structure", method = RequestMethod.POST )
+	public @ResponseBody
+	List<DynaTree> directoryStructure( @RequestParam( value = "specificDirectory", required = false ) String specificDirectory, HttpServletRequest request, HttpServletResponse response )
+	{
+		DynaTree dynaTree = new DynaTree( "root", null, true, "/", null );
+		// get full path
+		String fullPath = request.getSession().getServletContext().getRealPath( specificDirectory != null ? specificDirectory : dspResourcePath );
+		// System.out.println( fullPath );
+
+		// System.out.println(this.getClass().getClassLoader().getResource(
+		// "rdfGraphs" ).getPath());
+
+		// String absolutePath = this.getClass().getClassLoader().getResource(
+		// "/rel.txt" ).getPath();
+		// absolutePath = absolutePath.substring( 1, absolutePath.length() - 8
+		// );
+		// System.out.println( absolutePath );
+
+		// System.out.println(absolutePath.lastIndexOf( "resources" ));
+
+		// absolutePath = absolutePath.substring( 0, absolutePath.lastIndexOf(
+		// "resources" ) - 9 ) + absolutePath.substring(
+		// absolutePath.lastIndexOf( "resources" ), absolutePath.length() );
+
+		// replace %20 in absolute path of web app
+		// absolutePath = absolutePath.replace( "%20", " " );
+
+		// dynaTree.addChild( new DynaTree( absolutePath, null, true, "/", null
+		// ) );
+
+		// String test = fullPath + "/";
+		// get the directory structure
+		// dynaTree.setChildren( convertDirectoryToDynaTree( new File(
+		// "C:/Program Files/ApacheTomcat8/webapps/rdf-validation/WEB-INF/classes/rdfGraphs"
+		// + "/" ), "" ) );
+		// dynaTree.setChildren( convertDirectoryToDynaTree( new File(
+		// "lelystad.informatik.uni-mannheim.de" + "/" ), "" ) );
+		dynaTree.setChildren( FileHelper.convertDirectoryToDynaTree( new File( fullPath ), "", true ) );
+		// dynaTree.setChildren( convertDirectoryToDynaTree( new File(
+		// "127.0.0.1" + "/" ), "" ) );
+
+		// testing
+		// List<DynaTree> listDynaTree = new ArrayList<DynaTree>();
+		// listDynaTree.add( new DynaTree(
+		// this.getClass().getClassLoader().getResource( "/" +
+		// "SPIN/functions/dsp-functions.ttl" ).getPath(), null, true, "/", null
+		// ) );
+		// dynaTree.setChildren( listDynaTree );
+
+		// return json
+		return dynaTree.getChildren();
+	}
+
+	/**
+	 * UNUSED METHODS
+	 */
+	/**
+	 * DSP DEMO
+	 */
+	@RequestMapping( value = "/demo/tab1", method = RequestMethod.POST )
+	public ModelAndView demo_tab1( @RequestParam( "namespaceDeclarations" ) String namespaceDeclarations, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	{
+		ModelAndView model = new ModelAndView( "dsp-demo-tab2", "link", "dsp" );
+
+		return model;
+	}
+
+	@RequestMapping( value = "/demo/tab2", method = RequestMethod.POST )
+	public ModelAndView demo_tab2( @RequestParam( "constraints" ) String constraints, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+	{
+		ModelAndView model = new ModelAndView( "dsp-demo-tab3", "link", "dsp" );
+
+		return model;
+	}
+
+	/**
 	 * DSP 1 GRAPH (AJAX)
 	 */
 	/* DSP N graph Initial content */
@@ -268,245 +516,5 @@ public class DSPController
 	}
 
 	/** END EXAMPLE GRAPH */
-
-	/**
-	 * Upload document via jquery ajax file upload
-	 * 
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@RequestMapping( value = "/upload", method = RequestMethod.POST )
-	public @ResponseBody
-	FileMeta upload( MultipartHttpServletRequest request, HttpServletResponse response )
-	{
-		// absolute path
-		// String absolutePath = this.getClass().getClassLoader().getResource(
-		// "rdfGraphs" ).getPath();
-		// absolutePath = absolutePath.substring( 1, absolutePath.length() - 1
-		// );
-		// String absolutePath =
-		// request.getSession().getServletContext().getRealPath( dspResourcePath
-		// );
-		String absolutePath = request.getSession().getServletContext().getRealPath( fileUploadPath );
-
-		// build an iterator
-		Iterator<String> itr = request.getFileNames();
-		MultipartFile mpf = null;
-
-		// get each file
-		while (itr.hasNext())
-		{
-			// get next MultipartFile
-			mpf = request.getFile( itr.next() );
-			// upload file and get the file back
-			fileMeta = FileHelper.uploadFile( request, mpf, absolutePath, fileUploadPath );
-		}
-		return fileMeta;
-	}
-
-	/**
-	 * Upload document via jquery ajax file upload
-	 * 
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@RequestMapping( value = "/multiple-file-upload", method = RequestMethod.POST )
-	public @ResponseBody
-	LinkedList<FileMeta> multiUpload( MultipartHttpServletRequest request, HttpServletResponse response )
-	{
-		// get full path
-		String fullPath = request.getSession().getServletContext().getRealPath( "/" );
-
-		// build an iterator
-		Iterator<String> itr = request.getFileNames();
-		MultipartFile mpf = null;
-
-		// get each file
-		while (itr.hasNext())
-		{
-			// get next MultipartFile
-			mpf = request.getFile( itr.next() );
-			// upload file and get the file back
-			fileMeta = FileHelper.uploadFile( request, mpf, fullPath, fileUploadPath );
-
-			// add to linkedList
-			files.add( fileMeta );
-		}
-		return files;
-	}
-
-	@RequestMapping( value = "/getuploaded", method = RequestMethod.GET )
-	public @ResponseBody
-	LinkedList<FileMeta> getUploaded()
-	{
-		return files;
-	}
-
-	@RequestMapping( value = "/deleteFile", method = RequestMethod.POST )
-	public @ResponseBody
-	String deleteFile( @RequestParam( value = "filename" ) String filename, HttpServletRequest request, HttpServletResponse response )
-	{
-		// removing files from the list
-		Iterator<FileMeta> iteratorFiles = files.iterator();
-		while (iteratorFiles.hasNext())
-			if ( iteratorFiles.next().getFileName().equalsIgnoreCase( filename ) )
-				iteratorFiles.remove();
-
-		// String absolutePath =
-		// request.getSession().getServletContext().getRealPath(
-		// dspFileUploadPath );
-		// remove file from the local drive.
-		// FileHelper.deleteFile( absolutePath + filename );
-
-		return "success";
-	}
-
-	/**
-	 * get detail of document from specific folder
-	 * 
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@RequestMapping( value = "/file_details", method = RequestMethod.POST )
-	public @ResponseBody
-	FileMeta getFileDetails( @RequestParam( "filePath" ) String filePath, @RequestParam( value = "additionalPath", required = false ) String additionalPath, HttpServletRequest request, HttpServletResponse response )
-	{
-		// String absolutePath = this.getClass().getClassLoader().getResource(
-		// dspResourcePath ).getPath();
-		// absolutePath = absolutePath.substring( 1, absolutePath.length() - 1
-		// );
-		// absolutePath = absolutePath + "/" + filePath;
-
-		String absolutePath = request.getSession().getServletContext().getRealPath( additionalPath != null ? additionalPath : dspResourcePath );
-		absolutePath = absolutePath + "/" + filePath;
-
-		// return FileHelper.getFileDetails( request, absolutePath,
-		// dspResourcePath + filePath );
-		return FileHelper.getFileDetails( absolutePath );
-	}
-
-	/**
-	 * Get the json structure of specific folder
-	 * 
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@RequestMapping( value = "/resource_structure", method = RequestMethod.POST )
-	public @ResponseBody
-	List<DynaTree> directoryStructure( @RequestParam( value = "specificDirectory", required = false ) String specificDirectory, HttpServletRequest request, HttpServletResponse response )
-	{
-		DynaTree dynaTree = new DynaTree( "root", null, true, "/", null );
-		// get full path
-		String fullPath = request.getSession().getServletContext().getRealPath( specificDirectory != null ? specificDirectory : dspResourcePath );
-		// System.out.println( fullPath );
-
-		// System.out.println(this.getClass().getClassLoader().getResource(
-		// "rdfGraphs" ).getPath());
-
-		// String absolutePath = this.getClass().getClassLoader().getResource(
-		// "/rel.txt" ).getPath();
-		// absolutePath = absolutePath.substring( 1, absolutePath.length() - 8
-		// );
-		// System.out.println( absolutePath );
-
-		// System.out.println(absolutePath.lastIndexOf( "resources" ));
-
-		// absolutePath = absolutePath.substring( 0, absolutePath.lastIndexOf(
-		// "resources" ) - 9 ) + absolutePath.substring(
-		// absolutePath.lastIndexOf( "resources" ), absolutePath.length() );
-
-		// replace %20 in absolute path of web app
-		// absolutePath = absolutePath.replace( "%20", " " );
-
-		// dynaTree.addChild( new DynaTree( absolutePath, null, true, "/", null
-		// ) );
-
-		// String test = fullPath + "/";
-		// get the directory structure
-		// dynaTree.setChildren( convertDirectoryToDynaTree( new File(
-		// "C:/Program Files/ApacheTomcat8/webapps/rdf-validation/WEB-INF/classes/rdfGraphs"
-		// + "/" ), "" ) );
-		// dynaTree.setChildren( convertDirectoryToDynaTree( new File(
-		// "lelystad.informatik.uni-mannheim.de" + "/" ), "" ) );
-		dynaTree.setChildren( FileHelper.convertDirectoryToDynaTree( new File( fullPath ), "", true ) );
-		// dynaTree.setChildren( convertDirectoryToDynaTree( new File(
-		// "127.0.0.1" + "/" ), "" ) );
-
-		// testing
-		// List<DynaTree> listDynaTree = new ArrayList<DynaTree>();
-		// listDynaTree.add( new DynaTree(
-		// this.getClass().getClassLoader().getResource( "/" +
-		// "SPIN/functions/dsp-functions.ttl" ).getPath(), null, true, "/", null
-		// ) );
-		// dynaTree.setChildren( listDynaTree );
-
-		// return json
-		return dynaTree.getChildren();
-	}
-
-	/**
-	 * DSP demo
-	 */
-	@RequestMapping( value = "/demo", method = RequestMethod.GET )
-	public ModelAndView demo( @RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
-	{
-		ModelAndView model = new ModelAndView( "dsp-demo", "link", "dsp" );
-
-		if ( sessionId != null && sessionId.equals( "0" ) )
-			response.setHeader( "SESSION_INVALID", "yes" );
-
-		return model;
-	}
-
-	@RequestMapping( value = "/demo/tab1", method = RequestMethod.POST )
-	public ModelAndView demo_tab1( @RequestParam( "namespaceDeclarations" ) String namespaceDeclarations, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
-	{
-		ModelAndView model = new ModelAndView( "dsp-demo-tab2", "link", "dsp" );
-
-		return model;
-	}
-
-	@RequestMapping( value = "/demo/tab2", method = RequestMethod.POST )
-	public ModelAndView demo_tab2( @RequestParam( "constraints" ) String constraints, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
-	{
-		ModelAndView model = new ModelAndView( "dsp-demo-tab3", "link", "dsp" );
-
-		return model;
-	}
-
-	@RequestMapping( value = "/demo/tab3", method = RequestMethod.POST )
-	public ModelAndView demo_tab3( @RequestParam( "data" ) String data, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
-	{
-		ModelAndView model = new ModelAndView( "dsp-demo-tab4", "link", "dsp" );
-
-		// escape < and >
-		String nd = validationEnvironment.getNamespaceDeclarations().replace( "<", "&lt;" ).replace( ">", "&gt;" );
-		String c = validationEnvironment.getConstraints().replace( "<", "&lt;" ).replace( ">", "&gt;" );
-		String d = validationEnvironment.getData().replace( "<", "&lt;" ).replace( ">", "&gt;" );
-
-		model.addObject( "namespaceDeclarations", nd );
-		model.addObject( "constraints", c );
-		model.addObject( "data", d );
-
-		// add line separators at the end of each input graph
-		String ND = new StringBuilder( validationEnvironment.getNamespaceDeclarations() ).append( "\r\n" ).toString();
-		String C = new StringBuilder( validationEnvironment.getConstraints() ).append( "\r\n" ).toString();
-		String D = new StringBuilder( validationEnvironment.getData() ).append( "\r\n" ).toString();
-
-		// input graph
-		String rdfGraph = new StringBuilder( ND ).append( C ).append( D ).toString();
-
-		Spin spin = new Spin( "DSP_SPIN-Mapping.ttl" );
-		spin.runInferences_checkConstraints( rdfGraph );
-
-		model.addObject( "dspValidationResult", spin.validationResults );
-		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
-
-		return model;
-	}
 
 }

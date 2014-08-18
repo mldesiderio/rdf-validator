@@ -1,18 +1,16 @@
 <form style="padding-left: 25px"  id="form-dsp-demo-tab3" action="<@spring.url '/dsp/demo/tab3' />" class="MISSY_round_right">
-
 	
 	<fieldset>
 	
+		<#-- main direction -->
 		<ul style="margin: 0;">
-	    	<li style="list-style-type: disc;">
-	    	please enter your data
-	    	</li>
+	    	<li style="list-style-type: disc;">please enter your data</li>
 	    	<li style="list-style-type: disc;">please use W3C RDF turtle syntax</li>
 	    </ul>
 	    
 	    <hr/>
 	
-		<#-- form onsite help -->
+		<#-- main onsite help -->
 			<a href="#" class="MISSY_onsiteHelp" style="margin:0;vertical-align:top;">
 				<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
 				<span style="width:350px;">
@@ -25,68 +23,49 @@
 				</span>
 			</a>
 			
+		<#-- syntax container -->
 	  	<div id="containerData"></div>	 
-	  	<input type="hidden" name="data" id="data" />
 	 
 	</fieldset>
 	
-	<!--
-	
-	<hr />
-	
+	<hr/>
+
 	<fieldset>
-		<input 
-		  type="button" 
-		  name="button_dsp-demo-tab3" 
-		  id="button_dsp-demo-tab3" 
-		  value="Next: Validation Results" 
-		  class="buttonSubmit MISSY_loginSubmit" 
-		  style="float: right; margin-top: 10px">
+		<#-- directory tree direction -->
+		<ul style="margin: 0;">
+	    	<li style="list-style-type: disc;">you may select a file containing example data</li>
+	    </ul>
+	    
+	    <hr/>
+	    
+	  	<#-- directory tree onsite help -->
+		<a href="#" class="MISSY_onsiteHelp" style="margin-top:0px;vertical-align:top;margin-left:590px;">
+			<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
+			<span style="width:350px;">
+				<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
+				<h4 class="MISSY_onsiteHelp">Constraints</h4>
+				<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
+			    <ul style="margin: 0;">
+			    	<li style="list-style-type: disc;">you may select a file containing example data</li>
+			    	<li style="list-style-type: disc;">the content of the selected file will be pasted at the end of the textarea above</li>
+			    </ul>
+			</span>
+		</a>
+		
+		<#-- directory tree container -->
+		<div id="dirData"></div>
+	  	
 	</fieldset>
-	
-	-->
 	
 </form>
 
 <script>
-  	$jQ(function() {
-  	
-  		<#-- show empty textarea -->
+
+	$jQ(document).ready(function() {   
+	    <#-- create the tree -->
+	    createTree( "#dirData", "dsp", "#containerData", "/resources/rdfGraphs/DSP/data" );
+	    <#-- show empty textarea -->
 	    createRdfOwlView( "#containerData" , ""  , [] );
-	    
-    	$jQ("#text_output")
-		  .wrap('<div/>')
-		    .css({'overflow':'hidden'})
-		      .parent()
-		        .css({'display':'inline-block',
-		              'overflow':'hidden',
-		              'height':function(){return $jQ('#text_output',this).height();},
-		              'width': '100%',
-		              'paddingBottom':'12px',
-		              'paddingRight':'12px'
-		
-		             }).resizable({
-		             	grid: [10000, 1]
-		             })
-		                .find('#text_output')
-		                  .css({overflow:'auto',
-		                        width:'100%',
-		                        height:'100%'});
-		  	});
-		  	
-	$jQ('#fileupload3').fileupload({
-        dataType: 'json',
- 
-        done: function (e, data) {
-         	$jQ('#data').val( data.result.fileContent );
-        },
- 
-        progressall: function (e, data) {
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            $jQ('#progress3 .bar').css('width', progress + '%').html( progress + '%');
-        	$jQ('#progress3').show();
-            if( progress == 100 )
-            	window.setTimeout( function(){$jQ('#progress3').fadeOut( "slow" ); } , 3000);
-        }
-    });
- </script>
+	});
+	
+</script>

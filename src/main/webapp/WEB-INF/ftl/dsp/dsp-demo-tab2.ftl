@@ -1,7 +1,7 @@
 <form id="form-dsp-demo-tab2" action="<@spring.url '/dsp/demo/tab2' />" style="padding-left: 25px" class="MISSY_round_right" >	
 
 	<fieldset>
-		<#-- syntax direction -->
+		<#-- main direction -->
 		<ul style="margin:0;width:90%">
 	    	<li style="list-style-type: disc;">
 	    		please enter your constraints
@@ -11,7 +11,7 @@
 	    
 	    <hr/>
 	
-		<#-- syntax onsite help -->
+		<#-- main onsite help -->
 		<a href="#" class="MISSY_onsiteHelp" style="margin:0;vertical-align:top;">
 			<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
 			<span style="width:350px;">
@@ -63,7 +63,7 @@
 
 	$jQ(document).ready(function() {   
 	    <#-- create the tree -->
-	    createTree( "#dirConstraints", "dsp", "/resources/rdfGraphs/DSP/constraints" );
+	    createTree( "#dirConstraints", "dsp", "#containerConstraints", "/resources/rdfGraphs/DSP/constraints" );
 	    <#-- show empty textarea -->
 	    createRdfOwlView( "#containerConstraints" , ""  , [] );
 	});

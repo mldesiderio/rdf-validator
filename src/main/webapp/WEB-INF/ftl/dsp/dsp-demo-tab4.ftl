@@ -1,113 +1,71 @@
-<form id="form-dsp-demo-tab4" action="<@spring.url '/dsp/demo/tab4' />" style="padding-left: 25px" class="MISSY_round_right">
+<form id="form-dsp-demo-tab2" action="<@spring.url '/dsp/demo/tab2' />" style="padding-left: 25px" class="MISSY_round_right" >	
 
 	<fieldset>
-		<input 
-		  type="button" 
-		  name="button_dsp-demo-tab4" 
-		  id="button_dsp-demo-tab4" 
-		  value="Validate" 
-		  class="buttonSubmit MISSY_loginSubmit" 
-		  style="float: right; margin-top: 10px">
-	</fieldset>
+		<#-- syntax direction -->
+		<ul style="margin:0;width:90%">
+	    	<li style="list-style-type: disc;">
+	    		please enter your Inference Rules
+	    	</li>
+	    	<li style="list-style-type: disc;">please use W3C RDF turtle syntax</li>
+	    </ul>
+	    
+	    <hr/>
 	
-	<br />
-	<hr />
-
-	<fieldset>
-	
-		<h3>Constraint Violations</h3> 
-		<br/>
-
-		<!--
-		<#if dspValidationResult??>${dspValidationResult}<#else></#if>
-		-->
+		<#-- syntax onsite help -->
+		<a href="#" class="MISSY_onsiteHelp" style="margin:0;vertical-align:top;">
+			<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
+			<span style="width:350px;">
+				<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
+				<h4 class="MISSY_onsiteHelp">Constraints</h4>
+				<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
+			    <ul style="margin: 0;">
+			    	<li style="list-style-type: disc;">you may adjust the height and the width of the textarea by dragging the small arrow at the right end of the textarea</li>
+			    </ul>
+			</span>
+		</a>
 		
-		<!-- debugging -->
-		<!--
-		<#if debugging??>${debugging}<#else></#if>
-		-->
-
-		<#if constraintViolationList??>
-		  
-			<table class="datatable">
-				<#list constraintViolationList as constraintViolation>
-					<tr>
-						<td><b>root</b></td>
-						<td>${constraintViolation.root}</td>
-					</tr>
-					<tr>
-						<td><b>message</b></td>
-						<td>${constraintViolation.message}</td>
-					</tr>
-					<tr>
-						<td><b>source</b></td>
-						<td>${constraintViolation.source}</td>
-					</tr>
-					<#list constraintViolation.paths as constraintViolationPath>
-						<tr>
-							<td><b>path</b></td>
-							<td>${constraintViolationPath}</td>
-						</tr>
-		  	    	</#list>
-		  	    	<#list constraintViolation.fixes as constraintViolationFix>
-						<tr>
-							<td><b>fix</b></td>
-							<td>${constraintViolationFix}</td>
-						</tr>
-		  	    	</#list>
-		  	    	<tr><td><br/></td><td><br/></td></tr>
-		    	</#list>
-			</table>
-		  
-		<#else>
-		</#if>
-		
+		<#-- syntax container -->
+		<div id="containerInferenceRules"></div>	
+				
 	</fieldset>
-	
+
 	<hr/>
-	<br/>
-	
-	<fieldset>
-		
-		<h3>Input RDF Graphs</h3> 
-		<br/>
-		
-		<table>
-			<th>Namespace Declarations</th>
-		    <tr>
-		        <td><pre><#if namespaceDeclarations??>${namespaceDeclarations}<#else></#if></pre></td>
-		    </tr>
-		</table>  
-		
-		<br/>
-		
-		<table>
-			<th>Constraints</th>
-		    <tr>
-		        <td><pre><#if constraints??>${constraints}<#else></#if></pre></td>
-		    </tr>
-		</table>  
-		
-		<br/>
-		
-		<table>
-			<th>Data</th>
-		    <tr>
-		        <td><pre><#if data??>${data}<#else></#if></pre></td>
-		    </tr>
-		</table>  
-		
-		<br/>
-		
-		<table>
-			<th>Inference Rules</th>
-		    <tr>
-		        <td><pre><#if inferenceRules??>${inferenceRules}<#else></#if></pre></td>
-		    </tr>
-		</table>
-		
-		<br/> 
 
+	<fieldset>
+		<#-- directory tree direction -->
+		<ul style="margin: 0;">
+	    	<li style="list-style-type: disc;">you may select a file containing example of Inference Rules</li>
+	    </ul>
+	    
+	    <hr/>
+	    
+	  	<#-- directory tree onsite help -->
+		<a href="#" class="MISSY_onsiteHelp">
+			<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
+			<span style="width:350px;">
+				<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
+				<h4 class="MISSY_onsiteHelp">Constraints</h4>
+				<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
+			    <ul style="margin: 0;">
+			    	<li style="list-style-type: disc;">you may select a file containing example Inference Rules</li>
+			    	<li style="list-style-type: disc;">the content of the selected file will be pasted at the end of the textarea above</li>
+			    </ul>
+			</span>
+		</a>
+		
+		<#-- directory tree container -->
+		<div id="dirInferenceRules"></div>
+	  	
 	</fieldset>
 	
 </form>
+<script>
+
+	$jQ(document).ready(function() {   
+	    <#-- create the tree -->
+	    createTree( "#dirInferenceRules", "dsp","#containerInferenceRules", "/resources/rdfGraphs/DSP/InferenceRules" );
+	    <#-- show empty textarea -->
+	    createRdfOwlView( "#containerInferenceRules" , ""  , [] );
+	});
+	
+</script>

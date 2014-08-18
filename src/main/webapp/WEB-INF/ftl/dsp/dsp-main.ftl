@@ -60,7 +60,7 @@
 		$jQ( "#graphTabContainer" ).css( "margin-right", "5px");
 		
 		<#-- jQuery click for change main content  -->
-		var currentNavButton = "onegraph";	
+		var currentNavButton = "demo";	
 		$jQ(".graphButton").click( function(){
 			<#-- get button value -->
 			var selectedNav = $jQ( this ).attr( "data-url" );
