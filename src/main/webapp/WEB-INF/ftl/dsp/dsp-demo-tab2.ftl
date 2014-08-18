@@ -106,7 +106,7 @@
 	});
 	
 	function createTree(){
-		$jQ.getJSON( "<@spring.url '/dsp/resource_structure' />" , function( data ) {
+		$jQ.post( "<@spring.url '/dsp/resource_structure' />" ,{ specificDirectory : "constraints" }, function( data ) {
 					
 				<#-- create the tree after response from the server (tree structure of ul li) available -->
 				$jQ('#tree').dynatree( 
@@ -119,12 +119,12 @@
 						 }else{
 						 	//$jQ('#button_dsp-demo-tab2').attr("disabled",false).removeClass("buttonSubmitDissabled");
 						 	//$jQ( "#filePath" ).val( node.data.url );
-						 	getDocumentDetails( "<@spring.url '/dsp/file_details' />", node.data.url, "#containerConstraints", "" );
+						 	getDocumentDetails( "<@spring.url '/dsp/file_details' />", node.data.url, "#containerConstraints", "/resources/rdfGraphs/DSP/constraints" );
 					 	}
 		          	}
 		         }).resizable();
 
-		}).fail(function(){}).always(function(){});
+		}, "json").fail(function(){}).always(function(){});
 	}
 	
 	//toggle tree shrink and collapse when checkbox is checked

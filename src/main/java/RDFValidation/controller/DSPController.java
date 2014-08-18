@@ -40,7 +40,7 @@ public class DSPController
 	FileMeta fileMeta = null;
 
 	/* resource dsp path */
-	final String dspResourcePath = "/resources/rdfGraphs/DSP";
+	final String dspResourcePath = "/resources/rdfGraphs/DSP/";
 	final String fileUploadPath = "/resources/uploaded_files/";
 
 	// DSP main
@@ -395,13 +395,13 @@ public class DSPController
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping( value = "/resource_structure", method = RequestMethod.GET )
+	@RequestMapping( value = "/resource_structure", method = RequestMethod.POST )
 	public @ResponseBody
-	List<DynaTree> directoryStructure( HttpServletRequest request, HttpServletResponse response )
+	List<DynaTree> directoryStructure( @RequestParam( value = "specificDirectory", required = false ) String specificDirectory, HttpServletRequest request, HttpServletResponse response )
 	{
 		DynaTree dynaTree = new DynaTree( "root", null, true, "/", null );
 		// get full path
-		String fullPath = request.getSession().getServletContext().getRealPath( dspResourcePath );
+		String fullPath = request.getSession().getServletContext().getRealPath( dspResourcePath + (specificDirectory != null ? specificDirectory : "") );
 		// System.out.println( fullPath );
 
 		// System.out.println(this.getClass().getClassLoader().getResource(
