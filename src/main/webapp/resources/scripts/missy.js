@@ -1108,6 +1108,83 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 }
 
 /**
+ * Create directory tree
+ */
+function createTree( $containerSelector, sectionType, relativeDirectory ){
+	var $container = null;
+	if ($containerSelector instanceof jQuery)
+		$container = $containerSelector;
+	else
+		$container = $jQ( $containerSelector );
+	
+	var containerId = $container.attr( "id" );
+	
+	$jQ.post( basepath + "/" + sectionType  +"/resource_structure" ,{ specificDirectory : relativeDirectory }, function( data ) {
+				
+			$container
+			.append(
+					$jQ('<input />')
+					.attr({ type: 'checkbox', id: 'tree-toggle' + containerId })
+					.css({ 'width' : '14px' , 'margin' : '0' })
+					.change(function() {
+						unfoldToggle( this, 'tree' + containerId);
+					})
+					)
+			.append(
+					"Unfold All"
+					)
+			.append(
+				$jQ('<div/>')
+				.attr({ id: 'tree' + containerId })
+				.css({ 'width' : '99%' , 'height' : '200px' })
+				.addClass( 'tree-container' )
+				.dynatree( 
+				{
+					selectMode: 2,
+					children: data,
+					onActivate: function(node) {
+						if(!node.data.isFolder){
+						 	getDocumentDetails( basepath + "/" + sectionType  +"/file_details", node.data.url, "#containerConstraints", relativeDirectory );
+					 	}
+		          	}
+		         })
+			)
+			.css({'width': '100%', 'height' : "240px"})
+			.resizable({
+			  resize: function( event, ui ) {
+				  $jQ( this ).find( "div#tree" + containerId )
+				  .css({ 'width' : (ui.element.width() - 10 ) + 'px' , 'height' : (ui.element.height() - 40 ) + 'px' });
+			  }
+			});
+			
+			 //check whether there is missy onsite help
+			if( $container.prev( "a.MISSY_onsiteHelp" ).length > 0){
+				$container.prev( "a.MISSY_onsiteHelp" ).css("float", "right").prependTo( $container );
+			}
+			
+	}, "json").fail(function(){}).always(function(){});
+}
+
+
+/**
+ * toggle tree shrink and collapse when checkbox is checked
+ */
+function unfoldToggle(checkbox, treeId){
+    if (checkbox.checked == true) {
+        $jQ("#" + treeId).dynatree("getRoot").visit(function(node){
+            node.expand(true);
+        });
+        return false;
+    } else {
+        $jQ("#" + treeId).dynatree("getRoot").visit(function(node){
+            node.expand(false);
+        });
+        return false;
+    }
+}
+
+
+/**
  *  Add highlight to these following syntax automatically
  *  Notation 3, Turtle, N-Triples, TriG, N-Quads, SPARQL Query and SPARQL Update
  *  This function only works iff there is an internet connection or you run the PHP locally in your system

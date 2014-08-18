@@ -401,7 +401,7 @@ public class DSPController
 	{
 		DynaTree dynaTree = new DynaTree( "root", null, true, "/", null );
 		// get full path
-		String fullPath = request.getSession().getServletContext().getRealPath( dspResourcePath + (specificDirectory != null ? specificDirectory : "") );
+		String fullPath = request.getSession().getServletContext().getRealPath( specificDirectory != null ? specificDirectory : dspResourcePath );
 		// System.out.println( fullPath );
 
 		// System.out.println(this.getClass().getClassLoader().getResource(
