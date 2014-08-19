@@ -2,15 +2,15 @@
 <!-- the tabs -->
 <div id="updateSpssTabContainer" class="tabContainer">
 <ul style="height: 40px;">	
-	<li><a class="tabElement" href="#dsp-upload-tab1" style="text-decoration:none;padding: 10px 15px;"><span>1.</span> Constraints and Data</a></li>
-	<li id="dsp-upload-validation-tab"><a class="tabElement" href="#dsp-upload-tab2" style="text-decoration:none;padding: 10px 15px;"><span>2.</span> Validation Results</a></li>
+	<li><a class="tabElement" href="#owl2-upload-tab1" style="text-decoration:none;padding: 10px 15px;"><span>1.</span> Constraints and Data</a></li>
+	<li id="owl2-upload-validation-tab"><a class="tabElement" href="#owl2-upload-tab2" style="text-decoration:none;padding: 10px 15px;"><span>2.</span> Validation Results</a></li>
 </ul>
 
-<div id="dsp-upload-tab1" style="padding:0 !important; border:none; float:left; width:100%">
-	<#include "dsp-upload-tab1.ftl" />
+<div id="owl2-upload-tab1" style="padding:0 !important; border:none; float:left; width:100%">
+	<#include "owl2-upload-tab1.ftl" />
 </div>
-<div id="dsp-upload-tab2" style="padding:0 !important;border:none;float:left; width:100%">
-	<#include "dsp-upload-tab2.ftl" />
+<div id="owl2-upload-tab2" style="padding:0 !important;border:none;float:left; width:100%">
+	<#include "owl2-upload-tab2.ftl" />
 </div>
 					
 <script>
@@ -25,21 +25,21 @@
      	});
      	
 		<#-- submit button validation pressed -->
-		$jQ( "#button_dsp-upload-validation" ).click( function()
+		$jQ( "#button_owl2-upload-validation" ).click( function()
 		{
 			<#-- validate inputs -->
-			ajaxDspUploadValidation( "#dsp-validation-result" );
+			ajaxOwl2UploadValidation( "#owl2-validation-result" );
 		} );
 		
 		<#-- on validation tab click collect input -->
-		$jQ( "#dsp-upload-validation-tab" ).click( function(){
-			getDSPInputs( "#dsp-validation-inputs div" );
+		$jQ( "#owl2-upload-validation-tab" ).click( function(){
+			getOwl2Inputs( "#owl2-validation-inputs div" );
 		} );
 		
 	}); // end of document ready
 	
 	<#-- collecting user inputs and validate -->
-	function getDSPInputs( containerSelector ){
+	function getOwl2Inputs( containerSelector ){
 		$jQ( "#accordion_result_area h3" )
 		.each( function(){
 			var $contentHeader =
@@ -70,9 +70,9 @@
 	<#-- 
 	ajax call for collecting user inputs and validate
 	-->
-	function ajaxDspUploadValidation( containerResultSelector ){	
+	function ajaxOwl2UploadValidation( containerResultSelector ){	
 		<#-- disable validate button -->
-		$jQ('#button_dsp-upload-validation').attr("disabled",true).addClass("buttonSubmitDissabled");
+		$jQ('#button_owl2-upload-validation').attr("disabled",true).addClass("buttonSubmitDissabled");
 		<#-- Add loading icon -->
 		$jQ( containerResultSelector )
 			.html( "" )
@@ -81,7 +81,7 @@
 		
 		$jQ.ajax( {
 			type: "post",
-			url: "<@spring.url '/dsp/upload/validation' />"
+			url: "<@spring.url '/owl2/upload/validation' />"
 		    })
 	    	.done( function( html ) {
 	    		$jQ( containerResultSelector ).html( html );
