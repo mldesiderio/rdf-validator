@@ -69,7 +69,7 @@
 	  	
 	</fieldset>
 	
-	<fieldset>
+	<#--<fieldset>
 		<input 
 		  type="button" 
 		  name="button_dsp-tab1" 
@@ -77,7 +77,7 @@
 		  value="Next: Validate" 
 		  class="buttonSubmit MISSY_loginSubmit" 
 		  style="float: right; margin-top: 10px">
-	</fieldset>
+	</fieldset>-->
 	
 </form>
 <script>

@@ -921,7 +921,7 @@ function convertToAjaxMultipleFileUpload( $inputFile, $progressBar , $resultCont
 	
 	$inputFile.fileupload({
         dataType: 'json',
- 
+        sequentialUploads: true,
         done: function (e, data) {
 				printUploadedFiles( $container, data.result , [{'option':'delete' ,'params' : {'url': fileRemoveUrl}}]);
         },

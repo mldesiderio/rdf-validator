@@ -52,7 +52,7 @@ $jQ( function(){
 	getDocumentDetails( "<@spring.url '/dsp/file_details' />", "defaultNamespaceDeclarations.ttl", "#containerNamespaceDeclarations", "WEB-INF/classes/SPIN/" );
 	
 	<#-- file upload -->
-	$jQ('#fileupload2').fileupload({
+	<#--$jQ('#fileupload2').fileupload({
         dataType: 'json',
  
         done: function (e, data) {
@@ -66,6 +66,6 @@ $jQ( function(){
             if( progress == 100 )
             	window.setTimeout( function(){$jQ('#progress2').fadeOut( "slow" ); } , 3000);
         }
-    });
+    });-->
 });
 </script>

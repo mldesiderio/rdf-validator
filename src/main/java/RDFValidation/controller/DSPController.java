@@ -5,7 +5,6 @@ import helper.FileHelper;
 import helper.FileMeta;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import RDFValidation.FileInputGraph;
 import RDFValidation.Spin;
 import RDFValidation.ValidationEnvironment;
 
@@ -100,6 +98,46 @@ public class DSPController
 
 		return model;
 	}
+
+	/**
+	 * DSP UPLOAD
+	 */
+	/* DSP UPLOAD */
+	@RequestMapping( value = "/upload", method = RequestMethod.GET )
+	public ModelAndView uploadGraphInitial( /* tab1 get content via ajax */
+	@RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
+	{
+		ModelAndView model = new ModelAndView( "dsp-upload", "link", "dsp" );
+
+		return model;
+	}
+
+	/* DSP upload validation */
+	@RequestMapping( value = "/upload/validation", method = RequestMethod.POST )
+	public ModelAndView oploadGraphValidation()
+	{
+		ModelAndView model = new ModelAndView( "dsp-demo-validation", "link", "dsp" );
+
+		if ( this.files != null && this.files.size() > 0 )
+		{
+			String rdfGraph = "";
+			for ( FileMeta fm : files )
+			{
+				// add file content
+				rdfGraph += fm.getFileContent();
+				rdfGraph += "\r\n";
+			}
+
+			Spin spin = new Spin( "DSP_SPIN-Mapping.ttl" );
+			spin.runInferences_checkConstraints( rdfGraph );
+
+			model.addObject( "dspValidationResult", spin.validationResults );
+			model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
+		}
+		return model;
+	}
+
+	/** END UPLOAD GRAPH */
 
 	/**
 	 * UTILITY METHODS
@@ -305,65 +343,6 @@ public class DSPController
 
 		return model;
 	}
-
-	/**
-	 * DSP 1 GRAPH (AJAX)
-	 */
-	/* DSP N graph Initial content */
-	@RequestMapping( value = "/onegraph", method = RequestMethod.GET )
-	public ModelAndView oneGraphInitial( /* tab1 get content via ajax */
-	@RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
-	{
-		ModelAndView model = new ModelAndView( "dsp-one", "link", "dsp" );
-
-		if ( sessionId != null && sessionId.equals( "0" ) )
-			response.setHeader( "SESSION_INVALID", "yes" );
-
-		return model;
-	}
-
-	/* DSP N graph First Tab Submit */
-	@RequestMapping( value = "/onegraph/tab1", method = RequestMethod.POST )
-	public ModelAndView pneGraphValidation( /* tab2 get content via ajax */
-	// @RequestParam( "rdfGraph" ) String rdfGraph
-	)
-	{
-		ModelAndView model = new ModelAndView( "dsp-one-tab2", "link", "dsp" );
-
-		// populate input graph
-		String rdfGraph = "";
-		for ( FileMeta file : files )
-		{
-			// add file content
-			rdfGraph += file.getFileContent();
-			rdfGraph += "\r\n";
-		}
-
-		Spin spin = new Spin( "DSP_SPIN-Mapping.ttl" );
-		spin.runInferences_checkConstraints( rdfGraph );
-
-		model.addObject( "dspValidationResult", spin.validationResults );
-		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
-
-		// input graph
-		List<FileInputGraph> fileInputGraphList = new ArrayList<FileInputGraph>( files.size() );
-		FileInputGraph fileInputGraph = null;
-		for ( FileMeta file : files )
-		{
-			fileInputGraph = new FileInputGraph();
-			fileInputGraph.setFilename( file.getFileName() );
-			fileInputGraph.setInputGraph( file.getFileContent().replace( "<", "&lt;" ).replace( ">", "&gt;" ) ); // escape
-																													// <
-																													// and
-																													// >
-			fileInputGraphList.add( fileInputGraph );
-		}
-		model.addObject( "fileInputGraphList", fileInputGraphList );
-
-		return model;
-	}
-
-	/** END 1 GRAPH */
 
 	/**
 	 * DSP N GRAPH (AJAX)

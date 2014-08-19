@@ -15,7 +15,7 @@
 					<div id="study_tab" style="float:left;background:#ededed">
 						<input type="button" name="studyGroupButton" value="demo" data-url="demo" class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton MISSY_altButton_active">
 						<!--<input type="button" name="studyGroupButton" value="examples" data-url="exmpgraph"class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton">-->
-						<input type="button" name="studyGroupButton" value="upload" data-url="onegraph" class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton">
+						<input type="button" name="studyGroupButton" value="upload" data-url="upload" class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton">
 						<!--<input type="button" name="studyGroupButton" value="detailed" data-url="ngraph"class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton">-->
 					</div>
 				</div>

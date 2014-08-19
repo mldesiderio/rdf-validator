@@ -49,7 +49,7 @@
      	<#-- on button validate press - sent inputs via ajax and get the results  -->
      	$jQ( "#button_dsp-demo-validation" ).click( function(){
      		<#-- validate the result -->
-     		ajaxDspTabValidation( "#dsp-validation-result" );
+     		ajaxDspDemoValidation( "#dsp-validation-result" );
      	});
   
 		
@@ -57,10 +57,8 @@
 	
 	<#-- 
 	ajax call for validates user input
-	@param selectorForm     : jquery selector for form submit
-	@param selectorCallback : jquery selector for callback content from ajax call
 	-->
-	function ajaxDspTabValidation( containerResult ){
+	function ajaxDspDemoValidation( containerResult ){
 		<#-- disable validate button -->
 		$jQ('#button_dsp-demo-validation').attr("disabled",true).addClass("buttonSubmitDissabled");
 		<#-- Add loading icon -->
