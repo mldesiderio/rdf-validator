@@ -92,7 +92,7 @@ public class OWL2Controller
 		// input graph
 		String rdfGraph = new StringBuilder( ND ).append( C ).append( D ).append( IR ).toString();
 
-		Spin spin = new Spin( "DSP_SPIN-Mapping.ttl" );
+		Spin spin = new Spin( "OWL2_SPIN-Mapping.ttl" );
 		spin.runInferences_checkConstraints( rdfGraph );
 
 		model.addObject( "owl2ValidationResult", spin.validationResults );
@@ -130,7 +130,7 @@ public class OWL2Controller
 				rdfGraph += "\r\n";
 			}
 
-			Spin spin = new Spin( "DSP_SPIN-Mapping.ttl" );
+			Spin spin = new Spin( "OWL2_SPIN-Mapping.ttl" );
 			spin.runInferences_checkConstraints( rdfGraph );
 
 			model.addObject( "owl2ValidationResult", spin.validationResults );
