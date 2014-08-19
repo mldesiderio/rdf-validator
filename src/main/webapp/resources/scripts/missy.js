@@ -1031,7 +1031,13 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 		$container = $jQ( $containerSelector );
 	
 	/* container for the content*/
-	$htmlContent = $jQ('<div/>');
+	$htmlContent = $jQ('<div/>').css('width','100%');
+	
+	/*pop onsite help before filling container */
+	 //check whether there is missy onsite help
+	if( $container.find( "a.MISSY_onsiteHelp" ).length > 0){
+		$container.before( $container.find( "a.MISSY_onsiteHelp" ) );
+	}
 	
 	/* put into the parent  container*/
 	$jQ( $container ).html( $htmlContent );
@@ -1066,7 +1072,7 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 				)
 		.append(
 				$jQ('<div/>').addClass('highlight-syntax')
-				.css({'width': '99%', 'height' : "410px", 'display':'none', 'background-color': '#fefefe','overflow':'auto'})
+				.css({'width': '99%', 'height' : "410px", 'display': 'none', 'background-color': '#fefefe','overflow':'auto'})
 				)
 		.css({'width': '100%', 'height' : "450px"})
 		.resizable({
@@ -1112,7 +1118,7 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 	
 	// is syntay not empty - show preview
 	if( rdfOwlSyntax != "" ){
-		hightlightRdfOwl( $containerSelector.find( "div.highlight-syntax" ) , rdfOwlSyntax , true );
+		hightlightRdfOwl( $container.find( "div.highlight-syntax" ) , rdfOwlSyntax , true );
 		$container.find( "input.viewButton" ).hide();
 	} else {
 		$container.find( "input.editButton" ).hide();
@@ -1222,6 +1228,7 @@ function hightlightRdfOwl( $elem, rdfOwlSyntax , showAsMainView){
 		  
 		  if( showAsMainView ){
 			  $elem.siblings( "textarea.edit-syntax" ).hide();
+			  $elem.css({ 'width' : ($elem.parent().parent().parent().width() - 10 ) + 'px' });
 			  $elem.show();
 		  }
 	  }).fail(function() {
