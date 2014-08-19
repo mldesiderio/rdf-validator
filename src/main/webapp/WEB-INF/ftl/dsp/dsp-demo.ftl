@@ -60,7 +60,16 @@
 	@param selectorForm     : jquery selector for form submit
 	@param selectorCallback : jquery selector for callback content from ajax call
 	-->
-	function ajaxDspTabValidation( containerResult ){		
+	function ajaxDspTabValidation( containerResult ){
+		<#-- disable validate button -->
+		$jQ('#button_dsp-demo-validation').attr("disabled",true).addClass("buttonSubmitDissabled");
+		<#-- Add loading icon -->
+		$jQ( containerResult )
+			.html( "" )
+			.append( "<h3>Constraint Violations</h3> " )
+			.append( '<div style="width:100%;text-align:center"><img src="<@spring.url '/resources/images/ajaxLoader.gif' />" /></div>' );
+
+		
 		$jQ.ajax( {
 			type: "post",
 			url: "<@spring.url '/dsp/demo/validation' />",
@@ -73,6 +82,8 @@
 		    })
 	    	.done( function( html ) {
 	    		$jQ( containerResult ).html( html );
+	    		<#-- enable validate button -->
+				$jQ('#button_dsp-demo-validation').attr("disabled",false).removeClass("buttonSubmitDissabled");
 			})
 	    	.fail( function() {})
 	    	.always( function() {
