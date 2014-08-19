@@ -1039,21 +1039,25 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 	$htmlContent
 		.append(
 				$jQ('<input/>').attr({ type: 'button' , value: 'Edit' })
-				.addClass( 'buttonSubmit MISSY_loginSubmit' )
+				.addClass( 'buttonSubmit MISSY_loginSubmit editButton' )
 				.css({ 'margin' : '0'})
 				.on ( 'click', function () {
 					$jQ( this ).parent().find( "textarea.edit-syntax" ).show();
 					$jQ( this ).parent().find( "div.highlight-syntax" ).hide();
+					$jQ( this ).parent().find( "input.viewButton" ).show();
+					$jQ( this ).hide();
 				})
 				)
 		.append(
 				$jQ('<input/>').attr({ type: 'button' , value: 'View' })
-				.addClass( 'buttonSubmit MISSY_loginSubmit' )
+				.addClass( 'buttonSubmit MISSY_loginSubmit viewButton' )
 				.css({ 'margin' : '0'})
 				.on ( 'click', function () {
-					hightlightRdfOwl( $jQ( this ).parent().find( "div.highlight-syntax" ), $jQ( this ).parent().find( "textarea.edit-syntax" ).val() );
+					hightlightRdfOwl( $jQ( this ).parent().find( "div.highlight-syntax" ), $jQ( this ).parent().find( "textarea.edit-syntax" ).val(), false );
 					$jQ( this ).parent().find( "textarea.edit-syntax" ).hide();
 					$jQ( this ).parent().find( "div.highlight-syntax" ).show();
+					$jQ( this ).parent().find( "input.editButton" ).show();
+					$jQ( this ).hide();
 				})
 				)
 		.append(
@@ -1104,6 +1108,14 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 	 //check whether there is missy onsite help
 	if( $htmlContent.parent().prev( "a.MISSY_onsiteHelp" ).length > 0){
 		$htmlContent.parent().prev( "a.MISSY_onsiteHelp" ).css("float", "right").prependTo( $htmlContent );
+	}
+	
+	// is syntay not empty - show preview
+	if( rdfOwlSyntax != "" ){
+		hightlightRdfOwl( $containerSelector.find( "div.highlight-syntax" ) , rdfOwlSyntax , true );
+		$container.find( "input.viewButton" ).hide();
+	} else {
+		$container.find( "input.editButton" ).hide();
 	}
 }
 
@@ -1191,7 +1203,7 @@ function unfoldToggle(checkbox, treeId){
  *  @param $elem - required - the container a jquery object
  *  @param rdfOwlSyntax - required - (Notation 3, Turtle, N-Triples, TriG, N-Quads, SPARQL Query and SPARQL Update)
  **/
-function hightlightRdfOwl( $elem, rdfOwlSyntax ){
+function hightlightRdfOwl( $elem, rdfOwlSyntax , showAsMainView){
 	var jsonpUrl = "http://n3edit.eu01.aws.af.cm/ajax-highlight.php?callback=?";
 	// you also can run the PHP files for hignlighting the syntax locally.
 	// install XAMPP/WAMPP and put and run the n3edit project into your local server
@@ -1207,6 +1219,11 @@ function hightlightRdfOwl( $elem, rdfOwlSyntax ){
 		  $elem
 		  .html( data.html )
 		  .css( "width" , ($elem.parent().width() - 10) + "px");
+		  
+		  if( showAsMainView ){
+			  $elem.siblings( "textarea.edit-syntax" ).hide();
+			  $elem.show();
+		  }
 	  }).fail(function() {
 		  $elem.html( "<span style='color:#f00'>Error - no internet connection!</span>" );
 	  });
