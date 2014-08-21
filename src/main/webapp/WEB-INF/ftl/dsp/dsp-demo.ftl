@@ -5,8 +5,8 @@
 		<li><a class="tabElement" href="#dsp-demo-tab1" style="text-decoration:none;padding: 10px 15px;"><span>1.</span> Namespace Declarations</a></li>
 		<li><a class="tabElement" href="#dsp-demo-tab2" style="text-decoration:none;padding: 10px 15px;"><span>2.</span> Constraints</a></li>
 		<li><a class="tabElement" href="#dsp-demo-tab3" style="text-decoration:none;padding: 10px 15px;"><span>3.</span> Data</a></li>
-		<li><a class="tabElement" href="#dsp-demo-tab4" style="text-decoration:none;padding: 10px 15px;"><span>4.</span> Inference Rules</a></li>
-		<li id="dsp-validation-tab"><a class="tabElement" href="#dsp-demo-tab5" style="text-decoration:none;padding: 10px 15px;"><span>5.</span> Validation Results</a></li>
+		<!--<li><a class="tabElement" href="#dsp-demo-tab4" style="text-decoration:none;padding: 10px 15px;"><span>4.</span> Inference Rules</a></li>-->
+		<li id="dsp-validation-tab"><a class="tabElement" href="#dsp-demo-tab5" style="text-decoration:none;padding: 10px 15px;"><span>4.</span> Validation Results</a></li>
 	</ul>
 
 	<div id="dsp-demo-tab1" style="padding:0 !important; border:none; float:left; width:100%">
@@ -18,9 +18,11 @@
 	<div id="dsp-demo-tab3" style="padding:0 !important;border:none;float:left; width:100%">
 		<#include "dsp-demo-tab3.ftl" />
 	</div>
+	<!--
 	<div id="dsp-demo-tab4" style="padding:0 !important;border:none;float:left; width:100%">
 		<#include "dsp-demo-tab4.ftl" />
 	</div>
+	-->
 	<div id="dsp-demo-tab5" style="padding:0 !important;border:none;float:left; width:100%">
 		<#include "dsp-demo-tab5.ftl" />
 	</div>

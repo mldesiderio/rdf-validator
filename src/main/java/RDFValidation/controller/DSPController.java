@@ -56,18 +56,21 @@ public class DSPController
 		return model;
 	}
 
-	/**
-	 * DSP demo
-	 */
-	@RequestMapping( value = "/demo", method = RequestMethod.GET )
-	public ModelAndView demo( @RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
-	{
-		ModelAndView model = new ModelAndView( "dsp-demo", "link", "dsp" );
-		return model;
-	}
+//	/**
+//	 * DSP demo
+//	 */
+//	@RequestMapping( value = "/demo", method = RequestMethod.GET )
+//	public ModelAndView demo( @RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
+//	{
+//		ModelAndView model = new ModelAndView( "dsp-demo", "link", "dsp" );
+//		return model;
+//	}
 
 	@RequestMapping( value = "/demo/validation", method = RequestMethod.POST )
-	public ModelAndView demo_tab3( @RequestParam( "nameSpaceDeclaration" ) String nameSpaceDeclaration, @RequestParam( "constraints" ) String constraints, @RequestParam( "data" ) String data, @RequestParam( "inferenceRules" ) String inferenceRules )
+	public ModelAndView demo_tab3( 
+		@RequestParam( "nameSpaceDeclaration" ) String nameSpaceDeclaration, 
+		@RequestParam( "constraints" ) String constraints, 
+		@RequestParam( "data" ) String data )
 	{
 		ModelAndView model = new ModelAndView( "dsp-demo-validation", "link", "dsp" );
 
@@ -85,10 +88,9 @@ public class DSPController
 		String ND = new StringBuilder( nameSpaceDeclaration ).append( "\r\n" ).toString();
 		String C = new StringBuilder( constraints ).append( "\r\n" ).toString();
 		String D = new StringBuilder( data ).append( "\r\n" ).toString();
-		String IR = new StringBuilder( inferenceRules ).append( "\r\n" ).toString();
 
 		// input graph
-		String rdfGraph = new StringBuilder( ND ).append( C ).append( D ).append( IR ).toString();
+		String rdfGraph = new StringBuilder( ND ).append( C ).append( D ).toString();
 
 		Spin spin = new Spin( "DSP_SPIN-Mapping.ttl" );
 		spin.runInferences_checkConstraints( rdfGraph );
@@ -322,27 +324,27 @@ public class DSPController
 		return dynaTree.getChildren();
 	}
 
-	/**
-	 * UNUSED METHODS
-	 */
-	/**
-	 * DSP DEMO
-	 */
-	@RequestMapping( value = "/demo/tab1", method = RequestMethod.POST )
-	public ModelAndView demo_tab1( @RequestParam( "namespaceDeclarations" ) String namespaceDeclarations, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
-	{
-		ModelAndView model = new ModelAndView( "dsp-demo-tab2", "link", "dsp" );
-
-		return model;
-	}
-
-	@RequestMapping( value = "/demo/tab2", method = RequestMethod.POST )
-	public ModelAndView demo_tab2( @RequestParam( "constraints" ) String constraints, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
-	{
-		ModelAndView model = new ModelAndView( "dsp-demo-tab3", "link", "dsp" );
-
-		return model;
-	}
+//	/**
+//	 * UNUSED METHODS
+//	 */
+//	/**
+//	 * DSP DEMO
+//	 */
+//	@RequestMapping( value = "/demo/tab1", method = RequestMethod.POST )
+//	public ModelAndView demo_tab1( @RequestParam( "namespaceDeclarations" ) String namespaceDeclarations, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+//	{
+//		ModelAndView model = new ModelAndView( "dsp-demo-tab2", "link", "dsp" );
+//
+//		return model;
+//	}
+//
+//	@RequestMapping( value = "/demo/tab2", method = RequestMethod.POST )
+//	public ModelAndView demo_tab2( @RequestParam( "constraints" ) String constraints, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
+//	{
+//		ModelAndView model = new ModelAndView( "dsp-demo-tab3", "link", "dsp" );
+//
+//		return model;
+//	}
 
 	/**
 	 * DSP N GRAPH (AJAX)
