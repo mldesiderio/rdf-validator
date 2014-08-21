@@ -20,7 +20,8 @@
 	    <ul style="margin: 0;">
 	    	<li style="list-style-type: disc;">please select a file / multiple files containing constraints and data</li>
 	    	<li style="list-style-type: disc;">files must contain: constraints, data</li>
-	    	<li style="list-style-type: disc;">files may contain: namespace declarations, inference rules</li>
+	    	<li style="list-style-type: disc;">files may contain: additional namespace declarations, inference rules</li>
+	    	<li>predefined namespace declarations are added automatically</li>
 	    	<li style="list-style-type: disc;">files must be written using W3C RDF turtle syntax</li>
 	    </ul>
 	    
@@ -41,7 +42,7 @@
 							<h4 class="MISSY_onsiteHelp">Multiple File Upload</h4>
 							<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
 						    <ul style="margin: 0;">
-						    	<li style="list-style-type: disc;">predefined namespace declarations: xsd, rdf, rdfs, owl, foaf, dcterms, skos, dcam, dsp, : (default namespace)</li>
+						    	<li style="list-style-type: disc;">predefined namespace declarations: xsd, rdf, rdfs, owl, dcterms, skos, foaf, dcam, dsp, : (default namespace)</li>
 						    	<li style="list-style-type: disc;">please view the file contents by clicking on the file name below the browse button</li>
 						    	<li style="list-style-type: disc;">hide file contents by clicking on the file name</li>
 			    				<li style="list-style-type: disc;">you may adjust the height and the width of the textarea by dragging the small arrow at the right end of the textarea</li>

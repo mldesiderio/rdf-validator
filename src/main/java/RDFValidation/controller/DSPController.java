@@ -56,15 +56,15 @@ public class DSPController
 		return model;
 	}
 
-//	/**
-//	 * DSP demo
-//	 */
-//	@RequestMapping( value = "/demo", method = RequestMethod.GET )
-//	public ModelAndView demo( @RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
-//	{
-//		ModelAndView model = new ModelAndView( "dsp-demo", "link", "dsp" );
-//		return model;
-//	}
+	/**
+	 * DSP demo
+	 */
+	@RequestMapping( value = "/demo", method = RequestMethod.GET )
+	public ModelAndView demo( @RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
+	{
+		ModelAndView model = new ModelAndView( "dsp-demo", "link", "dsp" );
+		return model;
+	}
 
 	@RequestMapping( value = "/demo/validation", method = RequestMethod.POST )
 	public ModelAndView demo_tab3( 
