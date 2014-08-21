@@ -49,6 +49,7 @@
 		
 		<br/>
 		
+		<!--
 		<table>
 			<th>Inference Rules</th>
 		    <tr>
@@ -56,7 +57,8 @@
 		    </tr>
 		</table>
 		
-		<br/> 
+		<br/>
+		--> 
 
 	</fieldset>
 	
