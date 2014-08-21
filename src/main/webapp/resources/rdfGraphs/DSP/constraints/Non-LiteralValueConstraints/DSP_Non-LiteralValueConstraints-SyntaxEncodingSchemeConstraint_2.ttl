@@ -40,17 +40,4 @@
 					dsp:maxOccur "10"^^xsd:nonNegativeInteger ; 
 					dsp:syntaxEncodingSchemeOccurrence "mandatory"^^dsp:occurrence ] ] ] .
 	
-	:ArtficialIntelligence
-		a swrc:Book, owl:Thing ;
-		dcterms:subject :ComputerScience .
-	:ComputerScience
-		a skos:Concept, owl:Thing ;
-		dcam:memberOf :BookSubjects ;
-		skos:inScheme :BookSubjects ;
-		rdf:value "Computer Science"@en ; # language tag --> datatype = rdf:langString # --> constraint violation
-		rdf:value "Computer Science" ; # no datatype IRI and no language tag --> datatype = xsd:string
-		rdf:value "Computer Science"^^xsd:string .
-	:BookSubjects
-		a skos:ConceptScheme, owl:Thing .
-	
 # -----

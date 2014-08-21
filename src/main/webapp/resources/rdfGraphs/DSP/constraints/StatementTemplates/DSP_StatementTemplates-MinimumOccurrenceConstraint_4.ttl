@@ -32,11 +32,5 @@
 			dsp:nonLiteralConstraint [ 
 				a dsp:NonLiteralConstraint ;
 				dsp:valueClass skos:Concept ] ] .
-
-	:ArtficialIntelligence
-		a swrc:Book, owl:Thing ;
-		dcterms:subject :ComputerScience . 
-	:ComputerScience
-		a skos:Concept, owl:Thing .
 	
 # -----

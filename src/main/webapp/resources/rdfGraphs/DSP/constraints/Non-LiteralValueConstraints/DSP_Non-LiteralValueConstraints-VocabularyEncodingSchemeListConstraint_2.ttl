@@ -33,14 +33,4 @@
 				dsp:valueClass skos:Concept ; 
 				dsp:vocabularyEncodingScheme :BookSubjects, :BookTopics, :BookCategories ] ] .
 	
-	:ArtficialIntelligence
-		a swrc:Book, owl:Thing ;
-		dcterms:subject :ComputerScience .
-	:ComputerScience
-		a skos:Concept, owl:Thing ;
-		dcam:memberOf :Subjects ; # --> constraint violation
-		skos:inScheme :Subjects . # --> constraint violation
-	:Subjects 
-		a skos:ConceptScheme, owl:Thing .
-	
 # -----

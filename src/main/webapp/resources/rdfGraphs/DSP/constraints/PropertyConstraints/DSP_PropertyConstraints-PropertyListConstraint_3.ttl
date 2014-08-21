@@ -30,8 +30,5 @@
 			dsp:maxOccur "5"^^xsd:nonNegativeInteger ;
 			dsp:property foaf:familyName ; 
 			dsp:subPropertyOf foaf:name ] . # --> constraint violation
-	:TimBernersLee
-		a foaf:Person, owl:Thing ;
-		foaf:familyName "Berners-Lee"^^xsd:string .
 	
 # -----

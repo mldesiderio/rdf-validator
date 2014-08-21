@@ -36,8 +36,5 @@
 				dsp:literal "Tim Berners-Lee" ;
 				dsp:literal "Tim Berners-Lee"^^xsd:string ;
 				dsp:syntaxEncodingScheme xsd:string ] ] . # --> constraint violation
-	:TimBernersLee
-		a foaf:Person, owl:Thing ;
-		foaf:name "Tim Berners-Lee"^^xsd:string .
 	
 # -----
