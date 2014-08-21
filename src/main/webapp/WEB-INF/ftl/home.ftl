@@ -60,6 +60,16 @@
 				<hr/>
 				
 				<p>
+					<h4>SPIN mappings</h4>
+					<ul>
+						<li><a href="https://github.com/boschthomas/OWL2-SPIN-Mapping">Web Ontology Language 2 (OWL 2)</a></li>
+						<li><a href="https://github.com/dcmi/DSP-SPIN-Mapping">Description Set Profiles (DSP)</a></li>
+					</ul>
+				</p>
+				
+				<hr/>
+				
+				<p>
 					<h4>Links</h4>
 					<ul>
 						<li><a href="http://purl.org/net/rdf-validation">Database of Requirements on RDF Constraint Formulation and Validation</a></li>

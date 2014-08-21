@@ -18,7 +18,7 @@
 				<h4 class="MISSY_onsiteHelp">Namespace Declarations</h4>
 				<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
 			    <ul style="margin: 0;">
-			    	<li style="list-style-type: disc;">predefined namespace declarations: xsd, rdf, rdfs, owl, foaf, dcterms, skos, dcam, dsp, : (default namespace)</li>
+			    	<li style="list-style-type: disc;">predefined namespace declarations: xsd, rdf, rdfs, owl, dcterms, skos, foaf, dcam, dsp, : (default namespace)</li>
 			    	<li style="list-style-type: disc;">you may adjust the height and the width of the textarea by dragging the small arrow at the right end of the textarea</li>
 			    </ul>
 			</span>
@@ -49,7 +49,7 @@
 <script>
 $jQ( function(){
 	<#-- load default content -->
-	getDocumentDetails( "<@spring.url '/dsp/file_details' />", "defaultNamespaceDeclarations.ttl", "#containerNamespaceDeclarations", "WEB-INF/classes/SPIN/" );
+	getDocumentDetails( "<@spring.url '/dsp/file_details' />", "defaultNamespaceDeclarations.ttl", "#containerNamespaceDeclarations", "resources/rdfGraphs/DSP/" );
 	
 	<#-- file upload -->
 	<#--$jQ('#fileupload2').fileupload({
