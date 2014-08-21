@@ -72,7 +72,7 @@
 	-->
 	function ajaxOwl2UploadValidation( containerResultSelector ){	
 		<#-- disable validate button -->
-		$jQ('#button_owl2-upload-validation').attr("disabled",true).addClass("buttonSubmitDissabled");
+		<!-- $jQ('#button_owl2-upload-validation').attr("disabled",true).addClass("buttonSubmitDissabled"); -->
 		<#-- Add loading icon -->
 		$jQ( containerResultSelector )
 			.html( "" )

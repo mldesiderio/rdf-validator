@@ -72,7 +72,7 @@
 	-->
 	function ajaxDspUploadValidation( containerResultSelector ){	
 		<#-- disable validate button -->
-		$jQ('#button_dsp-upload-validation').attr("disabled",true).addClass("buttonSubmitDissabled");
+		<!-- $jQ('#button_dsp-upload-validation').attr("disabled",true).addClass("buttonSubmitDissabled"); -->
 		<#-- Add loading icon -->
 		$jQ( containerResultSelector )
 			.html( "" )
