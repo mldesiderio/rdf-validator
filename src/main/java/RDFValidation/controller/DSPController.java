@@ -116,7 +116,7 @@ public class DSPController
 
 	/* DSP upload validation */
 	@RequestMapping( value = "/upload/validation", method = RequestMethod.POST )
-	public ModelAndView oploadGraphValidation()
+	public ModelAndView uploadGraphValidation()
 	{
 		ModelAndView model = new ModelAndView( "dsp-demo-validation", "link", "dsp" );
 
@@ -129,6 +129,9 @@ public class DSPController
 				rdfGraph += fm.getFileContent();
 				rdfGraph += "\r\n";
 			}
+			
+			// add predefined namespace declarations to RDF graph
+//			rdfGraph += defaultNamespaceDeclarations;
 
 			Spin spin = new Spin( "DSP_SPIN-Mapping.ttl" );
 			spin.runInferences_checkConstraints( rdfGraph );

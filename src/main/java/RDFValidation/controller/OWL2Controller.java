@@ -116,7 +116,7 @@ public class OWL2Controller
 
 	/* DSP upload validation */
 	@RequestMapping( value = "/upload/validation", method = RequestMethod.POST )
-	public ModelAndView oploadGraphValidation()
+	public ModelAndView uploadGraphValidation()
 	{
 		ModelAndView model = new ModelAndView( "owl2-demo-validation", "link", "owl2" );
 
@@ -130,6 +130,9 @@ public class OWL2Controller
 				rdfGraph += "\r\n";
 			}
 
+			// add predefined namespace declarations to RDF graph
+//			rdfGraph += defaultNamespaceDeclarations;
+			
 			Spin spin = new Spin( "OWL2_SPIN-Mapping.ttl" );
 			spin.runInferences_checkConstraints( rdfGraph );
 
