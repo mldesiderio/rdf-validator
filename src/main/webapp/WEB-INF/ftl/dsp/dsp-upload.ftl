@@ -3,7 +3,7 @@
 <div id="updateSpssTabContainer" class="tabContainer">
 <ul style="height: 40px;">	
 	<li><a class="tabElement" href="#dsp-upload-tab1" style="text-decoration:none;padding: 10px 15px;"><span>1.</span> Constraints and Data</a></li>
-	<li id="dsp-upload-validation-tab"><a class="tabElement" href="#dsp-upload-tab2" style="text-decoration:none;padding: 10px 15px;"><span>2.</span> Validation Results</a></li>
+	<li id="dsp-upload-validation-tab"><a class="tabElement" href="#dsp-upload-tab2" style="text-decoration:none;padding: 10px 15px;"><span>2.</span> Validation</a></li>
 </ul>
 
 <div id="dsp-upload-tab1" style="padding:0 !important; border:none; float:left; width:100%">

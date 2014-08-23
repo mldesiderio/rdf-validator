@@ -2,23 +2,22 @@
 @prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:      <http://www.w3.org/2002/07/owl#> . 
+@prefix owl2spin: <http://constraints.org/owl2#> .
 @prefix :         <http://www.example.org/OWL2InstanceData#> .
 
 
 # ---------------
-# ObjectHasSelf
+# SubClassOf
 
-		
 	# concrete
-	# -----
-	# ObjectHasSelf( :likes )
-	:ObjectHasSelf_C1 
-		a owl:Restriction ;
-		owl:onProperty :likes ;
-		owl:hasSelf "true"^^xsd:boolean .
-	:Thomas
-#		:likes :Thomas ; # commented --> constraint violation
-		:likes :Angelina ; 
-		a :ObjectHasSelf_C1, owl:Thing .
-
+	# -----	
+	# SubClassOf( :Baby :Child )
+	# SubClassOf( :Child :Person ) 	
+	# ClassAssertion( :Baby :Stewie ) 
+	:Baby rdfs:subClassOf :Child . 
+	:Child rdfs:subClassOf :Person . 
+	:Stewie a :Baby , owl2spin:ToInfer. 
+	# --> :Stewie a :Child .
+	# --> :Stewie a :Person .
+		
 # -----

@@ -153,13 +153,6 @@ owl:Thing
 #		[   a owl2:DisjointUnion_2DisjointClassExpressions_2 ] ,
 #		[   a owl2:DisjointUnion_2DisjointClassExpressions_3 ] .
 		
-owl:Thing 
-	spin:rule 
-		# Class Expression Axioms - Subclass Axioms
-		# -----
-		# SubClassOf
-		[   a owl2:SubClassOf ] . 
-		
 rdfs:Literal 
 	spin:constraint 
 		# Data Ranges - Set-Oriented Operations
@@ -6717,25 +6710,4 @@ owl2:DatatypeDefinition_Pattern
 					sp:arg4 [ sp:varName "pattern" ] ;
 					sp:arg5 "'" ] ] ) ] .
 					
-# -----
-
-# ---------------
-# Axioms - Class Expression Axioms - Subclass Axioms
-
-
-owl2:SubClassOf 
-	a sp:Construct ;
-        sp:text """
-            CONSTRUCT {
-                :CE1 rdfs:subClassOf :CE3 .              
-                ?this rdf:type :CE2 .
-                ?this rdf:type :CE3 .          
-            }
-            WHERE {
-                :CE1 rdfs:subClassOf :CE2 .
-                :CE2 rdfs:subClassOf :CE3 .               
-                ?this rdf:type :CE1 .            
-        	}
-        """ .
-    
 # -----

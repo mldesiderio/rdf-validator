@@ -6,7 +6,7 @@
 		<li><a class="tabElement" href="#owl2-demo-tab2" style="text-decoration:none;padding: 10px 15px;"><span>2.</span> Constraints</a></li>
 		<li><a class="tabElement" href="#owl2-demo-tab3" style="text-decoration:none;padding: 10px 15px;"><span>3.</span> Data</a></li>
 		<li><a class="tabElement" href="#owl2-demo-tab4" style="text-decoration:none;padding: 10px 15px;"><span>4.</span> Inference Rules</a></li>
-		<li id="owl2-validation-tab"><a class="tabElement" href="#owl2-demo-tab5" style="text-decoration:none;padding: 10px 15px;"><span>5.</span> Validation Results</a></li>
+		<li id="owl2-validation-tab"><a class="tabElement" href="#owl2-demo-tab5" style="text-decoration:none;padding: 10px 15px;"><span>5.</span> Validation</a></li>
 	</ul>
 
 	<div id="owl2-demo-tab1" style="padding:0 !important; border:none; float:left; width:100%">

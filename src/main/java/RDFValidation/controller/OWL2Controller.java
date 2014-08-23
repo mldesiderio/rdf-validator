@@ -92,11 +92,14 @@ public class OWL2Controller
 		// input graph
 		String rdfGraph = new StringBuilder( ND ).append( C ).append( D ).append( IR ).toString();
 
-		Spin spin = new Spin( "OWL2_SPIN-Mapping.ttl" );
+		Spin spin = new Spin( "OWL2_SPIN-Mapping.ttl", "OWL2Reasoning_SPIN-Mapping.ttl" );
 		spin.runInferences_checkConstraints( rdfGraph );
 
 		model.addObject( "owl2ValidationResult", spin.validationResults );
 		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
+		
+		// inferred RDF graph
+		model.addObject( "rdfGraphInferred", spin.getRDFGraphInferred().replace( "<", "&lt;" ).replace( ">", "&gt;" ) ); // escape < and >
 
 		return model;
 	}

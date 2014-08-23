@@ -3,6 +3,7 @@ package RDFValidation;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -22,6 +23,8 @@ import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 /**
  * 
@@ -43,7 +46,8 @@ public class Spin
 	private List<String> constraintViolationFixes = null;
 	
 	// inferred triples
-	public PrintWriter writerInferredTriples = null;
+//	public PrintWriter writerInferredTriples = null;
+	private String rdfGraphInferred = null;
 	
 	// locally stored SPIN-related templates and functions
 	private OntModel ontModel_TemplatesFunctions = null;
@@ -128,14 +132,33 @@ public class Spin
 		// register locally stored SPIN-related templates and functions
 		SPINModuleRegistry.get().registerAll( ontModel, null );
 		
-		// run all inferences
+		// run all inferences and populated RDF graph containing inferred triples
 		SPINInferences.run( ontModel, newTriples, null, null, false, null );
-        try 
-		{
-			writerInferredTriples = new PrintWriter( "UTF-8" );
-		} 
-		catch ( FileNotFoundException e ) { e.printStackTrace(); }
+//        try 
+//		{
+//			writerInferredTriples = new PrintWriter( "UTF-8" );
+//		} 
+//		catch ( FileNotFoundException e ) { e.printStackTrace(); }
 //		newTriples.write( writerInferredTriples, "TTL" );
+//		newTriples.write( System.out );
+//		System.out.println( writerInferredTriples );
+//		System.out.println( "Inferred triples: " + newTriples.size() );
+//		newTriples.write( System.out, "TTL" );
+//		System.out.println( "-----" );
+//		System.out.println( newTriples.toString() );
+//		System.out.println( "-----" );
+//		System.out.println( writerInferredTriples );
+		StringWriter stringWriter = new StringWriter();
+		newTriples.write( stringWriter, "TTL" );
+		rdfGraphInferred = stringWriter.toString();
+		
+//		// inferred statements
+//		StmtIterator stmtIterator = newTriples.listStatements();
+//		while( stmtIterator.hasNext() ) 
+//		{
+//			Statement statement = stmtIterator.next();
+//	        System.out.println( statement );
+//	    }
 		
 //		debugging = rdfGraph;
 //		debugging = debugging + "-----" + rdfGraph;
@@ -261,4 +284,15 @@ public class Spin
 	{
 		return constraintViolationList;
 	}
+	
+	/**
+	 * get RDF graph inferred
+	 * 
+	 * @return rdfGraphInferred
+	 */
+	public String getRDFGraphInferred()
+	{
+		return rdfGraphInferred;
+	}
+	
 }

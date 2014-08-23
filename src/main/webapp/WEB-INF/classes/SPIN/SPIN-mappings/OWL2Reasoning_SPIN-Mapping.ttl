@@ -1,0 +1,28 @@
+﻿@prefix fn: <http://www.w3.org/2005/xpath-functions#> .
+@prefix sparql: <http://www.w3.org/TR/sparql11-query/#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix owl2spin: <http://constraints.org/owl2#> .
+
+
+# ---------------
+# Axioms - Class Expression Axioms - Subclass Axioms 
+
+
+owl2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                	?this rdf:type ?CE2 .        
+            	}
+            	WHERE {
+                	?CE1 rdfs:subClassOf ?CE2 .             
+                	?this rdf:type ?CE1 .            
+        		} """ ; ] .
+
+# -----
