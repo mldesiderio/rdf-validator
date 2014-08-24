@@ -100,6 +100,12 @@ public class OWL2Controller
 		
 		// inferred RDF graph
 		model.addObject( "rdfGraphInferred", spin.getRDFGraphInferred().replace( "<", "&lt;" ).replace( ">", "&gt;" ) ); // escape < and >
+		
+		// SPIN exception
+		if ( spin.getSPINException() != null )
+		{
+			model.addObject( "spinException", spin.getSPINException() );
+		}
 
 		return model;
 	}

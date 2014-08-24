@@ -55,6 +55,9 @@ public class Spin
 	// debugging
 	public String debugging = null; 
 	
+	// SPIN exception
+	private SPINException spinException  = null;
+	
 	/**
 	 * 
 	 */
@@ -167,83 +170,100 @@ public class Spin
 //		debugging = debugging + "</ul>";
 		
 		// check constraints
-		List<ConstraintViolation> constraintViolations = SPINConstraints.check( ontModel, null );
-		
-		// constraint violations
-		validationResults.append( "Constraint violations" );
-		validationResults.append( "<br/>" );
-		validationResults.append( "---------------------" );
-		validationResults.append( System.getProperty("line.separator") );
-		validationResults.append( System.getProperty("line.separator") );
-		for( ConstraintViolation cv : constraintViolations ) 
+		try
 		{
-			constraintViolation = new RDFValidation.ConstraintViolation();
-			constraintViolation.setRoot( SPINLabels.get().getLabel( cv.getRoot() ) );
-			constraintViolation.setMessage( cv.getMessage() );
-			constraintViolation.setSource( SPINLabels.get().getLabel( cv.getSource() ) );
-			
-			validationResults.append( " - source: " ).append( SPINLabels.get().getLabel( cv.getSource() ) );
+			List<ConstraintViolation> constraintViolations = SPINConstraints.check( ontModel, null );
+		
+			// constraint violations
+			validationResults.append( "Constraint violations" );
+			validationResults.append( "<br/>" );
+			validationResults.append( "---------------------" );
 			validationResults.append( System.getProperty("line.separator") );
-			validationResults.append( " - root: " ).append( SPINLabels.get().getLabel( cv.getRoot() ) );
 			validationResults.append( System.getProperty("line.separator") );
-			validationResults.append( " - message: " ).append( cv.getMessage() );
-			validationResults.append( System.getProperty("line.separator") );
-			
-			constraintViolationPaths = new ArrayList<String>();
-//			for ( int i = 0; i <= 5; i++ )
-//			{
-//				constraintViolationPaths.add( String.valueOf( i ) );
-//			}
-			if( cv.getPaths().size() == 0 )
+			for( ConstraintViolation cv : constraintViolations ) 
 			{
-				constraintViolationPaths.add( "" );
-			}
-			for ( SimplePropertyPath violationPath : cv.getPaths() ) 
-			{
-				constraintViolationPaths.add( violationPath.toString() );
+				constraintViolation = new RDFValidation.ConstraintViolation();
+				constraintViolation.setRoot( SPINLabels.get().getLabel( cv.getRoot() ) );
+				constraintViolation.setMessage( cv.getMessage() );
+				constraintViolation.setSource( SPINLabels.get().getLabel( cv.getSource() ) );
 				
-				validationResults.append( " - path: " ).append( violationPath.toString() );
+				validationResults.append( " - source: " ).append( SPINLabels.get().getLabel( cv.getSource() ) );
 				validationResults.append( System.getProperty("line.separator") );
-		    }
-			constraintViolation.setPaths( constraintViolationPaths );
-			
-			constraintViolationFixes = new ArrayList<String>();
-//			for ( int i = 0; i <= 5; i++ )
-//			{
-//				constraintViolationFixes.add( String.valueOf( i ) );
-//			}
-			if( cv.getFixes().size() == 0 )
-			{
-				constraintViolationFixes.add( "" );
+				validationResults.append( " - root: " ).append( SPINLabels.get().getLabel( cv.getRoot() ) );
+				validationResults.append( System.getProperty("line.separator") );
+				validationResults.append( " - message: " ).append( cv.getMessage() );
+				validationResults.append( System.getProperty("line.separator") );
+				
+				constraintViolationPaths = new ArrayList<String>();
+	//			for ( int i = 0; i <= 5; i++ )
+	//			{
+	//				constraintViolationPaths.add( String.valueOf( i ) );
+	//			}
+				if( cv.getPaths().size() == 0 )
+				{
+					constraintViolationPaths.add( "" );
+				}
+				for ( SimplePropertyPath violationPath : cv.getPaths() ) 
+				{
+					constraintViolationPaths.add( violationPath.toString() );
+					
+					validationResults.append( " - path: " ).append( violationPath.toString() );
+					validationResults.append( System.getProperty("line.separator") );
+			    }
+				constraintViolation.setPaths( constraintViolationPaths );
+				
+				constraintViolationFixes = new ArrayList<String>();
+	//			for ( int i = 0; i <= 5; i++ )
+	//			{
+	//				constraintViolationFixes.add( String.valueOf( i ) );
+	//			}
+				if( cv.getFixes().size() == 0 )
+				{
+					constraintViolationFixes.add( "" );
+				}
+				for ( TemplateCall violationFix : cv.getFixes() ) 
+				{
+					constraintViolationFixes.add( violationFix.toString() );
+			    }
+				constraintViolation.setFixes( constraintViolationFixes );
+				
+				validationResults.append( " - # fixes: " ).append( cv.getFixes().size() );
+		        validationResults.append( System.getProperty("line.separator") );
+		        validationResults.append( System.getProperty("line.separator") );
+		        
+		        constraintViolationList.add( constraintViolation );
 			}
-			for ( TemplateCall violationFix : cv.getFixes() ) 
-			{
-				constraintViolationFixes.add( violationFix.toString() );
-		    }
-			constraintViolation.setFixes( constraintViolationFixes );
 			
-			validationResults.append( " - # fixes: " ).append( cv.getFixes().size() );
-	        validationResults.append( System.getProperty("line.separator") );
-	        validationResults.append( System.getProperty("line.separator") );
-	        
-	        constraintViolationList.add( constraintViolation );
-		}
-		
-		validationResults.append( "violation root | violation message | # violation path | # violation fixes" );
-		validationResults.append( System.getProperty("line.separator") );
-		validationResults.append( "-------------------------------------------------------------------------" );
-		validationResults.append( System.getProperty("line.separator") );
-		validationResults.append( System.getProperty("line.separator") );
-		for( ConstraintViolation cv : constraintViolations ) 
-		{
-			validationResults.append( SPINLabels.get().getLabel( cv.getRoot() ) ).append( " | " );
-			validationResults.append( cv.getMessage() ).append( " | " );
-			for ( SimplePropertyPath violationPath : cv.getPaths() ) 
+			validationResults.append( "violation root | violation message | # violation path | # violation fixes" );
+			validationResults.append( System.getProperty("line.separator") );
+			validationResults.append( "-------------------------------------------------------------------------" );
+			validationResults.append( System.getProperty("line.separator") );
+			validationResults.append( System.getProperty("line.separator") );
+			for( ConstraintViolation cv : constraintViolations ) 
 			{
-				validationResults.append( violationPath.toString() ).append( " | " );
-		    }
-			validationResults.append( cv.getFixes().size() );
-	        validationResults.append( System.getProperty("line.separator") );
+				validationResults.append( SPINLabels.get().getLabel( cv.getRoot() ) ).append( " | " );
+				validationResults.append( cv.getMessage() ).append( " | " );
+				for ( SimplePropertyPath violationPath : cv.getPaths() ) 
+				{
+					validationResults.append( violationPath.toString() ).append( " | " );
+			    }
+				validationResults.append( cv.getFixes().size() );
+		        validationResults.append( System.getProperty("line.separator") );
+			}
+		}
+		catch ( Exception e ) 
+		{ 
+			e.printStackTrace(); 
+			
+			// create SPIN exception
+			spinException = new SPINException();
+			spinException.setSource( "SPIN constraint checking" );
+			spinException.setMessage( e.getMessage().replace( "<", "&lt;" ).replace( ">", "&gt;" ) );
+			
+			System.out.println( "-----" ); 
+			System.out.println( "source: " + "SPIN constraint checking" ); 
+			System.out.println( "message: " + e.getMessage() ); 
+			System.out.println( "-----" ); 
 		}
 	}
 
@@ -257,7 +277,25 @@ public class Spin
 	{
 		Model model = ModelFactory.createDefaultModel();
 		
-		model.read( this.getClass().getClassLoader().getResourceAsStream( "/" + rdfGraph_RelativePathAndFileName ), null, rdfGraph_ConcreteSyntax );
+		try
+		{
+			model.read( this.getClass().getClassLoader().getResourceAsStream( "/" + rdfGraph_RelativePathAndFileName ), null, rdfGraph_ConcreteSyntax );
+		}
+		catch ( Exception e ) 
+		{ 
+			e.printStackTrace(); 
+			
+			// create SPIN exception
+			spinException = new SPINException();
+			spinException.setSource( rdfGraph_RelativePathAndFileName );
+			spinException.setMessage( e.getMessage().replace( "<", "&lt;" ).replace( ">", "&gt;" ) );
+			
+			System.out.println( "-----" ); 
+			System.out.println( "source: " + rdfGraph_RelativePathAndFileName ); 
+			System.out.println( "message: " + e.getMessage() ); 
+			System.out.println( "-----" ); 
+		}
+		
 //		System.out.println(this.getClass().getClassLoader().getResourceAsStream( "/" + rdfGraph_RelativePathAndFileName ));
 
 		return model;
@@ -275,7 +313,20 @@ public class Spin
 		{
 			model.read( IOUtils.toInputStream( rdfGraph, "UTF-8" ), null, rdfGraph_ConcreteSyntax );
 		} 
-		catch (IOException e) { e.printStackTrace(); }
+		catch ( IOException e ) 
+		{ 
+			e.printStackTrace(); 
+			
+			// create SPIN exception
+			spinException = new SPINException();
+			spinException.setSource( "input RDF graph" );
+			spinException.setMessage( e.getMessage().replace( "<", "&lt;" ).replace( ">", "&gt;" ) );
+			
+			System.out.println( "-----" ); 
+			System.out.println( "source: input RDF graph" ); 
+			System.out.println( "message: " + e.getMessage() ); 
+			System.out.println( "-----" );  
+		}
 		
 		return model;
 	}
@@ -295,4 +346,8 @@ public class Spin
 		return rdfGraphInferred;
 	}
 	
+	public SPINException getSPINException()
+	{
+		return spinException;
+	}
 }

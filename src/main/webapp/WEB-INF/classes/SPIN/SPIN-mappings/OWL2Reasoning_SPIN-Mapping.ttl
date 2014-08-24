@@ -26,3 +26,33 @@ owl2spin:ToInfer
         		} """ ; ] .
 
 # -----
+
+# ---------------
+# Axioms - Class Expression Axioms - Equivalent Classes
+
+
+owl2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                	?this rdf:type ?CE2 .        
+            	}
+            	WHERE {
+                	?CE1 owl:equivalentClass ?CE2 .             
+                	?this rdf:type ?CE1 .    	         
+        		} """ ; ] .
+        		
+ owl2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                	?this rdf:type ?CE1 .        
+            	}
+            	WHERE {
+                	?CE1 owl:equivalentClass ?CE2 .             
+                	?this rdf:type ?CE2 .    	         
+        		} """ ; ] .
+
+# -----

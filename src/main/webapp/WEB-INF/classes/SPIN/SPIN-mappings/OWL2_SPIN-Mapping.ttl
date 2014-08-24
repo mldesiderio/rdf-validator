@@ -147,11 +147,11 @@ owl:Thing
 		
 		
 		# Disjoint Classes
-		[   a owl2:DisjointClasses ] .
+		[   a owl2:DisjointClasses ] ,
 		# Disjoint Union of Class Expressions
-#		[   a owl2:DisjointUnion_2DisjointClassExpressions_1 ] .
-#		[   a owl2:DisjointUnion_2DisjointClassExpressions_2 ] ,
-#		[   a owl2:DisjointUnion_2DisjointClassExpressions_3 ] .
+		[   a owl2:DisjointUnion_2CE_1 ] ,
+		[   a owl2:DisjointUnion_2CE_2 ] .
+#		[   a owl2:DisjointUnion_2CE_3 ] .
 		
 rdfs:Literal 
 	spin:constraint 
@@ -4965,41 +4965,7 @@ owl2:DataHasValue
 # -----
 
 # ---------------
-# Equivalent Classes ( class expression axioms )
-
-
-# description
-# -----
-# An equivalent classes axiom EquivalentClasses( CE1 ... CEn ) states that all of the class expressions CEi, 1 ≤ i ≤ n, are semantically equivalent to each other. 
-# This axiom allows one to use each CEi as a synonym for each CEj — that is, in any expression in the ontology containing such an axiom, 
-# CEi can be replaced with CEj without affecting the meaning of the ontology.
-
-# definition
-# -----	
-# EquivalentClasses := 'EquivalentClasses' '(' axiomAnnotations ClassExpression ClassExpression { ClassExpression } ')' 
-
-# examples
-# -----
-
-
-# SPIN template
-# -----
-
-
-# -----
-
-# ---------------
-# Disjoint Classes ( class expression axioms )
-
-
-# description
-# -----
-# A disjoint classes axiom DisjointClasses( CE1 ... CEn ) states that all of the class expressions CEi, 1 <= i <= n, are pairwise disjoint; 
-# that is, no individual can be at the same time an instance of both CEi and CEj for i != j. 
-
-# definition
-# -----	
-# DisjointClasses := 'DisjointClasses' '(' axiomAnnotations ClassExpression ClassExpression { ClassExpression } ')'  
+# Axioms - Class Expression Axioms - Disjoint Classes
 
 
 # -----
@@ -5039,49 +5005,121 @@ owl2:DisjointClasses
 # -----
 
 # ---------------
-# Disjoint Union ( of Class Expressions ) ( class expression axioms )
+# Axioms - Class Expression Axioms - Disjoint Union of Class Expressions
 
 
-# description
+owl2:DisjointUnion_2CE_1
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    
+#   spin:violationSource:
+#   -----
+    spin:labelTemplate "Axioms - Class Expression Axioms - Disjoint Union of Class Expressions" ;
+    
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            CONSTRUCT {
+                :cv 
+                	a spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    spin:violationPath rdf:type ;
+                    rdfs:label ?violationMessage .
+            }
+            WHERE {	 
+            	?this rdf:type ?C .
+               
+#	    		?C owl:disjointUnionOf ( ?CE1 CE2 ) . 
+#       		-----
+	    		?C owl:disjointUnionOf ?DCE .
+	    		?DCE rdf:first ?CE1 .
+	    		?DCE rdf:rest ?r1 .
+	    		?r1 rdf:first ?CE2 .
+	    		?r1 rdf:rest ?r2 .
+	    		FILTER ( ?r2 = rdf:nil ) .
+
+#	    		each instance of C is an instance of exactly one CEi
+#       		-----
+	    		?this rdf:type ?CE1 .
+				?this rdf:type ?CE2 .
+                
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"DisjointUnion ( \", 
+                    xsd:string( ?C ), 
+                    \" \", 
+                    xsd:string( ?CE1 ),
+                    \" \", 
+                    xsd:string( ?CE2 ),  
+                    \" )\" 
+                    \" - each instance of \",
+                    xsd:string( ?C ),  
+                    \" is an instance of exactly one of \",
+                    xsd:string( ?CE1 ),
+                    \" and \", 
+                    xsd:string( ?CE2 ) ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
+    
+owl2:DisjointUnion_2CE_2
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    
+#   spin:violationSource:
+#   -----
+    spin:labelTemplate "Axioms - Class Expression Axioms - Disjoint Union of Class Expressions" ;
+    
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            CONSTRUCT {
+                :cv 
+                	a spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    spin:violationPath rdf:type ;
+                    rdfs:label ?violationMessage .
+            }
+            WHERE {	 
+            	?this rdf:type ?CE1 .
+               
+#	    		?C owl:disjointUnionOf ( ?CE1 CE2 ) . 
+#       		-----
+	    		?C owl:disjointUnionOf ?DCE .
+	    		?DCE rdf:first ?CE1 .
+	    		?DCE rdf:rest ?r1 .
+	    		?r1 rdf:first ?CE2 .
+	    		?r1 rdf:rest ?r2 .
+	    		FILTER ( ?r2 = rdf:nil ) .
+
+#       		each instance of CE1 is an instance of C
+#       		-----
+#       		FILTER NOT EXISTS { ?this rdf:type ?C }
+                
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"DisjointUnion ( \", 
+                    xsd:string( ?C ), 
+                    \" \", 
+                    xsd:string( ?CE1 ),
+                    \" \", 
+                    xsd:string( ?CE2 ),  
+                    \" )\",
+                    \" - each instance of \",
+                    xsd:string( ?CE1 ),  
+                    \" is an instance of \",
+                    xsd:string( ?C ) ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
+
+
+# 2 CE
 # -----
-# A disjoint union axiom DisjointUnion( C CE1 ... CEn ) states that a class C is a disjoint union of the class expressions CEi, 1 ≤ i ≤ n, 
-# all of which are pairwise disjoint. Such axioms are sometimes referred to as covering axioms, 
-# as they state that the extensions of all CEi exactly cover the extension of C. 
-# Thus, each instance of C is an instance of exactly one CEi, and each instance of CEi is an instance of C. 
-
-# definition
-# -----	
-# DisjointUnion := 'DisjointUnion' '(' axiomAnnotations Class disjointClassExpressions ')'
-# disjointClassExpressions := ClassExpression ClassExpression { ClassExpression } 
-
-# example ( 2 disjoint class expressions )
-# -----
-# DisjointUnion( a:Child a:Boy a:Girl ) 
-# a:Child owl:disjointUnionOf ( a:Boy a:Girl ) .
-
-# DisjointUnion( a:DisjointUnion_C a:DisjointUnion_CE1 a:DisjointUnion_CE2 ) 
-# a:DisjointUnion_C1 owl:disjointUnionOf ( a:DisjointUnion_CE1 a:DisjointUnion_CE2 ) . 
-# a:DisjointUnion_I1 
-#	rdf:type a:DisjointUnion_C1 ;
-#	rdf:type a:DisjointUnion_CE1 ;
-#	rdf:type a:DisjointUnion_CE2 .
-# a:DisjointUnion_I2 
-#	rdf:type owl:Thing ;
-#	rdf:type a:DisjointUnion_C1 ;
-#	rdf:type a:DisjointUnion_CE1 .
-# a:DisjointUnion_I3 
-#	rdf:type owl:Thing ;
-#	rdf:type a:DisjointUnion_C1 ;
-#	rdf:type a:DisjointUnion_CE2 .
-
-# example ( 3 disjoint class expressions )
-# -----
-
-
-# SPIN templates
-# -----
-
-# 2 disjoint class expressions
 #	CONSTRUCT {
 #	    _:violation 
 #			a spin:ConstraintViolation ;
@@ -5107,7 +5145,7 @@ owl2:DisjointClasses
 #		?this rdf:type ?CE2 .
 #
 #		LET ( ( ... ) AS ?label ) . }
-owl2:DisjointUnion_2DisjointClassExpressions_1 
+owl2:DisjointUnion_2CE_1_old 
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "Disjoint Union of Class Expressions" ;
@@ -5223,7 +5261,7 @@ owl2:DisjointUnion_2DisjointClassExpressions_1
 #       FILTER NOT EXISTS { ?this rdf:type ?C }
 #
 #		LET ( ( ... ) AS ?label ) . }			
-owl2:DisjointUnion_2DisjointClassExpressions_2
+owl2:DisjointUnion_2CE_2_old 
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "Disjoint Union of Class Expressions" ;
@@ -5369,7 +5407,7 @@ owl2:DisjointUnion_2DisjointClassExpressions_2
 #       FILTER NOT EXISTS { ?this rdf:type ?C }
 #
 #		LET ( ( ... ) AS ?label ) . }		
-owl2:DisjointUnion_2DisjointClassExpressions_3
+owl2:DisjointUnion_2CE_3_old 
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "Disjoint Union of Class Expressions" ;
