@@ -99,8 +99,11 @@ public class OWL2Controller
 		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
 		
 		// inferred RDF graph
-		model.addObject( "rdfGraphInferred", spin.getRDFGraphInferred().replace( "<", "&lt;" ).replace( ">", "&gt;" ) ); // escape < and >
-		
+		if ( spin.getRDFGraphInferred().length() > 0 )
+		{
+			model.addObject( "rdfGraphInferred", spin.getRDFGraphInferred().replace( "<", "&lt;" ).replace( ">", "&gt;" ) ); // escape < and >
+		}
+			
 		// SPIN exception
 		if ( spin.getSPINException() != null )
 		{

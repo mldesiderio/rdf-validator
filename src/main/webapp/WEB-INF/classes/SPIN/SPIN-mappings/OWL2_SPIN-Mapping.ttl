@@ -150,8 +150,8 @@ owl:Thing
 		[   a owl2:DisjointClasses ] ,
 		# Disjoint Union of Class Expressions
 		[   a owl2:DisjointUnion_2CE_1 ] ,
-		[   a owl2:DisjointUnion_2CE_2 ] .
-#		[   a owl2:DisjointUnion_2CE_3 ] .
+		[   a owl2:DisjointUnion_2CE_2 ] ,
+		[   a owl2:DisjointUnion_2CE_3 ] .
 		
 rdfs:Literal 
 	spin:constraint 
@@ -5014,7 +5014,7 @@ owl2:DisjointUnion_2CE_1
     
 #   spin:violationSource:
 #   -----
-    spin:labelTemplate "Axioms - Class Expression Axioms - Disjoint Union of Class Expressions" ;
+    spin:labelTemplate "OWL 2 - Axioms - Class Expression Axioms - Disjoint Union of Class Expressions" ;
     
     spin:body [
         rdf:type sp:Construct ;
@@ -5029,7 +5029,7 @@ owl2:DisjointUnion_2CE_1
             WHERE {	 
             	?this rdf:type ?C .
                
-#	    		?C owl:disjointUnionOf ( ?CE1 CE2 ) . 
+#	    		?C owl:disjointUnionOf ( ?CE1 ?CE2 ) . 
 #       		-----
 	    		?C owl:disjointUnionOf ?DCE .
 	    		?DCE rdf:first ?CE1 .
@@ -5052,10 +5052,10 @@ owl2:DisjointUnion_2CE_1
                     xsd:string( ?CE1 ),
                     \" \", 
                     xsd:string( ?CE2 ),  
-                    \" )\" 
+                    \" )\", 
                     \" - each instance of \",
                     xsd:string( ?C ),  
-                    \" is an instance of exactly one of \",
+                    \" must also be an instance of exactly one of \",
                     xsd:string( ?CE1 ),
                     \" and \", 
                     xsd:string( ?CE2 ) ) 
@@ -5070,7 +5070,7 @@ owl2:DisjointUnion_2CE_2
     
 #   spin:violationSource:
 #   -----
-    spin:labelTemplate "Axioms - Class Expression Axioms - Disjoint Union of Class Expressions" ;
+    spin:labelTemplate "OWL 2 - Axioms - Class Expression Axioms - Disjoint Union of Class Expressions" ;
     
     spin:body [
         rdf:type sp:Construct ;
@@ -5085,7 +5085,7 @@ owl2:DisjointUnion_2CE_2
             WHERE {	 
             	?this rdf:type ?CE1 .
                
-#	    		?C owl:disjointUnionOf ( ?CE1 CE2 ) . 
+#	    		?C owl:disjointUnionOf ( ?CE1 ?CE2 ) . 
 #       		-----
 	    		?C owl:disjointUnionOf ?DCE .
 	    		?DCE rdf:first ?CE1 .
@@ -5096,7 +5096,7 @@ owl2:DisjointUnion_2CE_2
 
 #       		each instance of CE1 is an instance of C
 #       		-----
-#       		FILTER NOT EXISTS { ?this rdf:type ?C }
+       			FILTER NOT EXISTS { ?this rdf:type ?C }
                 
 #               violation message
 #               -----
@@ -5110,424 +5110,65 @@ owl2:DisjointUnion_2CE_2
                     \" )\",
                     \" - each instance of \",
                     xsd:string( ?CE1 ),  
-                    \" is an instance of \",
+                    \" must also be an instance of \",
                     xsd:string( ?C ) ) 
                     AS ?violationMessage ) . 
             }
             """ ;
     ] .
 
+owl2:DisjointUnion_2CE_3
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    
+#   spin:violationSource:
+#   -----
+    spin:labelTemplate "OWL 2 - Axioms - Class Expression Axioms - Disjoint Union of Class Expressions" ;
+    
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            CONSTRUCT {
+                :cv 
+                	a spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    spin:violationPath rdf:type ;
+                    rdfs:label ?violationMessage .
+            }
+            WHERE {	 
+            	?this rdf:type ?CE2 .
+               
+#	    		?C owl:disjointUnionOf ( ?CE1 ?CE2 ) . 
+#       		-----
+	    		?C owl:disjointUnionOf ?DCE .
+	    		?DCE rdf:first ?CE1 .
+	    		?DCE rdf:rest ?r1 .
+	    		?r1 rdf:first ?CE2 .
+	    		?r1 rdf:rest ?r2 .
+	    		FILTER ( ?r2 = rdf:nil ) .
 
-# 2 CE
-# -----
-#	CONSTRUCT {
-#	    _:violation 
-#			a spin:ConstraintViolation ;
-#			rdfs:label ?label
-#		    spin:violationRoot ?this ;
-#		    spin:violationPath ?violationPath ;
-#		    spin:violationSource ?violationSource }
-#	WHERE {
-#	    ?C owl:disjointUnionOf ( ?CE1 CE2 ) . 
-#       -----
-#	    ?C owl:disjointUnionOf ?disjointClassExpressions .
-#	    ?disjointClassExpressions rdf:first ?CE1 .
-#	    ?disjointClassExpressions rdf:rest ?rest_1 .
-#	    ?rest_1 rdf:first ?CE2 .
-#	    ?rest_1 rdf:rest ?rest_2 .
-#	    FILTER ( ?rest_2 = rdf:nil ) .
-#
-#	    ?this rdf:type ?C .
-#
-#	    each instance of C is an instance of exactly one CEi
-#       -----
-#	    ?this rdf:type ?CE1 .
-#		?this rdf:type ?CE2 .
-#
-#		LET ( ( ... ) AS ?label ) . }
-owl2:DisjointUnion_2CE_1_old 
-	a spin:Template; 
-	rdfs:subClassOf spin:Templates ;
-	spin:labelTemplate "Disjoint Union of Class Expressions" ;
-	rdfs:label "Disjoint Union of Class Expressions" ;
-	rdfs:comment "Disjoint Union of Class Expressions" ;
-	spin:body [
-		a sp:Construct ;
-		sp:templates ( 
-			[   sp:subject _:violation ;
-				sp:predicate rdf:type ;
-				sp:object spin:ConstraintViolation ]
-			[   sp:subject _:violation ; 
-				sp:predicate rdfs:label ;
-				sp:object [ sp:varName "label" ] ] 
-			[	sp:subject _:violation ;
-				sp:predicate spin:violationRoot ;
-				sp:object spin:_this ]		 
-			[   sp:subject _:violation ;
-				sp:predicate spin:violationPath ;
-				sp:object "" ] 
-			[   sp:subject _:violation ;
-				sp:predicate spin:violationSource ;
-				sp:object "" ] ) ;
-		sp:where (
-#	    	?C owl:disjointUnionOf ( ?CE1 CE2 ) . 
-#       	-----
-#	    	?C owl:disjointUnionOf ?disjointClassExpressions .
-#	    	?disjointClassExpressions rdf:first ?CE1 .
-#	    	?disjointClassExpressions rdf:rest ?rest_1 .
-#	    	?rest_1 rdf:first ?CE2 .
-#	    	?rest_1 rdf:rest ?rest_2 .
-#	    	FILTER ( ?rest_2 = rdf:nil ) .				
-			[   sp:subject [ sp:varName "C" ] ;
-			    sp:predicate owl:disjointUnionOf ;
-				sp:object [ sp:varName "?disjointClassExpressions" ] ]
-			[   sp:subject [ sp:varName "disjointClassExpressions" ] ;
-			    sp:predicate rdf:first ;
-				sp:object [ sp:varName "CE1" ] ]
-			[   sp:subject [ sp:varName "disjointClassExpressions" ] ;
-			    sp:predicate rdf:rest ;
-				sp:object [ sp:varName "rest_1" ] ]
-			[   sp:subject [ sp:varName "rest_1" ] ;
-			    sp:predicate rdf:first ;
-				sp:object [ sp:varName "CE2" ] ]
-			[   sp:subject [ sp:varName "rest_1" ] ;
-			    sp:predicate rdf:rest ;
-				sp:object [ sp:varName "rest_2" ] ]
-			[   a sp:Filter;
-				sp:expression [ 
-					a sp:eq;
-				    sp:arg1 [ sp:varName "rest_2" ];
-					sp:arg2 rdf:nil ] ]
-					
-#           ?this rdf:type ?C .
-			[   sp:subject [ sp:varName "this" ] ;
-			    sp:predicate rdf:type ;
-				sp:object [ sp:varName "C" ] ]
-					
-#	    	each instance of C is an instance of exactly one CEi
-#       	-----
-#	    	?this rdf:type ?CE1 .
-#			?this rdf:type ?CE2 .
-#			[   sp:subject [ sp:varName "this" ] ;
-#			    sp:predicate rdf:type ;
-#				sp:object [ sp:varName "CE1" ] ]
-#			[   sp:subject [ sp:varName "this" ] ;
-#			    sp:predicate rdf:type ;
-#				sp:object [ sp:varName "CE2" ] ]
-			[   a sp:Filter ;
-                sp:expression [
-			        a sp:exists ;
-                    sp:elements (
-						[   sp:subject [ sp:varName "this" ] ;
-			                sp:predicate rdf:type ;
-				            sp:object [ sp:varName "CE1" ] ]
-						[   sp:subject [ sp:varName "object" ] ;
-                            sp:predicate rdf:type ;
-                            sp:object [ sp:varName "CE2" ] ] ) ] ]
-				
-#		    LET ( ( ... ) AS ?label ) .					
-			[   a sp:Let;
-				sp:variable [ sp:varName "label" ];
-				sp:expression [ 
-					a fn:concat; 
-					sp:arg1 [ sp:varName "C" ] ;
-					sp:arg2 " owl:disjointUnionOf ( " ;
-					sp:arg3 [ sp:varName "CE1" ] ;
-					sp:arg4 " " ;
-					sp:arg5 [ sp:varName "CE2" ] ;
-					sp:arg6 " )" ] ] ) ] .
-				
-#	CONSTRUCT {
-#	    _:violation 
-#           a spin:ConstraintViolation ;
-#	        rdfs:label ?label
-#		    spin:violationRoot ?this ;
-#		    spin:violationPath ?violationPath ;
-#		    spin:violationSource ?violationSource }
-#	WHERE {
-#	    ?C owl:disjointUnionOf ( ?CE1 CE2 ) . 
-#       -----
-#	    ?C owl:disjointUnionOf ?disjointClassExpressions .
-#	    ?disjointClassExpressions rdf:first ?CE1 .
-#	    ?disjointClassExpressions rdf:rest ?rest_1 .
-#	    ?rest_1 rdf:first ?CE2 .
-#	    ?rest_1 rdf:rest ?rest_2 .
-#	    FILTER ( ?rest_2 = rdf:nil ) .
-#
-#       ?this rdf:type ?CE1
-#
-#       each instance of CE1 is an instance of C
-#       -----
-#       FILTER NOT EXISTS { ?this rdf:type ?C }
-#
-#		LET ( ( ... ) AS ?label ) . }			
-owl2:DisjointUnion_2CE_2_old 
-	a spin:Template; 
-	rdfs:subClassOf spin:Templates ;
-	spin:labelTemplate "Disjoint Union of Class Expressions" ;
-	rdfs:label "Disjoint Union of Class Expressions" ;
-	rdfs:comment "Disjoint Union of Class Expressions" ;
-	spin:body [
-		a sp:Construct ;
-		sp:templates ( 
-			[   sp:subject _:violation ;
-				sp:predicate rdf:type ;
-				sp:object spin:ConstraintViolation ]
-			[   sp:subject _:violation ; 
-				sp:predicate rdfs:label ;
-				sp:object [ sp:varName "label" ] ] 
-			[	sp:subject _:violation ;
-				sp:predicate spin:violationRoot ;
-				sp:object spin:_this ]		 
-			[   sp:subject _:violation ;
-				sp:predicate spin:violationPath ;
-				sp:object "" ] 
-			[   sp:subject _:violation ;
-				sp:predicate spin:violationSource ;
-				sp:object "" ] ) ;
-		sp:where (
-#	    	?C owl:disjointUnionOf ( ?CE1 CE2 ) . 
-#       	-----
-#	    	?C owl:disjointUnionOf ?disjointClassExpressions .
-#	    	?disjointClassExpressions rdf:first ?CE1 .
-#	    	?disjointClassExpressions rdf:rest ?rest_1 .
-#	    	?rest_1 rdf:first ?CE2 .
-#	    	?rest_1 rdf:rest ?rest_2 .
-#	    	FILTER ( ?rest_2 = rdf:nil ) .			
-			[   sp:subject [ sp:varName "C" ] ;
-			    sp:predicate owl:disjointUnionOf ;
-				sp:object [ sp:varName "?disjointClassExpressions" ] ]
-			[   sp:subject [ sp:varName "disjointClassExpressions" ] ;
-			    sp:predicate rdf:first ;
-				sp:object [ sp:varName "CE1" ] ]
-			[   sp:subject [ sp:varName "disjointClassExpressions" ] ;
-			    sp:predicate rdf:rest ;
-				sp:object [ sp:varName "rest_1" ] ]
-			[   sp:subject [ sp:varName "rest_1" ] ;
-			    sp:predicate rdf:first ;
-				sp:object [ sp:varName "CE2" ] ]
-			[   sp:subject [ sp:varName "rest_1" ] ;
-			    sp:predicate rdf:rest ;
-				sp:object [ sp:varName "rest_2" ] ]
-			[   a sp:Filter;
-				sp:expression [ 
-					a sp:eq;
-				    sp:arg1 [ sp:varName "rest_2" ];
-					sp:arg2 rdf:nil ] ]
-
-#           ?this rdf:type ?CE1
-            [   sp:subject spin:_this ;
-				sp:predicate rdf:type ;
-				sp:object [ sp:varName "CE1" ] ]
-
-#           each instance of CE1 is an instance of C
-#           -----
-#           FILTER NOT EXISTS { ?this rdf:type ?C }
-			[   a sp:Filter ;
-                sp:expression [
-			        a sp:notExists ;
-                    sp:elements (
-						[   sp:subject [ sp:varName "this" ] ;
-			                sp:predicate rdf:type ;
-				            sp:object [ sp:varName "C" ] ] ) ] ]
-				
-#           workaround ( ObjectIntersectionOf )
-#       	-----
-#			[   sp:subject [ sp:varName "C_" ] ;
-#			    sp:predicate rdf:type ;
-#				sp:object owl:Class ]
-#			[   sp:subject [ sp:varName "C_" ] ;
-#			    sp:predicate owl:intersectionOf ;
-#				sp:object [ sp:varName "CEs_" ] ]
-#			[   sp:subject [ sp:varName "CEs_" ] ;
-#			    sp:predicate rdf:first ;
-#				sp:object [ sp:varName "CE_1" ] ]
-#			[   sp:subject [ sp:varName "CEs_" ] ;
-#			    sp:predicate rdf:rest ;
-#				sp:object [ sp:varName "rest_1_" ] ]
-#			[   sp:subject [ sp:varName "rest_1_" ] ;
-#			    sp:predicate rdf:first ;
-#				sp:object [ sp:varName "CE_2" ] ]
-#			[   sp:subject [ sp:varName "rest_1_" ] ;
-#			    sp:predicate rdf:rest ;
-#				sp:object [ sp:varName "rest_2_" ] ]
-#			[   a sp:Filter;
-#				sp:expression [ 
-#					a sp:eq;
-#				    sp:arg1 [ sp:varName "rest_2_" ];
-#					sp:arg2 rdf:nil ] ]	
-#			[   a sp:Filter ;
-#                sp:expression [
-#			        a sp:notExists ;
-#                    sp:elements (
-#						[   sp:subject [ sp:varName "this" ] ;
-#			                sp:predicate rdf:type ;
-#				            sp:object [ sp:varName "CE_1" ] ] ) ] ]
-#			[   a sp:Filter ;
-#                sp:expression [
-#			        a sp:notExists ;
-#                    sp:elements (
-#						[   sp:subject [ sp:varName "this" ] ;
-#			                sp:predicate rdf:type ;
-#				            sp:object [ sp:varName "CE_2" ] ] ) ] ]
-				
-#		    LET ( ( ... ) AS ?label ) .					
-			[   a sp:Let;
-				sp:variable [ sp:varName "label" ];
-				sp:expression [ 
-					a fn:concat; 
-					sp:arg1 [ sp:varName "C" ] ;
-					sp:arg2 " owl:disjointUnionOf ( 2 ) ( " ;
-					sp:arg3 [ sp:varName "CE1" ] ;
-					sp:arg4 " " ;
-					sp:arg5 [ sp:varName "CE2" ] ;
-					sp:arg6 " )" ] ] ) ] .
-
-#	CONSTRUCT {
-#	    _:violation 
-#           a spin:ConstraintViolation ;
-#	        rdfs:label ?label
-#		    spin:violationRoot ?this ;
-#		    spin:violationPath ?violationPath ;
-#		    spin:violationSource ?violationSource }
-#	WHERE {
-#	    ?C owl:disjointUnionOf ( ?CE1 CE2 ) . 
-#       -----
-#	    ?C owl:disjointUnionOf ?disjointClassExpressions .
-#	    ?disjointClassExpressions rdf:first ?CE1 .
-#	    ?disjointClassExpressions rdf:rest ?rest_1 .
-#	    ?rest_1 rdf:first ?CE2 .
-#	    ?rest_1 rdf:rest ?rest_2 .
-#	    FILTER ( ?rest_2 = rdf:nil ) .
-#
-#       ?this rdf:type ?CE2
-#
-#       each instance of CE2 is an instance of C
-#       -----
-#       FILTER NOT EXISTS { ?this rdf:type ?C }
-#
-#		LET ( ( ... ) AS ?label ) . }		
-owl2:DisjointUnion_2CE_3_old 
-	a spin:Template; 
-	rdfs:subClassOf spin:Templates ;
-	spin:labelTemplate "Disjoint Union of Class Expressions" ;
-	rdfs:label "Disjoint Union of Class Expressions" ;
-	rdfs:comment "Disjoint Union of Class Expressions" ;
-	spin:body [
-		a sp:Construct ;
-		sp:templates ( 
-			[   sp:subject _:violation ;
-				sp:predicate rdf:type ;
-				sp:object spin:ConstraintViolation ]
-			[   sp:subject _:violation ; 
-				sp:predicate rdfs:label ;
-				sp:object [ sp:varName "label" ] ] 
-			[	sp:subject _:violation ;
-				sp:predicate spin:violationRoot ;
-				sp:object spin:_this ]		 
-			[   sp:subject _:violation ;
-				sp:predicate spin:violationPath ;
-				sp:object "" ] 
-			[   sp:subject _:violation ;
-				sp:predicate spin:violationSource ;
-				sp:object "" ] ) ;
-		sp:where (
-#	    	?C owl:disjointUnionOf ( ?CE1 CE2 ) . 
-#       	-----
-#	    	?C owl:disjointUnionOf ?disjointClassExpressions .
-#	    	?disjointClassExpressions rdf:first ?CE1 .
-#	    	?disjointClassExpressions rdf:rest ?rest_1 .
-#	    	?rest_1 rdf:first ?CE2 .
-#	    	?rest_1 rdf:rest ?rest_2 .
-#	    	FILTER ( ?rest_2 = rdf:nil ) .				
-			[   sp:subject [ sp:varName "C" ] ;
-			    sp:predicate owl:disjointUnionOf ;
-				sp:object [ sp:varName "?disjointClassExpressions" ] ]
-			[   sp:subject [ sp:varName "disjointClassExpressions" ] ;
-			    sp:predicate rdf:first ;
-				sp:object [ sp:varName "CE1" ] ]
-			[   sp:subject [ sp:varName "disjointClassExpressions" ] ;
-			    sp:predicate rdf:rest ;
-				sp:object [ sp:varName "rest_1" ] ]
-			[   sp:subject [ sp:varName "rest_1" ] ;
-			    sp:predicate rdf:first ;
-				sp:object [ sp:varName "CE2" ] ]
-			[   sp:subject [ sp:varName "rest_1" ] ;
-			    sp:predicate rdf:rest ;
-				sp:object [ sp:varName "rest_2" ] ]
-			[   a sp:Filter;
-				sp:expression [ 
-					a sp:eq;
-				    sp:arg1 [ sp:varName "rest_2" ];
-					sp:arg2 rdf:nil ] ]
-			
-#           ?this rdf:type ?CE2
-            [   sp:subject spin:_this ;
-				sp:predicate rdf:type ;
-				sp:object [ sp:varName "CE2" ] ]
-
-#       	each instance of CE2 is an instance of C
-#       	-----
-#       	FILTER NOT EXISTS { ?this rdf:type ?C }
-			[   a sp:Filter ;
-                sp:expression [
-			        a sp:notExists ;
-                    sp:elements (
-						[   sp:subject [ sp:varName "this" ] ;
-			                sp:predicate rdf:type ;
-				            sp:object [ sp:varName "C" ] ] ) ] ]
-							
-#           workaround ( ObjectIntersectionOf )
-#       	-----
-#			[   sp:subject [ sp:varName "C_" ] ;
-#			    sp:predicate rdf:type ;
-#				sp:object owl:Class ]
-#			[   sp:subject [ sp:varName "C_" ] ;
-#			    sp:predicate owl:intersectionOf ;
-#				sp:object [ sp:varName "CEs_" ] ]
-#			[   sp:subject [ sp:varName "CEs_" ] ;
-#			    sp:predicate rdf:first ;
-#				sp:object [ sp:varName "CE_1" ] ]
-#			[   sp:subject [ sp:varName "CEs_" ] ;
-#			    sp:predicate rdf:rest ;
-#				sp:object [ sp:varName "rest_1_" ] ]
-#			[   sp:subject [ sp:varName "rest_1_" ] ;
-#			    sp:predicate rdf:first ;
-#				sp:object [ sp:varName "CE_2" ] ]
-#			[   sp:subject [ sp:varName "rest_1_" ] ;
-#			    sp:predicate rdf:rest ;
-#				sp:object [ sp:varName "rest_2_" ] ]
-#			[   a sp:Filter;
-#				sp:expression [ 
-#					a sp:eq;
-#				    sp:arg1 [ sp:varName "rest_2_" ];
-#					sp:arg2 rdf:nil ] ]	
-#			[   a sp:Filter ;
-#                sp:expression [
-#			        a sp:notExists ;
-#                    sp:elements (
-#						[   sp:subject [ sp:varName "this" ] ;
-#			                sp:predicate rdf:type ;
-#				            sp:object [ sp:varName "CE_1" ] ] ) ] ]	
-#			[   a sp:Filter ;
-#                sp:expression [
-#			        a sp:notExists ;
-#                    sp:elements (
-#						[   sp:subject [ sp:varName "this" ] ;
-#			                sp:predicate rdf:type ;
-#				            sp:object [ sp:varName "CE_2" ] ] ) ] ]
-					
-#		    LET ( ( ... ) AS ?label ) .					
-			[   a sp:Let;
-				sp:variable [ sp:varName "label" ];
-				sp:expression [ 
-					a fn:concat; 
-					sp:arg1 [ sp:varName "C" ] ;
-					sp:arg2 " owl:disjointUnionOf (3) ( " ;
-					sp:arg3 [ sp:varName "CE1" ] ;
-					sp:arg4 " " ;
-					sp:arg5 [ sp:varName "CE2" ] ;
-					sp:arg6 " )" ] ] ) ] .
+#       		each instance of CE2 is an instance of C
+#       		-----
+       			FILTER NOT EXISTS { ?this rdf:type ?C }
+                
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"DisjointUnion ( \", 
+                    xsd:string( ?C ), 
+                    \" \", 
+                    xsd:string( ?CE1 ),
+                    \" \", 
+                    xsd:string( ?CE2 ),  
+                    \" )\",
+                    \" - each instance of \",
+                    xsd:string( ?CE2 ),  
+                    \" must also be an instance of \",
+                    xsd:string( ?C ) ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
 					
 # -----
 
