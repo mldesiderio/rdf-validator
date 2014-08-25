@@ -67,10 +67,7 @@ public class DSPController
 	}
 
 	@RequestMapping( value = "/demo/validation", method = RequestMethod.POST )
-	public ModelAndView demo_tab3( 
-		@RequestParam( "nameSpaceDeclaration" ) String nameSpaceDeclaration, 
-		@RequestParam( "constraints" ) String constraints, 
-		@RequestParam( "data" ) String data )
+	public ModelAndView demo_tab3( @RequestParam( "nameSpaceDeclaration" ) String nameSpaceDeclaration, @RequestParam( "constraints" ) String constraints, @RequestParam( "data" ) String data )
 	{
 		ModelAndView model = new ModelAndView( "dsp-demo-validation", "link", "dsp" );
 
@@ -97,7 +94,7 @@ public class DSPController
 
 		model.addObject( "dspValidationResult", spin.validationResults );
 		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
-		
+
 		// SPIN exception
 		if ( spin.getSPINException() != null )
 		{
@@ -122,9 +119,9 @@ public class DSPController
 
 	/* DSP upload validation */
 	@RequestMapping( value = "/upload/validation", method = RequestMethod.POST )
-	public ModelAndView uploadGraphValidation()
+	public ModelAndView uploadGraphValidation( HttpServletRequest request, HttpServletResponse response )
 	{
-		ModelAndView model = new ModelAndView( "dsp-demo-validation", "link", "dsp" );
+		ModelAndView model = new ModelAndView( "dsp-upload-validation", "link", "dsp" );
 
 		if ( this.files != null && this.files.size() > 0 )
 		{
@@ -135,9 +132,13 @@ public class DSPController
 				rdfGraph += fm.getFileContent();
 				rdfGraph += "\r\n";
 			}
-			
+
 			// add predefined namespace declarations to RDF graph
-//			rdfGraph += defaultNamespaceDeclarations;
+			String absolutePath = request.getSession().getServletContext().getRealPath( dspResourcePath );
+			absolutePath = absolutePath + "/" + "defaultNamespaceDeclarations.ttl";
+			// get predefined namespace content and append to rdfGraph
+			FileMeta fileMeta = FileHelper.getFileDetails( absolutePath );
+			rdfGraph += fileMeta.getFileContent();
 
 			Spin spin = new Spin( "DSP_SPIN-Mapping.ttl" );
 			spin.runInferences_checkConstraints( rdfGraph );
@@ -333,27 +334,31 @@ public class DSPController
 		return dynaTree.getChildren();
 	}
 
-//	/**
-//	 * UNUSED METHODS
-//	 */
-//	/**
-//	 * DSP DEMO
-//	 */
-//	@RequestMapping( value = "/demo/tab1", method = RequestMethod.POST )
-//	public ModelAndView demo_tab1( @RequestParam( "namespaceDeclarations" ) String namespaceDeclarations, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
-//	{
-//		ModelAndView model = new ModelAndView( "dsp-demo-tab2", "link", "dsp" );
-//
-//		return model;
-//	}
-//
-//	@RequestMapping( value = "/demo/tab2", method = RequestMethod.POST )
-//	public ModelAndView demo_tab2( @RequestParam( "constraints" ) String constraints, @ModelAttribute( "validationEnvironment" ) ValidationEnvironment validationEnvironment )
-//	{
-//		ModelAndView model = new ModelAndView( "dsp-demo-tab3", "link", "dsp" );
-//
-//		return model;
-//	}
+	// /**
+	// * UNUSED METHODS
+	// */
+	// /**
+	// * DSP DEMO
+	// */
+	// @RequestMapping( value = "/demo/tab1", method = RequestMethod.POST )
+	// public ModelAndView demo_tab1( @RequestParam( "namespaceDeclarations" )
+	// String namespaceDeclarations, @ModelAttribute( "validationEnvironment" )
+	// ValidationEnvironment validationEnvironment )
+	// {
+	// ModelAndView model = new ModelAndView( "dsp-demo-tab2", "link", "dsp" );
+	//
+	// return model;
+	// }
+	//
+	// @RequestMapping( value = "/demo/tab2", method = RequestMethod.POST )
+	// public ModelAndView demo_tab2( @RequestParam( "constraints" ) String
+	// constraints, @ModelAttribute( "validationEnvironment" )
+	// ValidationEnvironment validationEnvironment )
+	// {
+	// ModelAndView model = new ModelAndView( "dsp-demo-tab3", "link", "dsp" );
+	//
+	// return model;
+	// }
 
 	/**
 	 * DSP N GRAPH (AJAX)

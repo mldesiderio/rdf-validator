@@ -31,7 +31,6 @@ import RDFValidation.ValidationEnvironment;
 @RequestMapping( value = "/owl2" )
 public class OWL2Controller
 {
-	final String nonLiteralValueConstraintsPath = "/resources/rdfGraphs/OWL2";
 	final String dspFileUploadPath = "/resources/uploaded_files/";
 
 	/* variable for multiple file upload */
@@ -97,13 +96,16 @@ public class OWL2Controller
 
 		model.addObject( "owl2ValidationResult", spin.validationResults );
 		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
-		
+
 		// inferred RDF graph
 		if ( spin.getRDFGraphInferred().length() > 0 )
 		{
-			model.addObject( "rdfGraphInferred", spin.getRDFGraphInferred().replace( "<", "&lt;" ).replace( ">", "&gt;" ) ); // escape < and >
+			model.addObject( "rdfGraphInferred", spin.getRDFGraphInferred().replace( "<", "&lt;" ).replace( ">", "&gt;" ) ); // escape
+																																// <
+																																// and
+																																// >
 		}
-			
+
 		// SPIN exception
 		if ( spin.getSPINException() != null )
 		{
@@ -128,9 +130,9 @@ public class OWL2Controller
 
 	/* DSP upload validation */
 	@RequestMapping( value = "/upload/validation", method = RequestMethod.POST )
-	public ModelAndView uploadGraphValidation()
+	public ModelAndView uploadGraphValidation( HttpServletRequest request, HttpServletResponse response )
 	{
-		ModelAndView model = new ModelAndView( "owl2-demo-validation", "link", "owl2" );
+		ModelAndView model = new ModelAndView( "owl2-upload-validation", "link", "owl2" );
 
 		if ( this.files != null && this.files.size() > 0 )
 		{
@@ -143,8 +145,12 @@ public class OWL2Controller
 			}
 
 			// add predefined namespace declarations to RDF graph
-//			rdfGraph += defaultNamespaceDeclarations;
-			
+			String absolutePath = request.getSession().getServletContext().getRealPath( owl2ResourcePath );
+			absolutePath = absolutePath + "/" + "defaultNamespaceDeclarations.ttl";
+			// get predefined namespace content and append to rdfGraph
+			FileMeta fileMeta = FileHelper.getFileDetails( absolutePath );
+			rdfGraph += fileMeta.getFileContent();
+
 			Spin spin = new Spin( "OWL2_SPIN-Mapping.ttl" );
 			spin.runInferences_checkConstraints( rdfGraph );
 
