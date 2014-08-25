@@ -885,8 +885,21 @@ function getDocumentDetails( url, filePath, $containerSelector, additionalPath){
 	
 	// get previous content from textarea
 	var previousSyntaxValue = "";
+	/* if extended option not empty e.g. scroll textarea when new syntax added */
+	var otherOptions = [];
 	if( $container.find( "textarea.edit-syntax" ).length > 0){
 		previousSyntaxValue = $container.find( "textarea.edit-syntax" ).val();
+		$container.find( "div.highlight-syntax" ).hide();
+		$container.find( "textarea.edit-syntax" ).show();
+		var textareaScrollPosition = $container.find( "textarea.edit-syntax" )[0].scrollHeight - 20;
+		if( textareaScrollPosition <= $container.find( "textarea.edit-syntax" ).height() - 20 )
+			textareaScrollPosition = 0;
+		$container.find( "textarea.edit-syntax" ).hide();
+		$container.find( "div.highlight-syntax" ).show();
+		var highlightScrollPosition = $container.find( "div.highlight-syntax" )[0].scrollHeight - 20;
+		if( highlightScrollPosition <= $container.find( "div.highlight-syntax" ).height() - 20 )
+			highlightScrollPosition = 0;
+		otherOptions = [{ "option" : "scroll" , "params" : {"textareaScrollPosition" : textareaScrollPosition , "highlightScrollPosition" :  highlightScrollPosition } }];
 	}
 	
 	if( additionalPath == "" ){
@@ -896,7 +909,7 @@ function getDocumentDetails( url, filePath, $containerSelector, additionalPath){
 			if( $container.is( ":input" ))// if textarea
 				$container.val( previousSyntaxValue + data.fileContent );
 			else// if a div
-				 createRdfOwlView( $container , previousSyntaxValue + data.fileContent , []);
+				 createRdfOwlView( $container , previousSyntaxValue + data.fileContent , otherOptions);
 	    });
 	} else {
 		$jQ.post( url, 
@@ -905,7 +918,7 @@ function getDocumentDetails( url, filePath, $containerSelector, additionalPath){
 			if( $container.is( ":input" ))// if textarea
 				$container.val( previousSyntaxValue + data.fileContent );
 			else// if a div
-				 createRdfOwlView( $container , previousSyntaxValue + data.fileContent , []);
+				 createRdfOwlView( $container , previousSyntaxValue + data.fileContent , otherOptions);
 	    });
 	}
 }
@@ -1054,8 +1067,15 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 				.addClass( 'buttonSubmit MISSY_loginSubmit editButton' )
 				.css({ 'margin' : '0'})
 				.on ( 'click', function () {
-					$jQ( this ).parent().find( "textarea.edit-syntax" ).show();
+					var highlightScrollHeight = $container.find( "div.highlight-syntax" )[0].scrollHeight;
+					var highlightScrollTop = $container.find( "div.highlight-syntax" )[0].scrollTop;
 					$jQ( this ).parent().find( "div.highlight-syntax" ).hide();
+					
+					$jQ( this ).parent().find( "textarea.edit-syntax" ).show();
+					var textareaScrollHeight = $container.find( "textarea.edit-syntax" )[0].scrollHeight;
+					var textareaScrollTop = ( highlightScrollHeight / textareaScrollHeight ) * highlightScrollTop;
+					$jQ( this ).parent().find( "textarea.edit-syntax" ).scrollTop( textareaScrollTop );
+					
 					$jQ( this ).parent().find( "input.viewButton" ).show();
 					$jQ( this ).hide();
 				})
@@ -1064,17 +1084,23 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 				$jQ('<input/>').attr({ type: 'button' , value: 'View' })
 				.addClass( 'buttonSubmit MISSY_loginSubmit viewButton' )
 				.css({ 'margin' : '0'})
-				.on ( 'click', function () {
-					hightlightRdfOwl( $jQ( this ).parent().find( "div.highlight-syntax" ), $jQ( this ).parent().find( "textarea.edit-syntax" ).val(), false );
+				.on ( 'click', function () {					
+					var textareaScrollHeight = $container.find( "textarea.edit-syntax" )[0].scrollHeight;
+					var textareaScrollTop =  $container.find( "textarea.edit-syntax" )[0].scrollTop;
 					$jQ( this ).parent().find( "textarea.edit-syntax" ).hide();
 					$jQ( this ).parent().find( "div.highlight-syntax" ).show();
+					
+					var highlightScrollHeight = $container.find( "div.highlight-syntax" )[0].scrollHeight;
+					var highlightScrollTop = ( textareaScrollHeight / highlightScrollHeight ) * textareaScrollTop;
+					
+					hightlightRdfOwl( $jQ( this ).parent().find( "div.highlight-syntax" ), $jQ( this ).parent().find( "textarea.edit-syntax" ).val(), false , highlightScrollTop);
 					$jQ( this ).parent().find( "input.editButton" ).show();
 					$jQ( this ).hide();
 				})
 				)
 		.append(
 				$jQ('<textarea/>').addClass( 'edit-syntax' ).val( rdfOwlSyntax )
-				.css({'width': '99%', 'height' : "410px", 'resize' : ' none'})
+				.css({'width': '99%', 'height' : "410px", 'resize' : ' none', 'padding' : '5px 0 0 5px' , 'line-height': '1.5em', 'font-family': 'monospace'})
 				)
 		.append(
 				$jQ('<div/>').addClass('highlight-syntax')
@@ -1090,7 +1116,8 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 			  }
 		});
 		
-	
+	// highlight scroll height
+	var highlightScrollHeight = 0;
 	
 	// check whether otherOptions are available
 	$jQ.each( otherOptions, function (i, item){
@@ -1115,6 +1142,12 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 	    				);
 			
 		}
+		
+		// for scroll options
+		if( item.option == "scroll"){
+			$container.find( "textarea.edit-syntax" ).scrollTop( item.params.textareaScrollPosition );
+			highlightScrollHeight = item.params.highlightScrollPosition;
+		}
 	});
 	
 	 //check whether there is missy onsite help
@@ -1127,7 +1160,7 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 		$elem = $container.find( "div.highlight-syntax" );
 		//var w = $container.width() + "px";
 		//$elem.css( 'width' , $container.find( "textarea.edit-syntax" ).width() + "px");
-		hightlightRdfOwl( $elem , rdfOwlSyntax , true );
+		hightlightRdfOwl( $elem , rdfOwlSyntax , true , highlightScrollHeight);
 		$container.find( "input.viewButton" ).hide();
 	} else {
 		$container.find( "input.editButton" ).hide();
@@ -1218,7 +1251,7 @@ function unfoldToggle(checkbox, treeId){
  *  @param $elem - required - the container a jquery object
  *  @param rdfOwlSyntax - required - (Notation 3, Turtle, N-Triples, TriG, N-Quads, SPARQL Query and SPARQL Update)
  **/
-function hightlightRdfOwl( $elem, rdfOwlSyntax , showAsMainView){
+function hightlightRdfOwl( $elem, rdfOwlSyntax , showAsMainView, highlightScrollHeight){
 	// maximum number of character allowed per request
 	var allowedCharacterLength = 7000;
 	 
@@ -1249,12 +1282,12 @@ function hightlightRdfOwl( $elem, rdfOwlSyntax , showAsMainView){
 	  //.css( "width" , ($elem.parent().width() - 7) + "px");
 	 
 	 // highlight syntax via ajax
-	 highlightSplittedSyntax( $elem, syntaxForAjaxRequestArray , showAsMainView, 0 );
+	 highlightSplittedSyntax( $elem, syntaxForAjaxRequestArray , showAsMainView, 0 ,highlightScrollHeight);
 	 
 }
 
 // get the syntax highlighted syncrounously by call it recursively
-function highlightSplittedSyntax( $elem, syntaxForAjaxRequestArray , showAsMainView, arrayIndex ){
+function highlightSplittedSyntax( $elem, syntaxForAjaxRequestArray , showAsMainView, arrayIndex , highlightScrollHeight){
 	var jsonpUrl = "http://n3edit.eu01.aws.af.cm/ajax-highlight.php?callback=?";
 	// you also can run the PHP files for hignlighting the syntax locally.
 	// install XAMPP/WAMPP and put and run the n3edit project into your local server
@@ -1274,10 +1307,18 @@ function highlightSplittedSyntax( $elem, syntaxForAjaxRequestArray , showAsMainV
 			  $elem.siblings( "textarea.edit-syntax" ).hide();
 			  $elem.css( "width" , ($elem.parent().parent().parent().width() - 7) + "px");
 			  $elem.show();
+			  // scroll to new input
+			  if( highlightScrollHeight > 0 )
+				  $elem.animate({ scrollTop: highlightScrollHeight }, 1000);
 		  }
+		  
+		  if( !showAsMainView && arrayIndex == syntaxForAjaxRequestArray.length - 1 )
+			  $elem.scrollTop( highlightScrollHeight );
+			  
 		  // call method recursively
-		  if( arrayIndex + 1 < syntaxForAjaxRequestArray.length )
-			  highlightSplittedSyntax( $elem, syntaxForAjaxRequestArray , showAsMainView, arrayIndex + 1 );
+		  if( arrayIndex + 1 < syntaxForAjaxRequestArray.length ){
+			  highlightSplittedSyntax( $elem, syntaxForAjaxRequestArray , showAsMainView, arrayIndex + 1 , highlightScrollHeight);
+		  }
 	  }).fail(function() {
 		  $elem.html( "<span style='color:#f00'>Error - no internet connection!</span>" );
 	  });
