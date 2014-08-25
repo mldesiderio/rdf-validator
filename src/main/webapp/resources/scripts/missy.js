@@ -1154,7 +1154,7 @@ function createTree( $containerSelector, sectionType, syntaxContainerSelector, r
 			.append(
 				$jQ('<div/>')
 				.attr({ id: 'tree' + containerId })
-				.css({ 'width' : '99%' , 'height' : '200px' })
+				.css({ 'width' : '99%' , 'height' : '200px', 'min-height':'140px' })
 				.addClass( 'tree-container' )
 				.dynatree( 
 				{
@@ -1167,7 +1167,7 @@ function createTree( $containerSelector, sectionType, syntaxContainerSelector, r
 		          	}
 		         })
 			)
-			.css({'width': '100%', 'height' : "240px"})
+			.css({'width': '100%', 'height' : "240px", 'min-height':'180px'})
 			.resizable({
 			  resize: function( event, ui ) {
 				  $jQ( this ).find( "div#tree" + containerId )
@@ -1210,6 +1210,42 @@ function unfoldToggle(checkbox, treeId){
  *  @param rdfOwlSyntax - required - (Notation 3, Turtle, N-Triples, TriG, N-Quads, SPARQL Query and SPARQL Update)
  **/
 function hightlightRdfOwl( $elem, rdfOwlSyntax , showAsMainView){
+	// maximum number of character allowed per request
+	var allowedCharacterLength = 7000;
+	 
+	var numberOfCharacter = 0;
+	// split the textarea based on line break
+	 var syntaxArray = rdfOwlSyntax.split( "\n" );
+
+	 var syntaxForAjaxRequest = "";
+	 var syntaxForAjaxRequestArray = [];
+	 for( var i = 0; i < syntaxArray.length ; i++ ){
+		 var numberOfCharacterInOneLine = encodeURI( syntaxArray[i] ).length;
+		 numberOfCharacter += numberOfCharacterInOneLine;
+		 if( numberOfCharacter < allowedCharacterLength ){
+			 syntaxForAjaxRequest +=  syntaxArray[i] + "\n";
+		 } else {
+			 syntaxForAjaxRequestArray.push( syntaxForAjaxRequest );
+			 syntaxForAjaxRequest = syntaxArray[i] + "\n";
+			 numberOfCharacter = numberOfCharacterInOneLine;
+		 }
+		 // add the end of loop push
+		 if( i == syntaxArray.length - 1 ){
+			 syntaxForAjaxRequestArray.push( syntaxForAjaxRequest );
+		 }
+	 }
+	 // clear the container
+	 $elem
+	  .html( "" )
+	  .css( "width" , ($elem.parent().width() - 10) + "px");
+	 
+	 // highlight syntax via ajax
+	 highlightSplittedSyntax( $elem, syntaxForAjaxRequestArray , showAsMainView, 0 );
+	 
+}
+
+// get the syntax highlighted syncrounously by call it recursively
+function highlightSplittedSyntax( $elem, syntaxForAjaxRequestArray , showAsMainView, arrayIndex ){
 	var jsonpUrl = "http://n3edit.eu01.aws.af.cm/ajax-highlight.php?callback=?";
 	// you also can run the PHP files for hignlighting the syntax locally.
 	// install XAMPP/WAMPP and put and run the n3edit project into your local server
@@ -1218,20 +1254,23 @@ function hightlightRdfOwl( $elem, rdfOwlSyntax , showAsMainView){
 	
 	// JSONP cross domain ajax call
 	$jQ.getJSON( jsonpUrl, {
-	    input: rdfOwlSyntax,
+	    input: syntaxForAjaxRequestArray[ arrayIndex ],
 	    format: "jsonp"
 	  })
 	  .done(function( data ) {
-		  $elem
-		  .html( data.html )
-		  .css( "width" , ($elem.parent().width() - 10) + "px");
+		  // append highlighted syntax
+		  $elem.append( data.html );
 		  
-		  if( showAsMainView ){
+		  if( showAsMainView && arrayIndex == 0 ){
 			  $elem.siblings( "textarea.edit-syntax" ).hide();
 			  $elem.css({ 'width' : ($elem.parent().parent().parent().width() - 10 ) + 'px' });
 			  $elem.show();
 		  }
+		  // call method recursively
+		  if( arrayIndex + 1 < syntaxForAjaxRequestArray.length )
+			  highlightSplittedSyntax( $elem, syntaxForAjaxRequestArray , showAsMainView, arrayIndex + 1 );
 	  }).fail(function() {
 		  $elem.html( "<span style='color:#f00'>Error - no internet connection!</span>" );
 	  });
 }
+
