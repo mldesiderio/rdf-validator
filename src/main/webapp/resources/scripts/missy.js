@@ -1118,7 +1118,10 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 	
 	// is syntay not empty - show preview
 	if( rdfOwlSyntax != "" ){
-		hightlightRdfOwl( $container.find( "div.highlight-syntax" ) , rdfOwlSyntax , true );
+		$elem = $container.find( "div.highlight-syntax" );
+		//var w = $container.width() + "px";
+		//$elem.css( 'width' , $container.find( "textarea.edit-syntax" ).width() + "px");
+		hightlightRdfOwl( $elem , rdfOwlSyntax , true );
 		$container.find( "input.viewButton" ).hide();
 	} else {
 		$container.find( "input.editButton" ).hide();
@@ -1236,8 +1239,8 @@ function hightlightRdfOwl( $elem, rdfOwlSyntax , showAsMainView){
 	 }
 	 // clear the container
 	 $elem
-	  .html( "" )
-	  .css( "width" , ($elem.parent().width() - 7) + "px");
+	  .html( "" );
+	  //.css( "width" , ($elem.parent().width() - 7) + "px");
 	 
 	 // highlight syntax via ajax
 	 highlightSplittedSyntax( $elem, syntaxForAjaxRequestArray , showAsMainView, 0 );
@@ -1263,6 +1266,7 @@ function highlightSplittedSyntax( $elem, syntaxForAjaxRequestArray , showAsMainV
 		  
 		  if( showAsMainView && arrayIndex == 0 ){
 			  $elem.siblings( "textarea.edit-syntax" ).hide();
+			  $elem.css( "width" , ($elem.parent().parent().parent().width() - 7) + "px");
 			  $elem.show();
 		  }
 		  // call method recursively

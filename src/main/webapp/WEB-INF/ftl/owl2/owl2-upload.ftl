@@ -38,8 +38,11 @@
 		
 	}); // end of document ready
 	
-	<#-- collecting user inputs and validate -->
+	<#-- collecting user inputs for preview in validation -->
 	function getOwl2Inputs( containerSelector ){
+		<#-- clear -->
+		$jQ( containerSelector ).html( "" );
+		<#-- append new content -->
 		$jQ( "#accordion_result_area h3" )
 		.each( function(){
 			var $contentHeader =
