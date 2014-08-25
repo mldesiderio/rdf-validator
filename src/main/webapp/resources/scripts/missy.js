@@ -1072,15 +1072,15 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 				)
 		.append(
 				$jQ('<div/>').addClass('highlight-syntax')
-				.css({'width': '99%', 'height' : "410px", 'display': 'none', 'background-color': '#fefefe','overflow':'auto'})
+				.css({'width': '99%', 'height' : "410px", 'display': 'none', 'background-color': '#fefefe','overflow':'auto','margin':'5px 0px', 'border': '1px solid #AAA','float':'left'})
 				)
-		.css({'width': '100%', 'height' : "450px"})
+		.css({'width': '100%', 'height' : '450px', 'min-height':'200px'})
 		.resizable({
 			  resize: function( event, ui ) {
 				  $jQ( this ).find( "textarea.edit-syntax" )
-				  .css({ 'width' : (ui.element.width() - 10 ) + 'px' , 'height' : (ui.element.height() - 40 ) + 'px' });
+				  .css({ 'width' : (ui.element.width() - 7 ) + 'px' , 'height' : (ui.element.height() - 40 ) + 'px' });
 				  $jQ( this ).find( "div.highlight-syntax" )
-				  .css({ 'width' : (ui.element.width() - 10 ) + 'px' , 'height' : (ui.element.height() - 40 ) + 'px' });
+				  .css({ 'width' : (ui.element.width() - 7 ) + 'px' , 'height' : (ui.element.height() - 40 ) + 'px' });
 			  }
 		});
 		
@@ -1237,7 +1237,7 @@ function hightlightRdfOwl( $elem, rdfOwlSyntax , showAsMainView){
 	 // clear the container
 	 $elem
 	  .html( "" )
-	  .css( "width" , ($elem.parent().width() - 10) + "px");
+	  .css( "width" , ($elem.parent().width() - 7) + "px");
 	 
 	 // highlight syntax via ajax
 	 highlightSplittedSyntax( $elem, syntaxForAjaxRequestArray , showAsMainView, 0 );
@@ -1263,7 +1263,6 @@ function highlightSplittedSyntax( $elem, syntaxForAjaxRequestArray , showAsMainV
 		  
 		  if( showAsMainView && arrayIndex == 0 ){
 			  $elem.siblings( "textarea.edit-syntax" ).hide();
-			  $elem.css({ 'width' : ($elem.parent().parent().parent().width() - 10 ) + 'px' });
 			  $elem.show();
 		  }
 		  // call method recursively

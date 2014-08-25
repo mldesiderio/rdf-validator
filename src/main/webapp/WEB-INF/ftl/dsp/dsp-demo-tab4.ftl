@@ -12,7 +12,7 @@
 	    <hr/>
 	
 		<#-- syntax onsite help -->
-		<a href="#" class="MISSY_onsiteHelp" style="margin:0;vertical-align:top;">
+		<a href="#" class="MISSY_onsiteHelp" style="margin:10px 0 0 0;vertical-align:top;">
 			<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
 			<span style="width:350px;">
 				<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
