@@ -883,23 +883,29 @@ function getDocumentDetails( url, filePath, $containerSelector, additionalPath){
 	else
 		$container = $jQ( $containerSelector );
 	
+	// get previous content from textarea
+	var previousSyntaxValue = "";
+	if( $container.find( "textarea.edit-syntax" ).length > 0){
+		previousSyntaxValue = $container.find( "textarea.edit-syntax" ).val();
+	}
+	
 	if( additionalPath == "" ){
 		$jQ.post( url, 
 				{ filePath: filePath }
 		).done(function( data) {
-			if( $container.is( ":input" ))
-				$container.val( data.fileContent );
-			else
-				 createRdfOwlView( $container , data.fileContent , []);
+			if( $container.is( ":input" ))// if textarea
+				$container.val( previousSyntaxValue + data.fileContent );
+			else// if a div
+				 createRdfOwlView( $container , previousSyntaxValue + data.fileContent , []);
 	    });
 	} else {
 		$jQ.post( url, 
 				{ filePath: filePath, additionalPath : additionalPath }
 		).done(function( data) {
-			if( $container.is( ":input" ))
-				$container.val( data.fileContent );
-			else
-				 createRdfOwlView( $container , data.fileContent , []);
+			if( $container.is( ":input" ))// if textarea
+				$container.val( previousSyntaxValue + data.fileContent );
+			else// if a div
+				 createRdfOwlView( $container , previousSyntaxValue + data.fileContent , []);
 	    });
 	}
 }
