@@ -1,6 +1,5 @@
 <form id="form-dsp-demo-tab1" action="<@spring.url '/dsp/demo/tab1' />" style="padding-left: 25px" class="MISSY_round_right" >	
 
-	<fieldset>
 	
 	    <ul style="margin: 0;">
 	    	<li style="list-style-type: disc;">
@@ -26,7 +25,6 @@
 	
 	  	<div id="containerNamespaceDeclarations"></div>	
 	  	<input type="hidden" name="namespaceDeclarations" id="namespaceDeclarations" />
-	</fieldset>
 	
 	<!--
 	

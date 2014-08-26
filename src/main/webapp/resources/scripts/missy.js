@@ -1173,15 +1173,20 @@ function createTree( $containerSelector, sectionType, syntaxContainerSelector, r
 				
 			$container
 			.append(
-					$jQ('<input />')
-					.attr({ type: 'checkbox', id: 'tree-toggle' + containerId })
-					.css({ 'width' : '14px' , 'margin' : '0' })
-					.change(function() {
-						unfoldToggle( this, 'tree' + containerId);
-					})
-					)
-			.append(
-					"Unfold All"
+					$jQ('<div />')
+					.css({ 'width' : '100%' })
+					.addClass( 'menuHeader' )
+					.append(
+							$jQ('<input />')
+							.attr({ type: 'checkbox', id: 'tree-toggle' + containerId })
+							.css({ 'width' : '14px' , 'margin' : '0' })
+							.change(function() {
+								unfoldToggle( this, 'tree' + containerId);
+							})
+							)
+					.append(
+							"Unfold All"
+							)
 					)
 			.append(
 				$jQ('<div/>')
@@ -1198,18 +1203,18 @@ function createTree( $containerSelector, sectionType, syntaxContainerSelector, r
 					 	}
 		          	}
 		         })
+		         .resizable({
+	        	 	resize: function( event, ui ) {
+	        	 		$container.find( "div.menuHeader" )
+	        	 		.css({ 'width' : (ui.element.width() ) + 'px' });
+	        	 	}
+		         })
 			)
-			.css({'width': '100%', 'height' : "240px", 'min-height':'180px'})
-			.resizable({
-			  resize: function( event, ui ) {
-				  $jQ( this ).find( "div#tree" + containerId )
-				  .css({ 'width' : (ui.element.width() - 10 ) + 'px' , 'height' : (ui.element.height() - 40 ) + 'px' });
-			  }
-			});
+			.css({'width': '100%', 'height' : "240px", 'min-height':'180px'});
 			
 			 //check whether there is missy onsite help
 			if( $container.prev( "a.MISSY_onsiteHelp" ).length > 0){
-				$container.prev( "a.MISSY_onsiteHelp" ).css("float", "right").prependTo( $container );
+				$container.prev( "a.MISSY_onsiteHelp" ).css("float", "right").prependTo( $container.find( "div.menuHeader" ) );
 			}
 			
 	}, "json").fail(function(){}).always(function(){});
