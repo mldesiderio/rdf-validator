@@ -1282,7 +1282,7 @@ function highlightSplittedSyntax( $elem, syntaxForAjaxRequestArray , showAsMainV
 	// you also can run the PHP files for hignlighting the syntax locally.
 	// install XAMPP/WAMPP and put and run the n3edit project into your local server
 	// test whether is it running or not and uncomment this new URL
-	jsonpUrl = "http://localhost/n3edit/ajax-highlight.php?callback=?";
+	// jsonpUrl = "http://localhost/n3edit/ajax-highlight.php?callback=?";
 	
 	// JSONP cross domain ajax call
 	$jQ.getJSON( jsonpUrl, {
