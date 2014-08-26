@@ -2,7 +2,7 @@ code.n3
 {
 	display: block;
 	line-height: 1.5;
-	padding: 0.5em;
+	padding: 0.1em;
 	background: #fefefe;
 	/*border: 1px solid #ccc;*/
 	font-size: 82.5%;
@@ -133,4 +133,8 @@ code.n3 .n3-language
 #save_output.fresh a:visited
 {
 	color: green;
+}
+
+code.n3 .lh15{
+	line-height: 1.5em
 }

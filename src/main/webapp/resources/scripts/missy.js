@@ -891,13 +891,13 @@ function getDocumentDetails( url, filePath, $containerSelector, additionalPath){
 		previousSyntaxValue = $container.find( "textarea.edit-syntax" ).val();
 		$container.find( "div.highlight-syntax" ).hide();
 		$container.find( "textarea.edit-syntax" ).show();
-		var textareaScrollPosition = $container.find( "textarea.edit-syntax" )[0].scrollHeight - 20;
-		if( textareaScrollPosition <= $container.find( "textarea.edit-syntax" ).height() - 20 )
+		var textareaScrollPosition = $container.find( "textarea.edit-syntax" )[0].scrollHeight - 60;
+		if( textareaScrollPosition <= $container.find( "textarea.edit-syntax" ).height() - 60)
 			textareaScrollPosition = 0;
 		$container.find( "textarea.edit-syntax" ).hide();
 		$container.find( "div.highlight-syntax" ).show();
-		var highlightScrollPosition = $container.find( "div.highlight-syntax" )[0].scrollHeight - 20;
-		if( highlightScrollPosition <= $container.find( "div.highlight-syntax" ).height() - 20 )
+		var highlightScrollPosition = $container.find( "div.highlight-syntax" )[0].scrollHeight - 60;
+		if( highlightScrollPosition <= $container.find( "div.highlight-syntax" ).height() - 60)
 			highlightScrollPosition = 0;
 		otherOptions = [{ "option" : "scroll" , "params" : {"textareaScrollPosition" : textareaScrollPosition , "highlightScrollPosition" :  highlightScrollPosition } }];
 	}
@@ -1067,15 +1067,10 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 				.addClass( 'buttonSubmit MISSY_loginSubmit editButton' )
 				.css({ 'margin' : '0'})
 				.on ( 'click', function () {
-					var highlightScrollHeight = $container.find( "div.highlight-syntax" )[0].scrollHeight;
 					var highlightScrollTop = $container.find( "div.highlight-syntax" )[0].scrollTop;
 					$jQ( this ).parent().find( "div.highlight-syntax" ).hide();
-					
 					$jQ( this ).parent().find( "textarea.edit-syntax" ).show();
-					var textareaScrollHeight = $container.find( "textarea.edit-syntax" )[0].scrollHeight;
-					var textareaScrollTop = ( highlightScrollHeight / textareaScrollHeight ) * highlightScrollTop;
-					$jQ( this ).parent().find( "textarea.edit-syntax" ).scrollTop( textareaScrollTop );
-					
+					$jQ( this ).parent().find( "textarea.edit-syntax" ).scrollTop( highlightScrollTop );
 					$jQ( this ).parent().find( "input.viewButton" ).show();
 					$jQ( this ).hide();
 				})
@@ -1085,22 +1080,17 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 				.addClass( 'buttonSubmit MISSY_loginSubmit viewButton' )
 				.css({ 'margin' : '0'})
 				.on ( 'click', function () {					
-					var textareaScrollHeight = $container.find( "textarea.edit-syntax" )[0].scrollHeight;
 					var textareaScrollTop =  $container.find( "textarea.edit-syntax" )[0].scrollTop;
 					$jQ( this ).parent().find( "textarea.edit-syntax" ).hide();
 					$jQ( this ).parent().find( "div.highlight-syntax" ).show();
-					
-					var highlightScrollHeight = $container.find( "div.highlight-syntax" )[0].scrollHeight;
-					var highlightScrollTop = ( textareaScrollHeight / highlightScrollHeight ) * textareaScrollTop;
-					
-					hightlightRdfOwl( $jQ( this ).parent().find( "div.highlight-syntax" ), $jQ( this ).parent().find( "textarea.edit-syntax" ).val(), false , highlightScrollTop);
+					hightlightRdfOwl( $jQ( this ).parent().find( "div.highlight-syntax" ), $jQ( this ).parent().find( "textarea.edit-syntax" ).val(), false , textareaScrollTop);
 					$jQ( this ).parent().find( "input.editButton" ).show();
 					$jQ( this ).hide();
 				})
 				)
 		.append(
 				$jQ('<textarea/>').addClass( 'edit-syntax' ).val( rdfOwlSyntax )
-				.css({'width': '99%', 'height' : "410px", 'resize' : ' none', 'padding' : '5px 0 0 5px' , 'line-height': '1.5em', 'font-family': 'monospace'})
+				.css({'width': '99%', 'height' : "410px", 'resize' : ' none', 'padding' : '0.1em 0 0 0.1em' , 'line-height': '1.5em', 'font-family': 'monospace'})
 				)
 		.append(
 				$jQ('<div/>').addClass('highlight-syntax')
@@ -1292,7 +1282,7 @@ function highlightSplittedSyntax( $elem, syntaxForAjaxRequestArray , showAsMainV
 	// you also can run the PHP files for hignlighting the syntax locally.
 	// install XAMPP/WAMPP and put and run the n3edit project into your local server
 	// test whether is it running or not and uncomment this new URL
-	// jsonpUrl = "http://localhost/n3edit/ajax-highlight.php?callback=?";
+	jsonpUrl = "http://localhost/n3edit/ajax-highlight.php?callback=?";
 	
 	// JSONP cross domain ajax call
 	$jQ.getJSON( jsonpUrl, {
@@ -1301,7 +1291,7 @@ function highlightSplittedSyntax( $elem, syntaxForAjaxRequestArray , showAsMainV
 	  })
 	  .done(function( data ) {
 		  // append highlighted syntax
-		  $elem.append( data.html );
+		  $elem.append( (data.html).replace(new RegExp("\n", "gi"), '<span class="lh15">&nbsp;</span>\n') );
 		  
 		  if( showAsMainView && arrayIndex == 0 ){
 			  $elem.siblings( "textarea.edit-syntax" ).hide();
