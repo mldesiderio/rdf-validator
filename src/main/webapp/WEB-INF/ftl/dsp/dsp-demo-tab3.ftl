@@ -39,7 +39,7 @@
 	    <hr/>
 	    
 	  	<#-- directory tree onsite help -->
-		<a href="#" class="MISSY_onsiteHelp" style="margin-top:0px;vertical-align:top;margin-left:590px;">
+		<a href="#" class="MISSY_onsiteHelp" style="margin:0;vertical-align:top">
 			<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_iconOnsitehelp" />
 			<span style="width:350px;">
 				<img class="MISSY_onsiteHelpCallout" src="<@spring.url '/resources/images/onsiteHelpCallout.gif' />">
