@@ -1063,48 +1063,59 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 	
 	$htmlContent
 		.append(
-				$jQ('<input/>').attr({ type: 'button' , value: 'Edit' })
-				.addClass( 'buttonSubmit MISSY_loginSubmit editButton' )
-				.css({ 'margin' : '0'})
-				.on ( 'click', function () {
-					var highlightScrollTop = $container.find( "div.highlight-syntax" )[0].scrollTop;
-					$jQ( this ).parent().find( "div.highlight-syntax" ).hide();
-					$jQ( this ).parent().find( "textarea.edit-syntax" ).show();
-					$jQ( this ).parent().find( "textarea.edit-syntax" ).scrollTop( highlightScrollTop );
-					$jQ( this ).parent().find( "input.viewButton" ).show();
-					$jQ( this ).hide();
-				})
+				$jQ('<div />')
+				.css({ 'width' : '100%' })
+				.addClass( 'menuHeader' )
+				.append(
+					$jQ('<input/>').attr({ type: 'button' , value: 'Edit' })
+					.addClass( 'buttonSubmit MISSY_loginSubmit editButton' )
+					.css({ 'margin' : '0'})
+					.on ( 'click', function () {
+						var highlightScrollTop = $container.find( "div.highlight-syntax" )[0].scrollTop;
+						$jQ( this ).parent().parent().find( "div.highlight-syntax" ).hide();
+						$jQ( this ).parent().parent().find( "textarea.edit-syntax" ).show();
+						$jQ( this ).parent().parent().find( "textarea.edit-syntax" ).scrollTop( highlightScrollTop );
+						$jQ( this ).parent().parent().find( "input.viewButton" ).show();
+						$jQ( this ).hide();
+					})
 				)
+				.append(
+					$jQ('<input/>').attr({ type: 'button' , value: 'View' })
+					.addClass( 'buttonSubmit MISSY_loginSubmit viewButton' )
+					.css({ 'margin' : '0'})
+					.on ( 'click', function () {					
+						var textareaScrollTop =  $container.find( "textarea.edit-syntax" )[0].scrollTop;
+						$jQ( this ).parent().parent().find( "textarea.edit-syntax" ).hide();
+						$jQ( this ).parent().parent().find( "div.highlight-syntax" ).show();
+						hightlightRdfOwl( $jQ( this ).parent().parent().find( "div.highlight-syntax" ), $jQ( this ).parent().parent().find( "textarea.edit-syntax" ).val(), false , textareaScrollTop);
+						$jQ( this ).parent().parent().find( "input.editButton" ).show();
+						$jQ( this ).hide();
+					})
+				)
+		)
 		.append(
-				$jQ('<input/>').attr({ type: 'button' , value: 'View' })
-				.addClass( 'buttonSubmit MISSY_loginSubmit viewButton' )
-				.css({ 'margin' : '0'})
-				.on ( 'click', function () {					
-					var textareaScrollTop =  $container.find( "textarea.edit-syntax" )[0].scrollTop;
-					$jQ( this ).parent().find( "textarea.edit-syntax" ).hide();
-					$jQ( this ).parent().find( "div.highlight-syntax" ).show();
-					hightlightRdfOwl( $jQ( this ).parent().find( "div.highlight-syntax" ), $jQ( this ).parent().find( "textarea.edit-syntax" ).val(), false , textareaScrollTop);
-					$jQ( this ).parent().find( "input.editButton" ).show();
-					$jQ( this ).hide();
-				})
-				)
-		.append(
-				$jQ('<textarea/>').addClass( 'edit-syntax' ).val( rdfOwlSyntax )
-				.css({'width': '99%', 'height' : "410px", 'resize' : ' none', 'padding' : '0.1em 0 0 0.1em' , 'line-height': '1.5em', 'font-family': 'monospace'})
-				)
-		.append(
-				$jQ('<div/>').addClass('highlight-syntax')
-				.css({'width': '99%', 'height' : "410px", 'display': 'none', 'background-color': '#fefefe','overflow':'auto','margin':'5px 0px', 'border': '1px solid #AAA','float':'left'})
-				)
-		.css({'width': '100%', 'height' : '450px', 'min-height':'200px'})
-		.resizable({
-			  resize: function( event, ui ) {
-				  $jQ( this ).find( "textarea.edit-syntax" )
-				  .css({ 'width' : (ui.element.width() - 7 ) + 'px' , 'height' : (ui.element.height() - 40 ) + 'px' });
-				  $jQ( this ).find( "div.highlight-syntax" )
-				  .css({ 'width' : (ui.element.width() - 7 ) + 'px' , 'height' : (ui.element.height() - 40 ) + 'px' });
-			  }
-		});
+				$jQ('<div />')
+				.css({'width': '100%', 'height' : '425px', 'min-height':'200px'})
+				.addClass( 'syntaxBody' )
+				.append(
+						$jQ('<textarea/>').addClass( 'edit-syntax' ).val( rdfOwlSyntax )
+						.css({'width': '99%', 'height' : "410px", 'resize' : ' none', 'padding' : '0.1em 0 0 0.1em' , 'line-height': '1.5em', 'font-family': 'monospace'})
+						)
+				.append(
+						$jQ('<div/>').addClass('highlight-syntax')
+						.css({'width': '99%', 'height' : "410px", 'display': 'none', 'background-color': '#fefefe','overflow':'auto','margin':'5px 0px', 'border': '1px solid #AAA','float':'left'})
+						)
+				.resizable({
+					  resize: function( event, ui ) {
+						  $jQ( this ).find( "textarea.edit-syntax" )
+						  .css({ 'width' : (ui.element.width() - 8 ) + 'px' , 'height' : (ui.element.height() - 15 ) + 'px' });
+						  $jQ( this ).find( "div.highlight-syntax" )
+						  .css({ 'width' : (ui.element.width() - 8 ) + 'px' , 'height' : (ui.element.height() - 15 ) + 'px' });
+						  $container.find( "div.menuHeader" )
+		        	 	  .css({ 'width' : (ui.element.width() - 8 ) + 'px' });
+					  }
+				})	
+			);
 		
 	// highlight scroll height
 	var highlightScrollHeight = 0;
@@ -1115,7 +1126,7 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 		if( item.option == "delete"){
 			// get delete parameter
 		
-			$htmlContent.prepend(
+			$htmlContent.find( "div.menuHeader" ).prepend(
 		    				$jQ('<input/>').attr({ type: 'button' , value: 'Delete' })
 		    				.addClass( 'buttonSubmit MISSY_loginSubmit' )
 		    				.css({ 'margin' : '0 20px 0 0', 'color': '#f00', 'float':'right'})
@@ -1142,7 +1153,7 @@ function createRdfOwlView( $containerSelector , rdfOwlSyntax , otherOptions){
 	
 	 //check whether there is missy onsite help
 	if( $htmlContent.parent().prev( "a.MISSY_onsiteHelp" ).length > 0){
-		$htmlContent.parent().prev( "a.MISSY_onsiteHelp" ).css("float", "right").prependTo( $htmlContent );
+		$htmlContent.parent().prev( "a.MISSY_onsiteHelp" ).css("float", "right").prependTo( $htmlContent.find( "div.menuHeader" ) );
 	}
 	
 	// is syntay not empty - show preview
@@ -1300,7 +1311,7 @@ function highlightSplittedSyntax( $elem, syntaxForAjaxRequestArray , showAsMainV
 		  
 		  if( showAsMainView && arrayIndex == 0 ){
 			  $elem.siblings( "textarea.edit-syntax" ).hide();
-			  $elem.css( "width" , ($elem.parent().parent().parent().width() - 7) + "px");
+			  $elem.css( "width" , ($elem.parent().parent().parent().parent().width() - 7) + "px");
 			  $elem.show();
 			  // scroll to new input
 			  if( highlightScrollHeight > 0 )
