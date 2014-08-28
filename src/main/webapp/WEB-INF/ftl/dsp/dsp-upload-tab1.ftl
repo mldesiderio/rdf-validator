@@ -42,7 +42,7 @@
 							<h4 class="MISSY_onsiteHelp">Multiple File Upload</h4>
 							<img src="<@spring.url '/resources/images/gs_icon.question_blue.png' />" class="MISSY_onsiteHelpHeaderIcon" /><br clear="all">
 						    <ul style="margin: 0;">
-						    	<li style="list-style-type: disc;">predefined namespace declarations: xsd, rdf, rdfs, owl, dcterms, skos, foaf, dcam, dsp, : (default namespace)</li>
+						    	<li style="list-style-type: disc;">predefined namespace declarations: xsd, rdf, rdfs, owl, dcterms, skos, foaf, dcam, dsp, swrc, : (default namespace)</li>
 						    	<li style="list-style-type: disc;">please view the file contents by clicking on the file name below the browse button</li>
 						    	<li style="list-style-type: disc;">hide file contents by clicking on the file name</li>
 			    				<li style="list-style-type: disc;">you may adjust the height and the width of the textarea by dragging the small arrow at the right end of the textarea</li>

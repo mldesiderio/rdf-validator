@@ -145,6 +145,12 @@ public class DSPController
 
 			model.addObject( "dspValidationResult", spin.validationResults );
 			model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
+			
+			// SPIN exception
+			if ( spin.getSPINException() != null )
+			{
+				model.addObject( "spinException", spin.getSPINException() );
+			}
 		}
 		return model;
 	}

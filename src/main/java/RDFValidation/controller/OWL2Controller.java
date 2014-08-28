@@ -101,9 +101,7 @@ public class OWL2Controller
 		if ( spin.getRDFGraphInferred().length() > 0 )
 		{
 			model.addObject( "rdfGraphInferred", spin.getRDFGraphInferred().replace( "<", "&lt;" ).replace( ">", "&gt;" ) ); // escape
-																																// <
-																																// and
-																																// >
+																													// >
 		}
 
 		// SPIN exception
@@ -156,6 +154,12 @@ public class OWL2Controller
 
 			model.addObject( "owl2ValidationResult", spin.validationResults );
 			model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
+			
+			// SPIN exception
+			if ( spin.getSPINException() != null )
+			{
+				model.addObject( "spinException", spin.getSPINException() );
+			}
 		}
 		return model;
 	}

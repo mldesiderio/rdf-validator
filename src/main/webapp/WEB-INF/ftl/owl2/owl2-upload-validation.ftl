@@ -1,3 +1,27 @@
+<#if spinException??>
+
+	<h3>Validation Error</h3> 
+	
+		<br/>
+	
+		<table class="datatable">
+				<tr>
+					<td><b>source</b></td>
+					<td>${spinException.getSource()}</td>
+				</tr>
+				<tr>
+					<td><b>message</b></td>
+					<td>${spinException.getMessage()}</td>
+				</tr>
+	  	    	<tr><td><br/></td><td><br/></td></tr>
+		</table>
+		
+	<hr/>
+	<br/>
+
+<#else>
+</#if>
+
 <h3>Constraint Violations</h3> 
 	<br/>
 

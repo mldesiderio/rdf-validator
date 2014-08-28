@@ -7,4 +7,5 @@
 @prefix foaf:     <http://xmlns.com/foaf/0.1/#> .
 @prefix dcam:     <http://purl.org/dc/dcam#> .
 @prefix dsp:      <http://dublincore.org/dc-dsp#> .
-@prefix :         <http://www.example.org/ex#> .
+@prefix swrc:     <http://swrc.ontoware.org/ontology#> .
+@prefix :         <http://dublincore.org/dc-dsp/ex#> .
