@@ -205,7 +205,7 @@ public class Spin
 				}
 				for ( SimplePropertyPath violationPath : cv.getPaths() ) 
 				{
-					constraintViolationPaths.add( violationPath.toString() );
+					constraintViolationPaths.add( violationPath.getPredicate().toString() );
 					
 					validationResults.append( " - path: " ).append( violationPath.toString() );
 					validationResults.append( System.getProperty("line.separator") );

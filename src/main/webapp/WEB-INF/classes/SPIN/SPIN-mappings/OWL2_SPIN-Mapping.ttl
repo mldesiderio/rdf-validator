@@ -116,14 +116,15 @@ owl:Thing
 		# object property axioms
 		# -----
 		# SubObjectPropertyOf
-		[   a owl2:SubObjectPropertyOf ] ,
+#		[   a owl2:SubObjectPropertyOf ] ,
 		# ObjectPropertyChain ( 2 OPE )
-		[   a owl2:ObjectPropertyChain_2OPE ] ,
+#		[   a owl2:ObjectPropertyChain_2OPE ] ,
 		# ObjectPropertyChain ( 3 OPE )
-		[   a owl2:ObjectPropertyChain_3OPE ] ,
-		# EquivalentObjectProperties
-		# DisjointObjectProperties
+#		[   a owl2:ObjectPropertyChain_3OPE ] ,
+		# Axioms - Object Property Axioms - Disjoint Object Properties
 		[   a owl2:DisjointObjectProperties ] ,
+#		[   a owl2:DisjointObjectProperties_1 ] ,
+#		[   a owl2:DisjointObjectProperties_2 ] ,
 		# InverseObjectProperties
 		[   a owl2:InverseObjectProperties ] ,
 		# ObjectPropertyDomain
@@ -5527,51 +5528,118 @@ owl:Thing
 # -----
 
 # ---------------
-# DisjointObjectProperties
+# Axioms - Object Property Axioms - Disjoint Object Properties
 
 
-# description
-# -----
-# A disjoint object properties axiom DisjointObjectProperties( OPE1 ... OPEn ) states that all of the object property expressions OPEi, 1 ≤ i ≤ n, 
-# are pairwise disjoint; that is, no individual x can be connected to an individual y by both OPEi and OPEj for i ≠ j. 
+owl2:DisjointObjectProperties_1
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Axioms - Object Property Axioms - Disjoint Object Properties" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            CONSTRUCT {
+                :cv 
+                	a spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+#                    spin:violationPath ?OPE1 ;
+#                    spin:violationPath ?OPE2 ;
+                    rdfs:label ?violationMessage .
+            }
+            WHERE {	  
+			    ?this ?OPE1 ?y . 
+			    FILTER EXISTS { ?OPE1 owl:propertyDisjointWith ?OPE2 }
+				
+#           		{ ?this ?OPE1 ?y . ?OPE1 owl:propertyDisjointWith ?OPE2 . FILTER EXISTS { ?this ?OPE2 ?y } } 
+#           		UNION
+#           		{ ?this ?OPE2 ?y . ?OPE1 owl:propertyDisjointWith ?OPE2 . FILTER EXISTS { ?this ?OPE1 ?y } } 
+           
+#           	?OPE1 owl:propertyDisjointWith ?OPE2 .
+				
+#				?this ?OPE1 ?y . 
+#				?y rdf:type owl:Thing .
+				
+#				FILTER EXISTS { ?this ?OPE2 ?y . ?y rdf:type owl:Thing } 
+#				?this ?OPE2 ?y . 
+                
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"DisjointObjectProperties ( \", 
+                    xsd:string( ?OPE1 ), 
+#                    \" \", 
+#                    xsd:string( ?OPE2 ), 
+                    \" )\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
+    
+owl2:DisjointObjectProperties_2
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+#   spin:violationSource:
+    spin:labelTemplate "Axioms - Object Property Axioms - Disjoint Object Properties" ;
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            CONSTRUCT {
+                :cv 
+                	a spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    spin:violationPath ?OPE1 ;
+                    rdfs:label ?violationMessage .
+            }
+            WHERE {	  
+				?OPE1 owl:propertyDisjointWith ?OPE2 . 
+				
+				?this ?OPE2 ?y . ?y rdf:type owl:Thing . 
+				
+				FILTER EXISTS { ?this ?OPE1 ?y . ?y rdf:type owl:Thing } 
+                
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"DisjointObjectProperties ( \", 
+                    xsd:string( ?OPE1 ), 
+                    \" \", 
+                    xsd:string( ?OPE2 ), 
+                    \" )\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
 
-# definition
-# -----	
-# DisjointObjectProperties := 'DisjointObjectProperties' '(' axiomAnnotations ObjectPropertyExpression ObjectPropertyExpression { ObjectPropertyExpression } ')' 
-
-# SPIN templates:
-# -----
 owl2:DisjointObjectProperties
-	a spin:Template; 
-	rdfs:subClassOf spin:Templates ;
-	spin:labelTemplate "DisjointObjectProperties" ;
-	rdfs:label "DisjointObjectProperties" ;
-	rdfs:comment "DisjointObjectProperties" ;
-	spin:body [
-		a sp:Construct ;
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Axioms - Object Property Axioms - Disjoint Object Properties" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
 #		CONSTRUCT {
-#           _:violation 
+#           _:cv
 #		        a spin:ConstraintViolation ;
-#		        rdfs:label ?label
 #               spin:violationRoot ?this ;
-#               spin:violationPath ?violationPath ;
-#               spin:violationSource ?violationSource }
+#		        rdfs:label ?violationMessage ;
+#               spin:violationPath ?OPE1 ;
+#               spin:violationPath ?OPE2 ; 
+#       }
 		sp:templates ( 
-			[   sp:subject _:violation ;
+			[   sp:subject _:cv ;
 				sp:predicate rdf:type ;
 				sp:object spin:ConstraintViolation ]
-			[   sp:subject _:violation ; 
+			[   sp:subject _:cv ; 
 				sp:predicate rdfs:label ;
-				sp:object [ sp:varName "label" ] ] 
-			[	sp:subject _:violation ;
+				sp:object [ sp:varName "violationMessage" ] ] 
+			[	sp:subject _:cv ;
 				sp:predicate spin:violationRoot ;
-				sp:object spin:_this ]		 
-			[   sp:subject _:violation ;
+				sp:object spin:_this ]	
+			[   sp:subject _:cv ;
 				sp:predicate spin:violationPath ;
-				sp:object [ sp:varName "superOPE" ] ] 
-			[   sp:subject _:violation ;
-				sp:predicate spin:violationSource ;
-				sp:object owl2:ObjectPropertyChain_TwoObjectPropertyExpressions ] ) ;
+				sp:object [ sp:varName "OPE1" ] ]	 
+			[   sp:subject _:cv ;
+				sp:predicate spin:violationPath ;
+				sp:object [ sp:varName "OPE2" ] ] ) ;
 		sp:where ( 
 #		WHERE {
 #		    ?OPE1 owl:propertyDisjointWith ?OPE2 . 
@@ -5580,37 +5648,65 @@ owl2:DisjointObjectProperties
 			    sp:predicate owl:propertyDisjointWith ;
 				sp:object [ sp:varName "OPE2" ] ]
 				
+#			?this ?OPE1 ?y .
+#           -----
+			[   sp:subject [ sp:varName "this" ] ;
+                sp:predicate [ sp:varName "OPE1" ] ;
+                sp:object [ sp:varName "y" ] ]
+                
+#			?this ?OPE2 ?y .
+#           -----
+			[   sp:subject [ sp:varName "this" ] ;
+                sp:predicate [ sp:varName "OPE2" ] ;
+                sp:object [ sp:varName "y" ] ]
+                
+#			OPE
+#           -----
+			[   sp:subject [ sp:varName "y" ] ;
+                sp:predicate rdf:type ;
+                sp:object owl:Thing ]             
+				
+#           FILTER EXISTS { ?this ?OPE2 ?y }  
+#           -----			
+#			[   a sp:Filter ;
+#                sp:expression [
+#			        a sp:exists ;
+#                    sp:elements (
+#						[   sp:subject [ sp:varName "this" ] ;
+#			                sp:predicate [ sp:varName "OPE2" ] ;
+#				            sp:object [ sp:varName "y" ] ] ) ] ]
+				
 #           { ?this ?OPE1 ?y . FILTER EXISTS { ?this ?OPE2 ?y } } 
 #           UNION
-#           { ?this ?OPE2 ?y . FILTER NOT EXISTS { ?this ?OPE1 ?y } } 
+#           { ?this ?OPE2 ?y . FILTER EXISTS { ?this ?OPE1 ?y } } 
 #           -----
-			[   a sp:Union ;
-                sp:elements ( 
-					(   [   sp:subject [ sp:varName "this" ] ;
-                            sp:predicate [ sp:varName "OPE1" ] ;
-                            sp:object [ sp:varName "y" ] ] 
-						[   a sp:Filter ;
-                            sp:expression [
- 							    a sp:exists ;
-                                sp:elements ( 
-									[   sp:subject [ sp:varName "this" ] ;
-                                        sp:predicate [ sp:varName "OPE2" ] ;
-                                        sp:object [ sp:varName "y" ] ] ) ] ] ) 
-					(   [   sp:subject [ sp:varName "this" ] ;
-                            sp:predicate [ sp:varName "OPE2" ] ;
-                            sp:object [ sp:varName "y" ] ] 
-						[   a sp:Filter ;
-                            sp:expression [
- 							    a sp:exists ;
-                                sp:elements ( 
-									[   sp:subject [ sp:varName "this" ] ;
-                                        sp:predicate [ sp:varName "OPE1" ] ;
-                                        sp:object [ sp:varName "y" ] ] ) ] ] ) ) ] 
+#			[   a sp:Union ;
+#                sp:elements ( 
+#					(   [   sp:subject [ sp:varName "this" ] ;
+#                            sp:predicate [ sp:varName "OPE1" ] ;
+#                            sp:object [ sp:varName "y" ] ] 
+#						[   a sp:Filter ;
+#                            sp:expression [
+# 							    a sp:exists ;
+#                                sp:elements ( 
+#									[   sp:subject [ sp:varName "this" ] ;
+#                                        sp:predicate [ sp:varName "OPE2" ] ;
+#                                        sp:object [ sp:varName "y" ] ] ) ] ] ) 
+#					(   [   sp:subject [ sp:varName "this" ] ;
+#                            sp:predicate [ sp:varName "OPE2" ] ;
+#                            sp:object [ sp:varName "y" ] ] 
+#						[   a sp:Filter ;
+#                            sp:expression [
+# 							    a sp:exists ;
+#                                sp:elements ( 
+#									[   sp:subject [ sp:varName "this" ] ;
+#                                        sp:predicate [ sp:varName "OPE1" ] ;
+#                                        sp:object [ sp:varName "y" ] ] ) ] ] ) ) ] 
 							
-#    		BIND ( ... ) AS ?label ) . }
+#           violation message
 #           -----			
 			[   a sp:Bind;
-				sp:variable [ sp:varName "label" ];
+				sp:variable [ sp:varName "violationMessage" ];
 				sp:expression [ 
 					a fn:concat; 
 					sp:arg1 "DisjointObjectProperties ( " ;

@@ -56,3 +56,104 @@ owl2spin:ToInfer
         		} """ ; ] .
 
 # -----
+
+# ---------------
+# Axioms - Object Property Axioms  - Object Subproperties 
+
+        		
+ owl2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                	?this ?superOPE ?y .       
+            	}
+            	WHERE {
+                	?subOPE rdfs:subPropertyOf ?superOPE .
+                	?this ?subOPE ?y .   	         
+        		} """ ; ] .
+
+# -----
+
+# ---------------
+# Axioms - Object Property Axioms  - Object Subproperties - Object Property Chain
+
+ 
+ # 2 OPE
+ # -----       		
+ owl2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                	?this ?superOPE ?b .       
+            	}
+            	WHERE {
+                    ?superOPE owl:propertyChainAxiom ?objectPropertyChain .
+					?objectPropertyChain rdf:first ?OPE1 .
+					?objectPropertyChain rdf:rest ?r1 .
+					?r1 rdf:first ?OPE2 .
+					?r1 rdf:rest ?r2 .
+        		    FILTER ( ?r2 = rdf:nil )  
+        		    
+        		    ?this ?OPE1 ?a . 
+        		    ?a ?OPE2 ?b .	         
+        		} """ ; ] .
+        		
+ # 3 OPE
+ # -----       		
+ owl2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                	?this ?superOPE ?c .       
+            	}
+            	WHERE {
+                    ?superOPE owl:propertyChainAxiom ?objectPropertyChain .
+					?objectPropertyChain rdf:first ?OPE1 .
+					?objectPropertyChain rdf:rest ?r1 .
+					?r1 rdf:first ?OPE2 .
+					?r1 rdf:rest ?r2 .
+					?r2 rdf:first ?OPE3 .
+					?r2 rdf:rest ?r3 .
+        		    FILTER ( ?r3 = rdf:nil )  
+        		    
+        		    ?this ?OPE1 ?a . 
+        		    ?a ?OPE2 ?b .	   
+        		    ?b ?OPE3 ?c .      
+        		} """ ; ] .
+
+# -----
+
+# ---------------
+# Axioms - Object Property Axioms  - Equivalent Object Properties
+
+      		
+ owl2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                	?this ?OPE2 ?a .       
+            	}
+            	WHERE {
+                    ?OPE1 owl:equivalentProperty ?OPE2 . 
+        		    
+        		    ?this ?OPE1 ?a .          
+        		} """ ; ] .
+        		
+ owl2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                	?this ?OPE1 ?a .       
+            	}
+            	WHERE {
+                    ?OPE1 owl:equivalentProperty ?OPE2 . 
+        		    
+        		    ?this ?OPE2 ?a .          
+        		} """ ; ] .
+
+# -----
