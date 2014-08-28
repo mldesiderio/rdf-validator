@@ -313,7 +313,7 @@ public class Spin
 		{
 			model.read( IOUtils.toInputStream( rdfGraph, "UTF-8" ), null, rdfGraph_ConcreteSyntax );
 		} 
-		catch ( IOException e ) 
+		catch ( Exception e ) 
 		{ 
 			e.printStackTrace(); 
 			
