@@ -157,3 +157,55 @@ owl2spin:ToInfer
         		} """ ; ] .
 
 # -----
+
+# ---------------
+# Axioms - Object Property Axioms - Inverse Object Properties
+
+
+ owl2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                    ?y ?OPE2 ?this . 
+            	}
+            	WHERE {
+                    ?OPE1 owl:inverseOf ?OPE2 .    
+                    ?this ?OPE1 ?y .  
+                    ?y rdf:type owl:Thing . # ?OPE1 is OPE   
+        		} """ ; ] .	
+        		
+ owl2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                    ?y ?OPE1 ?this . 
+            	}
+            	WHERE {
+                    ?OPE1 owl:inverseOf ?OPE2 .    
+                    ?this ?OPE2 ?y .     
+                    ?y rdf:type owl:Thing . # ?OPE2 is OPE
+        		} """ ; ] .	
+	
+# -----
+
+# ---------------
+# Axioms - Object Property Axioms - Object Property Domain
+
+
+ owl2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                    ?this rdf:type ?CE .
+            	}
+            	WHERE {
+                    ?OPE rdfs:domain ?CE . 
+               	 	?this ?OPE ?y .
+					?y rdf:type owl:Thing . # ?OPE is OPE
+					FILTER NOT EXISTS { ?this rdf:type ?CE } .   
+        		} """ ; ] .	
+	
+# -----
