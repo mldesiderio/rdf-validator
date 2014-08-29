@@ -5838,20 +5838,43 @@ owl2:ObjectPropertyDomain_old
 # -----
 
 # ---------------
-# Object Property Range ( object property axioms ) 
+# Axioms - Object Property Axioms - Object Property Range
 
 
-# description
-# -----
-# An object property range axiom ObjectPropertyRange( OPE CE ) states that the range of the object property expression OPE is the class expression CE — 
-# that is, if some individual is connected by OPE with an individual x, then x is an instance of CE. 
+owl2:ObjectPropertyRange
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Axioms - Object Property Axioms - Object Property Range" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            CONSTRUCT {
+                _:cv 
+                	a spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?OPE .
+            }
+            WHERE {	  
+			    ?OPE rdfs:range ?CE . 
+                ?x ?OPE ?this .
+				?this rdf:type owl:Thing . # ?OPE is OPE
+				FILTER NOT EXISTS { ?this rdf:type ?CE } .
+                
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"ObjectPropertyRange ( \", 
+                    xsd:string( ?OPE ), 
+                    \" \", 
+                    xsd:string( ?CE ), 
+                    \" )\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
 
-# definition
-# -----	
-# ObjectPropertyRange := 'ObjectPropertyRange' '(' axiomAnnotations ObjectPropertyExpression ClassExpression ')' 
 
-# SPIN templates:
-# -----
 #	CONSTRUCT {
 #	    _:violation 
 #		    a spin:ConstraintViolation ;
@@ -5865,7 +5888,7 @@ owl2:ObjectPropertyDomain_old
 #	    FILTER EXISTS { ?y rdf:type owl:Thing }
 #       FILTER NOT EXISTS ( ?y rdf:type ?CE ) .
 #		LET ( ( ... ) AS ?label ) . }
-owl2:ObjectPropertyRange
+owl2:ObjectPropertyRange_old
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "Object Property Range" ;

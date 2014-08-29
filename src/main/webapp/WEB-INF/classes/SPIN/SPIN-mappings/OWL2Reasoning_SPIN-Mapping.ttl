@@ -209,3 +209,23 @@ owl2spin:ToInfer
         		} """ ; ] .	
 	
 # -----
+
+# ---------------
+# Axioms - Object Property Axioms - Object Property Range
+
+
+ owl2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                    ?this rdf:type ?CE .
+            	}
+            	WHERE {
+                    ?OPE rdfs:range ?CE . 
+               	 	?x ?OPE ?this .
+					?this rdf:type owl:Thing . # ?OPE is OPE
+					FILTER NOT EXISTS { ?this rdf:type ?CE } .   
+        		} """ ; ] .	
+	
+# -----
