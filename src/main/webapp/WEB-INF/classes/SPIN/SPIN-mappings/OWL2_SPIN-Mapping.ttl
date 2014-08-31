@@ -6207,7 +6207,7 @@ owl2:ReflexiveObjectProperties
 # Axioms - Object Property Axioms - Irreflexive Object Properties
 
 
-owl2:IreflexiveObjectProperties
+owl2:IrreflexiveObjectProperties
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Object Property Axioms - Irreflexive Object Properties" ; # spin:violationSource
