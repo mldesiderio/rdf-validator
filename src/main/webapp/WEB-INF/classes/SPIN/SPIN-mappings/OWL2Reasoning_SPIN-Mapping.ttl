@@ -70,7 +70,7 @@ owl2spin:ToInfer
             	}
             	WHERE {
                 	?subOPE rdfs:subPropertyOf ?superOPE .
-                	?this ?subOPE ?y .   	         
+                	?this ?subOPE ?y . ?y rdf:type owl:Thing .  	         
         		} """ ; ] .
 
 # -----
@@ -228,4 +228,63 @@ owl2spin:ToInfer
 					FILTER NOT EXISTS { ?this rdf:type ?CE } .   
         		} """ ; ] .	
 	
+# -----
+
+# ---------------
+# Axioms - Object Property Axioms - Symmetric Object Property
+
+
+ owl2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                    ?y ?OPE ?this .
+            	}
+            	WHERE {
+                    ?OPE rdf:type owl:SymmetricProperty . 
+			        ?this ?OPE ?y . 
+			        ?this rdf:type owl:Thing .
+			        FILTER NOT EXISTS { ?y ?OPE ?this }   
+        		} """ ; ] .	
+	
+# -----
+
+# ---------------
+# Axioms - Object Property Axioms - Transitive Object Property
+
+
+ owl2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                    ?this ?OPE ?z .
+            	}
+            	WHERE {
+                    ?OPE rdf:type owl:TransitiveProperty . 
+			        ?this ?OPE ?y . ?y rdf:type owl:Thing .
+			        ?y ?OPE ?z . ?z rdf:type owl:Thing .
+			        FILTER NOT EXISTS { ?this ?OPE ?z } 
+        		} """ ; ] .	
+	
+# -----
+
+# ---------------
+# Axioms - Object Property Axioms  - Data Subproperties 
+
+        		
+ owl2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                	?this ?superOPE ?y .       
+            	}
+            	WHERE {
+                	?subOPE rdfs:subPropertyOf ?superOPE .
+                	?this ?subOPE ?y .  
+                	FILTER NOT EXISTS { ?y rdf:type owl:Thing } # ?subOPE is DPE 	         
+        		} """ ; ] .
+
 # -----

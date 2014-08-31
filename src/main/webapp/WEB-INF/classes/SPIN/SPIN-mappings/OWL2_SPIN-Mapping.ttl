@@ -113,27 +113,35 @@ owl:Thing
 		# owl2:DataExactCardinality
 		[   a owl2:DataExactCardinality ] ,
 		
-		# object property axioms
+		# Axioms - Object Property Axioms
 		# -----
-		# SubObjectPropertyOf
+		# Axioms - Object Property Axioms - Sub-Object Properties
 #		[   a owl2:SubObjectPropertyOf ] ,
-		# ObjectPropertyChain ( 2 OPE )
+		# Axioms - Object Property Axioms - Object Property Chains 
 #		[   a owl2:ObjectPropertyChain_2OPE ] ,
-		# ObjectPropertyChain ( 3 OPE )
 #		[   a owl2:ObjectPropertyChain_3OPE ] ,
 		# Axioms - Object Property Axioms - Disjoint Object Properties
 		[   a owl2:DisjointObjectProperties ] ,
-#		[   a owl2:DisjointObjectProperties_old ] ,
-		# InverseObjectProperties
+		# Axioms - Object Property Axioms - Inverse Object Properties
 #		[   a owl2:InverseObjectProperties ] ,
 		# Axioms - Object Property Axioms - Object Property Domain
 		[   a owl2:ObjectPropertyDomain ] ,
-		# ObjectPropertyRange
+		# Axioms - Object Property Axioms - Object Property Range
 		[   a owl2:ObjectPropertyRange ] ,
-		# FunctionalObjectProperty
+		# Axioms - Object Property Axioms - Functional Object Property
 		[   a owl2:FunctionalObjectProperty ] ,
-		# InverseFunctionalObjectProperty
+		# Axioms - Object Property Axioms - Inverse-Functional Object Property
 		[   a owl2:InverseFunctionalObjectProperty ] ,
+		# Axioms - Object Property Axioms - Reflexive Object Properties
+#       [   a owl2:ReflexiveObjectProperties ] ,
+		# Axioms - Object Property Axioms - Irreflexive Object Properties
+        [   a owl2:IrreflexiveObjectProperties ] ,
+        # Axioms - Object Property Axioms - Symmetric Object Properties
+        [   a owl2:SymmetricObjectProperties ] ,
+        # Axioms - Object Property Axioms - Asymmetric Object Properties
+        [   a owl2:AsymmetricObjectProperties ] ,
+        # Axioms - Object Property Axioms - Transitive Object Properties
+        [   a owl2:TransitiveObjectProperties ] ,
 		
 		# data property axioms
 		# -----
@@ -5946,21 +5954,41 @@ owl2:ObjectPropertyRange_old
 # -----
 
 # ---------------
-# Functional Object Properties 
+# Axioms - Object Property Axioms - Functional Object Property
 
 
-# description
-# -----
-# An object property functionality axiom FunctionalObjectProperty( OPE ) states that the object property expression OPE is functional — 
-# that is, for each individual x, there can be at most one distinct individual y such that x is connected by OPE to y. 
-
-# definition
-# -----	
-# FunctionalObjectProperty := 'FunctionalObjectProperty' '(' axiomAnnotations ObjectPropertyExpression ')' 
-
-# SPIN templates:
-# -----
 owl2:FunctionalObjectProperty
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Axioms - Object Property Axioms - Functional Object Property" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            CONSTRUCT {
+                _:cv 
+                	a spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?OPE .
+            }
+            WHERE {	  
+			    ?OPE rdf:type owl:FunctionalProperty .
+			    ?this ?OPE ?x . ?x rdf:type owl:Thing .
+			    ?this ?OPE ?y . ?y rdf:type owl:Thing . 
+			    FILTER ( ?x != ?y ) .
+                
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"FunctionalProperty ( \", 
+                    xsd:string( ?OPE ), 
+                    \" )\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
+
+owl2:FunctionalObjectProperty_old
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "FunctionalObjectProperty" ;
@@ -6033,21 +6061,41 @@ owl2:FunctionalObjectProperty
 # -----
 
 # ---------------
-# Inverse-Functional Object Properties
+# Axioms - Object Property Axioms - Inverse-Functional Object Properties
 
 
-# description
-# -----
-# An object property inverse functionality axiom InverseFunctionalObjectProperty( OPE ) states that the object property expression OPE is inverse-functional — 
-# that is, for each individual x, there can be at most one individual y such that y is connected by OPE with x. 
-
-# definition
-# -----	
-# InverseFunctionalObjectProperty := 'InverseFunctionalObjectProperty' '(' axiomAnnotations ObjectPropertyExpression ')' 
-
-# SPIN templates:
-# -----
 owl2:InverseFunctionalObjectProperty
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Axioms - Object Property Axioms - Inverse Functional Object Property" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            CONSTRUCT {
+                _:cv 
+                	a spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?OPE .
+            }
+            WHERE {	  
+			    ?OPE rdf:type owl:InverseFunctionalProperty . 
+			    ?x ?OPE ?this . ?this rdf:type owl:Thing .
+			    ?y ?OPE ?this . ?this rdf:type owl:Thing . 
+			    FILTER ( ?x != ?y ) .
+                
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"InverseFunctionalProperty ( \", 
+                    xsd:string( ?OPE ), 
+                    \" )\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
+    
+owl2:InverseFunctionalObjectProperty_old
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "InverseFunctionalObjectProperty" ;
@@ -6117,6 +6165,188 @@ owl2:InverseFunctionalObjectProperty
 					sp:arg2 [ sp:varName "OPE" ] ;
 					sp:arg3 " )" ] ] ) ].
 
+# -----
+
+# ---------------
+# Axioms - Object Property Axioms - Reflexive Object Properties
+
+
+# no constraint checking needed
+
+owl2:ReflexiveObjectProperties
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Axioms - Object Property Axioms - Reflexive Object Properties" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            CONSTRUCT {
+                _:cv 
+                	a spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?OPE .
+            }
+            WHERE {	  
+			    
+                
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"ReflexiveObjectProperty ( \", 
+                    xsd:string( ?OPE ), 
+                    \" )\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
+    
+# -----
+
+# ---------------
+# Axioms - Object Property Axioms - Irreflexive Object Properties
+
+
+owl2:IreflexiveObjectProperties
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Axioms - Object Property Axioms - Irreflexive Object Properties" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            CONSTRUCT {
+                _:cv 
+                	a spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?OPE .
+            }
+            WHERE {	  
+                ?OPE rdf:type owl:IrreflexiveProperty . 
+			    ?this ?OPE ?this . ?this rdf:type owl:Thing .
+                
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"IrreflexiveObjectProperty ( \", 
+                    xsd:string( ?OPE ), 
+                    \" )\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
+    
+# -----
+
+# ---------------
+# Axioms - Object Property Axioms - Symmetric Object Properties
+
+
+owl2:SymmetricObjectProperties
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Axioms - Object Property Axioms - Symmetric Object Properties" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            CONSTRUCT {
+                _:cv 
+                	a spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?OPE .
+            }
+            WHERE {	  
+                ?OPE rdf:type owl:SymmetricProperty . 
+			    ?this ?OPE ?y . 
+			    ?this rdf:type owl:Thing .
+			    FILTER NOT EXISTS { ?y ?OPE ?this }
+                
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"SymmetricObjectProperty ( \", 
+                    xsd:string( ?OPE ), 
+                    \" )\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
+    
+# -----
+
+# ---------------
+# Axioms - Object Property Axioms - Asymmetric Object Properties
+
+
+owl2:AsymmetricObjectProperties
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Axioms - Object Property Axioms - Asymmetric Object Properties" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            CONSTRUCT {
+                _:cv 
+                	a spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?OPE .
+            }
+            WHERE {	  
+                ?OPE rdf:type owl:AsymmetricProperty . 
+			    ?this ?OPE ?y . 
+			    ?this rdf:type owl:Thing .
+			    FILTER EXISTS { ?y ?OPE ?this }
+                
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"AsymmetricObjectProperty ( \", 
+                    xsd:string( ?OPE ), 
+                    \" )\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
+    
+# -----
+
+# ---------------
+# Axioms - Object Property Axioms - Transitive Object Properties
+
+
+owl2:TransitiveObjectProperties
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Axioms - Object Property Axioms - Transitive Object Properties" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            CONSTRUCT {
+                _:cv 
+                	a spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?OPE .
+            }
+            WHERE {	  
+                ?OPE rdf:type owl:TransitiveProperty . 
+			    ?this ?OPE ?y . ?y rdf:type owl:Thing .
+			    ?y ?OPE ?z . ?z rdf:type owl:Thing .
+			    FILTER NOT EXISTS { ?this ?OPE ?z }
+                
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"TransitiveObjectProperty ( \", 
+                    xsd:string( ?OPE ), 
+                    \" )\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
+    
 # -----
 
 # ---------------
