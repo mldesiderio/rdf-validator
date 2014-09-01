@@ -136,7 +136,24 @@ public class Spin
 		SPINModuleRegistry.get().registerAll( ontModel, null );
 		
 		// run all inferences and populated RDF graph containing inferred triples
-		SPINInferences.run( ontModel, newTriples, null, null, false, null );
+		try
+		{
+			SPINInferences.run( ontModel, newTriples, null, null, false, null );
+		}
+		catch ( Exception e ) 
+		{ 
+			e.printStackTrace(); 
+			
+			// create SPIN exception
+			spinException = new SPINException();
+			spinException.setSource( "SPIN inferencing" );
+			spinException.setMessage( e.getMessage().replace( "<", "&lt;" ).replace( ">", "&gt;" ) );
+			
+			System.out.println( "-----" ); 
+			System.out.println( "source: " + "SPIN inferencing" ); 
+			System.out.println( "message: " + e.getMessage() ); 
+			System.out.println( "-----" ); 
+		}
 //        try 
 //		{
 //			writerInferredTriples = new PrintWriter( "UTF-8" );

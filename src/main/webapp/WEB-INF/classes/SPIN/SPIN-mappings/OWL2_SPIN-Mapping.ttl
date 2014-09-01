@@ -143,11 +143,13 @@ owl:Thing
         # Axioms - Object Property Axioms - Transitive Object Properties
         [   a owl2:TransitiveObjectProperties ] ,
 		
-		# data property axioms
+		# Axioms - Data Property Axioms
 		# -----
-		# DataPropertyDomain
+		# Axioms - Data Property Axioms - Disjoint Data Properties
+		[   a owl2:DisjointDataProperties ] ,		
+		# Axioms - Data Property Axioms - Data Property Domain
 		[   a owl2:DataPropertyDomain ] ,
-		# DataPropertyRange
+		# Axioms - Data Property Axioms - Data Property Range
 		[   a owl2:DataPropertyRange ] ,
 		
 		# datatype definitions
@@ -5557,7 +5559,7 @@ owl2:DisjointObjectProperties
 			    ?OPE1 owl:propertyDisjointWith ?OPE2 . 
 			    ?this ?OPE1 ?y .
 			    ?this ?OPE2 ?y .
-			    ?y rdf:type owl:Thing
+			    ?y rdf:type owl:Thing . # ?OPE1 and ?OPE2 are OPEs
                 
 #               violation message
 #               -----
@@ -6350,20 +6352,81 @@ owl2:TransitiveObjectProperties
 # -----
 
 # ---------------
-# Data Property Domain
+# Axioms - Data Property Axioms - Disjoint Data Properties
 
 
-# description
-# -----
-# A data property domain axiom DataPropertyDomain( DPE CE ) states that the domain of the data property expression DPE is the class expression CE — 
-# that is, if an individual x is connected by DPE with some literal, then x is an instance of CE.
+owl2:DisjointDataProperties
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Axioms - Data Property Axioms - Disjoint Data Properties" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            CONSTRUCT {
+                _:cv 
+                	a spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?PDE1 ;
+                    spin:violationPath ?DPE2 .
+            }
+            WHERE {	  
+			    ?DPE1 owl:propertyDisjointWith ?DPE2 . 
+			    ?this ?DPE1 ?y .
+			    ?this ?DPE2 ?y .
+			    FILTER NOT EXISTS { ?y rdf:type owl:Thing } # ?DPE1 and ?DPE2 are DPEs
+                
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"DisjointDataProperties ( \", 
+                    xsd:string( ?DPE1 ), 
+                    \" \", 
+                    xsd:string( ?DPE2 ), 
+                    \" )\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
 
-# definition
-# -----	
-# DataPropertyDomain := 'DataPropertyDomain' '(' axiomAnnotations DataPropertyExpression ClassExpression ')' 
 
-# SPIN templates:
-# -----
+# ---------------
+# Axioms - Data Property Axioms - Data Property Domain
+
+
+owl2:ObjectPropertyDomain
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Axioms - Data Property Axioms - Data Property Domain" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            CONSTRUCT {
+                _:cv 
+                	a spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?DPE .
+            }
+            WHERE {	  
+			    ?DPE rdfs:domain ?CE . 
+                ?this ?DPE ?y .
+				FILTER NOT EXISTS { ?y rdf:type owl:Thing } # ?DPE is DPE
+				FILTER NOT EXISTS { ?this rdf:type ?CE } .
+                
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"DataPropertyDomain ( \", 
+                    xsd:string( ?DPE ), 
+                    \" \", 
+                    xsd:string( ?CE ), 
+                    \" )\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
+
 #	CONSTRUCT {
 #	    _:violation 
 #		    a spin:ConstraintViolation ;
@@ -6377,7 +6440,7 @@ owl2:TransitiveObjectProperties
 #       FILTER NOT EXISTS ( ?y rdf:type owl:Thing . ) .
 #       FILTER NOT EXISTS ( ?this rdf:type ?DR ) .
 #		LET ( ( ... ) AS ?label ) . }
-owl2:DataPropertyDomain
+owl2:DataPropertyDomain_old
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "Data Property Domain" ;
@@ -6435,20 +6498,42 @@ owl2:DataPropertyDomain
 # -----
 
 # ---------------
-# Data Property Range
+# Axioms - Data Property Axioms - Data Property Range
 
 
-# description
-# -----
-# A data property range axiom DataPropertyRange( DPE DR ) states that the range of the data property expression DPE is the data range DR — 
-# that is, if some individual is connected by DPE with a literal x, then x is in DR.
-
-# definition
-# -----	
-# DataPropertyRange := 'DataPropertyRange' '(' axiomAnnotations DataPropertyExpression DataRange ')' 
-
-# SPIN templates:
-# -----
+owl2:DataPropertyRange
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Axioms - Data Property Axioms - Data Property Range" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            CONSTRUCT {
+                _:cv 
+                	a spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?DPE .
+            }
+            WHERE {	  
+			    ?DPE rdfs:domain ?CE . 
+                ?this ?DPE ?y .
+				FILTER NOT EXISTS { ?y rdf:type owl:Thing } # ?DPE is DPE
+				FILTER NOT EXISTS { ?this rdf:type ?CE } .
+				            
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"DataPropertyDomain ( \", 
+                    xsd:string( ?DPE ), 
+                    \" \", 
+                    xsd:string( ?CE ), 
+                    \" )\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
+    
 #	CONSTRUCT {
 #	    _:violation 
 #		    a spin:ConstraintViolation ;
@@ -6462,7 +6547,7 @@ owl2:DataPropertyDomain
 #       FILTER NOT EXISTS ( ?y rdf:type owl:Thing . ) .
 #       FILTER NOT EXISTS ( ?y rdf:type ?DR ) .
 #		LET ( ( ... ) AS ?label ) . }
-owl2:DataPropertyRange
+owl2:DataPropertyRange_old
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "Data Property Range" ;

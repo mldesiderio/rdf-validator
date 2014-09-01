@@ -139,8 +139,9 @@ owl2spin:ToInfer
             	}
             	WHERE {
                     ?OPE1 owl:equivalentProperty ?OPE2 . 
-        		    
-        		    ?this ?OPE1 ?a .          
+        		    ?this ?OPE1 ?a . 
+        		    FILTER NOT EXISTS { ?this ?OPE2 ?a }
+        		    ?a rdf:type owl:Thing . # ?OPE1 is OPE         
         		} """ ; ] .
         		
  owl2spin:ToInfer 
@@ -152,8 +153,9 @@ owl2spin:ToInfer
             	}
             	WHERE {
                     ?OPE1 owl:equivalentProperty ?OPE2 . 
-        		    
-        		    ?this ?OPE2 ?a .          
+        		    ?this ?OPE2 ?a .
+        		    FILTER NOT EXISTS { ?this ?OPE1 ?a }          
+        		    ?a rdf:type owl:Thing . # ?OPE1 is OPE
         		} """ ; ] .
 
 # -----
@@ -271,7 +273,7 @@ owl2spin:ToInfer
 # -----
 
 # ---------------
-# Axioms - Object Property Axioms  - Data Subproperties 
+# Axioms - Data Property Axioms  - Data Subproperties 
 
         		
  owl2spin:ToInfer 
@@ -288,3 +290,96 @@ owl2spin:ToInfer
         		} """ ; ] .
 
 # -----
+
+# ---------------
+# Axioms - Data Property Axioms  - Equivalent Data Properties
+
+      		
+ owl2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                	?this ?DPE2 ?a .       
+            	}
+            	WHERE {
+                    ?DPE1 owl:equivalentProperty ?DPE2 . 
+        		    ?this ?DPE1 ?a .
+        		    FILTER NOT EXISTS { ?this ?DPE2 ?a } 
+        		    FILTER NOT EXISTS { ?a rdf:type owl:Thing } # ?DPE1 is DPE         
+        		} """ ; ] .
+        		
+ owl2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                	?this ?DPE1 ?a .       
+            	}
+            	WHERE {
+                    ?DPE1 owl:equivalentProperty ?DPE2 . 
+        		    ?this ?DPE2 ?a .      
+        		    FILTER NOT EXISTS { ?this ?DPE1 ?a }    
+        		    FILTER NOT EXISTS { ?a rdf:type owl:Thing } # ?DPE2 is DPE 
+        		} """ ; ] .
+
+# -----
+
+# ---------------
+# Axioms - Data Property Axioms - Data Property Domain
+
+
+ owl2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                    ?this rdf:type ?CE .
+            	}
+            	WHERE {
+                    ?DPE rdfs:domain ?CE . 
+               	 	?this ?DPE ?y .
+					FILTER NOT EXISTS { ?y rdf:type owl:Thing } # ?DPE is DPE
+					FILTER NOT EXISTS { ?this rdf:type ?CE } .   
+        		} """ ; ] .	
+	
+# -----
+
+
+
+ owl2spin:ToInfer 
+	spin:rule [
+		a sp:Construct ;
+        	sp:text """
+            	CONSTRUCT {            
+                    ?this rdfs:label ?violationMessage .
+                    ?this rdfs:comment ?test .
+                    # ?this rdfs:label ?literal .
+                    # ?this rdfs:comment ?datatype .
+            	}
+            	WHERE {
+                    ?DPE rdfs:range ?CE . 
+               	 	?this ?DPE ?y .
+					FILTER NOT EXISTS { ?y rdf:type owl:Thing } # ?DPE is DPE
+					
+					# BIND ( ( sp:str ( ?y ) ) AS ?literal ) . 
+					
+                    # BIND ( ( sp:datatype ( ?literal ) ) AS ?datatype ) .
+					
+					BIND ( CONCAT( 
+                    \"DataPropertyDomain ( \", 
+                    xsd:string( ?DPE ), 
+                    \" \", 
+                    xsd:string( ?CE ), 
+                    \" )\" ) 
+                    AS ?violationMessage ) .
+                    
+                    BIND ( CONCAT( 
+                    \"DataPropertyDomain ( \", 
+                    sp:datatype( ?y ), 
+                    \" \", 
+                    xsd:string( ?CE ), 
+                    \" )\" ) 
+                    AS ?test ) .
+					   
+        		} """ ; ] .	
