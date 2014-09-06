@@ -340,46 +340,7 @@ owl2spin:ToInfer
                     ?DPE rdfs:domain ?CE . 
                	 	?this ?DPE ?y .
 					FILTER NOT EXISTS { ?y rdf:type owl:Thing } # ?DPE is DPE
-					FILTER NOT EXISTS { ?this rdf:type ?CE } .   
+					FILTER NOT EXISTS { ?this rdf:type ?CE }   
         		} """ ; ] .	
 	
 # -----
-
-
-
- owl2spin:ToInfer 
-	spin:rule [
-		a sp:Construct ;
-        	sp:text """
-            	CONSTRUCT {            
-                    ?this rdfs:label ?violationMessage .
-                    ?this rdfs:comment ?test .
-                    # ?this rdfs:label ?literal .
-                    # ?this rdfs:comment ?datatype .
-            	}
-            	WHERE {
-                    ?DPE rdfs:range ?CE . 
-               	 	?this ?DPE ?y .
-					FILTER NOT EXISTS { ?y rdf:type owl:Thing } # ?DPE is DPE
-					
-					# BIND ( ( sp:str ( ?y ) ) AS ?literal ) . 
-					
-                    # BIND ( ( sp:datatype ( ?literal ) ) AS ?datatype ) .
-					
-					BIND ( CONCAT( 
-                    \"DataPropertyDomain ( \", 
-                    xsd:string( ?DPE ), 
-                    \" \", 
-                    xsd:string( ?CE ), 
-                    \" )\" ) 
-                    AS ?violationMessage ) .
-                    
-                    BIND ( CONCAT( 
-                    \"DataPropertyDomain ( \", 
-                    sp:datatype( ?y ), 
-                    \" \", 
-                    xsd:string( ?CE ), 
-                    \" )\" ) 
-                    AS ?test ) .
-					   
-        		} """ ; ] .	

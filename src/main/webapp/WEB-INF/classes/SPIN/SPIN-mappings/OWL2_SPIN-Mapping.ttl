@@ -6388,13 +6388,12 @@ owl2:DisjointDataProperties
             }
             """ ;
     ] .
-
-
+    
 # ---------------
 # Axioms - Data Property Axioms - Data Property Domain
 
 
-owl2:ObjectPropertyDomain
+owl2:DataPropertyDomain
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Data Property Axioms - Data Property Domain" ; # spin:violationSource
@@ -6495,7 +6494,7 @@ owl2:DataPropertyDomain_old
 					sp:arg4 [ sp:varName "DR" ] ;
 					sp:arg5 " )" ] ] ) ] .
 
-# -----
+# -----    
 
 # ---------------
 # Axioms - Data Property Axioms - Data Property Range
@@ -6516,19 +6515,41 @@ owl2:DataPropertyRange
                     spin:violationPath ?DPE .
             }
             WHERE {	  
-			    ?DPE rdfs:domain ?CE . 
-                ?this ?DPE ?y .
-				FILTER NOT EXISTS { ?y rdf:type owl:Thing } # ?DPE is DPE
-				FILTER NOT EXISTS { ?this rdf:type ?CE } .
+                ?DPE rdfs:range ?DR . 
+               	
+               	?this ?DPE ?l .
+				FILTER NOT EXISTS { ?l rdf:type owl:Thing } # ?DPE is DPE
+					
+				BIND ( DATATYPE( ?l ) AS ?datatype ) .
+				FILTER ( ?datatype != ?DR ) .
+                    
+#               testing
+#               -----
+                BIND ( CONCAT( 
+                    \"literal: \", 
+                    xsd:string( ?l ), 
+                    \" | DATATYPE( literal ): \", 
+                    xsd:string( ?datatype ), 
+                    \" | DR: \", 
+                    xsd:string( ?DR ), 
+                    \" )\" ) 
+                    AS ?testing ) . 
 				            
 #               violation message
 #               -----
                 BIND ( CONCAT( 
-                    \"DataPropertyDomain ( \", 
-                    xsd:string( ?DPE ), 
+                    \"DataPropertyRange ( \", 
+                    xsd:string( ?l ), 
                     \" \", 
-                    xsd:string( ?CE ), 
-                    \" )\" ) 
+                    xsd:string( ?DR ), 
+                    \" ) | \",
+                    \"The datatype of the literal '\", 
+                    xsd:string( ?l ), 
+                    \"' is '\", 
+                    xsd:string( ?datatype ), 
+                    \"' but must be '\", 
+                    xsd:string( ?DR ), 
+                    \"'\" ) 
                     AS ?violationMessage ) . 
             }
             """ ;
