@@ -100,8 +100,7 @@ public class OWL2Controller
 		// inferred RDF graph
 		if ( spin.getRDFGraphInferred().length() > 0 )
 		{
-			model.addObject( "rdfGraphInferred", spin.getRDFGraphInferred().replace( "<", "&lt;" ).replace( ">", "&gt;" ) ); // escape
-																													// >
+			model.addObject( "rdfGraphInferred", spin.getRDFGraphInferred().replace( "<", "&lt;" ).replace( ">", "&gt;" ) ); // escape																										// >
 		}
 
 		// SPIN exception
@@ -149,11 +148,17 @@ public class OWL2Controller
 			FileMeta fileMeta = FileHelper.getFileDetails( absolutePath );
 			rdfGraph += fileMeta.getFileContent();
 
-			Spin spin = new Spin( "OWL2_SPIN-Mapping.ttl" );
+			Spin spin = new Spin( "OWL2_SPIN-Mapping.ttl", "OWL2Reasoning_SPIN-Mapping.ttl" );
 			spin.runInferences_checkConstraints( rdfGraph );
 
 			model.addObject( "owl2ValidationResult", spin.validationResults );
 			model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
+			
+			// inferred RDF graph
+			if ( spin.getRDFGraphInferred().length() > 0 )
+			{
+				model.addObject( "rdfGraphInferred", spin.getRDFGraphInferred().replace( "<", "&lt;" ).replace( ">", "&gt;" ) ); // escape																											// >
+			}
 			
 			// SPIN exception
 			if ( spin.getSPINException() != null )

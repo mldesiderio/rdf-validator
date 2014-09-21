@@ -69,5 +69,27 @@
 	<#else>
 	</#if>
 	
+<!-- inferred RDF graph -->
+<#if rdfGraphInferred??>
+
+	<hr/>
+	<br/>
+	
+	<fieldset>
+		
+		<h3>Inferred RDF Graph</h3> 
+		<br/>
+		
+		<pre id="rdfGraphInferredPre"><#if rdfGraphInferred??>${rdfGraphInferred}<#else></#if></pre>
+		
+		<br/>
+	
+	</fieldset>
+
+	<br/>
+
+<#else>
+</#if>
+	
 <hr/>
 <br/>
