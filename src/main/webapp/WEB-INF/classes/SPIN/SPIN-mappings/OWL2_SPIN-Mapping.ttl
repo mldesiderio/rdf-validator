@@ -13,10 +13,10 @@
 @prefix spl:       <http://spinrdf.org/spl#> .
 @prefix spinowl:   <http://topbraid.org/spin/spinowl> .
 @prefix spinx:     <http://spinrdf.org/spinx#> . 
-@prefix owl2:      <http://constraints.org/owl2#> .
 @prefix functions: <http://www.example.org/functions#> .
 @prefix templates: <http://www.example.org/templates#> .
 @prefix sparql:    <http://www.w3.org/TR/sparql11-query/#> .
+@prefix owl2spin:  <http://constraints.org/owl2#> .
 
 # namespace descriptions
 # -----
@@ -56,136 +56,136 @@ owl:Thing
 		# Data Ranges - Set-Oriented Operations
 		# -----
 		# Enumeration of Literals 
-		[   a owl2:DataOneOf_1L ] , 
-		[   a owl2:DataOneOf_2L ] , 
-		[   a owl2:DataOneOf_3L ] , 
-		[   a owl2:DataOneOf_4L ] , 
-		[   a owl2:DataOneOf_5L ] ,
+		[   a owl2spin:DataOneOf_1L ] , 
+		[   a owl2spin:DataOneOf_2L ] , 
+		[   a owl2spin:DataOneOf_3L ] , 
+		[   a owl2spin:DataOneOf_4L ] , 
+		[   a owl2spin:DataOneOf_5L ] ,
 		
 		# Class Expressions - Set-Oriented Operations
 		# -----
 		# Intersection of Class Expressions 
-		[   a owl2:ObjectIntersectionOf_2CE ] ,
-		[   a owl2:ObjectIntersectionOf_3CE ] ,
+		[   a owl2spin:ObjectIntersectionOf_2CE ] ,
+		[   a owl2spin:ObjectIntersectionOf_3CE ] ,
 		# Union of Class Expressions 
-		[   a owl2:ObjectUnionOf_2CE ] ,
-		[   a owl2:ObjectUnionOf_3CE ] ,
+		[   a owl2spin:ObjectUnionOf_2CE ] ,
+		[   a owl2spin:ObjectUnionOf_3CE ] ,
 		# Complement of Class Expressions 
-		[   a owl2:ObjectComplementOf ] ,
+		[   a owl2spin:ObjectComplementOf ] ,
 		# Enumeration of Individuals
-		[   a owl2:ObjectOneOf_1 ] , 
-		[   a owl2:ObjectOneOf_2 ] , 
-		[   a owl2:ObjectOneOf_3 ] , 
-		[   a owl2:ObjectOneOf_4 ] , 
-		[   a owl2:ObjectOneOf_5 ] ,
+		[   a owl2spin:ObjectOneOf_1 ] , 
+		[   a owl2spin:ObjectOneOf_2 ] , 
+		[   a owl2spin:ObjectOneOf_3 ] , 
+		[   a owl2spin:ObjectOneOf_4 ] , 
+		[   a owl2spin:ObjectOneOf_5 ] ,
 		
 		# Class Expressions - Object Property Restrictions
 		# -----
 		# Existential Quantification 
-		[   a owl2:ObjectSomeValuesFrom ] ,
+		[   a owl2spin:ObjectSomeValuesFrom ] ,
 		# Universal Quantification 
-		[   a owl2:ObjectAllValuesFrom ] ,
+		[   a owl2spin:ObjectAllValuesFrom ] ,
 		# Individual Value Restriction 
-		[   a owl2:ObjectHasValue ] ,
+		[   a owl2spin:ObjectHasValue ] ,
 		# Self-Restriction 
-		[   a owl2:ObjectHasSelf ] ,
+		[   a owl2spin:ObjectHasSelf ] ,
 		
 		# Class Expressions - Object Property Cardinality Restrictions 
 		# -----
 		# Minimum Cardinality 
-		[   a owl2:ObjectMinCardinality_Cardinality ] ,
-		[   a owl2:ObjectMinCardinality_QualifiedCardinality ] ,
+		[   a owl2spin:ObjectMinCardinality_Cardinality ] ,
+		[   a owl2spin:ObjectMinCardinality_QualifiedCardinality ] ,
 		# Maximum Cardinality
-		[   a owl2:ObjectMaxCardinality_Cardinality ] ,
-		[   a owl2:ObjectMaxCardinality_QualifiedCardinality ] ,
+		[   a owl2spin:ObjectMaxCardinality_Cardinality ] ,
+		[   a owl2spin:ObjectMaxCardinality_QualifiedCardinality ] ,
 		# Exact Cardinality
-		[   a owl2:ObjectExactCardinality_Cardinality ] ,
-		[   a owl2:ObjectExactCardinality_QualifiedCardinality ] ,
+		[   a owl2spin:ObjectExactCardinality_Cardinality ] ,
+		[   a owl2spin:ObjectExactCardinality_QualifiedCardinality ] ,
 		
 		# Class Expressions - Data Property Restrictions 
 		# -----
 		# Existential Quantification 
-		[   a owl2:DataSomeValuesFrom ] ,
+		[   a owl2spin:DataSomeValuesFrom ] ,
 		# Universal Quantification 
-		[   a owl2:DataAllValuesFrom ] ,
+		[   a owl2spin:DataAllValuesFrom ] ,
 		# Literal Value Restriction 
-		[   a owl2:DataHasValue ] ,
+		[   a owl2spin:DataHasValue ] ,
 		
 		# Class Expressions - Data Property Cardinality Restrictions 
 		# -----
 		# Minimum Cardinality 
-		[   a owl2:DataMinCardinality_Cardinality ] ,
-		[   a owl2:DataMinCardinality_QualifiedCardinality ] ,
+		[   a owl2spin:DataMinCardinality_Cardinality ] ,
+		[   a owl2spin:DataMinCardinality_QualifiedCardinality ] ,
 		# Maximum Cardinality
-		[   a owl2:DataMaxCardinality_Cardinality ] ,
-		[   a owl2:DataMaxCardinality_QualifiedCardinality ] ,
+		[   a owl2spin:DataMaxCardinality_Cardinality ] ,
+		[   a owl2spin:DataMaxCardinality_QualifiedCardinality ] ,
 		# Exact Cardinality 
-		[   a owl2:DataExactCardinality_Cardinality ] ,
-		[   a owl2:DataExactCardinality_QualifiedCardinality ] ,
+		[   a owl2spin:DataExactCardinality_Cardinality ] ,
+		[   a owl2spin:DataExactCardinality_QualifiedCardinality ] ,
 		
 		# Axioms - Class Expression Axioms
 		# -----
 		# Disjoint Classes
-		[   a owl2:DisjointClasses ] ,
+		[   a owl2spin:DisjointClasses ] ,
 		# Disjoint Union of Class Expressions
-		[   a owl2:DisjointUnion_2CE_1 ] ,
-		[   a owl2:DisjointUnion_2CE_2 ] ,
-		[   a owl2:DisjointUnion_2CE_3 ] ,
+		[   a owl2spin:DisjointUnion_2CE_1 ] ,
+		[   a owl2spin:DisjointUnion_2CE_2 ] ,
+		[   a owl2spin:DisjointUnion_2CE_3 ] ,
 		
 		# Axioms - Object Property Axioms
 		# -----
 		# Object Subproperties 
-#		[   a owl2:SubObjectPropertyOf ] ,
+#		[   a owl2spin:SubObjectPropertyOf ] ,
 		# Object Property Chains 
-#		[   a owl2:ObjectPropertyChain_2OPE ] ,
-#		[   a owl2:ObjectPropertyChain_3OPE ] ,
+#		[   a owl2spin:ObjectPropertyChain_2OPE ] ,
+#		[   a owl2spin:ObjectPropertyChain_3OPE ] ,
 		# Disjoint Object Properties
-		[   a owl2:DisjointObjectProperties ] ,
+		[   a owl2spin:DisjointObjectProperties ] ,
 		# Inverse Object Properties
-#		[   a owl2:InverseObjectProperties ] ,
+#		[   a owl2spin:InverseObjectProperties ] ,
 		# Object Property Domain
-		[   a owl2:ObjectPropertyDomain ] ,
+		[   a owl2spin:ObjectPropertyDomain ] ,
 		# Object Property Range
-		[   a owl2:ObjectPropertyRange ] ,
+		[   a owl2spin:ObjectPropertyRange ] ,
 		# Functional Object Property
-		[   a owl2:FunctionalObjectProperty ] ,
+		[   a owl2spin:FunctionalObjectProperty ] ,
 		# Inverse-Functional Object Property
-		[   a owl2:InverseFunctionalObjectProperty ] ,
+		[   a owl2spin:InverseFunctionalObjectProperty ] ,
 		# Reflexive Object Properties
-#       [   a owl2:ReflexiveObjectProperties ] ,
+#       [   a owl2spin:ReflexiveObjectProperties ] ,
 		# Irreflexive Object Properties
-        [   a owl2:IrreflexiveObjectProperties ] ,
+        [   a owl2spin:IrreflexiveObjectProperties ] ,
         # Symmetric Object Properties
-        [   a owl2:SymmetricObjectProperties ] ,
+        [   a owl2spin:SymmetricObjectProperties ] ,
         # Asymmetric Object Properties
-        [   a owl2:AsymmetricObjectProperties ] ,
+        [   a owl2spin:AsymmetricObjectProperties ] ,
         # Transitive Object Properties
-        [   a owl2:TransitiveObjectProperties ] ,
+        [   a owl2spin:TransitiveObjectProperties ] ,
 		
 		# Axioms - Data Property Axioms
 		# -----
 		# Disjoint Data Properties
-		[   a owl2:DisjointDataProperties ] ,		
+		[   a owl2spin:DisjointDataProperties ] ,		
 		# Data Property Domain
-		[   a owl2:DataPropertyDomain ] ,
+		[   a owl2spin:DataPropertyDomain ] ,
 		# Data Property Range
-		[   a owl2:DataPropertyRange ] ,
+		[   a owl2spin:DataPropertyRange ] ,
 		# Functional Data Properties
-		[   a owl2:FunctionalDataProperties ] ,
+		[   a owl2spin:FunctionalDataProperties ] ,
 		
 		# Axioms - Datatype Definitions 
-		[   a owl2:DatatypeDefinition_Pattern ] ,
+		[   a owl2spin:DatatypeDefinition_Pattern ] ,
 		
 		# Axioms - Keys
 		# -----
-		[   a owl2:HasKey ] ,
+		[   a owl2spin:HasKey ] ,
 
 		# Axioms - Assertions
 		# -----
 		# Negative Object Property Assertions 
-		[   a owl2:NegativeObjectPropertyAssertion ] ,
+		[   a owl2spin:NegativeObjectPropertyAssertion ] ,
 		# Negative Data Property Assertions 
-		[   a owl2:NegativeDataPropertyAssertion ] .
+		[   a owl2spin:NegativeDataPropertyAssertion ] .
 		
 rdfs:Literal 
 	spin:constraint 
@@ -193,11 +193,11 @@ rdfs:Literal
 		# Data Ranges - Set-Oriented Operations
 		# -----
 		# Intersection of Data Ranges
-		[   a owl2:DataIntersectionOf_2DR ] ,
+		[   a owl2spin:DataIntersectionOf_2DR ] ,
 		# Union of Data Ranges 
-		[   a owl2:DataUnionOf_2DR ] ,
+		[   a owl2spin:DataUnionOf_2DR ] ,
 		# Complement of Data Ranges
-		[   a owl2:DataComplementOf ] .
+		[   a owl2spin:DataComplementOf ] .
 
 # -----
 
@@ -205,7 +205,7 @@ rdfs:Literal
 # Data Ranges - Set-Oriented Operations - Intersection of Data Ranges 
 
 
-owl2:DataIntersectionOf_2DR
+owl2spin:DataIntersectionOf_2DR
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
 #   spin:violationSource:
@@ -213,8 +213,9 @@ owl2:DataIntersectionOf_2DR
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
-                :cv 
+                _:cv 
                 	a spin:ConstraintViolation ;
                     spin:violationRoot ?this ;
                     spin:violationPath rdf:type ;
@@ -255,7 +256,7 @@ owl2:DataIntersectionOf_2DR
 # Data Ranges - Set-Oriented Operations -  Union of Data Ranges 
 
 
-owl2:DataUnionOf_2DR
+owl2spin:DataUnionOf_2DR
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
 #   spin:violationSource:
@@ -263,8 +264,9 @@ owl2:DataUnionOf_2DR
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
-                :cv 
+                _:cv 
                 	a spin:ConstraintViolation ;
                     spin:violationRoot ?this ;
                     spin:violationPath rdf:type ;
@@ -334,7 +336,7 @@ owl2:DataUnionOf_2DR
 #		FILTER NOT EXISTS { ?this rdf:type ?CE1 . ?this rdf:type ?CE2 . }
 #
 #		BIND ( ( ... ) AS ?label ) . }
-owl2:ObjectIntersectionOf_2CE
+owl2spin:ObjectIntersectionOf_2CE
 	a spin:Template;
 	rdfs:subClassOf spin:Templates;
 	spin:labelTemplate "ObjectIntersectionOf";
@@ -465,7 +467,7 @@ owl2:ObjectIntersectionOf_2CE
 #		FILTER NOT EXISTS { ?this rdf:type ?CE1 . ?this rdf:type ?CE2 . ?this rdf:type ?CE3 . }
 #
 #		BIND ( ( ... ) AS ?label ) . }
-owl2:ObjectIntersectionOf_3CE
+owl2spin:ObjectIntersectionOf_3CE
 	a spin:Template;
 	rdfs:subClassOf spin:Templates;
 	spin:labelTemplate "ObjectIntersectionOf";
@@ -613,7 +615,7 @@ owl2:ObjectIntersectionOf_3CE
 #		FILTER NOT EXISTS { { ?this rdf:type ?CE1 . } UNION { ?this rdf:type ?CE2 . } }
 #
 #		BIND ( ( ... ) AS ?label ) . }
-owl2:ObjectUnionOf_2CE
+owl2spin:ObjectUnionOf_2CE
 	a spin:Template;
 	rdfs:subClassOf spin:Templates;
 	spin:labelTemplate "ObjectUnionOf";
@@ -748,7 +750,7 @@ owl2:ObjectUnionOf_2CE
 #		FILTER NOT EXISTS { { ?this rdf:type ?CE1 . } UNION { ?this rdf:type ?CE2 . } UNION { ?this rdf:type ?CE3 . } }
 #
 #		BIND ( ( ... ) AS ?label ) . }
-owl2:ObjectUnionOf_3CE
+owl2spin:ObjectUnionOf_3CE
 	a spin:Template;
 	rdfs:subClassOf spin:Templates;
 	spin:labelTemplate "ObjectUnionOf";
@@ -893,7 +895,7 @@ owl2:ObjectUnionOf_3CE
 #       FILTER EXISTS { ?this rdf:type ?CE . } 
 #
 #		BIND ( ( ... ) AS ?label ) . }
-owl2:ObjectComplementOf
+owl2spin:ObjectComplementOf
 	a spin:Template;
 	rdfs:subClassOf spin:Templates;
 	spin:labelTemplate "ObjectComplementOf";
@@ -975,7 +977,7 @@ owl2:ObjectComplementOf
 
 # 1 Individual
 # -----
-owl2:ObjectOneOf_1
+owl2spin:ObjectOneOf_1
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "ObjectOneOf" ;
@@ -1084,7 +1086,7 @@ owl2:ObjectOneOf_1
 
 # 2 Individuals
 # -----
-owl2:ObjectOneOf_2
+owl2spin:ObjectOneOf_2
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "ObjectOneOf" ;
@@ -1240,7 +1242,7 @@ owl2:ObjectOneOf_2
 
 # 3 Individuals
 # -----
-owl2:ObjectOneOf_3
+owl2spin:ObjectOneOf_3
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "ObjectOneOf" ;
@@ -1443,7 +1445,7 @@ owl2:ObjectOneOf_3
 					
 # 4 Individuals
 # -----
-owl2:ObjectOneOf_4
+owl2spin:ObjectOneOf_4
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "ObjectOneOf" ;
@@ -1688,7 +1690,7 @@ owl2:ObjectOneOf_4
 					
 # 5 Individuals
 # -----
-owl2:ObjectOneOf_5
+owl2spin:ObjectOneOf_5
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "ObjectOneOf" ;
@@ -2001,7 +2003,7 @@ owl2:ObjectOneOf_5
 #       FILTER EXISTS { ?this rdf:type ?DR . } 
 #
 #		BIND ( ( ... ) AS ?label ) . }
-owl2:DataComplementOf
+owl2spin:DataComplementOf
 	a spin:Template;
 	rdfs:subClassOf spin:Templates;
 	spin:labelTemplate "DataComplementOf";
@@ -2083,7 +2085,7 @@ owl2:DataComplementOf
 
 # 1 literal
 # -----
-owl2:DataOneOf_1L
+owl2spin:DataOneOf_1L
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "DataOneOf" ;
@@ -2213,7 +2215,7 @@ owl2:DataOneOf_1L
 
 # 2 literals
 # -----
-owl2:DataOneOf_2L
+owl2spin:DataOneOf_2L
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "DataOneOf" ;
@@ -2387,7 +2389,7 @@ owl2:DataOneOf_2L
 
 # 3 literals
 # -----
-owl2:DataOneOf_3L
+owl2spin:DataOneOf_3L
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "DataOneOf" ;
@@ -2602,7 +2604,7 @@ owl2:DataOneOf_3L
 
 # 4 literals
 # -----
-owl2:DataOneOf_4L
+owl2spin:DataOneOf_4L
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "DataOneOf" ;
@@ -2857,7 +2859,7 @@ owl2:DataOneOf_4L
 
 # 5 literals
 # -----
-owl2:DataOneOf_5L
+owl2spin:DataOneOf_5L
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "DataOneOf" ;
@@ -3155,16 +3157,16 @@ owl2:DataOneOf_5L
 # Class Expressions - Object Property Cardinality Restrictions - Minimum Cardinality
 
 
-owl2:ObjectMinCardinality_Cardinality
+owl2spin:ObjectMinCardinality_Cardinality
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Class Expressions - Object Property Cardinality Restrictions - Minimum Cardinality" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
-            PREFIX owl2: <http://constraints.org/owl2#>
+            PREFIX owl2spin: <http://constraints.org/owl2#>
         	CONSTRUCT {            
-                :cv 
+                owl2spin:cv 
             	    rdf:type spin:ConstraintViolation ;
                     spin:violationRoot ?this ;
                     rdfs:label ?violationMessage ;
@@ -3186,7 +3188,7 @@ owl2:ObjectMinCardinality_Cardinality
 		        
 #		        ?cardinality < ?MinimumCardinality
 #               -----
-		        BIND ( owl2:cardinalityOPE( ?this, ?OPE ) AS ?c ) .
+		        BIND ( owl2spin:cardinalityOPE( ?this, ?OPE ) AS ?c ) .
 		        BIND( STRDT ( STR ( ?Minimum ), xsd:nonNegativeInteger ) AS ?MinimumCardinality )
 		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
 		        FILTER ( ?cardinality < ?MinimumCardinality ) .
@@ -3212,16 +3214,16 @@ owl2:ObjectMinCardinality_Cardinality
             """ ;
     ] .
     
-owl2:ObjectMinCardinality_QualifiedCardinality
+owl2spin:ObjectMinCardinality_QualifiedCardinality
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Class Expressions - Object Property Cardinality Restrictions - Minimum Cardinality" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
-            PREFIX owl2: <http://constraints.org/owl2#>
+            PREFIX owl2spin: <http://constraints.org/owl2#>
         	CONSTRUCT {            
-                :cv 
+                owl2spin:cv 
             	    rdf:type spin:ConstraintViolation ;
                     spin:violationRoot ?this ;
                     rdfs:label ?violationMessage ;
@@ -3244,7 +3246,7 @@ owl2:ObjectMinCardinality_QualifiedCardinality
 		        
 #		        ?cardinality < ?Minimum
 #               -----
-		        BIND ( owl2:qualifiedCardinalityOPE( ?this, ?OPE, ?CE_ ) AS ?c ) .
+		        BIND ( owl2spin:qualifiedCardinalityOPE( ?this, ?OPE, ?CE_ ) AS ?c ) .
 		        BIND( STRDT ( STR ( ?Minimum ), xsd:nonNegativeInteger ) AS ?MinimumCardinality )
 		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
 		        FILTER ( ?cardinality < ?MinimumCardinality ) .		    
@@ -3303,7 +3305,7 @@ owl2:ObjectMinCardinality_QualifiedCardinality
 #       OPE is object property expression	
 #
 #		BIND ( ( ... ) AS ?label ) . }
-owl2:ObjectMinCardinality_old
+owl2spin:ObjectMinCardinality_old
 	a spin:Template;
 	rdfs:subClassOf spin:Templates;
 	spin:labelTemplate "ObjectMinCardinality";
@@ -3434,16 +3436,16 @@ owl2:ObjectMinCardinality_old
 # Class Expressions - Object Property Cardinality Restrictions - Maximum Cardinality
 
 
-owl2:ObjectMaxCardinality_Cardinality
+owl2spin:ObjectMaxCardinality_Cardinality
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Class Expressions - Object Property Cardinality Restrictions - Maximum Cardinality" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
-            PREFIX owl2: <http://constraints.org/owl2#>
+            PREFIX owl2spin: <http://constraints.org/owl2#>
         	CONSTRUCT {            
-                :cv 
+                owl2spin:cv 
             	    rdf:type spin:ConstraintViolation ;
                     spin:violationRoot ?this ;
                     rdfs:label ?violationMessage ;
@@ -3465,7 +3467,7 @@ owl2:ObjectMaxCardinality_Cardinality
 		        
 #		        ?cardinality > ?MaximumCardinality
 #               -----
-		        BIND ( owl2:cardinalityOPE( ?this, ?OPE ) AS ?c ) .
+		        BIND ( owl2spin:cardinalityOPE( ?this, ?OPE ) AS ?c ) .
 		        BIND( STRDT ( STR ( ?Maximum ), xsd:nonNegativeInteger ) AS ?MaximumCardinality )
 		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
 		        FILTER ( ?cardinality > ?MaximumCardinality ) .
@@ -3491,16 +3493,16 @@ owl2:ObjectMaxCardinality_Cardinality
             """ ;
     ] .
     
-owl2:ObjectMaxCardinality_QualifiedCardinality
+owl2spin:ObjectMaxCardinality_QualifiedCardinality
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Class Expressions - Object Property Cardinality Restrictions - Maximum Cardinality" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
-            PREFIX owl2: <http://constraints.org/owl2#>
+            PREFIX owl2spin: <http://constraints.org/owl2#>
         	CONSTRUCT {            
-                :cv 
+                owl2spin:cv 
             	    rdf:type spin:ConstraintViolation ;
                     spin:violationRoot ?this ;
                     rdfs:label ?violationMessage ;
@@ -3523,7 +3525,7 @@ owl2:ObjectMaxCardinality_QualifiedCardinality
 		        
 #		        ?cardinality > ?Maximum
 #               -----
-		        BIND ( owl2:qualifiedCardinalityOPE( ?this, ?OPE, ?CE_ ) AS ?c ) .
+		        BIND ( owl2spin:qualifiedCardinalityOPE( ?this, ?OPE, ?CE_ ) AS ?c ) .
 		        BIND( STRDT ( STR ( ?Maximum ), xsd:nonNegativeInteger ) AS ?MaximumCardinality )
 		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
 		        FILTER ( ?cardinality > ?MaximumCardinality ) .		    
@@ -3582,7 +3584,7 @@ owl2:ObjectMaxCardinality_QualifiedCardinality
 #       OPE is object property expression	
 #
 #		BIND ( ( ... ) AS ?label ) . }
-owl2:ObjectMaxCardinality_old
+owl2spin:ObjectMaxCardinality_old
 	a spin:Template;
 	rdfs:subClassOf spin:Templates;
 	spin:labelTemplate "ObjectMaxCardinality";
@@ -3713,16 +3715,16 @@ owl2:ObjectMaxCardinality_old
 # Class Expressions - Object Property Cardinality Restrictions - Exact Cardinality
 		
 
-owl2:ObjectExactCardinality_Cardinality
+owl2spin:ObjectExactCardinality_Cardinality
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Class Expressions - Object Property Cardinality Restrictions - Exact Cardinality" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
-            PREFIX owl2: <http://constraints.org/owl2#>
+            PREFIX owl2spin: <http://constraints.org/owl2#>
         	CONSTRUCT {            
-                :cv 
+                owl2spin:cv 
             	    rdf:type spin:ConstraintViolation ;
                     spin:violationRoot ?this ;
                     rdfs:label ?violationMessage ;
@@ -3744,7 +3746,7 @@ owl2:ObjectExactCardinality_Cardinality
 		        
 #		        ?cardinality != ?ExactCardinality
 #               -----
-		        BIND ( owl2:cardinalityOPE( ?this, ?OPE ) AS ?c ) .
+		        BIND ( owl2spin:cardinalityOPE( ?this, ?OPE ) AS ?c ) .
 		        BIND( STRDT ( STR ( ?Exact ), xsd:nonNegativeInteger ) AS ?ExactCardinality )
 		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
 		        FILTER ( ?cardinality != ?ExactCardinality ) .
@@ -3770,16 +3772,16 @@ owl2:ObjectExactCardinality_Cardinality
             """ ;
     ] .
     
-owl2:ObjectExactCardinality_QualifiedCardinality
+owl2spin:ObjectExactCardinality_QualifiedCardinality
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Class Expressions - Object Property Cardinality Restrictions - Exact Cardinality" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
-            PREFIX owl2: <http://constraints.org/owl2#>
+            PREFIX owl2spin: <http://constraints.org/owl2#>
         	CONSTRUCT {            
-                :cv 
+                owl2spin:cv 
             	    rdf:type spin:ConstraintViolation ;
                     spin:violationRoot ?this ;
                     rdfs:label ?violationMessage ;
@@ -3802,7 +3804,7 @@ owl2:ObjectExactCardinality_QualifiedCardinality
 		        
 #		        ?cardinality != ?Exact
 #               -----
-		        BIND ( owl2:qualifiedCardinalityOPE( ?this, ?OPE, ?CE_ ) AS ?c ) .
+		        BIND ( owl2spin:qualifiedCardinalityOPE( ?this, ?OPE, ?CE_ ) AS ?c ) .
 		        BIND( STRDT ( STR ( ?Exact ), xsd:nonNegativeInteger ) AS ?ExactCardinality )
 		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
 		        FILTER ( ?cardinality != ?ExactCardinality ) .		    
@@ -3861,7 +3863,7 @@ owl2:ObjectExactCardinality_QualifiedCardinality
 #       OPE is object property expression	
 #
 #		BIND ( ( ... ) AS ?label ) . }
-owl2:ObjectExactCardinality_old
+owl2spin:ObjectExactCardinality_old
 	a spin:Template;
 	rdfs:subClassOf spin:Templates;
 	spin:labelTemplate "ObjectExactCardinality";
@@ -3992,16 +3994,16 @@ owl2:ObjectExactCardinality_old
 # Class Expressions - Data Property Cardinality Restrictions - Minimum Cardinality
 
 
-owl2:DataMinCardinality_Cardinality
+owl2spin:DataMinCardinality_Cardinality
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Class Expressions - Data Property Cardinality Restrictions - Minimum Cardinality" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
-            PREFIX owl2: <http://constraints.org/owl2#>
+            PREFIX owl2spin: <http://constraints.org/owl2#>
         	CONSTRUCT {            
-                :cv 
+                owl2spin:cv 
             	    rdf:type spin:ConstraintViolation ;
                     spin:violationRoot ?this ;
                     rdfs:label ?violationMessage ;
@@ -4023,7 +4025,7 @@ owl2:DataMinCardinality_Cardinality
 		        
 #		        ?cardinality < ?MinimumCardinality
 #               -----
-		        BIND ( owl2:cardinalityDPE( ?this, ?DPE ) AS ?c ) .
+		        BIND ( owl2spin:cardinalityDPE( ?this, ?DPE ) AS ?c ) .
 		        BIND( STRDT ( STR ( ?Minimum ), xsd:nonNegativeInteger ) AS ?MinimumCardinality )
 		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
 		        FILTER ( ?cardinality < ?MinimumCardinality ) .
@@ -4049,16 +4051,16 @@ owl2:DataMinCardinality_Cardinality
             """ ;
     ] .
     
-owl2:DataMinCardinality_QualifiedCardinality
+owl2spin:DataMinCardinality_QualifiedCardinality
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Class Expressions - Data Property Cardinality Restrictions - Minimum Cardinality" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
-            PREFIX owl2: <http://constraints.org/owl2#>
+            PREFIX owl2spin: <http://constraints.org/owl2#>
         	CONSTRUCT {            
-                :cv 
+                owl2spin:cv 
             	    rdf:type spin:ConstraintViolation ;
                     spin:violationRoot ?this ;
                     rdfs:label ?violationMessage ;
@@ -4081,7 +4083,7 @@ owl2:DataMinCardinality_QualifiedCardinality
 		        
 #		        ?cardinality < ?Minimum
 #               -----
-		        BIND ( owl2:qualifiedCardinalityDPE( ?this, ?DPE, ?DR ) AS ?c ) .
+		        BIND ( owl2spin:qualifiedCardinalityDPE( ?this, ?DPE, ?DR ) AS ?c ) .
 		        BIND( STRDT ( STR ( ?Minimum ), xsd:nonNegativeInteger ) AS ?MinimumCardinality )
 		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
 		        FILTER ( ?cardinality < ?MinimumCardinality ) .		    
@@ -4140,7 +4142,7 @@ owl2:DataMinCardinality_QualifiedCardinality
 #       DPE is data property expression	
 #
 #		BIND ( ( ... ) AS ?label ) . }
-owl2:DataMinCardinality_old
+owl2spin:DataMinCardinality_old
 	a spin:Template;
 	rdfs:subClassOf spin:Templates;
 	spin:labelTemplate "DataMinCardinality";
@@ -4271,16 +4273,16 @@ owl2:DataMinCardinality_old
 # Class Expressions - Data Property Cardinality Restrictions - Maximum Cardinality
 
 
-owl2:DataMaxCardinality_Cardinality
+owl2spin:DataMaxCardinality_Cardinality
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Class Expressions - Data Property Cardinality Restrictions - Maximum Cardinality" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
-            PREFIX owl2: <http://constraints.org/owl2#>
+            PREFIX owl2spin: <http://constraints.org/owl2#>
         	CONSTRUCT {            
-                :cv 
+                owl2spin:cv 
             	    rdf:type spin:ConstraintViolation ;
                     spin:violationRoot ?this ;
                     rdfs:label ?violationMessage ;
@@ -4302,7 +4304,7 @@ owl2:DataMaxCardinality_Cardinality
 		        
 #		        ?cardinality > ?MaximumCardinality
 #               -----
-		        BIND ( owl2:cardinalityDPE( ?this, ?DPE ) AS ?c ) .
+		        BIND ( owl2spin:cardinalityDPE( ?this, ?DPE ) AS ?c ) .
 		        BIND( STRDT ( STR ( ?Maximum ), xsd:nonNegativeInteger ) AS ?MaximumCardinality )
 		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
 		        FILTER ( ?cardinality > ?MaximumCardinality ) .
@@ -4328,16 +4330,16 @@ owl2:DataMaxCardinality_Cardinality
             """ ;
     ] .
     
-owl2:DataMaxCardinality_QualifiedCardinality
+owl2spin:DataMaxCardinality_QualifiedCardinality
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Class Expressions - Data Property Cardinality Restrictions - Maximum Cardinality" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
-            PREFIX owl2: <http://constraints.org/owl2#>
+            PREFIX owl2spin: <http://constraints.org/owl2#>
         	CONSTRUCT {            
-                :cv 
+                owl2spin:cv 
             	    rdf:type spin:ConstraintViolation ;
                     spin:violationRoot ?this ;
                     rdfs:label ?violationMessage ;
@@ -4360,7 +4362,7 @@ owl2:DataMaxCardinality_QualifiedCardinality
 		        
 #		        ?cardinality > ?Maximum
 #               -----
-		        BIND ( owl2:qualifiedCardinalityDPE( ?this, ?DPE, ?DR ) AS ?c ) .
+		        BIND ( owl2spin:qualifiedCardinalityDPE( ?this, ?DPE, ?DR ) AS ?c ) .
 		        BIND( STRDT ( STR ( ?Maximum ), xsd:nonNegativeInteger ) AS ?MaximumCardinality )
 		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
 		        FILTER ( ?cardinality > ?MaximumCardinality ) .		    
@@ -4419,7 +4421,7 @@ owl2:DataMaxCardinality_QualifiedCardinality
 #       DPE is data property expression	
 #
 #		BIND ( ( ... ) AS ?label ) . }
-owl2:DataMaxCardinality_old
+owl2spin:DataMaxCardinality_old
 	a spin:Template;
 	rdfs:subClassOf spin:Templates;
 	spin:labelTemplate "DataMaxCardinality";
@@ -4550,16 +4552,16 @@ owl2:DataMaxCardinality_old
 # Class Expressions - Data Property Cardinality Restrictions - Exact Cardinality
 
 	
-owl2:DataExactCardinality_Cardinality
+owl2spin:DataExactCardinality_Cardinality
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Class Expressions - Data Property Cardinality Restrictions - Exact Cardinality" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
-            PREFIX owl2: <http://constraints.org/owl2#>
+            PREFIX owl2spin: <http://constraints.org/owl2#>
         	CONSTRUCT {            
-                :cv 
+                owl2spin:cv 
             	    rdf:type spin:ConstraintViolation ;
                     spin:violationRoot ?this ;
                     rdfs:label ?violationMessage ;
@@ -4581,7 +4583,7 @@ owl2:DataExactCardinality_Cardinality
 		        
 #		        ?cardinality != ?ExactCardinality
 #               -----
-		        BIND ( owl2:cardinalityDPE( ?this, ?DPE ) AS ?c ) .
+		        BIND ( owl2spin:cardinalityDPE( ?this, ?DPE ) AS ?c ) .
 		        BIND( STRDT ( STR ( ?Exact ), xsd:nonNegativeInteger ) AS ?ExactCardinality )
 		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
 		        FILTER ( ?cardinality != ?ExactCardinality ) .
@@ -4607,16 +4609,16 @@ owl2:DataExactCardinality_Cardinality
             """ ;
     ] .
     
-owl2:DataExactCardinality_QualifiedCardinality
+owl2spin:DataExactCardinality_QualifiedCardinality
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Class Expressions - Data Property Cardinality Restrictions - Exact Cardinality" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
-            PREFIX owl2: <http://constraints.org/owl2#>
+            PREFIX owl2spin: <http://constraints.org/owl2#>
         	CONSTRUCT {            
-                :cv 
+                owl2spin:cv 
             	    rdf:type spin:ConstraintViolation ;
                     spin:violationRoot ?this ;
                     rdfs:label ?violationMessage ;
@@ -4639,7 +4641,7 @@ owl2:DataExactCardinality_QualifiedCardinality
 		        
 #		        ?cardinality != ?Exact
 #               -----
-		        BIND ( owl2:qualifiedCardinalityDPE( ?this, ?DPE, ?DR ) AS ?c ) .
+		        BIND ( owl2spin:qualifiedCardinalityDPE( ?this, ?DPE, ?DR ) AS ?c ) .
 		        BIND( STRDT ( STR ( ?Exact ), xsd:nonNegativeInteger ) AS ?ExactCardinality )
 		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
 		        FILTER ( ?cardinality != ?ExactCardinality ) .		    
@@ -4698,7 +4700,7 @@ owl2:DataExactCardinality_QualifiedCardinality
 #       DPE is data property expression	
 #
 #		BIND ( ( ... ) AS ?label ) . }
-owl2:DataExactCardinality_old
+owl2spin:DataExactCardinality_old
 	a spin:Template;
 	rdfs:subClassOf spin:Templates;
 	spin:labelTemplate "DataExactCardinality";
@@ -4839,7 +4841,7 @@ owl2:DataExactCardinality_old
 # ObjectSomeValuesFrom := 'ObjectSomeValuesFrom' '(' ObjectPropertyExpression ClassExpression ')' 
 
 
-owl2:ObjectSomeValuesFrom
+owl2spin:ObjectSomeValuesFrom
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "ObjectSomeValuesFrom" ;
@@ -4981,7 +4983,7 @@ owl2:ObjectSomeValuesFrom
 #    FILTER EXISTS { ?this ?OPE ?object . ?object rdf:type owl:Thing . }	
 #
 #	 BIND ( ( ... ) AS ?label ) . }
-owl2:ObjectAllValuesFrom
+owl2spin:ObjectAllValuesFrom
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "ObjectAllValuesFrom" ;
@@ -5107,7 +5109,7 @@ owl2:ObjectAllValuesFrom
 # ObjectHasValue := 'ObjectHasValue' '(' ObjectPropertyExpression Individual ')' 
 
 
-owl2:ObjectHasValue
+owl2spin:ObjectHasValue
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "ObjectHasValue" ;
@@ -5208,7 +5210,7 @@ owl2:ObjectHasValue
 # Class Expressions - Object Property Restrictions - Self-Restriction
 
 
-owl2:ObjectHasSelf
+owl2spin:ObjectHasSelf
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
 #   spin:violationSource:
@@ -5216,8 +5218,9 @@ owl2:ObjectHasSelf
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
-                :cv 
+                _:cv 
                 	a spin:ConstraintViolation ;
                     spin:violationRoot ?this ;
                     spin:violationPath rdf:type ;
@@ -5258,7 +5261,7 @@ owl2:ObjectHasSelf
 # DataSomeValuesFrom := 'DataSomeValuesFrom' '(' DataPropertyExpression { DataPropertyExpression } DataRange ')
 
 
-owl2:DataSomeValuesFrom
+owl2spin:DataSomeValuesFrom
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "DataSomeValuesFrom" ;
@@ -5370,7 +5373,7 @@ owl2:DataSomeValuesFrom
 # DataAllValuesFrom := 'DataAllValuesFrom' '(' DataPropertyExpression { DataPropertyExpression } DataRange ')' 
 
 
-owl2:DataAllValuesFrom
+owl2spin:DataAllValuesFrom
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "DataAllValuesFrom" ;
@@ -5494,7 +5497,7 @@ owl2:DataAllValuesFrom
 # DataHasValue := 'DataHasValue' '(' DataPropertyExpression Literal ')' 
 
 
-owl2:DataHasValue
+owl2spin:DataHasValue
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "DataHasValue" ;
@@ -5596,7 +5599,7 @@ owl2:DataHasValue
 
 
 # -----
-owl2:DisjointClasses
+owl2spin:DisjointClasses
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
 #   spin:violationSource:
@@ -5604,6 +5607,7 @@ owl2:DisjointClasses
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
                 _:cv a spin:ConstraintViolation ;
                     spin:violationRoot ?this ;
@@ -5635,7 +5639,7 @@ owl2:DisjointClasses
 # Axioms - Class Expression Axioms - Disjoint Union of Class Expressions
 
 
-owl2:DisjointUnion_2CE_1
+owl2spin:DisjointUnion_2CE_1
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     
@@ -5646,8 +5650,9 @@ owl2:DisjointUnion_2CE_1
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
-                :cv 
+                _:cv 
                 	a spin:ConstraintViolation ;
                     spin:violationRoot ?this ;
                     spin:violationPath rdf:type ;
@@ -5691,7 +5696,7 @@ owl2:DisjointUnion_2CE_1
             """ ;
     ] .
     
-owl2:DisjointUnion_2CE_2
+owl2spin:DisjointUnion_2CE_2
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     
@@ -5702,8 +5707,9 @@ owl2:DisjointUnion_2CE_2
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
-                :cv 
+                _:cv 
                 	a spin:ConstraintViolation ;
                     spin:violationRoot ?this ;
                     spin:violationPath rdf:type ;
@@ -5744,7 +5750,7 @@ owl2:DisjointUnion_2CE_2
             """ ;
     ] .
 
-owl2:DisjointUnion_2CE_3
+owl2spin:DisjointUnion_2CE_3
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     
@@ -5755,8 +5761,9 @@ owl2:DisjointUnion_2CE_3
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
-                :cv 
+                _:cv 
                 	a spin:ConstraintViolation ;
                     spin:violationRoot ?this ;
                     spin:violationPath rdf:type ;
@@ -5814,7 +5821,7 @@ owl2:DisjointUnion_2CE_3
 
 
 # -----
-owl2:SubObjectPropertyOf
+owl2spin:SubObjectPropertyOf
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "SubObjectPropertyOf" ;
@@ -5894,7 +5901,7 @@ owl2:SubObjectPropertyOf
 
 # 2 OPE
 # -----
-owl2:ObjectPropertyChain_2OPE
+owl2spin:ObjectPropertyChain_2OPE
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "ObjectPropertyChain" ;
@@ -5924,7 +5931,7 @@ owl2:ObjectPropertyChain_2OPE
 				sp:object [ sp:varName "superOPE" ] ] 
 			[   sp:subject _:violation ;
 				sp:predicate spin:violationSource ;
-				sp:object owl2:ObjectPropertyChain_TwoObjectPropertyExpressions ] ) ;
+				sp:object owl2spin:ObjectPropertyChain_TwoObjectPropertyExpressions ] ) ;
 		sp:where ( 
 #		WHERE {
 #		    ?superOPE owl:propertyChainAxiom ?objectPropertyChain .
@@ -5991,7 +5998,7 @@ owl2:ObjectPropertyChain_2OPE
 		
 # 3 OPE
 # -----			
-owl2:ObjectPropertyChain_3OPE
+owl2spin:ObjectPropertyChain_3OPE
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "ObjectPropertyChain" ;
@@ -6021,7 +6028,7 @@ owl2:ObjectPropertyChain_3OPE
 				sp:object [ sp:varName "superOPE" ] ] 
 			[   sp:subject _:violation ;
 				sp:predicate spin:violationSource ;
-				sp:object owl2:ObjectPropertyChain_ThreeObjectPropertyExpressions ] ) ;
+				sp:object owl2spin:ObjectPropertyChain_ThreeObjectPropertyExpressions ] ) ;
 		sp:where ( 
 #       WHERE {
 #		    ?superOPE owl:propertyChainAxiom ( ?OPE1 ?OPE2 ?OPE3 ) .
@@ -6160,13 +6167,14 @@ owl:Thing
 # Axioms - Object Property Axioms - Disjoint Object Properties
 
 
-owl2:DisjointObjectProperties
+owl2spin:DisjointObjectProperties
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Object Property Axioms - Disjoint Object Properties" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
                 _:cv 
                 	a spin:ConstraintViolation ;
@@ -6194,7 +6202,7 @@ owl2:DisjointObjectProperties
             """ ;
     ] .
 
-owl2:DisjointObjectProperties_old
+owl2spin:DisjointObjectProperties_old
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Object Property Axioms - Disjoint Object Properties" ; # spin:violationSource
@@ -6280,7 +6288,7 @@ owl2:DisjointObjectProperties_old
 
 
 # -----
-owl2:InverseObjectProperties
+owl2spin:InverseObjectProperties
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "InverseObjectProperties" ;
@@ -6364,13 +6372,14 @@ owl2:InverseObjectProperties
 # Axioms - Object Property Axioms - Object Property Domain
 
 
-owl2:ObjectPropertyDomain
+owl2spin:ObjectPropertyDomain
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Object Property Axioms - Object Property Domain" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
                 _:cv 
                 	a spin:ConstraintViolation ;
@@ -6410,7 +6419,7 @@ owl2:ObjectPropertyDomain
 #	    FILTER EXISTS { ?y rdf:type owl:Thing }
 #       FILTER NOT EXISTS ( ?this rdf:type ?CE ) .
 #		LET ( ( ... ) AS ?label ) . }
-owl2:ObjectPropertyDomain_old
+owl2spin:ObjectPropertyDomain_old
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "Object Property Domain" ;
@@ -6471,13 +6480,14 @@ owl2:ObjectPropertyDomain_old
 # Axioms - Object Property Axioms - Object Property Range
 
 
-owl2:ObjectPropertyRange
+owl2spin:ObjectPropertyRange
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Object Property Axioms - Object Property Range" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
                 _:cv 
                 	a spin:ConstraintViolation ;
@@ -6518,7 +6528,7 @@ owl2:ObjectPropertyRange
 #	    FILTER EXISTS { ?y rdf:type owl:Thing }
 #       FILTER NOT EXISTS ( ?y rdf:type ?CE ) .
 #		LET ( ( ... ) AS ?label ) . }
-owl2:ObjectPropertyRange_old
+owl2spin:ObjectPropertyRange_old
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "Object Property Range" ;
@@ -6579,13 +6589,14 @@ owl2:ObjectPropertyRange_old
 # Axioms - Object Property Axioms - Functional Object Property
 
 
-owl2:FunctionalObjectProperty
+owl2spin:FunctionalObjectProperty
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Object Property Axioms - Functional Object Property" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
                 _:cv 
                 	a spin:ConstraintViolation ;
@@ -6610,7 +6621,7 @@ owl2:FunctionalObjectProperty
             """ ;
     ] .
 
-owl2:FunctionalObjectProperty_old
+owl2spin:FunctionalObjectProperty_old
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "FunctionalObjectProperty" ;
@@ -6686,13 +6697,14 @@ owl2:FunctionalObjectProperty_old
 # Axioms - Object Property Axioms - Inverse-Functional Object Properties
 
 
-owl2:InverseFunctionalObjectProperty
+owl2spin:InverseFunctionalObjectProperty
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Object Property Axioms - Inverse Functional Object Property" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
                 _:cv 
                 	a spin:ConstraintViolation ;
@@ -6717,7 +6729,7 @@ owl2:InverseFunctionalObjectProperty
             """ ;
     ] .
     
-owl2:InverseFunctionalObjectProperty_old
+owl2spin:InverseFunctionalObjectProperty_old
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "InverseFunctionalObjectProperty" ;
@@ -6796,13 +6808,14 @@ owl2:InverseFunctionalObjectProperty_old
 # no constraint checking needed
 
 
-owl2:ReflexiveObjectProperties
+owl2spin:ReflexiveObjectProperties
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Object Property Axioms - Reflexive Object Properties" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
                 _:cv 
                 	a spin:ConstraintViolation ;
@@ -6830,13 +6843,14 @@ owl2:ReflexiveObjectProperties
 # Axioms - Object Property Axioms - Irreflexive Object Properties
 
 
-owl2:IrreflexiveObjectProperties
+owl2spin:IrreflexiveObjectProperties
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Object Property Axioms - Irreflexive Object Properties" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
                 _:cv 
                 	a spin:ConstraintViolation ;
@@ -6865,13 +6879,14 @@ owl2:IrreflexiveObjectProperties
 # Axioms - Object Property Axioms - Symmetric Object Properties
 
 
-owl2:SymmetricObjectProperties
+owl2spin:SymmetricObjectProperties
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Object Property Axioms - Symmetric Object Properties" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
                 _:cv 
                 	a spin:ConstraintViolation ;
@@ -6902,13 +6917,14 @@ owl2:SymmetricObjectProperties
 # Axioms - Object Property Axioms - Asymmetric Object Properties
 
 
-owl2:AsymmetricObjectProperties
+owl2spin:AsymmetricObjectProperties
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Object Property Axioms - Asymmetric Object Properties" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
                 _:cv 
                 	a spin:ConstraintViolation ;
@@ -6939,13 +6955,14 @@ owl2:AsymmetricObjectProperties
 # Axioms - Object Property Axioms - Transitive Object Properties
 
 
-owl2:TransitiveObjectProperties
+owl2spin:TransitiveObjectProperties
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Object Property Axioms - Transitive Object Properties" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
                 _:cv 
                 	a spin:ConstraintViolation ;
@@ -6976,13 +6993,14 @@ owl2:TransitiveObjectProperties
 # Axioms - Data Property Axioms - Disjoint Data Properties
 
 
-owl2:DisjointDataProperties
+owl2spin:DisjointDataProperties
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Data Property Axioms - Disjoint Data Properties" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
                 _:cv 
                 	a spin:ConstraintViolation ;
@@ -7014,13 +7032,14 @@ owl2:DisjointDataProperties
 # Axioms - Data Property Axioms - Data Property Domain
 
 
-owl2:DataPropertyDomain
+owl2spin:DataPropertyDomain
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Data Property Axioms - Data Property Domain" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
                 _:cv 
                 	a spin:ConstraintViolation ;
@@ -7060,7 +7079,7 @@ owl2:DataPropertyDomain
 #       FILTER NOT EXISTS ( ?y rdf:type owl:Thing . ) .
 #       FILTER NOT EXISTS ( ?this rdf:type ?DR ) .
 #		LET ( ( ... ) AS ?label ) . }
-owl2:DataPropertyDomain_old
+owl2spin:DataPropertyDomain_old
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "Data Property Domain" ;
@@ -7121,13 +7140,14 @@ owl2:DataPropertyDomain_old
 # Axioms - Data Property Axioms - Data Property Range
 
 
-owl2:DataPropertyRange
+owl2spin:DataPropertyRange
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Data Property Axioms - Data Property Range" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
                 _:cv 
                 	a spin:ConstraintViolation ;
@@ -7189,7 +7209,7 @@ owl2:DataPropertyRange
 #       FILTER NOT EXISTS ( ?y rdf:type owl:Thing . ) .
 #       FILTER NOT EXISTS ( ?y rdf:type ?DR ) .
 #		LET ( ( ... ) AS ?label ) . }
-owl2:DataPropertyRange_old
+owl2spin:DataPropertyRange_old
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "Data Property Range" ;
@@ -7250,13 +7270,14 @@ owl2:DataPropertyRange_old
 # Axioms - Data Property Axioms - Functional Data Properties
 
 
-owl2:FunctionalDataProperties
+owl2spin:FunctionalDataProperties
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Data Property Axioms - Functional Data Properties" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
             CONSTRUCT {
                 _:cv 
                 	a spin:ConstraintViolation ;
@@ -7297,13 +7318,14 @@ owl2:FunctionalDataProperties
 # Axioms - Keys
 
 
-owl2:HasKey
+owl2spin:HasKey
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Keys" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
         	CONSTRUCT {            
                 _:cv 
             	    a spin:ConstraintViolation ;
@@ -7352,13 +7374,14 @@ owl2:HasKey
 # Axioms - Assertions - Negative Object Property Assertions 
 
 
-owl2:NegativeObjectPropertyAssertion
+owl2spin:NegativeObjectPropertyAssertion
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Assertions - Negative Object Property Assertions" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
         	CONSTRUCT {            
                 _:cv 
             	    a spin:ConstraintViolation ;
@@ -7409,13 +7432,14 @@ owl2:NegativeObjectPropertyAssertion
 # Axioms - Assertions - Negative Data Property Assertions 
 
 
-owl2:NegativeDataPropertyAssertion
+owl2spin:NegativeDataPropertyAssertion
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
     spin:labelTemplate "Axioms - Assertions - Negative Data Property Assertions" ; # spin:violationSource
     spin:body [
         rdf:type sp:Construct ;
         sp:text """
+            PREFIX owl2spin: <http://constraints.org/owl2#>
         	CONSTRUCT {            
                 ?this 
             	    a spin:ConstraintViolation ;
@@ -7468,7 +7492,7 @@ owl2:NegativeDataPropertyAssertion
 
 # Pattern
 # -----
-owl2:DatatypeDefinition_Pattern
+owl2spin:DatatypeDefinition_Pattern
 	a spin:Template; 
 	rdfs:subClassOf spin:Templates ;
 	spin:labelTemplate "Axioms - Datatype Definition" ;
@@ -7616,7 +7640,7 @@ owl2:DatatypeDefinition_Pattern
 # cardinality functions
 
 
-owl2:cardinalityDPE
+owl2spin:cardinalityDPE
     rdf:type spin:Function ;
     rdfs:subClassOf spin:Functions ;
     rdfs:label "cardinality DPE" ;
@@ -7645,7 +7669,7 @@ owl2:cardinalityDPE
     ] ;
     spin:returnType xsd:nonNegativeInteger .
     
-owl2:qualifiedCardinalityDPE
+owl2spin:qualifiedCardinalityDPE
     rdf:type spin:Function ;
     rdfs:subClassOf spin:Functions ;
     rdfs:label "qualified cardinality DPE" ;
@@ -7683,7 +7707,7 @@ owl2:qualifiedCardinalityDPE
     ] ;
     spin:returnType xsd:nonNegativeInteger .
     
-owl2:cardinalityOPE
+owl2spin:cardinalityOPE
     rdf:type spin:Function ;
     rdfs:subClassOf spin:Functions ;
     rdfs:label "cardinality OPE" ;
@@ -7712,7 +7736,7 @@ owl2:cardinalityOPE
     ] ;
     spin:returnType xsd:nonNegativeInteger .
     
-owl2:qualifiedCardinalityOPE
+owl2spin:qualifiedCardinalityOPE
     rdf:type spin:Function ;
     rdfs:subClassOf spin:Functions ;
     rdfs:label "qualified cardinality OPE" ;
