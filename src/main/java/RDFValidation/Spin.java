@@ -200,7 +200,8 @@ public class Spin
 			for( ConstraintViolation cv : constraintViolations ) 
 			{
 				constraintViolation = new RDFValidation.ConstraintViolation();
-				constraintViolation.setRoot( SPINLabels.get().getLabel( cv.getRoot() ) );
+//				constraintViolation.setRoot( SPINLabels.get().getLabel( cv.getRoot() ) );
+				constraintViolation.setRoot( cv.getRoot().getURI() );
 				constraintViolation.setMessage( cv.getMessage() );
 				constraintViolation.setSource( SPINLabels.get().getLabel( cv.getSource() ) );
 				

@@ -223,4 +223,3 @@ functions:maxCardinalityLabel
 #						FILTER ( fn:concat(?arg1, ?arg2) ) .
 #                   }"""
 #              ] .
-			  

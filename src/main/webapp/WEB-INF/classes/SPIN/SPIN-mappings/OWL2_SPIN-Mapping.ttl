@@ -1,48 +1,46 @@
-﻿@prefix fn: <http://www.w3.org/2005/xpath-functions#> .
-@prefix sparql: <http://www.w3.org/TR/2013/REC-sparql11-query-20130321/#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-
-# sp
+﻿# namespace declarations
 # -----
-@prefix sp: <http://spinrdf.org/sp#> .
-# syntactically represent SPARQL queries and update commands as RDF triples
+@prefix fn:        <http://www.w3.org/2005/xpath-functions#> .
+@prefix sparql:    <http://www.w3.org/TR/2013/REC-sparql11-query-20130321/#> .
+@prefix xsd:       <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf:       <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:      <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:       <http://www.w3.org/2002/07/owl#> .
+@prefix sp:        <http://spinrdf.org/sp#> .
+@prefix spin:      <http://spinrdf.org/spin#> .
+@prefix smf:       <http://topbraid.org/sparqlmotionfunctions#> .
+@prefix spif:      <http://spinrdf.org/spif#> . 
+@prefix spl:       <http://spinrdf.org/spl#> .
+@prefix spinowl:   <http://topbraid.org/spin/spinowl> .
+@prefix spinx:     <http://spinrdf.org/spinx#> . 
+@prefix owl2:      <http://constraints.org/owl2#> .
+@prefix functions: <http://www.example.org/functions#> .
+@prefix templates: <http://www.example.org/templates#> .
+@prefix sparql:    <http://www.w3.org/TR/sparql11-query/#> .
 
-@prefix spin: <http://spinrdf.org/spin#> .
-# attach constraints and rules to RDFS classes
-# encapsulate reusable SPARQL queries into functions and templates
+# namespace descriptions
+# -----
+# sp:
+# - syntactically represent SPARQL queries and update commands as RDF triples
+# spin:
+# - attach constraints and rules to RDFS classes
+# - encapsulate reusable SPARQL queries into functions and templates
+# spif:
+# - generally useful SPARQL functions defined using SPIN
+# - functions that are impossible or difficult to express in terms of other functions, but rather will require a native implementation in languages like Java
+# spl:
+# - SPIN Standard Modules Library (SPL)
+# - generally useful SPARQL functions (expressed as SPIN functions), and SPIN templates
+# - top-level classification of functions, and definitions of the standard SPARQL functions
+# - functions that can be expressed entirely in terms of other SPARQL expressions and standard built-ins
+# spinowl:
+# - constraint checking axioms for a subset of OWL, using closed-world semantics
 
-@prefix smf: <http://topbraid.org/sparqlmotionfunctions#> .
-
-@prefix spif: <http://spinrdf.org/spif#> . 
-# generally useful SPARQL functions defined using SPIN
-# functions that are impossible or difficult to express in terms of other functions, but rather will require a native implementation in languages like Java
-
-@prefix spl: <http://spinrdf.org/spl#> . 
-# SPIN Standard Modules Library (SPL)
-# generally useful SPARQL functions (expressed as SPIN functions), and SPIN templates
-# top-level classification of functions, and definitions of the standard SPARQL functions
-# functions that can be expressed entirely in terms of other SPARQL expressions and standard built-ins
-
-# @prefix spinowl: <http://topbraid.org/spin/spinowl> .
-# constraint checking axioms for a subset of OWL, using closed-world semantics
-
-@prefix spinx: <http://spinrdf.org/spinx#> . 
-
-@prefix owl2: <http://constraints.org/owl2#> .
-
-@prefix functions:<http://www.example.org/functions#> .
-@prefix templates:<http://www.example.org/templates#> .
-
-@prefix sparql: <http://www.w3.org/TR/sparql11-query/#> .
-
-@prefix a:        <http://www.example.org/OWL2InstanceData#> .
-
+# ontology
+# -----
 <constraints/owl> 
 	a owl:Ontology ;
-	rdfs:comment "Contains constraint checking axioms for a subset of OWL 2, using closed-world semantics." ;
+	rdfs:comment "OWL 2 constraint checking axioms, using closed-world semantics." ;
 	owl:imports <http://spinrdf.org/spl> ;
 	owl:imports <http://www.w3.org/2005/xpath-functions> ;
 #	owl:imports <http://topbraid.org/sparqlmotionfunctions> ;
@@ -95,11 +93,14 @@ owl:Thing
 		# Class Expressions - Object Property Cardinality Restrictions 
 		# -----
 		# Minimum Cardinality 
-		[   a owl2:ObjectMinCardinality ] ,
+		[   a owl2:ObjectMinCardinality_Cardinality ] ,
+		[   a owl2:ObjectMinCardinality_QualifiedCardinality ] ,
 		# Maximum Cardinality
-		[   a owl2:ObjectMaxCardinality ] ,
+		[   a owl2:ObjectMaxCardinality_Cardinality ] ,
+		[   a owl2:ObjectMaxCardinality_QualifiedCardinality ] ,
 		# Exact Cardinality
-		[   a owl2:ObjectExactCardinality ] ,
+		[   a owl2:ObjectExactCardinality_Cardinality ] ,
+		[   a owl2:ObjectExactCardinality_QualifiedCardinality ] ,
 		
 		# Class Expressions - Data Property Restrictions 
 		# -----
@@ -113,11 +114,14 @@ owl:Thing
 		# Class Expressions - Data Property Cardinality Restrictions 
 		# -----
 		# Minimum Cardinality 
-		[   a owl2:DataMinCardinality ] ,
+		[   a owl2:DataMinCardinality_Cardinality ] ,
+		[   a owl2:DataMinCardinality_QualifiedCardinality ] ,
 		# Maximum Cardinality
-		[   a owl2:DataMaxCardinality ] ,
+		[   a owl2:DataMaxCardinality_Cardinality ] ,
+		[   a owl2:DataMaxCardinality_QualifiedCardinality ] ,
 		# Exact Cardinality 
-		[   a owl2:DataExactCardinality ] ,
+		[   a owl2:DataExactCardinality_Cardinality ] ,
+		[   a owl2:DataExactCardinality_QualifiedCardinality ] ,
 		
 		# Axioms - Class Expression Axioms
 		# -----
@@ -3151,17 +3155,124 @@ owl2:DataOneOf_5L
 # Class Expressions - Object Property Cardinality Restrictions - Minimum Cardinality
 
 
-# description
-# -----
-# A minimum cardinality expression ObjectMinCardinality( n OPE CE ) consists of a nonnegative integer n, 
-# an object property expression OPE, and a class expression CE, and it contains all those individuals 
-# that are connected by OPE to at least n different individuals that are instances of CE. 
-# If CE is missing, it is taken to be owl:Thing.
-
-# definition: 
-# -----	
-# ObjectMinCardinality := 'ObjectMinCardinality' '(' nonNegativeInteger ObjectPropertyExpression [ ClassExpression ] ')'			
-
+owl2:ObjectMinCardinality_Cardinality
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Class Expressions - Object Property Cardinality Restrictions - Minimum Cardinality" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            PREFIX owl2: <http://constraints.org/owl2#>
+        	CONSTRUCT {            
+                :cv 
+            	    rdf:type spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?OPE .
+        	}
+        	WHERE {
+#        	    ?this ?OPE ?o .
+#               ?this rdf:type ?CE .
+#        	    -----
+                ?this ?OPE ?o .
+                ?o rdf:type owl:Thing . # ?OPE is OPE
+                ?this rdf:type ?CE .
+ 
+#	            ObjectMinCardinality ( Minimum OPE )
+#	            -----
+		        ?CE rdf:type owl:Restriction .
+		        ?CE owl:minCardinality ?Minimum .
+		        ?CE owl:onProperty ?OPE .
+		        
+#		        ?cardinality < ?MinimumCardinality
+#               -----
+		        BIND ( owl2:cardinalityOPE( ?this, ?OPE ) AS ?c ) .
+		        BIND( STRDT ( STR ( ?Minimum ), xsd:nonNegativeInteger ) AS ?MinimumCardinality )
+		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
+		        FILTER ( ?cardinality < ?MinimumCardinality ) .
+   
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"ObjectMinCardinality ( \", 
+                    xsd:string( ?Minimum ), 
+                    \" \", 
+                    xsd:string( ?OPE ), 
+                    \" ) | The individual '\", 
+                    xsd:string( ?this ), 
+                    \"' can only be connected by '\", 
+                    xsd:string( ?OPE ), 
+                    \"' to at least \", 
+                    xsd:string( ?MinimumCardinality ),
+                    \" different individual(s), but is connected to \",
+                    xsd:string( ?cardinality ),
+                    \" individual(s).\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
+    
+owl2:ObjectMinCardinality_QualifiedCardinality
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Class Expressions - Object Property Cardinality Restrictions - Minimum Cardinality" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            PREFIX owl2: <http://constraints.org/owl2#>
+        	CONSTRUCT {            
+                :cv 
+            	    rdf:type spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?OPE .
+        	}
+        	WHERE {
+#        	    ?this ?DPE ?o .
+#               ?this rdf:type ?CE .
+#        	    -----
+                ?this ?DPE ?o .
+                ?o rdf:type owl:Thing . # ?OPE is OPE
+                ?this rdf:type ?CE .
+ 
+#	            ObjectMinCardinality ( Minimum OPE CE )
+#	            -----
+		        ?CE rdf:type owl:Restriction .
+		        ?CE owl:minQualifiedCardinality ?Minimum .
+		        ?CE owl:onProperty ?OPE .
+		        ?CE owl:onClass ?CE_ .
+		        
+#		        ?cardinality < ?Minimum
+#               -----
+		        BIND ( owl2:qualifiedCardinalityOPE( ?this, ?OPE, ?CE_ ) AS ?c ) .
+		        BIND( STRDT ( STR ( ?Minimum ), xsd:nonNegativeInteger ) AS ?MinimumCardinality )
+		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
+		        FILTER ( ?cardinality < ?MinimumCardinality ) .		    
+   
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"ObjectMinCardinality ( \", 
+                    xsd:string( ?Minimum ), 
+                    \" \", 
+                    xsd:string( ?OPE ), 
+                    \" \", 
+                    xsd:string( ?CE_ ), 
+                    \" ) | The individual '\", 
+                    xsd:string( ?this ), 
+                    \"' can only be connected by '\", 
+                    xsd:string( ?OPE ), 
+                    \"' to at least \", 
+                    xsd:string( ?Minimum ),
+                    \" different individual(s) that are instances of '\", 
+                    xsd:string( ?CE_ ),
+                    \"', but is connected to \",
+                    xsd:string( ?cardinality ),
+                    \" individual(s).\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
 
 #   CONSTRUCT {
 #	    _:violation 
@@ -3192,7 +3303,7 @@ owl2:DataOneOf_5L
 #       OPE is object property expression	
 #
 #		BIND ( ( ... ) AS ?label ) . }
-owl2:ObjectMinCardinality
+owl2:ObjectMinCardinality_old
 	a spin:Template;
 	rdfs:subClassOf spin:Templates;
 	spin:labelTemplate "ObjectMinCardinality";
@@ -3323,16 +3434,124 @@ owl2:ObjectMinCardinality
 # Class Expressions - Object Property Cardinality Restrictions - Maximum Cardinality
 
 
-# description
-# -----
-# A maximum cardinality expression ObjectMaxCardinality( n OPE CE ) consists of a nonnegative integer n, an object property expression OPE, 
-# and a class expression CE, and it contains all those individuals that are connected by OPE to at most n different individuals 
-# that are instances of CE. If CE is missing, it is taken to be owl:Thing.
-
-# definition
-# -----
-# ObjectMaxCardinality := 'ObjectMaxCardinality' '(' nonNegativeInteger ObjectPropertyExpression [ ClassExpression ] ')'
-
+owl2:ObjectMaxCardinality_Cardinality
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Class Expressions - Object Property Cardinality Restrictions - Maximum Cardinality" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            PREFIX owl2: <http://constraints.org/owl2#>
+        	CONSTRUCT {            
+                :cv 
+            	    rdf:type spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?OPE .
+        	}
+        	WHERE {
+#        	    ?this ?OPE ?o .
+#               ?this rdf:type ?CE .
+#        	    -----
+                ?this ?OPE ?o .
+                ?o rdf:type owl:Thing . # ?OPE is OPE
+                ?this rdf:type ?CE .
+ 
+#	            ObjectMaxCardinality ( Maximum OPE )
+#	            -----
+		        ?CE rdf:type owl:Restriction .
+		        ?CE owl:maxCardinality ?Maximum .
+		        ?CE owl:onProperty ?OPE .
+		        
+#		        ?cardinality > ?MaximumCardinality
+#               -----
+		        BIND ( owl2:cardinalityOPE( ?this, ?OPE ) AS ?c ) .
+		        BIND( STRDT ( STR ( ?Maximum ), xsd:nonNegativeInteger ) AS ?MaximumCardinality )
+		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
+		        FILTER ( ?cardinality > ?MaximumCardinality ) .
+   
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"ObjectMaxCardinality ( \", 
+                    xsd:string( ?Maximum ), 
+                    \" \", 
+                    xsd:string( ?OPE ), 
+                    \" ) | The individual '\", 
+                    xsd:string( ?this ), 
+                    \"' can only be connected by '\", 
+                    xsd:string( ?OPE ), 
+                    \"' to at most \", 
+                    xsd:string( ?MaximumCardinality ),
+                    \" different individual(s), but is connected to \",
+                    xsd:string( ?cardinality ),
+                    \" individual(s).\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
+    
+owl2:ObjectMaxCardinality_QualifiedCardinality
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Class Expressions - Object Property Cardinality Restrictions - Maximum Cardinality" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            PREFIX owl2: <http://constraints.org/owl2#>
+        	CONSTRUCT {            
+                :cv 
+            	    rdf:type spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?OPE .
+        	}
+        	WHERE {
+#        	    ?this ?DPE ?o .
+#               ?this rdf:type ?CE .
+#        	    -----
+                ?this ?DPE ?o .
+                ?o rdf:type owl:Thing . # ?OPE is OPE
+                ?this rdf:type ?CE .
+ 
+#	            ObjectMaxCardinality ( Maximum OPE CE )
+#	            -----
+		        ?CE rdf:type owl:Restriction .
+		        ?CE owl:maxQualifiedCardinality ?Maximum .
+		        ?CE owl:onProperty ?OPE .
+		        ?CE owl:onClass ?CE_ .
+		        
+#		        ?cardinality > ?Maximum
+#               -----
+		        BIND ( owl2:qualifiedCardinalityOPE( ?this, ?OPE, ?CE_ ) AS ?c ) .
+		        BIND( STRDT ( STR ( ?Maximum ), xsd:nonNegativeInteger ) AS ?MaximumCardinality )
+		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
+		        FILTER ( ?cardinality > ?MaximumCardinality ) .		    
+   
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"ObjectMaxCardinality ( \", 
+                    xsd:string( ?Maximum ), 
+                    \" \", 
+                    xsd:string( ?OPE ), 
+                    \" \", 
+                    xsd:string( ?CE_ ), 
+                    \" ) | The individual '\", 
+                    xsd:string( ?this ), 
+                    \"' can only be connected by '\", 
+                    xsd:string( ?OPE ), 
+                    \"' to at most \", 
+                    xsd:string( ?Maximum ),
+                    \" different individual(s) that are instances of '\", 
+                    xsd:string( ?CE_ ),
+                    \"', but is connected to \",
+                    xsd:string( ?cardinality ),
+                    \" individual(s).\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
 
 #   CONSTRUCT {
 #	    _:violation 
@@ -3363,7 +3582,7 @@ owl2:ObjectMinCardinality
 #       OPE is object property expression	
 #
 #		BIND ( ( ... ) AS ?label ) . }
-owl2:ObjectMaxCardinality
+owl2:ObjectMaxCardinality_old
 	a spin:Template;
 	rdfs:subClassOf spin:Templates;
 	spin:labelTemplate "ObjectMaxCardinality";
@@ -3494,16 +3713,124 @@ owl2:ObjectMaxCardinality
 # Class Expressions - Object Property Cardinality Restrictions - Exact Cardinality
 		
 
-# description
-# -----
-# An exact cardinality expression ObjectExactCardinality( n OPE CE ) consists of a nonnegative integer n, an object property expression OPE, 
-# and a class expression CE, and it contains all those individuals that are connected by OPE to exactly n different individuals 
-# that are instances of CE. If CE is missing, it is taken to be owl:Thing. 
-		
-# definition 
-# -----
-# ObjectExactCardinality := 'ObjectExactCardinality' '(' nonNegativeInteger ObjectPropertyExpression [ ClassExpression ] ')' 
-	
+owl2:ObjectExactCardinality_Cardinality
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Class Expressions - Object Property Cardinality Restrictions - Exact Cardinality" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            PREFIX owl2: <http://constraints.org/owl2#>
+        	CONSTRUCT {            
+                :cv 
+            	    rdf:type spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?OPE .
+        	}
+        	WHERE {
+#        	    ?this ?OPE ?o .
+#               ?this rdf:type ?CE .
+#        	    -----
+                ?this ?OPE ?o .
+                ?o rdf:type owl:Thing . # ?OPE is OPE
+                ?this rdf:type ?CE .
+ 
+#	            ObjectExactCardinality ( Exact OPE )
+#	            -----
+		        ?CE rdf:type owl:Restriction .
+		        ?CE owl:cardinality ?Exact .
+		        ?CE owl:onProperty ?OPE .
+		        
+#		        ?cardinality != ?ExactCardinality
+#               -----
+		        BIND ( owl2:cardinalityOPE( ?this, ?OPE ) AS ?c ) .
+		        BIND( STRDT ( STR ( ?Exact ), xsd:nonNegativeInteger ) AS ?ExactCardinality )
+		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
+		        FILTER ( ?cardinality != ?ExactCardinality ) .
+   
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"ObjectExactCardinality ( \", 
+                    xsd:string( ?Exact ), 
+                    \" \", 
+                    xsd:string( ?OPE ), 
+                    \" ) | The individual '\", 
+                    xsd:string( ?this ), 
+                    \"' can only be connected by '\", 
+                    xsd:string( ?OPE ), 
+                    \"' to exactly \", 
+                    xsd:string( ?ExactCardinality ),
+                    \" different individual(s), but is connected to \",
+                    xsd:string( ?cardinality ),
+                    \" individual(s).\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
+    
+owl2:ObjectExactCardinality_QualifiedCardinality
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Class Expressions - Object Property Cardinality Restrictions - Exact Cardinality" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            PREFIX owl2: <http://constraints.org/owl2#>
+        	CONSTRUCT {            
+                :cv 
+            	    rdf:type spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?OPE .
+        	}
+        	WHERE {
+#        	    ?this ?DPE ?o .
+#               ?this rdf:type ?CE .
+#        	    -----
+                ?this ?DPE ?o .
+                ?o rdf:type owl:Thing . # ?OPE is OPE
+                ?this rdf:type ?CE .
+ 
+#	            ObjectExactCardinality ( Exact OPE CE )
+#	            -----
+		        ?CE rdf:type owl:Restriction .
+		        ?CE owl:qualifiedCardinality ?Exact .
+		        ?CE owl:onProperty ?OPE .
+		        ?CE owl:onClass ?CE_ .
+		        
+#		        ?cardinality != ?Exact
+#               -----
+		        BIND ( owl2:qualifiedCardinalityOPE( ?this, ?OPE, ?CE_ ) AS ?c ) .
+		        BIND( STRDT ( STR ( ?Exact ), xsd:nonNegativeInteger ) AS ?ExactCardinality )
+		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
+		        FILTER ( ?cardinality != ?ExactCardinality ) .		    
+   
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"ObjectExactCardinality ( \", 
+                    xsd:string( ?Exact ), 
+                    \" \", 
+                    xsd:string( ?OPE ), 
+                    \" \", 
+                    xsd:string( ?CE_ ), 
+                    \" ) | The individual '\", 
+                    xsd:string( ?this ), 
+                    \"' can only be connected by '\", 
+                    xsd:string( ?OPE ), 
+                    \"' to exactly \", 
+                    xsd:string( ?Exact ),
+                    \" different individual(s) that are instances of '\", 
+                    xsd:string( ?CE_ ),
+                    \"', but is connected to \",
+                    xsd:string( ?cardinality ),
+                    \" individual(s).\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
 
 #   CONSTRUCT {
 #	    _:violation 
@@ -3534,7 +3861,7 @@ owl2:ObjectMaxCardinality
 #       OPE is object property expression	
 #
 #		BIND ( ( ... ) AS ?label ) . }
-owl2:ObjectExactCardinality
+owl2:ObjectExactCardinality_old
 	a spin:Template;
 	rdfs:subClassOf spin:Templates;
 	spin:labelTemplate "ObjectExactCardinality";
@@ -3665,16 +3992,124 @@ owl2:ObjectExactCardinality
 # Class Expressions - Data Property Cardinality Restrictions - Minimum Cardinality
 
 
-# description
-# -----
-# A minimum cardinality expression DataMinCardinality( n DPE DR ) consists of a nonnegative integer n, a data property expression DPE, 
-# and a unary data range DR, and it contains all those individuals that are connected by DPE to at least n different literals in DR. 
-# If DR is not present, it is taken to be rdfs:Literal. 
-
-# definition
-# -----
-# DataMinCardinality := 'DataMinCardinality' '(' nonNegativeInteger DataPropertyExpression [ DataRange ] ')' 
-
+owl2:DataMinCardinality_Cardinality
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Class Expressions - Data Property Cardinality Restrictions - Minimum Cardinality" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            PREFIX owl2: <http://constraints.org/owl2#>
+        	CONSTRUCT {            
+                :cv 
+            	    rdf:type spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?DPE .
+        	}
+        	WHERE {
+#        	    ?this ?DPE ?l .
+#               ?this rdf:type ?CE .
+#        	    -----
+                ?this ?DPE ?l .
+                FILTER NOT EXISTS { ?l rdf:type owl:Thing } # ?DPE is DPE
+                ?this rdf:type ?CE .
+ 
+#	            DataMinCardinality ( Minimum DPE )
+#	            -----
+		        ?CE rdf:type owl:Restriction .
+		        ?CE owl:minCardinality ?Minimum .
+		        ?CE owl:onProperty ?DPE .
+		        
+#		        ?cardinality < ?MinimumCardinality
+#               -----
+		        BIND ( owl2:cardinalityDPE( ?this, ?DPE ) AS ?c ) .
+		        BIND( STRDT ( STR ( ?Minimum ), xsd:nonNegativeInteger ) AS ?MinimumCardinality )
+		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
+		        FILTER ( ?cardinality < ?MinimumCardinality ) .
+   
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"DataMinCardinality ( \", 
+                    xsd:string( ?Minimum ), 
+                    \" \", 
+                    xsd:string( ?DPE ), 
+                    \" ) | The individual '\", 
+                    xsd:string( ?this ), 
+                    \"' can only be connected by '\", 
+                    xsd:string( ?DPE ), 
+                    \"' to at least \", 
+                    xsd:string( ?MinimumCardinality ),
+                    \" different literal(s), but is connected to \",
+                    xsd:string( ?cardinality ),
+                    \" literal(s).\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
+    
+owl2:DataMinCardinality_QualifiedCardinality
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Class Expressions - Data Property Cardinality Restrictions - Minimum Cardinality" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            PREFIX owl2: <http://constraints.org/owl2#>
+        	CONSTRUCT {            
+                :cv 
+            	    rdf:type spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?DPE .
+        	}
+        	WHERE {
+#        	    ?this ?DPE ?l .
+#               ?this rdf:type ?CE .
+#        	    -----
+                ?this ?DPE ?l .
+                FILTER NOT EXISTS { ?l rdf:type owl:Thing } # ?DPE is DPE
+                ?this rdf:type ?CE .
+ 
+#	            DataMinCardinality ( Minimum DPE DR )
+#	            -----
+		        ?CE rdf:type owl:Restriction .
+		        ?CE owl:minQualifiedCardinality ?Minimum .
+		        ?CE owl:onProperty ?DPE .
+		        ?CE owl:onClass ?DR .
+		        
+#		        ?cardinality < ?Minimum
+#               -----
+		        BIND ( owl2:qualifiedCardinalityDPE( ?this, ?DPE, ?DR ) AS ?c ) .
+		        BIND( STRDT ( STR ( ?Minimum ), xsd:nonNegativeInteger ) AS ?MinimumCardinality )
+		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
+		        FILTER ( ?cardinality < ?MinimumCardinality ) .		    
+   
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"DataMinCardinality ( \", 
+                    xsd:string( ?Minimum ), 
+                    \" \", 
+                    xsd:string( ?DPE ), 
+                    \" \", 
+                    xsd:string( ?DR ), 
+                    \" ) | The individual '\", 
+                    xsd:string( ?this ), 
+                    \"' can only be connected by '\", 
+                    xsd:string( ?DPE ), 
+                    \"' to at least \", 
+                    xsd:string( ?Minimum ),
+                    \" different literal(s) in '\", 
+                    xsd:string( ?DR ),
+                    \"', but is connected to \",
+                    xsd:string( ?cardinality ),
+                    \" literal(s).\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
 
 #   CONSTRUCT {
 #	    _:violation 
@@ -3705,7 +4140,7 @@ owl2:ObjectExactCardinality
 #       DPE is data property expression	
 #
 #		BIND ( ( ... ) AS ?label ) . }
-owl2:DataMinCardinality
+owl2:DataMinCardinality_old
 	a spin:Template;
 	rdfs:subClassOf spin:Templates;
 	spin:labelTemplate "DataMinCardinality";
@@ -3836,17 +4271,124 @@ owl2:DataMinCardinality
 # Class Expressions - Data Property Cardinality Restrictions - Maximum Cardinality
 
 
-
-# description
-# -----
-# A maximum cardinality expression DataMaxCardinality( n DPE DR ) consists of a nonnegative integer n, a data property expression DPE, 
-# and a unary data range DR, and it contains all those individuals that are connected by DPE to at most n different literals in DR. 
-# If DR is not present, it is taken to be rdfs:Literal. 
-
-# definition
-# -----
-# DataMaxCardinality := 'DataMaxCardinality' '(' nonNegativeInteger DataPropertyExpression [ DataRange ] ')' 
-
+owl2:DataMaxCardinality_Cardinality
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Class Expressions - Data Property Cardinality Restrictions - Maximum Cardinality" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            PREFIX owl2: <http://constraints.org/owl2#>
+        	CONSTRUCT {            
+                :cv 
+            	    rdf:type spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?DPE .
+        	}
+        	WHERE {
+#        	    ?this ?DPE ?l .
+#               ?this rdf:type ?CE .
+#        	    -----
+                ?this ?DPE ?l .
+                FILTER NOT EXISTS { ?l rdf:type owl:Thing } # ?DPE is DPE
+                ?this rdf:type ?CE .
+ 
+#	            DataMaxCardinality ( Maximum DPE )
+#	            -----
+		        ?CE rdf:type owl:Restriction .
+		        ?CE owl:maxCardinality ?Maximum .
+		        ?CE owl:onProperty ?DPE .
+		        
+#		        ?cardinality > ?MaximumCardinality
+#               -----
+		        BIND ( owl2:cardinalityDPE( ?this, ?DPE ) AS ?c ) .
+		        BIND( STRDT ( STR ( ?Maximum ), xsd:nonNegativeInteger ) AS ?MaximumCardinality )
+		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
+		        FILTER ( ?cardinality > ?MaximumCardinality ) .
+   
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"DataMaxCardinality ( \", 
+                    xsd:string( ?Maximum ), 
+                    \" \", 
+                    xsd:string( ?DPE ), 
+                    \" ) | The individual '\", 
+                    xsd:string( ?this ), 
+                    \"' can only be connected by '\", 
+                    xsd:string( ?DPE ), 
+                    \"' to at most \", 
+                    xsd:string( ?MaximumCardinality ),
+                    \" different literal(s), but is connected to \",
+                    xsd:string( ?cardinality ),
+                    \" literal(s).\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
+    
+owl2:DataMaxCardinality_QualifiedCardinality
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Class Expressions - Data Property Cardinality Restrictions - Maximum Cardinality" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            PREFIX owl2: <http://constraints.org/owl2#>
+        	CONSTRUCT {            
+                :cv 
+            	    rdf:type spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?DPE .
+        	}
+        	WHERE {
+#        	    ?this ?DPE ?l .
+#               ?this rdf:type ?CE .
+#        	    -----
+                ?this ?DPE ?l .
+                FILTER NOT EXISTS { ?l rdf:type owl:Thing } # ?DPE is DPE
+                ?this rdf:type ?CE .
+ 
+#	            DataMaxCardinality ( Maximum DPE DR )
+#	            -----
+		        ?CE rdf:type owl:Restriction .
+		        ?CE owl:maxQualifiedCardinality ?Maximum .
+		        ?CE owl:onProperty ?DPE .
+		        ?CE owl:onClass ?DR .
+		        
+#		        ?cardinality > ?Maximum
+#               -----
+		        BIND ( owl2:qualifiedCardinalityDPE( ?this, ?DPE, ?DR ) AS ?c ) .
+		        BIND( STRDT ( STR ( ?Maximum ), xsd:nonNegativeInteger ) AS ?MaximumCardinality )
+		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
+		        FILTER ( ?cardinality > ?MaximumCardinality ) .		    
+   
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"DataMaxCardinality ( \", 
+                    xsd:string( ?Maximum ), 
+                    \" \", 
+                    xsd:string( ?DPE ), 
+                    \" \", 
+                    xsd:string( ?DR ), 
+                    \" ) | The individual '\", 
+                    xsd:string( ?this ), 
+                    \"' can only be connected by '\", 
+                    xsd:string( ?DPE ), 
+                    \"' to at most \", 
+                    xsd:string( ?Maximum ),
+                    \" different literal(s) in '\", 
+                    xsd:string( ?DR ),
+                    \"', but is connected to \",
+                    xsd:string( ?cardinality ),
+                    \" literal(s).\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
 
 #   CONSTRUCT {
 #	    _:violation 
@@ -3877,7 +4419,7 @@ owl2:DataMinCardinality
 #       DPE is data property expression	
 #
 #		BIND ( ( ... ) AS ?label ) . }
-owl2:DataMaxCardinality
+owl2:DataMaxCardinality_old
 	a spin:Template;
 	rdfs:subClassOf spin:Templates;
 	spin:labelTemplate "DataMaxCardinality";
@@ -4007,17 +4549,125 @@ owl2:DataMaxCardinality
 # ---------------
 # Class Expressions - Data Property Cardinality Restrictions - Exact Cardinality
 
-
-# description
-# -----
-# An exact cardinality expression DataExactCardinality( n DPE DR ) consists of a nonnegative integer n, a data property expression DPE, 
-# and a unary data range DR, and it contains all those individuals that are connected by DPE to exactly n different literals in DR. 
-# If DR is not present, it is taken to be rdfs:Literal. 
-
-# definition 
-# -----
-# DataExactCardinality := 'DataExactCardinality' '(' nonNegativeInteger DataPropertyExpression [ DataRange ] ')' 
 	
+owl2:DataExactCardinality_Cardinality
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Class Expressions - Data Property Cardinality Restrictions - Exact Cardinality" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            PREFIX owl2: <http://constraints.org/owl2#>
+        	CONSTRUCT {            
+                :cv 
+            	    rdf:type spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?DPE .
+        	}
+        	WHERE {
+#        	    ?this ?DPE ?l .
+#               ?this rdf:type ?CE .
+#        	    -----
+                ?this ?DPE ?l .
+                FILTER NOT EXISTS { ?l rdf:type owl:Thing } # ?DPE is DPE
+                ?this rdf:type ?CE .
+ 
+#	            DataExactCardinality ( Exact DPE )
+#	            -----
+		        ?CE rdf:type owl:Restriction .
+		        ?CE owl:cardinality ?Exact .
+		        ?CE owl:onProperty ?DPE .
+		        
+#		        ?cardinality != ?ExactCardinality
+#               -----
+		        BIND ( owl2:cardinalityDPE( ?this, ?DPE ) AS ?c ) .
+		        BIND( STRDT ( STR ( ?Exact ), xsd:nonNegativeInteger ) AS ?ExactCardinality )
+		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
+		        FILTER ( ?cardinality != ?ExactCardinality ) .
+   
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"DataExactCardinality ( \", 
+                    xsd:string( ?Exact ), 
+                    \" \", 
+                    xsd:string( ?DPE ), 
+                    \" ) | The individual '\", 
+                    xsd:string( ?this ), 
+                    \"' can only be connected by '\", 
+                    xsd:string( ?DPE ), 
+                    \"' to exactly \", 
+                    xsd:string( ?ExactCardinality ),
+                    \" different literal(s), but is connected to \",
+                    xsd:string( ?cardinality ),
+                    \" literal(s).\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
+    
+owl2:DataExactCardinality_QualifiedCardinality
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    spin:labelTemplate "Class Expressions - Data Property Cardinality Restrictions - Exact Cardinality" ; # spin:violationSource
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            PREFIX owl2: <http://constraints.org/owl2#>
+        	CONSTRUCT {            
+                :cv 
+            	    rdf:type spin:ConstraintViolation ;
+                    spin:violationRoot ?this ;
+                    rdfs:label ?violationMessage ;
+                    spin:violationPath ?DPE .
+        	}
+        	WHERE {
+#        	    ?this ?DPE ?l .
+#               ?this rdf:type ?CE .
+#        	    -----
+                ?this ?DPE ?l .
+                FILTER NOT EXISTS { ?l rdf:type owl:Thing } # ?DPE is DPE
+                ?this rdf:type ?CE .
+ 
+#	            DataExactCardinality ( Exact DPE DR )
+#	            -----
+		        ?CE rdf:type owl:Restriction .
+		        ?CE owl:qualifiedCardinality ?Exact .
+		        ?CE owl:onProperty ?DPE .
+		        ?CE owl:onClass ?DR .
+		        
+#		        ?cardinality != ?Exact
+#               -----
+		        BIND ( owl2:qualifiedCardinalityDPE( ?this, ?DPE, ?DR ) AS ?c ) .
+		        BIND( STRDT ( STR ( ?Exact ), xsd:nonNegativeInteger ) AS ?ExactCardinality )
+		        BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
+		        FILTER ( ?cardinality != ?ExactCardinality ) .		    
+   
+#               violation message
+#               -----
+                BIND ( CONCAT( 
+                    \"DataExactCardinality ( \", 
+                    xsd:string( ?Exact ), 
+                    \" \", 
+                    xsd:string( ?DPE ), 
+                    \" \", 
+                    xsd:string( ?DR ), 
+                    \" ) | The individual '\", 
+                    xsd:string( ?this ), 
+                    \"' can only be connected by '\", 
+                    xsd:string( ?DPE ), 
+                    \"' to exactly \", 
+                    xsd:string( ?Exact ),
+                    \" different literal(s) in '\", 
+                    xsd:string( ?DR ),
+                    \"', but is connected to \",
+                    xsd:string( ?cardinality ),
+                    \" literal(s).\" ) 
+                    AS ?violationMessage ) . 
+            }
+            """ ;
+    ] .
 
 #   CONSTRUCT {
 #	    _:violation 
@@ -4048,7 +4698,7 @@ owl2:DataMaxCardinality
 #       DPE is data property expression	
 #
 #		BIND ( ( ... ) AS ?label ) . }
-owl2:DataExactCardinality
+owl2:DataExactCardinality_old
 	a spin:Template;
 	rdfs:subClassOf spin:Templates;
 	spin:labelTemplate "DataExactCardinality";
@@ -6960,4 +7610,142 @@ owl2:DatatypeDefinition_Pattern
 					sp:arg4 [ sp:varName "pattern" ] ;
 					sp:arg5 "'" ] ] ) ] .
 					
+# -----
+
+# ---------------
+# cardinality functions
+
+
+owl2:cardinalityDPE
+    rdf:type spin:Function ;
+    rdfs:subClassOf spin:Functions ;
+    rdfs:label "cardinality DPE" ;
+    rdfs:comment "cardinality DPE" ;
+    spin:constraint [
+        rdf:type spl:Argument ;
+        spl:predicate sp:arg1 ;
+        spl:valueType rdf:subject ;
+        rdfs:comment "subject" ; 
+    ] ;
+    spin:constraint [
+        rdf:type spl:Argument ;
+        spl:predicate sp:arg2 ;
+        spl:valueType rdf:Property ;
+        rdfs:comment "DPE" ; 
+    ] ;
+    spin:body [
+        rdf:type sp:Select ;
+        sp:text """
+            SELECT ( COUNT ( ?arg1 ) AS ?cardinality)
+            WHERE {
+                ?arg1 ?arg2 ?l .
+                FILTER NOT EXISTS { ?l rdf:type owl:Thing } # ?DPE is DPE
+            }
+        """ ;
+    ] ;
+    spin:returnType xsd:nonNegativeInteger .
+    
+owl2:qualifiedCardinalityDPE
+    rdf:type spin:Function ;
+    rdfs:subClassOf spin:Functions ;
+    rdfs:label "qualified cardinality DPE" ;
+    rdfs:comment "qualified cardinality DPE" ;
+    spin:constraint [
+        rdf:type spl:Argument ;
+        spl:predicate sp:arg1 ;
+        spl:valueType rdf:subject ;
+        rdfs:comment "subject" ; 
+    ] ;
+    spin:constraint [
+        rdf:type spl:Argument ;
+        spl:predicate sp:arg2 ;
+        spl:valueType rdf:Property ;
+        rdfs:comment "DPE" ; 
+    ] ;
+    spin:constraint [
+        rdf:type spl:Argument ;
+        spl:predicate sp:arg3 ;
+        spl:valueType rdfs:Datatype ;
+        rdfs:comment "DR" ; 
+    ] ;
+    spin:body [
+        rdf:type sp:Select ;
+        sp:text """
+            SELECT ( COUNT ( ?arg1 ) AS ?cardinality)
+            WHERE {
+                ?arg1 ?arg2 ?l .
+                FILTER NOT EXISTS { ?l rdf:type owl:Thing } # ?DPE is DPE
+                
+                BIND ( DATATYPE( ?l ) AS ?datatype ) .
+				FILTER ( ?datatype = ?arg3 ) .
+            }
+        """ ;
+    ] ;
+    spin:returnType xsd:nonNegativeInteger .
+    
+owl2:cardinalityOPE
+    rdf:type spin:Function ;
+    rdfs:subClassOf spin:Functions ;
+    rdfs:label "cardinality OPE" ;
+    rdfs:comment "cardinality OPE" ;
+    spin:constraint [
+        rdf:type spl:Argument ;
+        spl:predicate sp:arg1 ;
+        spl:valueType rdf:subject ;
+        rdfs:comment "subject" ; 
+    ] ;
+    spin:constraint [
+        rdf:type spl:Argument ;
+        spl:predicate sp:arg2 ;
+        spl:valueType rdf:Property ;
+        rdfs:comment "OPE" ; 
+    ] ;
+    spin:body [
+        rdf:type sp:Select ;
+        sp:text """
+            SELECT ( COUNT ( ?arg1 ) AS ?cardinality)
+            WHERE {
+                ?arg1 ?arg2 ?o .
+                ?o rdf:type owl:Thing # ?OPE is OPE
+            }
+        """ ;
+    ] ;
+    spin:returnType xsd:nonNegativeInteger .
+    
+owl2:qualifiedCardinalityOPE
+    rdf:type spin:Function ;
+    rdfs:subClassOf spin:Functions ;
+    rdfs:label "qualified cardinality OPE" ;
+    rdfs:comment "qualified cardinality OPE" ;
+    spin:constraint [
+        rdf:type spl:Argument ;
+        spl:predicate sp:arg1 ;
+        spl:valueType rdf:subject ;
+        rdfs:comment "subject" ; 
+    ] ;
+    spin:constraint [
+        rdf:type spl:Argument ;
+        spl:predicate sp:arg2 ;
+        spl:valueType rdf:Property ;
+        rdfs:comment "OPE" ; 
+    ] ;
+    spin:constraint [
+        rdf:type spl:Argument ;
+        spl:predicate sp:arg3 ;
+        spl:valueType rdfs:Class ;
+        rdfs:comment "CE" ; 
+    ] ;
+    spin:body [
+        rdf:type sp:Select ;
+        sp:text """
+            SELECT ( COUNT ( ?arg1 ) AS ?cardinality)
+            WHERE {
+                ?arg1 ?arg2 ?o .
+                ?o rdf:type owl:Thing . # ?OPE is OPE
+                ?o rdf:type ?arg3 .
+            }
+        """ ;
+    ] ;
+    spin:returnType xsd:nonNegativeInteger .
+
 # -----
