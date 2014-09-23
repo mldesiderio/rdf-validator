@@ -7,7 +7,7 @@
 
 #### RDF validation requirements database
 
-[database of requirements on RDF constraint formulation and validation](http://purl.org/net/rdf-validation)
+[http://purl.org/net/rdf-validation](http://purl.org/net/rdf-validation)
 
 #### research paper about RDF validation
 
@@ -22,5 +22,5 @@
 #### Links
 
 * [database of requirements on RDF constraint formulation and validation](http://purl.org/net/rdf-validation)
-* [RDF application profiles task group](http://wiki.dublincore.org/index.php/RDF-Application-Profiles)
 * [W3C RDF data shapes working group charter](http://www.w3.org/2014/data-shapes/charter)
+* [RDF application profiles task group](http://wiki.dublincore.org/index.php/RDF-Application-Profiles)
