@@ -1,7 +1,7 @@
 # RDF Validation
 
 
-#### rdf-validator
+#### RDF Validator
 
 * [purl.org/net/rdfval-demo](purl.org/net/rdfval-demo).
 
