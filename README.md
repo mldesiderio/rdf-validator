@@ -1,4 +1,4 @@
-## RDF Validation
+# RDF Validation
 
 
 #### rdf-validator
@@ -19,7 +19,7 @@
 * [Web Ontology Language (OWL 2)](https://github.com/boschthomas/OWL2-SPIN-Mapping">Web Ontology Language 2 (OWL 2))
 * [Description Set Profiles (DSP)](https://github.com/dcmi/DSP-SPIN-Mapping">Description Set Profiles (DSP))
 
-#### Links
+#### links
 
 * [database of requirements on RDF constraint formulation and validation](http://purl.org/net/rdf-validation)
 * [W3C RDF data shapes working group charter](http://www.w3.org/2014/data-shapes/charter)
