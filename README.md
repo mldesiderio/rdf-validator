@@ -3,7 +3,7 @@
 
 #### RDF Validator
 
-[purl.org/net/rdfval-demo](purl.org/net/rdfval-demo).
+[http://purl.org/net/rdfval-demo](http://purl.org/net/rdfval-demo).
 
 #### RDF validation requirements database
 
