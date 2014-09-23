@@ -1,5 +1,5 @@
 rdf-validator
 ==============
 
-rdf-validator published:
+rdf-validator:
 [purl.org/net/rdfval-demo](purl.org/net/rdfval-demo).
