@@ -16,8 +16,8 @@
 
 #### SPIN mappings
 
-* [Web Ontology Language (OWL 2)](https://github.com/boschthomas/OWL2-SPIN-Mapping">Web Ontology Language 2 (OWL 2))
-* [Description Set Profiles (DSP)](https://github.com/dcmi/DSP-SPIN-Mapping">Description Set Profiles (DSP))
+* [Web Ontology Language (OWL 2)](https://github.com/boschthomas/OWL2-SPIN-Mapping)
+* [Description Set Profiles (DSP)](https://github.com/dcmi/DSP-SPIN-Mapping)
 
 #### links
 
