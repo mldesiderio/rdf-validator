@@ -2,8 +2,8 @@
 ==============
 
 
-rdf-validator
------
+### rdf-validator
+
 * [purl.org/net/rdfval-demo](purl.org/net/rdfval-demo).
 
 Research paper about RDF validation
