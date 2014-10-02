@@ -70,11 +70,20 @@
 				<hr/>
 				
 				<p>
+					<h4>RDF validation requirements database</h4>
+					<ul>
+						<li><a href="http://purl.org/net/rdf-validation">http://purl.org/net/rdf-validation</a></li>
+					</ul>
+				</p>
+				
+				<hr/>
+				
+				<p>
 					<h4>Links</h4>
 					<ul>
 						<li><a href="http://purl.org/net/rdf-validation">Database of Requirements on RDF Constraint Formulation and Validation</a></li>
-						<li><a href="http://wiki.dublincore.org/index.php/RDF-Application-Profiles">RDF Application Profiles Task Group</a></li>
 						<li><a href="http://www.w3.org/2014/data-shapes/charter">W3C RDF Data Shapes Working Group Charter</a></li>
+						<li><a href="http://wiki.dublincore.org/index.php/RDF-Application-Profiles">RDF Application Profiles Task Group</a></li>
 					</ul>
 				</p>
 			
