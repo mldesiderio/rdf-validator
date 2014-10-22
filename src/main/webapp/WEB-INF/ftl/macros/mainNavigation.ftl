@@ -22,5 +22,10 @@
 		<li<#if link?? & link == 'dsp'> id="current"</#if>>
 			<a href="<@spring.url '/dsp' />">DSP</a>
 		</li>
+		
+		<li<#if link?? & link == 'dsp2'> id="current"</#if>>
+			<a href="<@spring.url '/dsp2' />">DSP2</a>
+		</li>
+		
 	</ul>
 </div>

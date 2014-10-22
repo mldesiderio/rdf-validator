@@ -25,6 +25,7 @@
         <list>
           <value>/WEB-INF/ftl/</value>
           <value>/WEB-INF/ftl/dsp</value>
+          <value>/WEB-INF/ftl/dsp2</value>
           <value>/WEB-INF/ftl/owl2</value>
         </list>
       </property>
