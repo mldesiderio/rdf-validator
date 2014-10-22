@@ -89,7 +89,9 @@ public class FileHelper
 			String str;
 			while ((str = in.readLine()) != null)
 			{
-				fileContent += str + "\n";
+				// removing empty lines
+				if ( !str.trim().isEmpty() )
+					fileContent += str + "\n";
 			}
 
 			fileMeta.setFileContent( fileContent );
