@@ -1228,6 +1228,16 @@ function createTree( $containerSelector, sectionType, syntaxContainerSelector, r
 				$container.prev( "a.MISSY_onsiteHelp" ).css("float", "right").prependTo( $container.find( "div.menuHeader" ) );
 			}
 			
+			// 500ms delay before automatically sort the tree ascending
+			// this sort functionality should be activated by default in dynatree
+			// resorted because of bug report - task dynatree not sorted remote
+			setTimeout( 
+				function(){
+					var treeRoot = $jQ("#tree" + containerId).dynatree("getRoot");
+					treeRoot.sortChildren(null, true);
+				}
+			, 500 );
+			
 	}, "json").fail(function(){}).always(function(){});
 }
 
