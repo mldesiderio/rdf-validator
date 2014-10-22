@@ -248,7 +248,7 @@ function adjustHelpTooltipPosition($jQhoveredElem){
 		var parentWidth = $jQhoveredElem.parent().width();
 		// change the left atribute of the span
 		$jQhoveredElem
-		.find( "span:first" ).css({left: (parentWidth - tooltipWidthSize - 100)+ "px" }).end()
+		.find( "span:first" ).css({left: (parentWidth - 15)+ "px" }).end()
 		.find( "img.MISSY_onsiteHelpCallout" ).attr('src', basepath + '/resources/images/onsiteHelpCalloutReverse.gif').addClass( "MISSY_onsiteHelpCalloutReverse" );
 	}
 }
