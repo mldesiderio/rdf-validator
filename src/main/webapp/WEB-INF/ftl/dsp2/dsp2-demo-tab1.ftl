@@ -47,7 +47,7 @@
 <script>
 $jQ( function(){
 	<#-- load default content -->
-	getDocumentDetails( "<@spring.url '/dsp2/file_details' />", "defaultNamespaceDeclarations.ttl", "#containerNamespaceDeclarations", "resources/rdfGraphs/dsp2/" );
+	getDocumentDetails( "<@spring.url '/dsp2/file_details' />", "defaultNamespaceDeclarations.ttl", "#containerNamespaceDeclarations", "resources/rdfGraphs/DSP2/" );
 	
 	<#-- file upload -->
 	<#--$jQ('#fileupload2').fileupload({
