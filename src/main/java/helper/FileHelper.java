@@ -54,7 +54,7 @@ public class FileHelper
 		{
 			try
 			{
-				fileMeta.setFileContent( new String( fileMeta.getBytes(), "UTF-8" ) );
+				fileMeta.setFileContent( new String( fileMeta.getBytes(), "UTF-8" ).replaceAll( "(?m)^[ \t]*\r?\n", "" ) );
 			} catch (UnsupportedEncodingException e)
 			{
 				e.printStackTrace();
