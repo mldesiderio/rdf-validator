@@ -27,5 +27,9 @@
 			<a href="<@spring.url '/dsp2' />">DSP2</a>
 		</li>
 		
+		<li<#if link?? & link == 'gclo'> id="current"</#if>>
+			<a href="<@spring.url '/gclo' />">GCLO</a>
+		</li>
+		
 	</ul>
 </div>
