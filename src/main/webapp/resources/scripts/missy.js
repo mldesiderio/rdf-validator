@@ -1317,7 +1317,8 @@ function highlightSplittedSyntax( $elem, syntaxForAjaxRequestArray , showAsMainV
 	  })
 	  .done(function( data ) {
 		  // append highlighted syntax
-		  $elem.append( (data.html).replace(new RegExp("\n", "gi"), '<span class="lh15">&nbsp;</span>\n') );
+		  //$elem.append( (data.html).replace(new RegExp("\n", "gi"), '<span class="lh15">&nbsp;</span>\n') );
+		  $elem.append( data.html );
 		  
 		  if( showAsMainView && arrayIndex == 0 ){
 			  $elem.siblings( "textarea.edit-syntax" ).hide();
