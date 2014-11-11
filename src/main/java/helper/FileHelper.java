@@ -54,7 +54,9 @@ public class FileHelper
 		{
 			try
 			{
-				fileMeta.setFileContent( new String( fileMeta.getBytes(), "UTF-8" ).replaceAll( "(?m)^[ \t]*\r?\n", "" ) );
+				// fileMeta.setFileContent( new String( fileMeta.getBytes(),
+				// "UTF-8" ).replaceAll( "(?m)^[ \t]*\r?\n", "" ) );
+				fileMeta.setFileContent( new String( fileMeta.getBytes(), "UTF-8" ) );
 			} catch (UnsupportedEncodingException e)
 			{
 				e.printStackTrace();
@@ -90,7 +92,7 @@ public class FileHelper
 			while ((str = in.readLine()) != null)
 			{
 				// removing empty lines
-				if ( !str.trim().isEmpty() )
+				// if ( !str.trim().isEmpty() )
 					fileContent += str + "\n";
 			}
 
