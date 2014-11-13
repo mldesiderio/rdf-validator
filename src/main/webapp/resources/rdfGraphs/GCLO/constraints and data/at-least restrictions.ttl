@@ -1,0 +1,21 @@
+# constraint
+# ----------
+:AtLeastRestriction_1
+    a gclo:PropertyConstraint ;
+    gclo:contextConcept :HavingAtLeast2Daughters ;
+    gclo:leftPropertyList ( :hasChild ) ;
+    gclo:concepts ( :Woman ) ;
+    gclo:constrainingElement ">="^^xsd:string ;
+    gclo:constrainingValue "2"^^xsd:string .
+
+# invalid data
+# ------------
+:AlBundy
+    a owl:Thing ;
+    a :HavingAtLeast2Daughters ;
+    :hasChild :KellyBundy ;
+    :hasChild :BudBundy .
+:KellyBundy
+    a :Woman .
+:BudBundy
+    a :Man .

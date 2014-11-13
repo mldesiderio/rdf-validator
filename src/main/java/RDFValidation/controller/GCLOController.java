@@ -88,7 +88,7 @@ public class GCLOController
 		// input graph
 		String rdfGraph = new StringBuilder( ND ).append( C ).append( D ).toString();
 
-		Spin spin = new Spin( "DSP_SPIN-Mapping.ttl" );
+		Spin spin = new Spin( "GCLO_SPIN-Mapping.ttl" );
 		spin.runInferences_checkConstraints( rdfGraph );
 
 		model.addObject( "gcloValidationResult", spin.validationResults );
@@ -138,7 +138,7 @@ public class GCLOController
 			FileMeta fileMeta = FileHelper.getFileDetails( absolutePath );
 			rdfGraph += fileMeta.getFileContent();
 
-			Spin spin = new Spin( "DSP_SPIN-Mapping.ttl" );
+			Spin spin = new Spin( "GCLO_SPIN-Mapping.ttl" );
 			spin.runInferences_checkConstraints( rdfGraph );
 
 			model.addObject( "gcloValidationResult", spin.validationResults );

@@ -47,7 +47,7 @@
 <script>
 $jQ( function(){
 	<#-- load default content -->
-	getDocumentDetails( "<@spring.url '/gclo/file_details' />", "defaultNamespaceDeclarations.ttl", "#containerNamespaceDeclarations", "resources/rdfGraphs/gclo/" );
+	getDocumentDetails( "<@spring.url '/gclo/file_details' />", "defaultNamespaceDeclarations.ttl", "#containerNamespaceDeclarations", "resources/rdfGraphs/GCLO/" );
 	
 	<#-- file upload -->
 	<#--$jQ('#fileupload2').fileupload({

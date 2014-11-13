@@ -28,7 +28,7 @@
 		</li>
 		
 		<li<#if link?? & link == 'gclo'> id="current"</#if>>
-			<a href="<@spring.url '/gclo' />">GCLO</a>
+			<a href="<@spring.url '/gclo' />">GCL</a>
 		</li>
 		
 	</ul>
