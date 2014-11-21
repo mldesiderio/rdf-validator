@@ -1,0 +1,40 @@
+:SubSubConcept 
+    rdfs:subClassOf :SubConcept .
+:SubConcept 
+    rdfs:subClassOf skos:Concept .
+:SubSubConceptScheme 
+    rdfs:subClassOf :SubConceptScheme .
+:SubConceptScheme 
+    rdfs:subClassOf skos:ConceptScheme .
+
+# invalid data
+# ------------
+:concept1
+    a :SubSubConcept ;
+    skos:inScheme :conceptScheme1 ;
+    skos:definition "definition"@en , "definition"@de , "definition"@fr ;
+    skos:notation "notation"@en .
+:concept2
+    a :SubSubConcept ;
+    skos:inScheme :conceptScheme1 ;
+    skos:definition "definition"@en , "definition"@de , "definition"@fr ;
+    skos:notation "notation"@en .
+:conceptScheme1
+    a :SubSubConceptScheme ;
+    skos:definition "definition"@en , "definition"@de , "definition"@fr .
+
+# valid data
+# ------------
+:concept3
+    a :SubSubConcept ;
+    skos:inScheme :conceptScheme2 ;
+    skos:definition "definition"@en , "definition"@de , "definition"@fr ;
+    skos:notation "notation-3"@en .
+:concept4
+    a :SubSubConcept ;
+    skos:inScheme :conceptScheme2 ;
+    skos:definition "definition"@en , "definition"@de , "definition"@fr ;
+    skos:notation "notation-4"@en .
+:conceptScheme2
+    a :SubSubConceptScheme ;
+    skos:definition "definition"@en , "definition"@de , "definition"@fr .

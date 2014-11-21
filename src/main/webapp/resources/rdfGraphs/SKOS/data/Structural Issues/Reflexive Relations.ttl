@@ -1,0 +1,21 @@
+:SubSubConcept 
+    rdfs:subClassOf :SubConcept .
+:SubConcept 
+    rdfs:subClassOf skos:Concept .
+
+# invalid data
+# ------------
+:1
+    a :SubSubConcept ;
+    skos:definition ""@en ;
+    skos:broader :1 .
+    
+# valid data
+# ------------
+:2
+    a :SubSubConcept ;
+    skos:definition ""@en ;
+    skos:broader :3 .
+:3
+    a :SubSubConcept ;
+    skos:definition ""@en .

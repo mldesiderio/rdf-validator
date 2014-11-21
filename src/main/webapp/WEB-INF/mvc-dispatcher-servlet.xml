@@ -28,6 +28,7 @@
           <value>/WEB-INF/ftl/dsp2</value>
           <value>/WEB-INF/ftl/owl2</value>
           <value>/WEB-INF/ftl/gclo</value>
+          <value>/WEB-INF/ftl/skos</value>
         </list>
       </property>
       

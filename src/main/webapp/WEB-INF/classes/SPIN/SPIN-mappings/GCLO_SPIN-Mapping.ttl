@@ -20,23 +20,48 @@
 @prefix gclo:      <http://www.example.org/gclo#> .
 
 # class constraints
+# if a constraint has been attached to owl:Thing, it will always execute that 
+# (SPINConstraints.runQueryOnClass uses SPINUtil.isRootClass which returns true for owl:Thing and rdfs:Resource)
 # -----------------
 owl:Thing 
 	spin:constraint 
+#	    [   a gclo2spin:CreateOWLThingClassAssignments ] ,
 		[   a gclo2spin:AtLeastRestriction ] . 
+
+# create OWL:Thing class assignments
+# ----
+gclo2spin:CreateOWLThingClassAssignments
+	a spin:ConstructTemplate ;
+    rdfs:subClassOf spin:ConstructTemplates ;
+    # spin:violationSource
+    spin:labelTemplate "create OWL:Thing class assignments" ; 
+    spin:body [
+        rdf:type sp:Construct ;
+        sp:text """
+            CONSTRUCT {
+                ?type a owl:Thing .
+            }
+            WHERE {
+	            ?instance a ?type .
+			    #FILTER NOT EXISTS {
+			    #    ?type rdfs:subClassOf ?anyClass .
+			    #}
+		    }
+            """ ;
+    ] .
 
 # reasoning
 # ---------
-gclo2spin:ToInfer 
-	spin:rule [
-		a sp:Construct ;
-        	sp:text """
-            	CONSTRUCT {            
-                	?this rdf:type owl:Thing .        
-            	}
-            	WHERE {            
-                	?this ?p ?o .            
-        		} """ ; ] .
+#gclo2spin:ToInfer 
+#	spin:rule [
+#		a sp:Construct ;
+#        	sp:text """
+#            	CONSTRUCT {            
+#                	?this rdf:type owl:Thing .        
+#            	}
+#            	WHERE {            
+#                	?this ?p ?o .            
+#        		} """ ; ] .
 
 # at-least restriction
 # ---------------------
@@ -52,7 +77,7 @@ gclo2spin:AtLeastRestriction
             CONSTRUCT {
                 _:cv 
                 	a spin:ConstraintViolation ;
-                    spin:violationRoot ?this ;
+                    spin:violationRoot ?subject ;
                     rdfs:label ?violationMessage ;
                     spin:violationPath ?p1 .
             }
@@ -69,13 +94,15 @@ gclo2spin:AtLeastRestriction
 						
 				# data
 				# ----
-				?this ?p1 ?o1 .
-				?this a ?contextConcept .
+				?subject a ?contextConcept .
+				FILTER EXISTS {
+				    ?subject ?p1 ?o1 .
+				}
 				
 				# validation
 				# ----------
 				FILTER ( ?constrainingElement = ">=" ) .
-				BIND ( gclo2spin:qualifiedCardinality( ?this, ?p1, ?c1 ) AS ?c ) .
+				BIND ( gclo2spin:qualifiedCardinality( ?subject, ?p1, ?c1 ) AS ?c ) .
 				BIND( STRDT ( STR ( ?constrainingValue ), xsd:nonNegativeInteger ) AS ?MinimumCardinality )
 				BIND( STRDT ( STR ( ?c ), xsd:nonNegativeInteger ) AS ?cardinality )
 				FILTER ( ?cardinality < ?MinimumCardinality ) .	
@@ -96,7 +123,7 @@ gclo2spin:AtLeastRestriction
 #               -----
                 BIND ( CONCAT( 
                     \"at-least restriction | The individual '\", 
-                    xsd:string( ?this ), 
+                    xsd:string( ?subject ), 
                     \"' can only be connected by '\", 
                     xsd:string( ?p1 ), 
                     \"' to at least \", 

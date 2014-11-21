@@ -31,5 +31,9 @@
 			<a href="<@spring.url '/gclo' />">GCL</a>
 		</li>
 		
+		<li<#if link?? & link == 'skos'> id="current"</#if>>
+			<a href="<@spring.url '/skos' />">SKOS</a>
+		</li>
+		
 	</ul>
 </div>

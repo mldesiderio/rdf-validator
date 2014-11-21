@@ -11,7 +11,6 @@
 # invalid data
 # ------------
 :AlBundy
-    a owl:Thing ;
     a :HavingAtLeast2Daughters ;
     :hasChild :KellyBundy ;
     :hasChild :BudBundy .
