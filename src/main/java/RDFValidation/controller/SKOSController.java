@@ -81,7 +81,8 @@ public class SKOSController
 		HttpServletRequest request,
 		@RequestParam( "nameSpaceDeclaration" ) String nameSpaceDeclaration, 
 		@RequestParam( "constraints" ) String constraints, 
-		@RequestParam( "data" ) String data )
+		@RequestParam( "data" ) String data,
+		@RequestParam( value = " thesauri", required = false ) final String[] thesauri )
 	{
 		ModelAndView model = new ModelAndView( "skos-demo-validation", "link", "skos" );
 
@@ -108,6 +109,10 @@ public class SKOSController
 		// thesauri ( zip files )
 		String absolutePathResources = request.getSession().getServletContext().getRealPath( "/resources" );
 		spin.setAbsolutePathResources( absolutePathResources );
+//		if( thesauri != null && thesauri.length() > 0 )
+//		{
+//			
+//		}
 		List<String> zipFiles = new ArrayList<String>();
 		zipFiles.add( "thesoz_0_93.zip" );
 		spin.setZipFiles( zipFiles );

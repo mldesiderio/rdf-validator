@@ -576,76 +576,6 @@ skosqc2spin:LabelingAndDocumentationIssues-EmptyLabels
     
 # Labeling and Documentation Issues - Ambiguous Notation References
 # ---------------------
-skosqc2spin:LabelingAndDocumentationIssues-AmbiguousNotationReferences
-	a spin:ConstructTemplate ;
-    rdfs:subClassOf spin:ConstructTemplates ;
-    # spin:violationSource
-    spin:labelTemplate "Labeling and Documentation Issues - Ambiguous Notation References" ; 
-    spin:body [
-        rdf:type sp:Construct ;
-        sp:text """
-            PREFIX skosqc2spin: <http://constraints.org/skosqc2spin#>
-            CONSTRUCT {
-                _:cv 
-                	a spin:ConstraintViolation ;
-                    spin:violationRoot ?subject ;
-                    rdfs:label ?violationMessage ;
-                    spin:violationPath skos:notation .
-            }
-            WHERE {
-            	?subject
-				    a [rdfs:subClassOf* skos:Concept] ;
-				    skos:inScheme ?conceptScheme .
-				#    skos:notation ?literal1 .
-				#BIND ( ( STR ( ?literal1 ) ) AS ?l1 ) .
-				FILTER EXISTS {
-				    ?concept 
-					    a [rdfs:subClassOf* skos:Concept] ;
-					    skos:inScheme ?conceptScheme .
-					#FILTER ( ?subject != ?concept ) . 
-					?conceptScheme
-				        a [rdfs:subClassOf* skos:ConceptScheme] .
-				}
-            	  	
-				# data
-				# ----
-				#?this 
-				#    a [rdfs:subClassOf* skos:Concept] ;
-				#    skos:inScheme ?conceptScheme ;
-				#    skos:notation ?literal1 .
-				#BIND ( ( STR ( ?literal1 ) ) AS ?l1 ) .
-				#?concept 
-				#    a [rdfs:subClassOf* skos:Concept] ;
-				#    skos:inScheme ?conceptScheme ;
-				#    skos:notation ?literal2 .
-				#BIND ( ( STR ( ?literal2 ) ) AS ?l2 ) .
-				#?conceptScheme
-				#    a [rdfs:subClassOf* skos:ConceptScheme] .
-				    
-				# validation
-				# ----------
-				#FILTER ( ?this != ?concept ) . 
-				#FILTER ( ?l1 = ?l2 ) . 
-
-                # violation message
-                # -----
-                BIND ( CONCAT( 
-                    \"The concept '\",  
-                    xsd:string( ?this ), 
-                    \"' and the concept '\",
-                    xsd:string( ?concept ), 
-                    \"' with the same the concept scheme '\",
-                    xsd:string( ?conceptScheme ), 
-                    \"' have the identical skos:notation literal '\",
-                    xsd:string( ?l ), 
-                    \"'. | Further explanation: Concepts with the same concept scheme should not have identical skos:notation literals.\"
-                    ) AS ?violationMessage ) . 
-            }
-            """ ;
-    ] .
-    
-# Labeling and Documentation Issues - Ambiguous Notation References
-# ---------------------
 skosqc2spin:LabelingAndDocumentationIssues-AmbiguousNotationReferences-New
 	a spin:ConstructTemplate ;
     rdfs:subClassOf spin:ConstructTemplates ;
@@ -665,23 +595,47 @@ skosqc2spin:LabelingAndDocumentationIssues-AmbiguousNotationReferences-New
             WHERE {	  	
 				# data
 				# ----
-				
-				?this
+				?this 
 				    #a [rdfs:subClassOf* skos:Concept] ;
-				    skos:notation ?literal ;
-				    skos:inScheme ?conceptScheme .
-				BIND ( ( STR ( ?literal ) ) AS ?l1 ) .
+				    skos:inScheme ?conceptScheme ;
+				    skos:notation ?l .
+				#BIND ( ( STR ( ?literal1 ) ) AS ?l1 ) .
+				#BIND ( ( LANG ( ?literal1 ) ) AS ?lang1 ) .
+				
+				#FILTER EXISTS {
+					?concept 
+					    #a [rdfs:subClassOf* skos:Concept] ;
+					    skos:inScheme ?conceptScheme ;
+					    skos:notation ?l .
+					#BIND ( ( STR ( ?literal2 ) ) AS ?l2 ) .
+					#BIND ( ( LANG ( ?literal2 ) ) AS ?lang2 ) .
+					#?conceptScheme
+					#    a [rdfs:subClassOf* skos:ConceptScheme] .
+	            
+	                #FILTER ( ?this != ?concept ) . 
+					#FILTER ( ?l1 = ?l2 ) .
+					#FILTER ( ?lang1 = ?lang2 ) . 
+				#}
+				
+				
+				#?this
+				#    #a [rdfs:subClassOf* skos:Concept] ;
+				#    skos:notation ?literal1 ;
+				#    skos:inScheme ?conceptScheme .
+				#BIND ( ( STR ( ?literal ) ) AS ?l1 ) .
+				
+				#BIND ( skosqc2spin:cardinalityXXX( skos:notation, ?l, ?conceptScheme ) AS ?c ) .
 				# BIND ( ( STR ( ?this ) ) AS ?c ) .
-				FILTER EXISTS {
-				    ?concept 
-				        skos:notation ?literal ;
-				        skos:inScheme ?conceptScheme .
-				    BIND ( ( STR ( ?literal ) ) AS ?l2 ) .
-				    #FILTER ( ?this != ?concept ) .
-				    #FILTER ( ?conceptScheme1 = ?conceptScheme2 ) .
-				    FILTER ( ?l1 = ?l2 ) .
-				    # BIND ( ( STR ( ?concept ) ) AS ?c ) .
-				}
+				#FILTER EXISTS {
+				#    ?concept 
+				#        skos:notation ?literal2 ;
+				#        skos:inScheme ?conceptScheme .
+				#    BIND ( ( STR ( ?literal2 ) ) AS ?l2 ) .
+				#    #FILTER ( ?this != ?concept ) .
+				#    #FILTER ( ?conceptScheme1 = ?conceptScheme2 ) .
+				#    #FILTER ( ?l1 = ?l2 ) .
+				#    # BIND ( ( STR ( ?concept ) ) AS ?c ) .
+				#}
 				#BIND ( ( STR ( ?concept ) ) AS ?c ) .
 				#BIND( ( IF( BOUND( ?this ), ?concept, ""^^xsd:string ) ) AS ?c ) .
 				#BIND ( ( STR ( ?concept ) ) AS ?c )
@@ -717,11 +671,11 @@ skosqc2spin:LabelingAndDocumentationIssues-AmbiguousNotationReferences-New
                     \"The concept '\",  
                     xsd:string( ?this ), 
                     \"' and the concept '\",
-                    xsd:string( ?this ), 
+                    xsd:string( ?concept ), 
                     \"' with the same the concept scheme '\",
-                    xsd:string( ?this ), 
+                    xsd:string( ?conceptScheme ), 
                     \"' have the identical skos:notation literal '\",
-                    xsd:string( ?literal1 ), 
+                    xsd:string( ?l1 ), 
                     \"'. | Further explanation: Concepts with the same concept scheme should not have identical skos:notation literals.\"
                     ) AS ?violationMessage ) . 
             }
@@ -794,6 +748,42 @@ skosqc2spin:cardinalityPropertyValuesInCommonLanguage
                 FILTER ( ?p != rdf:type ) .
                 BIND ( ( LANG ( ?literal ) ) AS ?language ) .
                 FILTER ( ?language = ?arg2 ) .
+            }
+        """ ;
+    ] ;
+    spin:returnType xsd:nonNegativeInteger .
+    
+skosqc2spin:cardinalityXXX
+    rdf:type spin:Function ;
+    rdfs:subClassOf spin:Functions ;
+    rdfs:label "" ;
+    rdfs:comment "" ;
+    spin:constraint [
+        rdf:type spl:Argument ;
+        spl:predicate sp:arg2 ;
+        spl:valueType rdf:Property ;
+        rdfs:comment "property" ; 
+    ] ;
+    spin:constraint [
+        rdf:type spl:Argument ;
+        spl:predicate sp:arg2 ;
+        spl:valueType xsd:string ;
+        rdfs:comment "literal" ; 
+    ] ;
+    spin:constraint [
+        rdf:type spl:Argument ;
+        spl:predicate sp:arg3 ;
+        spl:valueType rdfs:Resource ;
+        rdfs:comment "concept scheme" ; 
+    ] ;
+    spin:body [
+        rdf:type sp:Select ;
+        sp:text """
+            SELECT ( COUNT ( ?subject ) AS ?cardinality)
+            WHERE {
+                ?subject 
+                    skos:inScheme ?arg3 ;
+                    ?arg2 ?arg2 .
             }
         """ ;
     ] ;

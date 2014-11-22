@@ -76,7 +76,7 @@
 				nameSpaceDeclaration : $jQ( "#containerNamespaceDeclarations" ).find( "textarea" ).val(),
 				constraints : $jQ( "#containerConstraints" ).find( "textarea" ).val(),
 				data : $jQ( "#containerData" ).find( "textarea" ).val(),
-				inferenceRules : $jQ( "#containerInferenceRules" ).find( "textarea" ).val()
+				thesauri : $jQ("input[name='thesauri']").is(':checked')
 				}
 		    })
 	    	.done( function( html ) {
