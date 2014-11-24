@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +25,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import RDFValidation.JenaSPARQLQueries;
 import RDFValidation.Spin;
-import RDFValidation.SpinSKOS;
 import RDFValidation.ValidationEnvironment;
 
 @Controller
@@ -83,7 +81,7 @@ public class SKOSController
 		@RequestParam( "nameSpaceDeclaration" ) String nameSpaceDeclaration, 
 		@RequestParam( "constraints" ) String constraints, 
 		@RequestParam( "data" ) String data,
-		@RequestParam( value = " thesauri", required = false ) final String[] thesauri )
+ @RequestParam( value = "thesauri[]", required = false ) final String[] thesauri )
 	{
 		ModelAndView model = new ModelAndView( "skos-demo-validation", "link", "skos" );
 

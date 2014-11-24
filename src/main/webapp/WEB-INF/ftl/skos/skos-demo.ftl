@@ -76,7 +76,7 @@
 				nameSpaceDeclaration : $jQ( "#containerNamespaceDeclarations" ).find( "textarea" ).val(),
 				constraints : $jQ( "#containerConstraints" ).find( "textarea" ).val(),
 				data : $jQ( "#containerData" ).find( "textarea" ).val(),
-				thesauri : $jQ("input[name='thesauri']").is(':checked')
+				thesauri : $jQ("input[name='thesauri[]']:checked").map(function(){return $jQ(this).val()}).toArray()
 				}
 		    })
 	    	.done( function( html ) {

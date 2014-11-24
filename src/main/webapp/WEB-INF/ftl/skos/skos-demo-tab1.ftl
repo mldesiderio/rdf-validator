@@ -11,8 +11,8 @@
 			<div class="checkbox_radio_block">
 			    <legend>New variables in this release</legend>
 			    <#list thesauri as thesaurus>
-			  	<input type="checkbox" name="thesauri" id="thesaurus_${thesaurus}" style="margin-left: 20px;" value="${thesaurus}"/>
-			  	<label for="variable_${thesaurus}">${thesaurus}</label><br />
+			  	<input type="checkbox" name="thesauri[]" id="thesaurus_${thesaurus}" style="margin-left: 20px;" value="${thesaurus}"/>
+			  	<label for="thesaurus_${thesaurus}">${thesaurus}</label><br />
 			  	</#list>
 			</div>
 		</fieldset><br /><br />
