@@ -24,6 +24,7 @@
 	<jena.version>2.11.2</jena.version>
 	<tomcat.servlet.api.version>6.0.41</tomcat.servlet.api.version>
 	<commonsio.version>2.4</commonsio.version>
+	<commons.lang3.version>3.0</commons.lang3.version>
   </properties>
 
   <dependencies>
@@ -246,6 +247,11 @@
 			<version>1.2</version>
 		</dependency>
 			
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons.lang3.version}</version>
+		</dependency>
     
   </dependencies>
   

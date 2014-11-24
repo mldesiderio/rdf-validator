@@ -148,6 +148,8 @@ public class SpinSKOS
 			graph.add( getRDFGraph( "/SPIN/SPIN-mappings/" + spinMapping, "TTL" ) );
 		}
 		
+		
+		
 //		debugging = debugging + "<li>";
 //		debugging = debugging + "graph size (SPIN mapping): " + graph.size();
 //		debugging = debugging + "</li>";

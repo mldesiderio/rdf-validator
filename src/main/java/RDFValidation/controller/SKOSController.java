@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import RDFValidation.JenaSPARQLQueries;
 import RDFValidation.Spin;
 import RDFValidation.SpinSKOS;
 import RDFValidation.ValidationEnvironment;
@@ -96,6 +97,9 @@ public class SKOSController
 		 * "&gt;" );
 		 */
 
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH.mm.ss");
+		System.out.println( "start: " +  sdf.format( new java.util.Date() ) + " ..." );
+		
 		// add line separators at the end of each input graph
 		String ND = new StringBuilder( nameSpaceDeclaration ).append( "\r\n" ).toString();
 		String C = new StringBuilder( constraints ).append( "\r\n" ).toString();
@@ -103,30 +107,39 @@ public class SKOSController
 
 		// input graph
 		String rdfGraph = new StringBuilder( ND ).append( C ).append( D ).toString();
-
-		SpinSKOS spin = new SpinSKOS( "SKOS_SPIN-Mapping.ttl" );
-		
-		// thesauri ( zip files )
-		String absolutePathResources = request.getSession().getServletContext().getRealPath( "/resources" );
-		spin.setAbsolutePathResources( absolutePathResources );
-//		if( thesauri != null && thesauri.length() > 0 )
+//
+//		SpinSKOS spin = new SpinSKOS( "SKOS_SPIN-Mapping.ttl" );
+//		
+//		// thesauri ( zip files )
+//		String absolutePathResources = request.getSession().getServletContext().getRealPath( "/resources" );
+//		spin.setAbsolutePathResources( absolutePathResources );
+////		if( thesauri != null && thesauri.length() > 0 )
+////		{
+////			
+////		}
+//		List<String> zipFiles = new ArrayList<String>();
+//		zipFiles.add( "thesoz_0_93.zip" );
+//		spin.setZipFiles( zipFiles );
+//		
+//		spin.runInferences_checkConstraints( rdfGraph );
+//
+//		model.addObject( "skosValidationResult", spin.validationResults );
+//		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
+//
+//		// SPIN exception
+//		if ( spin.getSPINException() != null )
 //		{
-//			
+//			model.addObject( "spinException", spin.getSPINException() );
 //		}
-		List<String> zipFiles = new ArrayList<String>();
-		zipFiles.add( "thesoz_0_93.zip" );
-		spin.setZipFiles( zipFiles );
 		
-		spin.runInferences_checkConstraints( rdfGraph );
-
-		model.addObject( "skosValidationResult", spin.validationResults );
-		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
-
-		// SPIN exception
-		if ( spin.getSPINException() != null )
-		{
-			model.addObject( "spinException", spin.getSPINException() );
-		}
+		String absolutePathResources = request.getSession().getServletContext().getRealPath( "/resources" );
+		boolean isLogging = true;
+		JenaSPARQLQueries jenaSPARQLQueries = new JenaSPARQLQueries( absolutePathResources, rdfGraph, isLogging );
+		jenaSPARQLQueries.query();
+		
+		model.addObject( "constraintViolationList", jenaSPARQLQueries.getConstraintViolationList() );
+		
+		System.out.println( "end: " + sdf.format( new java.util.Date() ) );
 
 		return model;
 	}
