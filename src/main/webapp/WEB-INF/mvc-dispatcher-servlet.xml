@@ -31,6 +31,10 @@
           <value>/WEB-INF/ftl/skos</value>
           <value>/WEB-INF/ftl/shex</value>
           <value>/WEB-INF/ftl/rs</value>
+          <value>/WEB-INF/ftl/datacube</value>
+          <value>/WEB-INF/ftl/dcat</value>
+          <value>/WEB-INF/ftl/disco</value>
+          <value>/WEB-INF/ftl/phdd</value>
         </list>
       </property>
       
