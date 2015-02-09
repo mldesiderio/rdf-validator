@@ -162,19 +162,26 @@ public class FileHelper
 		int dynaTreeIndex = 0;
 		List<DynaTree> dynaTreeChild = new ArrayList<DynaTree>();
 
-		for ( final File fileEntry : folder.listFiles() )
+		try
 		{
-			if ( fileEntry.isDirectory() && isRecursive )
+			for ( final File fileEntry : folder.listFiles() )
 			{
-				dynaTreeChild.add( new DynaTree( fileEntry.getName(), null, true, filePath + fileEntry.getName() + "/", null ) );
-				dynaTreeChild.get( dynaTreeIndex ).setChildren( convertDirectoryToDynaTree( fileEntry, filePath + fileEntry.getName() + "/", isRecursive ) );
+				if ( fileEntry.isDirectory() && isRecursive )
+				{
+					dynaTreeChild.add( new DynaTree( fileEntry.getName(), null, true, filePath + fileEntry.getName() + "/", null ) );
+					dynaTreeChild.get( dynaTreeIndex ).setChildren( convertDirectoryToDynaTree( fileEntry, filePath + fileEntry.getName() + "/", isRecursive ) );
 
-			} else
-			{
-				dynaTreeChild.add( new DynaTree( fileEntry.getName(), null, false, filePath + fileEntry.getName(), null ) );
+				} else
+				{
+					dynaTreeChild.add( new DynaTree( fileEntry.getName(), null, false, filePath + fileEntry.getName(), null ) );
+				}
+				dynaTreeIndex++;
 			}
-			dynaTreeIndex++;
+		} catch (Exception e)
+		{
+			// TODO: handle exception
 		}
+
 		return dynaTreeChild;
 	}
 
