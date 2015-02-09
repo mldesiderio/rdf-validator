@@ -1,0 +1,16 @@
+# constraint
+# ----------
+:pc1
+    a gclo:PropertyConstraint ;
+    gclo:contextClass :ParentOfDaughter ;
+    gclo:leftPropertyList ( :parentOf ) ;
+    gclo:classes ( :Female ) ;
+    gclo:constrainingElement "existential restrictions" .
+
+# invalid data
+# ------------
+:Worf
+    a :ParentOfDaughter ;
+    :parentOf :Alexander .
+:Alexander
+    a :Male .

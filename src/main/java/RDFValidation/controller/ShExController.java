@@ -27,8 +27,8 @@ import RDFValidation.ValidationEnvironment;
 
 @Controller
 @SessionAttributes( "validationEnvironment" )
-@RequestMapping( value = "/gclo" )
-public class GCLOController
+@RequestMapping( value = "/shex" )
+public class ShExController
 {
 	/* multiple file upload */
 	LinkedList<FileMeta> files = new LinkedList<FileMeta>();
@@ -37,14 +37,14 @@ public class GCLOController
 	FileMeta fileMeta = null;
 
 	/* resource gclo path */
-	final String gcloResourcePath = "/resources/rdfGraphs/GCLO/";
+	final String shexResourcePath = "/resources/rdfGraphs/ShEx/";
 	final String fileUploadPath = "/resources/uploaded_files/";
 
 	// GCLO main
 	@RequestMapping( method = RequestMethod.GET )
 	public ModelAndView landing( @RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
 	{
-		ModelAndView model = new ModelAndView( "gclo-main", "link", "gclo" );
+		ModelAndView model = new ModelAndView( "shex-main", "link", "shex" );
 
 		if ( sessionId != null && sessionId.equals( "0" ) )
 			response.setHeader( "SESSION_INVALID", "yes" );
@@ -61,14 +61,14 @@ public class GCLOController
 	@RequestMapping( value = "/demo", method = RequestMethod.GET )
 	public ModelAndView demo( @RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
 	{
-		ModelAndView model = new ModelAndView( "gclo-demo", "link", "gclo" );
+		ModelAndView model = new ModelAndView( "shex-demo", "link", "shex" );
 		return model;
 	}
 
 	@RequestMapping( value = "/demo/validation", method = RequestMethod.POST )
 	public ModelAndView demo_tab3( @RequestParam( "nameSpaceDeclaration" ) String nameSpaceDeclaration, @RequestParam( "constraints" ) String constraints, @RequestParam( "data" ) String data )
 	{
-		ModelAndView model = new ModelAndView( "gclo-demo-validation", "link", "gclo" );
+		ModelAndView model = new ModelAndView( "shex-demo-validation", "link", "shex" );
 
 		/*
 		 * escape < and > String nd =
@@ -88,10 +88,10 @@ public class GCLOController
 		// input graph
 		String rdfGraph = new StringBuilder( ND ).append( C ).append( D ).toString();
 
-		Spin spin = new Spin( "RDF-CO-2-SPIN.ttl" );
+		Spin spin = new Spin( "ShEx-2-SPIN.ttl" );
 		spin.runInferences_checkConstraints( rdfGraph );
 
-		model.addObject( "gcloValidationResult", spin.validationResults );
+		model.addObject( "shexValidationResult", spin.validationResults );
 		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
 
 		// SPIN exception
@@ -110,7 +110,7 @@ public class GCLOController
 	public ModelAndView uploadGraphInitial( /* tab1 get content via ajax */
 	@RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
 	{
-		ModelAndView model = new ModelAndView( "gclo-upload", "link", "gclo" );
+		ModelAndView model = new ModelAndView( "shex-upload", "link", "shex" );
 
 		return model;
 	}
@@ -119,7 +119,7 @@ public class GCLOController
 	@RequestMapping( value = "/upload/validation", method = RequestMethod.POST )
 	public ModelAndView uploadGraphValidation( HttpServletRequest request, HttpServletResponse response )
 	{
-		ModelAndView model = new ModelAndView( "gclo-upload-validation", "link", "gclo" );
+		ModelAndView model = new ModelAndView( "shex-upload-validation", "link", "shex" );
 
 		if ( this.files != null && this.files.size() > 0 )
 		{
@@ -132,16 +132,16 @@ public class GCLOController
 			}
 
 			// add predefined namespace declarations to RDF graph
-			String absolutePath = request.getSession().getServletContext().getRealPath( gcloResourcePath );
+			String absolutePath = request.getSession().getServletContext().getRealPath( shexResourcePath );
 			absolutePath = absolutePath + "/" + "defaultNamespaceDeclarations.ttl";
 			// get predefined namespace content and append to rdfGraph
 			FileMeta fileMeta = FileHelper.getFileDetails( absolutePath );
 			rdfGraph += fileMeta.getFileContent();
 
-			Spin spin = new Spin( "RDF-CO-2-SPIN.ttl" );
+			Spin spin = new Spin( "ShEx-2-SPIN.ttl" );
 			spin.runInferences_checkConstraints( rdfGraph );
 
-			model.addObject( "gcloValidationResult", spin.validationResults );
+			model.addObject( "shexValidationResult", spin.validationResults );
 			model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
 
 			// SPIN exception
@@ -271,7 +271,7 @@ public class GCLOController
 		// );
 		// absolutePath = absolutePath + "/" + filePath;
 
-		String absolutePath = request.getSession().getServletContext().getRealPath( additionalPath != null ? additionalPath : gcloResourcePath );
+		String absolutePath = request.getSession().getServletContext().getRealPath( additionalPath != null ? additionalPath : shexResourcePath );
 		absolutePath = absolutePath + "/" + filePath;
 
 		// return FileHelper.getFileDetails( request, absolutePath,
@@ -292,7 +292,7 @@ public class GCLOController
 	{
 		DynaTree dynaTree = new DynaTree( "root", null, true, "/", null );
 		// get full path
-		String fullPath = request.getSession().getServletContext().getRealPath( specificDirectory != null ? specificDirectory : gcloResourcePath );
+		String fullPath = request.getSession().getServletContext().getRealPath( specificDirectory != null ? specificDirectory : shexResourcePath );
 		// System.out.println( fullPath );
 
 		// System.out.println(this.getClass().getClassLoader().getResource(

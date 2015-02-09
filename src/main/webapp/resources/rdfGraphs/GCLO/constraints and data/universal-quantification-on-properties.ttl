@@ -1,0 +1,23 @@
+# constraint
+# ----------
+[   a gclo:PropertyConstraint ;
+    gclo:contextClass :Enterprise ;
+    gclo:leftProperties ( :commandedBy ) ;
+    gclo:classes ( :EnterpriseCaptains ) ;
+    gclo:constrainingElement "universal quantification" ] .
+[   a gclo:ClassConstraint ;
+    gclo:contextClass :EnterpriseCaptains ;
+    gclo:classes ( :Archer :Kirk :Picard ) ;
+    gclo:constrainingElement "union" ] .
+
+# valid data
+# ------------
+:NCC-1701-D
+    a :Enterprise ; 
+    :commandedBy :Picard .
+
+# invalid data
+# ------------
+:NCC-1701
+    a :Enterprise ; 
+    :commandedBy :Sisko .

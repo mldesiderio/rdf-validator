@@ -27,8 +27,8 @@ import RDFValidation.ValidationEnvironment;
 
 @Controller
 @SessionAttributes( "validationEnvironment" )
-@RequestMapping( value = "/gclo" )
-public class GCLOController
+@RequestMapping( value = "/rs" )
+public class RSController
 {
 	/* multiple file upload */
 	LinkedList<FileMeta> files = new LinkedList<FileMeta>();
@@ -36,15 +36,15 @@ public class GCLOController
 	/* file */
 	FileMeta fileMeta = null;
 
-	/* resource gclo path */
-	final String gcloResourcePath = "/resources/rdfGraphs/GCLO/";
+	/* resource rs path */
+	final String rsResourcePath = "/resources/rdfGraphs/RS/";
 	final String fileUploadPath = "/resources/uploaded_files/";
 
-	// GCLO main
+	// rs main
 	@RequestMapping( method = RequestMethod.GET )
 	public ModelAndView landing( @RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
 	{
-		ModelAndView model = new ModelAndView( "gclo-main", "link", "gclo" );
+		ModelAndView model = new ModelAndView( "rs-main", "link", "rs" );
 
 		if ( sessionId != null && sessionId.equals( "0" ) )
 			response.setHeader( "SESSION_INVALID", "yes" );
@@ -56,19 +56,19 @@ public class GCLOController
 	}
 
 	/**
-	 * GCLO demo
+	 * rs demo
 	 */
 	@RequestMapping( value = "/demo", method = RequestMethod.GET )
 	public ModelAndView demo( @RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
 	{
-		ModelAndView model = new ModelAndView( "gclo-demo", "link", "gclo" );
+		ModelAndView model = new ModelAndView( "rs-demo", "link", "rs" );
 		return model;
 	}
 
 	@RequestMapping( value = "/demo/validation", method = RequestMethod.POST )
 	public ModelAndView demo_tab3( @RequestParam( "nameSpaceDeclaration" ) String nameSpaceDeclaration, @RequestParam( "constraints" ) String constraints, @RequestParam( "data" ) String data )
 	{
-		ModelAndView model = new ModelAndView( "gclo-demo-validation", "link", "gclo" );
+		ModelAndView model = new ModelAndView( "rs-demo-validation", "link", "rs" );
 
 		/*
 		 * escape < and > String nd =
@@ -88,10 +88,10 @@ public class GCLOController
 		// input graph
 		String rdfGraph = new StringBuilder( ND ).append( C ).append( D ).toString();
 
-		Spin spin = new Spin( "RDF-CO-2-SPIN.ttl" );
+		Spin spin = new Spin( "RS-2-SPIN.ttl" );
 		spin.runInferences_checkConstraints( rdfGraph );
 
-		model.addObject( "gcloValidationResult", spin.validationResults );
+		model.addObject( "rsValidationResult", spin.validationResults );
 		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
 
 		// SPIN exception
@@ -104,22 +104,22 @@ public class GCLOController
 	}
 
 	/**
-	 * GCLO UPLOAD
+	 * rs UPLOAD
 	 */
 	@RequestMapping( value = "/upload", method = RequestMethod.GET )
 	public ModelAndView uploadGraphInitial( /* tab1 get content via ajax */
 	@RequestParam( value = "sessionid", required = false ) final String sessionId, final HttpServletResponse response )
 	{
-		ModelAndView model = new ModelAndView( "gclo-upload", "link", "gclo" );
+		ModelAndView model = new ModelAndView( "rs-upload", "link", "rs" );
 
 		return model;
 	}
 
-	/* GCLO upload validation */
+	/* rs upload validation */
 	@RequestMapping( value = "/upload/validation", method = RequestMethod.POST )
 	public ModelAndView uploadGraphValidation( HttpServletRequest request, HttpServletResponse response )
 	{
-		ModelAndView model = new ModelAndView( "gclo-upload-validation", "link", "gclo" );
+		ModelAndView model = new ModelAndView( "rs-upload-validation", "link", "rs" );
 
 		if ( this.files != null && this.files.size() > 0 )
 		{
@@ -132,16 +132,16 @@ public class GCLOController
 			}
 
 			// add predefined namespace declarations to RDF graph
-			String absolutePath = request.getSession().getServletContext().getRealPath( gcloResourcePath );
+			String absolutePath = request.getSession().getServletContext().getRealPath( rsResourcePath );
 			absolutePath = absolutePath + "/" + "defaultNamespaceDeclarations.ttl";
 			// get predefined namespace content and append to rdfGraph
 			FileMeta fileMeta = FileHelper.getFileDetails( absolutePath );
 			rdfGraph += fileMeta.getFileContent();
 
-			Spin spin = new Spin( "RDF-CO-2-SPIN.ttl" );
+			Spin spin = new Spin( "RS-2-SPIN.ttl" );
 			spin.runInferences_checkConstraints( rdfGraph );
 
-			model.addObject( "gcloValidationResult", spin.validationResults );
+			model.addObject( "rsValidationResult", spin.validationResults );
 			model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
 
 			// SPIN exception
@@ -177,7 +177,7 @@ public class GCLOController
 		// );
 		// String absolutePath =
 		// request.getSession().getServletContext().getRealPath(
-		// gcloResourcePath
+		// rsResourcePath
 		// );
 		String absolutePath = request.getSession().getServletContext().getRealPath( fileUploadPath );
 
@@ -247,7 +247,7 @@ public class GCLOController
 
 		// String absolutePath =
 		// request.getSession().getServletContext().getRealPath(
-		// gcloFileUploadPath );
+		// rsFileUploadPath );
 		// remove file from the local drive.
 		// FileHelper.deleteFile( absolutePath + filename );
 
@@ -266,16 +266,16 @@ public class GCLOController
 	FileMeta getFileDetails( @RequestParam( "filePath" ) String filePath, @RequestParam( value = "additionalPath", required = false ) String additionalPath, HttpServletRequest request, HttpServletResponse response )
 	{
 		// String absolutePath = this.getClass().getClassLoader().getResource(
-		// gcloResourcePath ).getPath();
+		// rsResourcePath ).getPath();
 		// absolutePath = absolutePath.substring( 1, absolutePath.length() - 1
 		// );
 		// absolutePath = absolutePath + "/" + filePath;
 
-		String absolutePath = request.getSession().getServletContext().getRealPath( additionalPath != null ? additionalPath : gcloResourcePath );
+		String absolutePath = request.getSession().getServletContext().getRealPath( additionalPath != null ? additionalPath : rsResourcePath );
 		absolutePath = absolutePath + "/" + filePath;
 
 		// return FileHelper.getFileDetails( request, absolutePath,
-		// gcloResourcePath + filePath );
+		// rsResourcePath + filePath );
 		return FileHelper.getFileDetails( absolutePath );
 	}
 
@@ -292,7 +292,7 @@ public class GCLOController
 	{
 		DynaTree dynaTree = new DynaTree( "root", null, true, "/", null );
 		// get full path
-		String fullPath = request.getSession().getServletContext().getRealPath( specificDirectory != null ? specificDirectory : gcloResourcePath );
+		String fullPath = request.getSession().getServletContext().getRealPath( specificDirectory != null ? specificDirectory : rsResourcePath );
 		// System.out.println( fullPath );
 
 		// System.out.println(this.getClass().getClassLoader().getResource(
@@ -331,7 +331,7 @@ public class GCLOController
 		// List<DynaTree> listDynaTree = new ArrayList<DynaTree>();
 		// listDynaTree.add( new DynaTree(
 		// this.getClass().getClassLoader().getResource( "/" +
-		// "SPIN/functions/gclo-functions.ttl" ).getPath(), null, true, "/",
+		// "SPIN/functions/rs-functions.ttl" ).getPath(), null, true, "/",
 		// null
 		// ) );
 		// dynaTree.setChildren( listDynaTree );

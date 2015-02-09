@@ -1,0 +1,19 @@
+# constraint
+# ----------
+:cc1
+    a gclo:ClassConstraint ;
+    gclo:contextClass :IntersectionHologramHuman ;
+    gclo:classes ( :Hologram :Human ) ;
+    gclo:constrainingElement "Intersection" .
+:cc2
+    a gclo:ClassConstraint ;
+    gclo:contextClass owl:Thing ;
+    gclo:classes ( :IntersectionHologramHuman owl:Nothing ) ;
+    gclo:constrainingElement "Inclusion" .
+
+# invalid data
+# ------------
+:TheDoctor
+    a owl:Thing ;
+    a :Hologram ;
+    a :Human .

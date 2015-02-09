@@ -1,0 +1,64 @@
+# constraint
+# ----------
+[   a gclo:ClassConstraint ;
+    gclo:contextClass :Human ;
+    gclo:classes ( :I :J ) ;
+    gclo:constrainingElement "union" ] .
+
+[   a gclo:ClassConstraint ;
+    gclo:contextClass :J ;
+    gclo:classes ( :C :H ) ;
+    gclo:constrainingElement "Intersection" ] .
+
+[   a gclo:ClassConstraint ;
+    gclo:contextClass :I ;
+    gclo:classes ( :G :F ) ;
+    gclo:constrainingElement "Intersection" ] .
+
+[   a gclo:ClassConstraint ;
+    gclo:contextClass :G ;
+    gclo:classes ( :C ) ;
+    gclo:constrainingElement "Complement" ] .
+[   a gclo:ClassConstraint ;
+    gclo:contextClass :C ;
+    gclo:classes ( :A :B ) ;
+    gclo:constrainingElement "Intersection" ] .
+[   a gclo:PropertyConstraint ;
+    gclo:contextClass :A ;
+    gclo:leftProperties ( :name ) ;
+    gclo:classes ( xsd:string ) ;
+    gclo:constrainingElement ">=" ;
+    gclo:constrainingValue "1" ] .
+[   a gclo:PropertyConstraint ;
+    gclo:contextClass :B ;
+    gclo:leftProperties ( :name ) ;
+    gclo:classes ( xsd:string ) ;
+    gclo:constrainingElement "<=" ;
+    gclo:constrainingValue "1" ] .
+  
+[   a gclo:ClassConstraint ;
+    gclo:contextClass :H ;
+    gclo:classes ( :F ) ;
+    gclo:constrainingElement "Complement" ] .  
+[   a gclo:ClassConstraint ;
+    gclo:contextClass :F ;
+    gclo:classes ( :D :E ) ;
+    gclo:constrainingElement "Intersection" ] .
+[   a gclo:PropertyConstraint ;
+    gclo:contextClass :D ;
+    gclo:leftProperties ( :givenName ) ;
+    gclo:classes ( xsd:string ) ;
+    gclo:constrainingElement ">=" ;
+    gclo:constrainingValue "1" ] .
+[   a gclo:PropertyConstraint ;
+    gclo:contextClass :E ;
+    gclo:leftProperties ( :givenName ) ;
+    gclo:classes ( xsd:string ) ;
+    gclo:constrainingElement "<=" ;
+    gclo:constrainingValue "1" ] .
+
+# valid data
+# ------------
+
+# invalid data
+# ------------

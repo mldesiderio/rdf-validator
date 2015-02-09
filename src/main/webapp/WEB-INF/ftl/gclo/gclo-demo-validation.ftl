@@ -40,7 +40,7 @@
 			<#list constraintViolationList as constraintViolation>
 				<tr>
 					<td><b>root</b></td>
-					<td>${constraintViolation.root}</td>
+					<td><#if constraintViolation.root??>${constraintViolation.root}<#else></#if></td>
 				</tr>
 				<tr>
 					<td><b>message</b></td>

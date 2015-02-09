@@ -1,0 +1,33 @@
+# constraint
+# ----------
+[   a gclo:PropertyConstraint ;
+    gclo:contextClass :StarFleetCaptain ;
+    gclo:leftProperties ( :commandsVessel ) ;
+    gclo:classes ( :Vessel ) ;
+    gclo:constrainingElement ">=" ;
+    gclo:constrainingValue "1" ] .
+
+# valid data
+# ------------
+:Kirk
+    a :StarFleetCaptain ;
+    :commandsVessel :Enterprise .
+:Enterprise
+    a :Vessel .
+    
+:Janeway
+    a :StarFleetCaptain ;
+    :commandsVessel :Voyager .
+:Voyager
+    a :Vessel .
+    
+# invalid data
+# ------------
+:Spock
+    a :StarFleetCaptain .
+    
+:Sisko
+    a :StarFleetCaptain ;
+    :commandsVessel :DS9 .
+:DS9
+    a :SpaceStation .

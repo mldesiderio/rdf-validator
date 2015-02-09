@@ -27,8 +27,16 @@
 			<a href="<@spring.url '/dsp2' />">DSP2</a>
 		</li>
 		
+		<li<#if link?? & link == 'rs'> id="current"</#if>>
+			<a href="<@spring.url '/rs' />">ReSh</a>
+		</li>
+		
+		<li<#if link?? & link == 'shex'> id="current"</#if>>
+			<a href="<@spring.url '/shex' />">ShEx</a>
+		</li>
+		
 		<li<#if link?? & link == 'gclo'> id="current"</#if>>
-			<a href="<@spring.url '/gclo' />">GCL</a>
+			<a href="<@spring.url '/gclo' />">RDF-CO</a>
 		</li>
 		
 		<li<#if link?? & link == 'skos'> id="current"</#if>>
