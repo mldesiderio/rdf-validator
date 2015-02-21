@@ -63,7 +63,7 @@
 
 	$jQ(document).ready(function() {   
 	    <#-- create the tree -->
-	    createTree( "#dirConstraints", "datacube", "#containerConstraints", "/resources/rdfGraphs/datacube/constraints and data" );
+	    createTree( "#dirConstraints", "datacube", "#containerConstraints", "/resources/rdfGraphs/DATACUBE/constraints and data" );
 	    <#-- show empty textarea -->
 	    createRdfOwlView( "#containerConstraints" , ""  , [] );
 	});

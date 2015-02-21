@@ -5,5 +5,5 @@
 @prefix dcterms: <http://purl.org/dc/terms#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/#> .
-@prefix gclo: <http://constraints.org/gclo#> .
-@prefix: <http://www.example.org/gclo/data#> .
+@prefix rdfcv: <http://RDF-Constraints-Vocabulary.org/rdfcv#> .
+@prefix : <http://RDF-Constraints-Vocabulary.org/rdfcv/data#> .

@@ -63,7 +63,7 @@
 
 	$jQ(document).ready(function() {   
 	    <#-- create the tree -->
-	    createTree( "#dirInferenceRules", "disco","#containerInferenceRules", "/resources/rdfGraphs/disco/inferenceRules" );
+	    createTree( "#dirInferenceRules", "disco","#containerInferenceRules", "/resources/rdfGraphs/DISCO/inferenceRules" );
 	    <#-- show empty textarea -->
 	    createRdfOwlView( "#containerInferenceRules" , ""  , [] );
 	});

@@ -1,5 +1,5 @@
 <form id="form-skos-demo-tab1" action="<@spring.url '/skos/demo/tab1' />" style="padding-left: 25px" class="MISSY_round_right" >	
-
+	<!--
 	<h3>List of new variable</h3>
 	<hr />
 	<p style="margin-left: 0;">
@@ -19,7 +19,7 @@
 	</#if>
 	<p style="margin-left: 0;"><strong>Note: </strong>Before you proceed to the next step, please double-check if there have been any changes in the existing variables. Especially if categorical variables turned into continuous variables. In that case, please go to the MISSY-Editor and change the import-status for those variables in the corresponding variable list.</p>
 	<hr  />
-	
+	-->
 	    <ul style="margin: 0;">
 	    	<li style="list-style-type: disc;">
 	    	predefined namespace declarations are added automatically

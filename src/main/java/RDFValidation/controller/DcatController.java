@@ -88,7 +88,7 @@ public class DcatController
 		// input graph
 		String rdfGraph = new StringBuilder( ND ).append( C ).append( D ).toString();
 
-		Spin spin = new Spin( "dcat-2-SPIN.ttl" );
+		Spin spin = new Spin( "DCAT-2-SPIN.ttl", "dcat.ttl" );
 		spin.runInferences_checkConstraints( rdfGraph );
 
 		model.addObject( "dcatValidationResult", spin.validationResults );
@@ -138,7 +138,7 @@ public class DcatController
 			FileMeta fileMeta = FileHelper.getFileDetails( absolutePath );
 			rdfGraph += fileMeta.getFileContent();
 
-			Spin spin = new Spin( "dcat-2-SPIN.ttl" );
+			Spin spin = new Spin( "DCAT-2-SPIN.ttl", "dcat.ttl" );
 			spin.runInferences_checkConstraints( rdfGraph );
 
 			model.addObject( "dcatValidationResult", spin.validationResults );

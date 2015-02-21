@@ -88,7 +88,7 @@ public class PhddController
 		// input graph
 		String rdfGraph = new StringBuilder( ND ).append( C ).append( D ).toString();
 
-		Spin spin = new Spin( "phdd-2-SPIN.ttl" );
+		Spin spin = new Spin( "PHDD-2-SPIN.ttl", "phdd.ttl" );
 		spin.runInferences_checkConstraints( rdfGraph );
 
 		model.addObject( "phddValidationResult", spin.validationResults );
@@ -138,7 +138,7 @@ public class PhddController
 			FileMeta fileMeta = FileHelper.getFileDetails( absolutePath );
 			rdfGraph += fileMeta.getFileContent();
 
-			Spin spin = new Spin( "phdd-2-SPIN.ttl" );
+			Spin spin = new Spin( "PHDD-2-SPIN.ttl", "phdd.ttl" );
 			spin.runInferences_checkConstraints( rdfGraph );
 
 			model.addObject( "phddValidationResult", spin.validationResults );

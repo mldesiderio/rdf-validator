@@ -88,7 +88,7 @@ public class DiscoController
 		// input graph
 		String rdfGraph = new StringBuilder( ND ).append( C ).append( D ).toString();
 
-		Spin spin = new Spin( "disco-2-SPIN.ttl" );
+		Spin spin = new Spin( "Disco-2-SPIN.ttl", "discovery.ttl" );
 		spin.runInferences_checkConstraints( rdfGraph );
 
 		model.addObject( "discoValidationResult", spin.validationResults );
@@ -138,7 +138,7 @@ public class DiscoController
 			FileMeta fileMeta = FileHelper.getFileDetails( absolutePath );
 			rdfGraph += fileMeta.getFileContent();
 
-			Spin spin = new Spin( "disco-2-SPIN.ttl" );
+			Spin spin = new Spin( "Disco-2-SPIN.ttl", "discovery.ttl" );
 			spin.runInferences_checkConstraints( rdfGraph );
 
 			model.addObject( "discoValidationResult", spin.validationResults );

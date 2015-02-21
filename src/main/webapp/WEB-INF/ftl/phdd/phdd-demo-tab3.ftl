@@ -63,7 +63,7 @@
 
 	$jQ(document).ready(function() {   
 	    <#-- create the tree -->
-	    createTree( "#dirData", "phdd", "#containerData", "/resources/rdfGraphs/phdd/data" );
+	    createTree( "#dirData", "phdd", "#containerData", "/resources/rdfGraphs/PHDD/data" );
 	    <#-- show empty textarea -->
 	    createRdfOwlView( "#containerData" , ""  , [] );
 	});

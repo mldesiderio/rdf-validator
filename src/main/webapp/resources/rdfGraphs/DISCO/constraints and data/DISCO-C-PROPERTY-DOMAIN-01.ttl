@@ -1,0 +1,23 @@
+# valid data
+# -----
+:question
+    a disco:Question ;
+    disco:responseDomain :responseDomain .
+:responseDomain
+    a disco:Representation .
+    
+:dataFile
+    a disco:DataFile ;
+    disco:caseQuantity '1'^^xsd:nonNegativeInteger .
+    
+# invalid data
+# -----
+:variable
+    a disco:Variable ;
+    disco:responseDomain :responseDomain .
+:responseDomain
+    a disco:Representation .
+    
+:categoryStatistics
+    a disco:SummaryStatistics ;
+    disco:frequency '1'^^xsd:nonNegativeInteger .

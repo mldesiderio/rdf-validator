@@ -47,7 +47,7 @@
 <script>
 $jQ( function(){
 	<#-- load default content -->
-	getDocumentDetails( "<@spring.url '/datacube/file_details' />", "defaultNamespaceDeclarations.ttl", "#containerNamespaceDeclarations", "resources/rdfGraphs/datacube/" );
+	getDocumentDetails( "<@spring.url '/datacube/file_details' />", "defaultNamespaceDeclarations.ttl", "#containerNamespaceDeclarations", "resources/rdfGraphs/DATACUBE/" );
 	
 	<#-- file upload -->
 	<#--$jQ('#fileupload2').fileupload({

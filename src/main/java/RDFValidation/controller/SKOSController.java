@@ -81,7 +81,7 @@ public class SKOSController
 		@RequestParam( "nameSpaceDeclaration" ) String nameSpaceDeclaration, 
 		@RequestParam( "constraints" ) String constraints, 
 		@RequestParam( "data" ) String data,
- @RequestParam( value = "thesauri[]", required = false ) final String[] thesauri )
+		@RequestParam( value = "thesauri[]", required = false ) final String[] thesauri )
 	{
 		ModelAndView model = new ModelAndView( "skos-demo-validation", "link", "skos" );
 
@@ -95,8 +95,8 @@ public class SKOSController
 		 * "&gt;" );
 		 */
 
-		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH.mm.ss");
-		System.out.println( "start: " +  sdf.format( new java.util.Date() ) + " ..." );
+//		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH.mm.ss");
+//		System.out.println( "start: " +  sdf.format( new java.util.Date() ) + " ..." );
 		
 		// add line separators at the end of each input graph
 		String ND = new StringBuilder( nameSpaceDeclaration ).append( "\r\n" ).toString();
@@ -105,6 +105,21 @@ public class SKOSController
 
 		// input graph
 		String rdfGraph = new StringBuilder( ND ).append( C ).append( D ).toString();
+		
+		Spin spin = new Spin( "SKOS-2-SPIN.ttl" );
+		spin.runInferences_checkConstraints( rdfGraph );
+
+		model.addObject( "gcloValidationResult", spin.validationResults );
+		model.addObject( "constraintViolationList", spin.getConstraintViolationList() );
+
+		// SPIN exception
+		if ( spin.getSPINException() != null )
+		{
+			model.addObject( "spinException", spin.getSPINException() );
+		}
+
+		return model;
+		
 //
 //		SpinSKOS spin = new SpinSKOS( "SKOS_SPIN-Mapping.ttl" );
 //		
@@ -130,16 +145,18 @@ public class SKOSController
 //			model.addObject( "spinException", spin.getSPINException() );
 //		}
 		
-		String absolutePathResources = request.getSession().getServletContext().getRealPath( "/resources" );
-		boolean isLogging = true;
-		JenaSPARQLQueries jenaSPARQLQueries = new JenaSPARQLQueries( absolutePathResources, rdfGraph, isLogging );
-		jenaSPARQLQueries.query();
 		
-		model.addObject( "constraintViolationList", jenaSPARQLQueries.getConstraintViolationList() );
 		
-		System.out.println( "end: " + sdf.format( new java.util.Date() ) );
-
-		return model;
+//		String absolutePathResources = request.getSession().getServletContext().getRealPath( "/resources" );
+//		boolean isLogging = true;
+//		JenaSPARQLQueries jenaSPARQLQueries = new JenaSPARQLQueries( absolutePathResources, rdfGraph, isLogging );
+//		jenaSPARQLQueries.query();
+//		
+//		model.addObject( "constraintViolationList", jenaSPARQLQueries.getConstraintViolationList() );
+//		
+//		System.out.println( "end: " + sdf.format( new java.util.Date() ) );
+//
+//		return model;
 	}
 
 	/**
@@ -192,7 +209,7 @@ public class SKOSController
 			FileMeta fileMeta = FileHelper.getFileDetails( absolutePath );
 			rdfGraph += fileMeta.getFileContent();
 
-			Spin spin = new Spin( "SKOS_SPIN-Mapping.ttl" );
+			Spin spin = new Spin( "SKOS-2-SPIN.ttl" );
 			spin.runInferences_checkConstraints( rdfGraph );
 
 			model.addObject( "skosValidationResult", spin.validationResults );

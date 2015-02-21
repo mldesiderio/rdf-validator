@@ -1,11 +1,11 @@
-# constraint
-# ----------
-[   a gclo:PropertyConstraint ;
-    gclo:contextClass :StarFleetCaptain ;
-    gclo:leftProperties ( :commandsVessel ) ;
-    gclo:classes ( :Vessel ) ;
-    gclo:constrainingElement ">=" ;
-    gclo:constrainingValue "1" ] .
+# constraints
+# -----------
+[   a rdfcv:PropertyConstraint , rdfcv:SimpleConstraint ;
+    rdfcv:contextClass :StarFleetCaptain ;
+    rdfcv:leftProperties ( :commandsVessel ) ;
+    rdfcv:classes ( :Vessel ) ;
+    rdfcv:constrainingElement ">=" ;
+    rdfcv:constrainingValue "1" ] .
 
 # valid data
 # ------------

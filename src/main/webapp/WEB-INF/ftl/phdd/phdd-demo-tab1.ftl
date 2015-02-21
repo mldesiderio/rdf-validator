@@ -47,7 +47,7 @@
 <script>
 $jQ( function(){
 	<#-- load default content -->
-	getDocumentDetails( "<@spring.url '/phdd/file_details' />", "defaultNamespaceDeclarations.ttl", "#containerNamespaceDeclarations", "resources/rdfGraphs/phdd/" );
+	getDocumentDetails( "<@spring.url '/phdd/file_details' />", "defaultNamespaceDeclarations.ttl", "#containerNamespaceDeclarations", "resources/rdfGraphs/PHDD/" );
 	
 	<#-- file upload -->
 	<#--$jQ('#fileupload2').fileupload({

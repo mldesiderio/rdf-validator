@@ -1,0 +1,23 @@
+# valid data
+# -----
+:variable_1
+    a disco:Variable ;
+    disco:basedOn :representedVariable .
+:representedVariable
+    a disco:RepresentedVariable .
+    
+:dataFile
+    a disco:DataFile ;
+    disco:caseQuantity '1'^^xsd:nonNegativeInteger .
+    
+# invalid data
+# -----
+:variable_2
+    a disco:Variable ;
+    disco:basedOn :variable_3 .
+:variable_3
+    a disco:Variable .
+    
+:categoryStatistics
+    a disco:CategoryStatistics ;
+    disco:frequency '1'^^xsd:integer .

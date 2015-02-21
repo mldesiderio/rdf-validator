@@ -62,6 +62,33 @@
 						<td>${constraintViolationFix}</td>
 					</tr>
 	  	    	</#list>
+	  	    	<#if constraintViolation.severityLevel??>
+	  	    	<#if constraintViolation.severityLevel == 'INFO'>
+					<tr>
+						<td><span style="color:blue"><b>severity</b></span></td>
+						<td><span style="color:blue">${constraintViolation.severityLevel}</span></td>
+					</tr>
+				</#if>  
+				<#if constraintViolation.severityLevel == 'SHOULD'>
+					<tr>
+						<td><span style="color:orange"><b>severity</b></span></td>
+						<td><span style="color:orange">${constraintViolation.severityLevel}</span></td>
+					</tr>
+				</#if> 
+	  	    	<#if constraintViolation.severityLevel == 'WARNING'>
+					<tr>
+						<td><span style="color:orange"><b>severity</b></span></td>
+						<td><span style="color:orange">${constraintViolation.severityLevel}</span></td>
+					</tr>
+				</#if>  
+				<#if constraintViolation.severityLevel == 'ERROR'>
+					<tr>
+						<td><span style="color:red"><b>severity</b></span></td>
+						<td><span style="color:red">${constraintViolation.severityLevel}</span></td>
+					</tr>
+				</#if>  
+	  	    	<#else>
+	  	    	</#if>
 	  	    	<tr><td><br/></td><td><br/></td></tr>
 	    	</#list>
 		</table>

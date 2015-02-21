@@ -63,7 +63,7 @@
 
 	$jQ(document).ready(function() {   
 	    <#-- create the tree -->
-	    createTree( "#dirConstraints", "shex", "#containerConstraints", "/resources/rdfGraphs/ShEx/constraints and data" );
+	    createTree( "#dirConstraints", "shex", "#containerConstraints", "/resources/rdfGraphs/DISCO/constraints and data" );
 	    <#-- show empty textarea -->
 	    createRdfOwlView( "#containerConstraints" , ""  , [] );
 	});

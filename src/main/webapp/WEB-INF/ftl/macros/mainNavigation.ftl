@@ -36,7 +36,7 @@
 		</li>
 		
 		<li<#if link?? & link == 'gclo'> id="current"</#if>>
-			<a href="<@spring.url '/gclo' />">RDF-CO</a>
+			<a href="<@spring.url '/gclo' />">RDF-CV</a>
 		</li>
 		
 		<li<#if link?? & link == 'skos'> id="current"</#if>>

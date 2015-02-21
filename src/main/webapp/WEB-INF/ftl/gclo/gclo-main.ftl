@@ -7,7 +7,7 @@
 				<div id="gcloTabContainer" class="tabContainer">
 					<ul>
 						<li>
-							<a class="tabElement" href="#study_tab" style="text-decoration:none;">GCLO</a>
+							<a class="tabElement" href="#study_tab" style="text-decoration:none;">RDF-CV</a>
 						</li>
 					</ul>
 					

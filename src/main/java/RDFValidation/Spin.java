@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.topbraid.spin.constraints.ConstraintViolation;
 import org.topbraid.spin.constraints.SPINConstraints;
 import org.topbraid.spin.constraints.SimplePropertyPath;
@@ -197,13 +198,39 @@ public class Spin
 			validationResults.append( "---------------------" );
 			validationResults.append( System.getProperty("line.separator") );
 			validationResults.append( System.getProperty("line.separator") );
+			
+			String violationSource = null;
+			String severityLevel = null;
 			for( ConstraintViolation cv : constraintViolations ) 
 			{
 				constraintViolation = new RDFValidation.ConstraintViolation();
 //				constraintViolation.setRoot( SPINLabels.get().getLabel( cv.getRoot() ) );
 				constraintViolation.setRoot( cv.getRoot().getURI() );
 				constraintViolation.setMessage( cv.getMessage() );
-				constraintViolation.setSource( SPINLabels.get().getLabel( cv.getSource() ) );
+				
+				// violation source
+				violationSource = SPINLabels.get().getLabel(cv.getSource());
+				if (violationSource.contains("|||||"))
+					violationSource = violationSource.substring(0, violationSource.indexOf("|||||"));
+				constraintViolation.setSource(violationSource);
+				
+				// severity level
+				severityLevel = SPINLabels.get().getLabel(cv.getSource());
+				if (severityLevel.contains("|||||")) {
+					severityLevel = severityLevel.substring(severityLevel.indexOf("|||||")+5, severityLevel.length());
+					if(
+						StringUtils.equals(severityLevel, "INFO") ||
+						StringUtils.equals(severityLevel, "OPTIONAL") ||
+						StringUtils.equals(severityLevel, "RECOMMENDED") ||
+						StringUtils.equals(severityLevel, "MAY") ||
+						StringUtils.equals(severityLevel, "SHOULD") ||
+						StringUtils.equals(severityLevel, "MUST") ||
+						StringUtils.equals(severityLevel, "WARNING") ||
+						StringUtils.equals(severityLevel, "ERROR") ||
+						StringUtils.equals(severityLevel, "FATALERROR")
+					)
+					constraintViolation.setSeverityLevel(severityLevel);
+				}
 				
 				validationResults.append( " - source: " ).append( SPINLabels.get().getLabel( cv.getSource() ) );
 				validationResults.append( System.getProperty("line.separator") );

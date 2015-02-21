@@ -9,7 +9,15 @@ public class ConstraintViolation
 	String message = null;
 	List<String> paths = null;
 	List<String> fixes = null;
+//	enum SeverityLevel {INFO, OPTIONAL, RECOMMENDED, MAY, SHOULD, MUST, WARNING, ERROR, FATALERROR};
+	String severityLevel = null;
 	
+	public String getSeverityLevel() {
+		return severityLevel;
+	}
+	public void setSeverityLevel(String severityLevel) {
+		this.severityLevel = severityLevel;
+	}
 	public String getSource() {
 		return source;
 	}

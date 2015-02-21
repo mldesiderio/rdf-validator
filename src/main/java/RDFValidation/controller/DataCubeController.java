@@ -88,7 +88,7 @@ public class DataCubeController
 		// input graph
 		String rdfGraph = new StringBuilder( ND ).append( C ).append( D ).toString();
 
-		Spin spin = new Spin( "datacube-2-SPIN.ttl" );
+		Spin spin = new Spin( "Data-Cube-2-SPIN.ttl", "data-cube.ttl" );
 		spin.runInferences_checkConstraints( rdfGraph );
 
 		model.addObject( "datacubeValidationResult", spin.validationResults );
@@ -138,7 +138,7 @@ public class DataCubeController
 			FileMeta fileMeta = FileHelper.getFileDetails( absolutePath );
 			rdfGraph += fileMeta.getFileContent();
 
-			Spin spin = new Spin( "datacube-2-SPIN.ttl" );
+			Spin spin = new Spin( "Data-Cube-2-SPIN.ttl", "data-cube.ttl" );
 			spin.runInferences_checkConstraints( rdfGraph );
 
 			model.addObject( "datacubeValidationResult", spin.validationResults );
