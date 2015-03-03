@@ -29,6 +29,7 @@
           <value>/WEB-INF/ftl/owl2</value>
           <value>/WEB-INF/ftl/gclo</value>
           <value>/WEB-INF/ftl/skos</value>
+          <value>/WEB-INF/ftl/xkos</value>
           <value>/WEB-INF/ftl/shex</value>
           <value>/WEB-INF/ftl/rs</value>
           <value>/WEB-INF/ftl/datacube</value>

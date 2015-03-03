@@ -43,6 +43,10 @@
 			<a href="<@spring.url '/skos' />">SKOS</a>
 		</li>
 		
+		<li<#if link?? & link == 'xkos'> id="current"</#if>>
+			<a href="<@spring.url '/xkos' />">XKOS</a>
+		</li>
+		
 		<li<#if link?? & link == 'disco'> id="current"</#if>>
 			<a href="<@spring.url '/disco' />">Disco</a>
 		</li>
