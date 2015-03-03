@@ -1,0 +1,85 @@
+:SubSubConcept 
+    rdfs:subClassOf :SubConcept .
+:SubConcept 
+    rdfs:subClassOf skos:Concept .
+
+# invalid data
+# ------------
+:A1
+    a :SubSubConcept ;
+    skos:definition ""@en ;
+    skos:broader :B1 ;
+    skos:broader :C1 .
+:B1
+    a :SubSubConcept ;
+    skos:definition ""@en ;
+    skos:broader :C1 .
+:C1
+    a :SubSubConcept ;
+    skos:definition ""@en . 
+
+:A2
+    a :SubSubConcept ;
+    skos:definition ""@en ;
+    skos:broader :B2 ;
+    skos:broader :F2 .
+:B2
+    a :SubSubConcept ;
+    skos:definition ""@en ;
+    skos:broader :C2 .
+:C2
+    a :SubSubConcept ;
+    skos:definition ""@en ;
+    skos:broader :D2 .
+:D2
+    a :SubSubConcept ;
+    skos:definition ""@en ;
+    skos:broader :E2 .
+:E2
+    a :SubSubConcept ;
+    skos:definition ""@en ;
+    skos:broader :F2 .
+:F2
+    a :SubSubConcept ;
+    skos:definition ""@en .
+    
+:A3
+    a :SubSubConcept ;
+    skos:definition ""@en ;
+    skos:narrower :B3 ;
+    skos:narrower :C3 .
+:B3
+    a :SubSubConcept ;
+    skos:definition ""@en ;
+    skos:narrower :C3 .
+:C3
+    a :SubSubConcept ;
+    skos:definition ""@en . 
+
+:A4
+    a :SubSubConcept ;
+    skos:definition ""@en ;
+    skos:narrower :B4 ;
+    skos:narrower :F4 .
+:B4
+    a :SubSubConcept ;
+    skos:definition ""@en ;
+    skos:narrower :C4 .
+:C4
+    a :SubSubConcept ;
+    skos:definition ""@en ;
+    skos:narrower :D4 .
+:D4
+    a :SubSubConcept ;
+    skos:definition ""@en ;
+    skos:narrower :E4 .
+:E4
+    a :SubSubConcept ;
+    skos:definition ""@en ;
+    skos:narrower :F4 .
+:F4
+    a :SubSubConcept ;
+    skos:definition ""@en .
+    
+# valid data 
+# ----------

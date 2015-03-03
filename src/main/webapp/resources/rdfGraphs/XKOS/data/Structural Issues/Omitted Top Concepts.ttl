@@ -1,0 +1,32 @@
+:SubSubConcept 
+    rdfs:subClassOf :SubConcept .
+:SubConcept 
+    rdfs:subClassOf skos:Concept .
+:SubSubConceptScheme 
+    rdfs:subClassOf :SubConceptScheme .
+:SubConceptScheme 
+    rdfs:subClassOf skos:ConceptScheme .
+
+# invalid data
+# ------------
+:conceptScheme1
+    a :SubSubConceptScheme ;
+    skos:definition "definition"@en , "definition"@de, "definition"@fr .
+    
+# valid data
+# ------------
+:conceptScheme2
+    a :SubSubConceptScheme ;
+    skos:definition "definition"@en , "definition"@de, "definition"@fr ;
+    skos:hasTopConcept :concept1 .
+:concept1
+    a :SubSubConcept ;
+    skos:definition "definition"@en , "definition"@de, "definition"@fr .
+
+:conceptScheme3
+    a :SubSubConceptScheme ;
+    skos:definition "definition"@en , "definition"@de, "definition"@fr .
+:concept2
+    a :SubSubConcept ;
+    skos:definition "definition"@en , "definition"@de, "definition"@fr ;
+    skos:topConceptOf :conceptScheme3 .
