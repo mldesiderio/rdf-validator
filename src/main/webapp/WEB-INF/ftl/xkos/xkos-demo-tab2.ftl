@@ -63,7 +63,7 @@
 
 	$jQ(document).ready(function() {   
 	    <#-- create the tree -->
-	    createTree( "#dirConstraints", "xkos", "#containerConstraints", "/resources/rdfGraphs/xkos/data" );
+	    createTree( "#dirConstraints", "xkos", "#containerConstraints", "/resources/rdfGraphs/XKOS/constraints and data" );
 	    <#-- show empty textarea -->
 	    createRdfOwlView( "#containerConstraints" , ""  , [] );
 	});

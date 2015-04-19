@@ -17,6 +17,7 @@
 						<!--<input type="button" name="studyGroupButton" value="examples" data-url="exmpgraph"class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton">-->
 						<input type="button" name="studyGroupButton" value="upload" data-url="upload" class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton">
 						<!--<input type="button" name="studyGroupButton" value="detailed" data-url="ngraph"class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton">-->
+						<input type="button" name="studyGroupButton" value="endpoint" data-url="endpoint" class="MISSY_altButton MISSY_altButton_medium MISSY_toggableButton graphButton">
 					</div>
 				</div>
 				

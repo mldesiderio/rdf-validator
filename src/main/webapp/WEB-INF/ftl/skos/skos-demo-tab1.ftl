@@ -6,13 +6,13 @@
 		The following list contains all variables that have not been existent in the previous release. <br />Please select those variables you want to compute frequencies for.
 	</p><br /><br />
 	
-	<#if thesauri??>
+	<#if constraints??>
 		<fieldset>
 			<div class="checkbox_radio_block">
 			    <legend>New variables in this release</legend>
-			    <#list thesauri as thesaurus>
-			  	<input type="checkbox" name="thesauri[]" id="thesaurus_${thesaurus}" style="margin-left: 20px;" value="${thesaurus}"/>
-			  	<label for="thesaurus_${thesaurus}">${thesaurus}</label><br />
+			    <#list constraints as constraint>
+			  	<input type="checkbox" name="constraints[]" id="constraint_${constraint}" style="margin-left: 20px;" value="${constraint}"/>
+			  	<label for="constraint_${constraint}">${constraint}</label><br />
 			  	</#list>
 			</div>
 		</fieldset><br /><br />

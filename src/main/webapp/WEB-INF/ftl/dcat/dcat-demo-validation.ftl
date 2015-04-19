@@ -1,4 +1,4 @@
-<#if spinException??>
+<#if validationException??>
 
 	<h3>Validation Error</h3> 
 	
@@ -7,12 +7,26 @@
 		<table class="datatable">
 				<tr>
 					<td><b>source</b></td>
-					<td>${spinException.getSource()}</td>
+					<td>${validationException.getSource()}</td>
 				</tr>
+				<#if validationException.message??>
 				<tr>
 					<td><b>message</b></td>
-					<td>${spinException.getMessage()}</td>
+					<td>${validationException.getMessage()}</td>
 				</tr>
+				<#else></#if>
+				<#if validationException.cause??>
+				<tr>
+					<td><b>cause</b></td>
+					<td>${validationException.cause}</td>
+				</tr>
+				<#else></#if>
+				<#if validationException.stackTrace??>
+				<tr>
+					<td><b>cause</b></td>
+					<td>${validationException.stackTrace}</td>
+				</tr>
+				<#else></#if>
 	  	    	<tr><td><br/></td><td><br/></td></tr>
 		</table>
 		
@@ -20,9 +34,24 @@
 	<br/>
 
 <#else>
-</#if>
+
+<h3>Constraint Violations Summary</h3>
+<hr/>
+<#if constraintViolationList??>
+<b>constraint violations: ${constraintViolationList?size}</b>
+(
+<span style="color:blue"><b>informations: <#if countInformations??>${countInformations}</#if></b></span> | 
+<span style="color:orange"><b>warnings: <#if countWarnings??>${countWarnings}</#if></b></span> | 
+<span style="color:red"><b>errors: <#if countErrors??>${countErrors}</#if></b></span> )
+<br/>
+</#if> 
+
+<#if (constraintViolationList?size > 0) >
+
+<hr/>
 
 <h3>Constraint Violations</h3> 
+	<hr/>
 	<br/>
 
 	<!--
@@ -50,18 +79,26 @@
 					<td><b>source</b></td>
 					<td>${constraintViolation.source}</td>
 				</tr>
+				<#if constraintViolation.paths?? && (constraintViolation.paths?size > 0)>
 				<#list constraintViolation.paths as constraintViolationPath>
+					<#if (constraintViolationPath?length > 0)>
 					<tr>
 						<td><b>path</b></td>
 						<td>${constraintViolationPath}</td>
 					</tr>
+					</#if>  
 	  	    	</#list>
+	  	    	</#if>  
+	  	    	<#if constraintViolation.fixes?? && (constraintViolation.fixes?size > 0)>
 	  	    	<#list constraintViolation.fixes as constraintViolationFix>
+	  	    		<#if (constraintViolationFix?length > 0)>
 					<tr>
 						<td><b>fix</b></td>
 						<td>${constraintViolationFix}</td>
 					</tr>
+					</#if>  
 	  	    	</#list>
+	  	    	</#if>  
 	  	    	<#if constraintViolation.severityLevel??>
 	  	    	<#if constraintViolation.severityLevel == 'INFO'>
 					<tr>
@@ -92,3 +129,12 @@
 	
 <hr/>
 <br/>
+
+<#else>
+<br/>
+<h1 style="margin-left: 20px; color:green">The data is valid!</h1>
+
+
+</#if>
+
+</#if>

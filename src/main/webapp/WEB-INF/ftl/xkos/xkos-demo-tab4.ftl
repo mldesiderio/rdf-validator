@@ -63,7 +63,7 @@
 
 	$jQ(document).ready(function() {   
 	    <#-- create the tree -->
-	    createTree( "#dirInferenceRules", "xkos","#containerInferenceRules", "/resources/rdfGraphs/xkos/inferenceRules" );
+	    createTree( "#dirInferenceRules", "xkos","#containerInferenceRules", "/resources/rdfGraphs/XKOS/inferenceRules" );
 	    <#-- show empty textarea -->
 	    createRdfOwlView( "#containerInferenceRules" , ""  , [] );
 	});

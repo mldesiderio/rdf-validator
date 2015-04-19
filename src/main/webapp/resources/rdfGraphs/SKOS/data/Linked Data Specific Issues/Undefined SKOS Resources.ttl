@@ -1,69 +1,76 @@
+# Linked Data Specific Issues - Undefined SKOS Resources
+# -----
+# The vocabulary should not invent any new terms within the 
+# SKOS namespace or use deprecated SKOS elements.
+
 :SubSubConcept 
+    a owl:Class ;
     rdfs:subClassOf :SubConcept .
 :SubConcept 
+    a owl:Class ;
     rdfs:subClassOf skos:Concept .
 
 # valid data
-# ------------
-:1
+# -----
+:undefined-skos-resources-c1
     a :SubSubConcept ;
     skos:definition ""@en .
     
 # invalid data ( deprecated SKOS properties )
-# ----------
-:2
+# -----
+:undefined-skos-resources-c2
     a :SubSubConcept ;
     skos:definition ""@en ;
     skos:symbol "" .  
-:3
+:undefined-skos-resources-c3
     a :SubSubConcept ;
     skos:definition ""@en ;
     skos:prefSymbol "" .  
-:4
+:undefined-skos-resources-c4
     a :SubSubConcept ;
     skos:definition ""@en ;
     skos:altSymbol "" .
-:5
+:undefined-skos-resources-c5
     a :SubSubConcept ;
     skos:definition ""@en ;
     skos:CollectableProperty "" .
-:6
+:undefined-skos-resources-c6
     a :SubSubConcept ;
     skos:definition ""@en ;
     skos:subject "" .
-:7
+:undefined-skos-resources-c7
     a :SubSubConcept ;
     skos:definition ""@en ;
     skos:isSubjectOf "" .    
-:8
+:undefined-skos-resources-c8
     a :SubSubConcept ;
     skos:definition ""@en ;
     skos:primarySubject "" .
-:9
+:undefined-skos-resources-c9
     a :SubSubConcept ;
     skos:definition ""@en ;
     skos:isPrimarySubjectOf "" .
-:10
+:undefined-skos-resources-c10
     a :SubSubConcept ;
     skos:definition ""@en ;
     skos:subjectIndicator "" .  
     
 # invalid data ( SKOS properties defined in SKOS namespace? )
-# ----------
-:11
+# -----
+:undefined-skos-resources-c11
     a :SubSubConcept ;
     skos:definition ""@en ;
     skos:undefinedProperty1 "" . 
 
 # invalid data ( SKOS classes defined in SKOS namespace? )
-# ---------------
-:12
+# -----
+:undefined-skos-resources-c12
     a skos:ConceptNotSKOS ;
     skos:definition ""@en . 
-:13
-    a :Concept2 ;
+:undefined-skos-resources-c13
+    a :undefined-skos-resources-Concept2 ;
     skos:definition ""@en .
-:Concept2
-    rdfs:subClassOf :Concept3 .
-:Concept3
+:undefined-skos-resources-Concept2
+    rdfs:subClassOf :undefined-skos-resources-Concept3 .
+:undefined-skos-resources-Concept3
     rdfs:subClassOf skos:ConceptNotSKOS .

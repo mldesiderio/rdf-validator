@@ -3232,10 +3232,10 @@ owl2spin:ObjectMinCardinality_QualifiedCardinality
                     spin:violationPath ?OPE .
         	}
         	WHERE {
-#        	    ?this ?DPE ?o .
+#        	    ?this ?OPE ?o .
 #               ?this rdf:type ?CE .
 #        	    -----
-                ?this ?DPE ?o .
+                ?this ?OPE ?o .
                 ?o rdf:type owl:Thing . # ?OPE is OPE
                 ?this rdf:type ?CE .
  

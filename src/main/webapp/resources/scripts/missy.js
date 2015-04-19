@@ -939,10 +939,10 @@ function convertToAjaxMultipleFileUpload( $inputFile, $progressBar , $resultCont
 	var fileRemoveUrl = $inputFile.attr( "data-remove-url" );
 	
 	$inputFile.fileupload({
-        dataType: 'json',
         sequentialUploads: true,
         done: function (e, data) {
-				printUploadedFiles( $container, data.result , [{'option':'delete' ,'params' : {'url': fileRemoveUrl}}]);
+				//printUploadedFiles( $container, data.result , [{'option':'delete' ,'params' : {'url': fileRemoveUrl}}]);
+        	$jQ( "#accordion_result_area" ).html( data.result );
         },
  
         progressall: function (e, data) {

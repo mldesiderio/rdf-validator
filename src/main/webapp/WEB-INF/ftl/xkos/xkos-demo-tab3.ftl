@@ -63,7 +63,7 @@
 
 	$jQ(document).ready(function() {   
 	    <#-- create the tree -->
-	    createTree( "#dirData", "xkos", "#containerData", "/resources/rdfGraphs/xkos/data" );
+	    createTree( "#dirData", "xkos", "#containerData", "/resources/rdfGraphs/XKOS/data" );
 	    <#-- show empty textarea -->
 	    createRdfOwlView( "#containerData" , ""  , [] );
 	});

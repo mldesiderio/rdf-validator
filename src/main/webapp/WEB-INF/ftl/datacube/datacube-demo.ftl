@@ -53,7 +53,6 @@
      		<#-- validate the result -->
      		ajaxdatacubeDemoValidation( "#datacube-validation-result" );
      	});
-  
 		
 	}); // end of document ready
 	

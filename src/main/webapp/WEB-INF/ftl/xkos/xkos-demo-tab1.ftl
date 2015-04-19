@@ -66,7 +66,7 @@
 <script>
 $jQ( function(){
 	<#-- load default content -->
-	getDocumentDetails( "<@spring.url '/xkos/file_details' />", "defaultNamespaceDeclarations.ttl", "#containerNamespaceDeclarations", "resources/rdfGraphs/xkos/" );
+	getDocumentDetails( "<@spring.url '/xkos/file_details' />", "defaultNamespaceDeclarations.ttl", "#containerNamespaceDeclarations", "resources/rdfGraphs/XKOS/" );
 	
 	<#-- file upload -->
 	<#--$jQ('#fileupload2').fileupload({

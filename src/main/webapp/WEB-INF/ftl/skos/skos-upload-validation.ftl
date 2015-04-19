@@ -1,3 +1,7 @@
+
+${rdfGraphEnd}
+
+
 <#if spinException??>
 
 	<h3>Validation Error</h3> 
@@ -38,6 +42,7 @@
 	  
 		<table class="datatable">
 			<#list constraintViolationList as constraintViolation>
+				<#if constraintViolation.root??>
 				<tr>
 					<td><b>root</b></td>
 					<td>${constraintViolation.root}</td>
@@ -62,11 +67,41 @@
 						<td>${constraintViolationFix}</td>
 					</tr>
 	  	    	</#list>
+	  	    	<#if constraintViolation.severityLevel??>
+	  	    	<#if constraintViolation.severityLevel == 'INFO'>
+					<tr>
+						<td><span style="color:blue"><b>severity</b></span></td>
+						<td><span style="color:blue">${constraintViolation.severityLevel}</span></td>
+					</tr>
+				</#if>  
+				<#if constraintViolation.severityLevel == 'SHOULD'>
+					<tr>
+						<td><span style="color:orange"><b>severity</b></span></td>
+						<td><span style="color:orange">${constraintViolation.severityLevel}</span></td>
+					</tr>
+				</#if> 
+	  	    	<#if constraintViolation.severityLevel == 'WARNING'>
+					<tr>
+						<td><span style="color:orange"><b>severity</b></span></td>
+						<td><span style="color:orange">${constraintViolation.severityLevel}</span></td>
+					</tr>
+				</#if>  
+				<#if constraintViolation.severityLevel == 'ERROR'>
+					<tr>
+						<td><span style="color:red"><b>severity</b></span></td>
+						<td><span style="color:red">${constraintViolation.severityLevel}</span></td>
+					</tr>
+				</#if>  
+	  	    	<#else>
+	  	    	</#if>
 	  	    	<tr><td><br/></td><td><br/></td></tr>
+	  	    	<#else>
+	  	    	</#if>
 	    	</#list>
 		</table>
 	  
 	<#else>
+		There are no constraint violations.
 	</#if>
 	
 <hr/>

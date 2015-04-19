@@ -1,4 +1,4 @@
-<h1>Multiple File Upload</h1>
+<h1>File Upload</h1>
 <!-- the tabs -->
 <div id="updateSpssTabContainer" class="tabContainer">
 <ul style="height: 40px;">	
@@ -9,9 +9,11 @@
 <div id="skos-upload-tab1" style="padding:0 !important; border:none; float:left; width:100%">
 	<#include "skos-upload-tab1.ftl" />
 </div>
+
 <div id="skos-upload-tab2" style="padding:0 !important;border:none;float:left; width:100%">
 	<#include "skos-upload-tab2.ftl" />
 </div>
+
 					
 <script>
 	$jQ( function() // begin document ready
